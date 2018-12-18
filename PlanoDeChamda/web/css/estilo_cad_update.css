@@ -1,0 +1,74 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30/06/2018, 12:24:01
+    Author     : ander
+*/
+
+.tela{
+    padding: 0;
+    margin-left: 0;
+}
+
+.a{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin: 18px 0px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.input{
+  display: block;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.form-cad-update{
+    padding: 15px;
+    background-color: rgba(190,190,190,0.6);
+    border-radius: 10px;
+}
+
+legend{
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+contato{
+    text-align: right;
+}
+
+.asd{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+fieldset{
+    padding: 15px;
+}

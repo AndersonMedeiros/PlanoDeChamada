@@ -1,0 +1,84 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 05/07/2018, 14:23:09
+    Author     : ander
+*/
+
+.tela{
+    padding: 0;
+    margin: 0;
+}
+
+.titulos > h1{
+    font-family: sans-serif;
+    font-weight: bold;
+    color: white;
+    font-size: 34px;
+    background: black;
+    padding: 10px;
+    text-align: center;
+}
+
+.titulos > h2{
+    font-family: sans-serif;
+    font-weight: bold;
+    color: black;
+    font-size: 26px;
+    
+    
+    text-align: center;
+}
+
+.parte-form{
+    margin-bottom: 15px;
+}
+
+.linha-botoes{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.linha-botoes > button{
+    margin-right: 0px;
+    margin-left: 15px;
+}
+
+.obg{
+    color: red; 
+    font-weight: bold; 
+    font-family: sans-serif;
+}
+
+.btn-padrao{
+    display: block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+        touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    background-image: none;
+    background-color: black;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
