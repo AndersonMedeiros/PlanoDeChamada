@@ -60,3 +60,4 @@ insert into escolaridade values (1, 'Ensino Fundamental Completo'),
 								(6, 'Doutor');
 
 select * from escolaridade;
+
