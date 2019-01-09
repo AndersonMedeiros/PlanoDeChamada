@@ -1,5 +1,5 @@
 
-call @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
@@ -30,20 +30,23 @@ CREATE TABLE `escolaridade` (
   PRIMARY KEY (`Esc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `bairro` (
-  `Bairro_id` int(11) NOT NULL,
-  `Bairro_nome` varchar(45) NOT NULL,
-  `Bairro_zona` varchar(45) NOT NULL,
-  PRIMARY KEY (`Bairro_id`),
-  KEY `fk_Bairro_Cidade_idx` (`Cidade_cid_id`),
-  FOREIGN KEY (`Cidade_cid_id`) REFERENCES `cidade` (`Cid_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `cidade` (
   `Cid_id` int(11) NOT NULL,
   `Cid_nome` varchar(45) NOT NULL,
   PRIMARY KEY (`Cid_id`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `bairro` (
+  `Cidade_cid_id` int(11) NOT NULL,
+  `Bairro_id` int(11) NOT NULL,
+  `Bairro_nome` varchar(45) NOT NULL,
+  `Bairro_zona` varchar(45) NOT NULL,
+  PRIMARY KEY (`Bairro_id`),
+  KEY `fk_Bairro_Cidade_idx` (`Cidade_cid_id`),
+  CONSTRAINT `fk_Bairro_Cidade_idx` FOREIGN KEY (`Cidade_cid_id`) REFERENCES `cidade` (`Cid_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 CREATE TABLE `militar` (
   `Mil_nome_guerra` varchar(40) NOT NULL,
