@@ -37,7 +37,7 @@ CREATE TABLE `cidade` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `bairro` (
-  `Cidade_cid_id` int(11) NOT NULL,
+  `Bairro_cid_id` int(11) NOT NULL,
   `Bairro_id` int(11) NOT NULL,
   `Bairro_nome` varchar(45) NOT NULL,
   `Bairro_zona` varchar(45) NOT NULL,
@@ -46,9 +46,11 @@ CREATE TABLE `bairro` (
   CONSTRAINT `fk_Bairro_Cidade_idx` FOREIGN KEY (`Cidade_cid_id`) REFERENCES `cidade` (`Cid_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-alter table `bairro`
-change column `Cidade_cid_id` `Bairro_cid_id` int(11) NOT NULL;
+alter table `militar`
+change column `Cidade_cid_id` `Mil_cid_id` int(11) NOT NULL;
 
+ALTER TABLE `militar` DROP COLUMN `Mil_end_cidade`;  
+ALTER TABLE `militar` ADD `Cidade_cid_id` int(11) NOT NULL, ADD KEY `fk_Militar_Cidade_idx` (`Cidade_cid_id`), ADD CONSTRAINT `fk_Militar_Cidade_idx` FOREIGN KEY (`Cidade_cid_id`) REFERENCES `cidade` (`Cid_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;  
 
 CREATE TABLE `militar` (
   `Mil_nome_guerra` varchar(40) NOT NULL,
@@ -56,7 +58,7 @@ CREATE TABLE `militar` (
   `Mil_end_cep` varchar(8) NOT NULL,
   `Mil_end_logradouro` varchar(60) NOT NULL,
   `Mil_end_estado` varchar(45) NOT NULL,
-  `Mil_end_cidade` varchar(45) NOT NULL,
+  `Mil_cid_id` int(11) NOT NULL,
   `Mil_end_num` varchar(10) NOT NULL,
   `Mil_fone1` varchar(11) NOT NULL,
   `Mil_fone2` varchar(11) NOT NULL,
@@ -90,12 +92,16 @@ CREATE TABLE `militar` (
   KEY `fk_Militar_DivisaoSecao1_idx` (`DivisaoSecao_ds_id`),
   KEY `fk_Militar_Escolaridade1_idx` (`Escolaridade_Esc_id`),
   KEY `fk_Militar_Bairro1_idx` (`Bairro_Bairro_id`),
+  KEY `fk_Militar_Cidade_idx` (`Cidade_cid_id`),
   CONSTRAINT `fk_Militar_Bairro1` FOREIGN KEY (`Bairro_Bairro_id`) REFERENCES `bairro` (`Bairro_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Militar_DivisaoSecao1` FOREIGN KEY (`DivisaoSecao_ds_id`) REFERENCES `divisaosecao` (`ds_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Militar_Escolaridade1` FOREIGN KEY (`Escolaridade_Esc_id`) REFERENCES `escolaridade` (`Esc_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Militar_PostoGraduacao` FOREIGN KEY (`PostoGraduacao_pg_id`) REFERENCES `postograduacao` (`pg_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Militar_QAS_QMS1` FOREIGN KEY (`QAS_QMS_Arma_id`) REFERENCES `qas_qms` (`Arma_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Militar_QAS_QMS1` FOREIGN KEY (`QAS_QMS_Arma_id`) REFERENCES `qas_qms` (`Arma_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Militar_Cidade_idx` FOREIGN KEY (`Cidade_cid_id`) REFERENCES `cidade` (`Cid_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

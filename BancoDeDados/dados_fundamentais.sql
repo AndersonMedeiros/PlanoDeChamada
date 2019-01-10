@@ -128,7 +128,7 @@ insert into bairro values (1, null, 'Centro', 'Sul'),
                           (1, null, 'Zumbi dos Palmares', 'Leste'),
                           (1, null, 'São José Operário', 'Leste'),
                           (1, null, 'Tancredo Neves', 'Leste'),
-                          (1, null, 'Jorge Teixeira', 'Leste'),Cidade_cid_id
+                          (1, null, 'Jorge Teixeira', 'Leste'),
                           (1, null, 'Gilberto Mestrinho', 'Leste'),
                           (1, null, 'Lago Azul', 'Leste'),
                           
@@ -141,9 +141,15 @@ insert into bairro values (1, null, 'Centro', 'Sul'),
                           (1, null, 'Novo Aleixo', 'Norte'),
                           (1, null, 'Cidade de Deus', 'Norte'),
                           (1, null, 'Nova Cidade', 'Norte');
-                        
-                          
-                          
-                          
+  
 select *from bairro group by Bairro_zona, Bairro_nome;
+
+insert into militar(DivisaoSecao_ds_id,PostoGraduacao_pg_id,QAS_QMS_Arma_id,Situacao_id,Mil_nome,
+            Mil_nome_guerra,Mil_sexo,Mil_naturalidade,Mil_est_civil,Mil_dt_praca,Mil_identidade,Mil_cpf,Mil_preccp,Mil_data_nasc,
+            Mil_cnh_num,Mil_cnh_cat,Mil_pai,Mil_mae,Escolaridade_Esc_id,Mil_end_cep,Mil_end_estado,Mil_cid_id,Bairro_Bairro_id,
+            Mil_end_logradouro,Mil_end_num,Mil_end_complemento,Mil_fone1,Mil_fone2,Mil_email,Mil_contato_referencia,Mil_fone_referencia,
+            Mil_senha) values(9,17,5,1,'Anderson de Paula Andrade Medeiros','De Paula','M','Amazonense','Solteiro(a)','20180301','1207153378',
+                           '01807086275','358157992','19991029','','','Almir de Paula Medeiros','Odineia Andrade Medeiros',2,'69073570','Amazonas',
+						   1,1,'Rua Jonas Barreto','59','','92995253071','92993021343','andersonandrade.30@gmail.com','Pai','92992454102','29101999');
+select * from militar;
 
