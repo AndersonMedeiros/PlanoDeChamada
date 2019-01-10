@@ -26,8 +26,25 @@
         <link href="css/estilo_cadastro.css" rel="stylesheet"/>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
         <script type="text/javascript" src="js/validacao_de_campos.js"></script>
+        <script type="text/javascript">
+            function id( el ){
+                return document.getElementById( el );
+            }
+            
+            window.onload = function()
+            {
+                id('cidade').onchange = function()
+                {
+                    id('padrao').style.display = this.value=="" ? 'block' : 'none';
+                    id('bairrosManaus').style.display = this.value=="Manaus" ? 'block' : 'none';
+                    id('bairrosRioPreto').style.display = this.value=="Rio Preto da Eva" ? 'block' : 'none';
+                    id('bairrosIranduba').style.display = this.value=="Iranduba" ? 'block' : 'none';
+                }  
+            }
+            
+            
+        </script>
         <title>Plano de Chamada - Cadastro</title>
-        
     </head>
     <body class="tela">
         <header class="header">
@@ -264,30 +281,59 @@
                             <label id="lblCidade" name="lblCidade" for="lblCidade">Cidade: </label><b class="obg"> *</b>
                             
                             <select name="txtCidade" id="cidade" class="form-control" onchange="borda_Cidade()">
-                                 <option value="" selected>Selecione a sua Cidade...</option>
-                                    <option value="Manaus">Manaus</option>
-                                    <option value="Iranduba">Iranduba</option>
-                                    <option value="Rio Preto da Eva">Rio Preto da Eva</option>
+                                <option value="" selected>Selecione a sua Cidade...</option>
+                                <option value="Manaus">Manaus</option>
+                                <option value="Iranduba">Iranduba</option>
+                                <option value="Rio Preto da Eva">Rio Preto da Eva</option>
                             </select>
-                        </div>  
                         </div>
                         <div class="form-group col-md-3">
-                            <label id="lblBairro" name="lblBairro" for="lblBairro">Bairro: </label><b class="obg"> *</b> 
-                            <%--<input class="form-control" type="text" name="txtBairro" id="bairro"/>--%>
-                            <select name="txtBairro" id="bairro" class="form-control" onchange="borda_Bairro()">
+                            <label id="lblBairro" name="lblBairro" for="lblBairro">Bairro: </label><b class="obg"> *</b>
+                            
+                            <select name="txtBairro" id="padrao" class="form-control" onchange="borda_Bairro()">
+                                <option value="" selected>Selecione o seu Bairro...</option>
+                            </select>
+                            
+                            <select name="txtBairro" id="bairrosManaus" class="form-control" onchange="borda_Bairro()" style="display: none">
                                 <option value="" selected>Selecione o seu Bairro...</option>
                                 <%
                                     Bairro b = new Bairro();
                                     BairroDAO bDAO = new BairroDAO();
                                     
-                                    int qtdeBairros = bDAO.getBairros().size();
+                                    int qtdeBairros = bDAO.getBairrosByCidade(1).size();
                                     
                                     for(int i=0;i<qtdeBairros;i++){
-                                        out.println("<option value='"+bDAO.getBairros().get(i).getId()+"'>"+bDAO.getBairros().get(i).getNome()+"</option>");
+                                        
+                                        out.println("<option value='"+bDAO.getBairrosByCidade(1).get(i).getId()+"'>"+bDAO.getBairrosByCidade(1).get(i).getNome()+"</option>");
                                     } 
                                 %>
                             </select>
-                        </div>
+                            
+                            <select name="txtBairro" id="bairrosRioPreto" class="form-control" onchange="borda_Bairro()" style="display: none">
+                                <option value="" selected>Selecione o seu Bairro...</option>
+                                <%                                  
+                                    qtdeBairros = bDAO.getBairrosByCidade(2).size();
+                                    
+                                    for(int i=0;i<qtdeBairros;i++){
+                                        
+                                        out.println("<option value='"+bDAO.getBairrosByCidade(2).get(i).getId()+"'>"+bDAO.getBairrosByCidade(2).get(i).getNome()+"</option>");
+                                    } 
+                                %>
+                            </select>
+                            
+                            <select name="txtBairro" id="bairrosIranduba" class="form-control" onchange="borda_Bairro()" style="display: none">
+                                <option value="" selected>Selecione o seu Bairro...</option>
+                                <%                                  
+                                    qtdeBairros = bDAO.getBairrosByCidade(3).size();
+                                    
+                                    for(int i=0;i<qtdeBairros;i++){
+                                        
+                                        out.println("<option value='"+bDAO.getBairrosByCidade(3).get(i).getId()+"'>"+bDAO.getBairrosByCidade(3).get(i).getNome()+"</option>");
+                                    } 
+                                %>
+                            </select>
+                        </div> 
+
                         <div class="form-group col-md-10">
                             <label id="lblLogradouro" name="lblLogradouro" for="lblLogradouro">Rua/Av./Ala: </label><b class="obg"> *</b>
                             <input class="form-control" type="text" name="txtLogradouro"id="log" onchange="borda_Logradouro()"/>
