@@ -46,6 +46,8 @@ CREATE TABLE `bairro` (
   CONSTRAINT `fk_Bairro_Cidade_idx` FOREIGN KEY (`Cidade_cid_id`) REFERENCES `cidade` (`Cid_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+alter table `bairro`
+change column `Cidade_cid_id` `Bairro_cid_id` int(11) NOT NULL;
 
 
 CREATE TABLE `militar` (

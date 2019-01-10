@@ -128,7 +128,7 @@ insert into bairro values (1, null, 'Centro', 'Sul'),
                           (1, null, 'Zumbi dos Palmares', 'Leste'),
                           (1, null, 'São José Operário', 'Leste'),
                           (1, null, 'Tancredo Neves', 'Leste'),
-                          (1, null, 'Jorge Teixeira', 'Leste'),
+                          (1, null, 'Jorge Teixeira', 'Leste'),Cidade_cid_id
                           (1, null, 'Gilberto Mestrinho', 'Leste'),
                           (1, null, 'Lago Azul', 'Leste'),
                           
@@ -146,11 +146,4 @@ insert into bairro values (1, null, 'Centro', 'Sul'),
                           
                           
 select *from bairro group by Bairro_zona, Bairro_nome;
-
-
-
-
-
-
-
 
