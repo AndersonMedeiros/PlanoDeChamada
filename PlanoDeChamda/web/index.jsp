@@ -21,7 +21,7 @@
                 
                 <img id="icone" src="img/telefone.png" class="img-responsiva" width="100px" height="100px"/>
                 
-                <form name="formLogin" id="formLogin" method="post" action="Autenticador">
+                <form name="formLogin" id="formLogin" method="post" action="autenticador">
                     <div class="form-group">
                         <label id="lblIdentidade" name="lblIdentidade" for="lblIdentidade">Identidade: </label>
                         <input class="form-control identidade input" type="text" name="txtIdentidade" id="txtIdentidade" maxlength="30" onkeypress="return somenteNumero(event);" required/>

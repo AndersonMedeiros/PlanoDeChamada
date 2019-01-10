@@ -3,6 +3,7 @@
     Created on : 05/12/2018, 14:49:15
     Author     : ander
 --%>
+<%@page import="dao.CidadeDAO"%>
 <%@page import="bean.DadosCheckBox"%>
 <%@page import="bean.QasQms"%>
 <%@page import="bean.PostoGraduacao"%>
@@ -79,6 +80,7 @@
 
                         MilitarDAO milDAO = new MilitarDAO();
                         BairroDAO bDAO = new BairroDAO();
+                        CidadeDAO cDAO = new CidadeDAO();
                         DivisaoSecaoDAO dsDAO = new DivisaoSecaoDAO();
                         PostoGraduacaoDAO pgDAO = new PostoGraduacaoDAO();
                         QasQmsDAO qasqmsDAO = new QasQmsDAO();
@@ -356,19 +358,19 @@
                                                 "<div class=\"form-group col-md-3\">"+
                                                 "<label id=\"lblCidade\" name=\"lblCidade\" for=\"lblCidade\">Cidade: </label><b class=\"obg\"> *</b>"+
                                                 "<select name=\"txtCidade\" id=\"cidade\" class=\"form-control\" onchange=\"borda_Cidade()\"> ");
-                                    
-                                                if(mil.getEnd_cidade() != null && mil.getEnd_cidade().equals("")){
-                                                    out.println("<option value=\"\" selected>Selecione a sua Cidade...</option>");
+                                                if(mil.getId_cid()== 0){
+                                                    out.println("<option value=\"0\" selected>Selecione a sua Cidade..</option>");
                                                 }else{
-                                                    out.println("<option value=\"\">Selecione a sua Cidade...</option>");
+                                                    out.println("<option value=\"0\">Selecione a sua Cidade...</option>");
                                                 }
-                                                int qtdCidades = dcb.getCidades().size();
+                                                
+                                                int qtdCidades = cDAO.getCidades().size();
 
                                                     for(int i=0;i<qtdCidades;i++){
-                                                        if(mil.getEnd_cidade() != null && mil.getEnd_cidade().equals(String.valueOf(dcb.getCidades().get(i)))){
-                                                            out.println("<option value='"+String.valueOf(dcb.getCidades().get(i))+"' selected>"+String.valueOf(dcb.getCidades().get(i))+"</option>");
+                                                        if(mil.getId_cid()==cDAO.getCidades().get(i).getId()){
+                                                            out.println("<option value='"+cDAO.getCidades().get(i).getId()+"' selected>"+cDAO.getCidades().get(i).getNome()+"</option>");
                                                         }else{
-                                                            out.println("<option value='"+String.valueOf(dcb.getCidades().get(i))+"'>"+String.valueOf(dcb.getCidades().get(i))+"</option>");
+                                                            out.println("<option value='"+cDAO.getCidades().get(i).getId()+"'>"+cDAO.getCidades().get(i).getNome()+"</option>");
                                                         }
                                                     }
                                                 out.println("</select>"+

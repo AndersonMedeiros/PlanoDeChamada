@@ -287,6 +287,18 @@
                                 <option value="Rio Preto da Eva">Rio Preto da Eva</option>
                             </select>
                         </div>
+                        
+                        <div class="form-group col-md-3">
+                            <label id="lblCidade" name="lblCidade" for="lblCidade">Cidade: </label><b class="obg"> *</b>
+                            
+                            <select name="txtCidade" id="cidade" class="form-control" onchange="borda_Cidade()">
+                                <option value="" selected>Selecione a sua Cidade...</option>
+                                <%
+                                    
+                                %>
+                            </select>
+                        </div>
+                        
                         <div class="form-group col-md-3">
                             <label id="lblBairro" name="lblBairro" for="lblBairro">Bairro: </label><b class="obg"> *</b>
                             
