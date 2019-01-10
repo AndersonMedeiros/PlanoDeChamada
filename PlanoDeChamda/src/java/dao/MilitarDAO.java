@@ -25,14 +25,14 @@ public class MilitarDAO {
     
     private final String INSERT = "INSERT INTO militar(DivisaoSecao_ds_id,PostoGraduacao_pg_id,QAS_QMS_Arma_id,Situacao_id,Mil_nome,"+
             "Mil_nome_guerra,Mil_sexo,Mil_naturalidade,Mil_est_civil,Mil_dt_praca,Mil_identidade,Mil_cpf,Mil_preccp,Mil_data_nasc,"+
-            "Mil_cnh_num,Mil_cnh_cat,Mil_pai,Mil_mae,Escolaridade_Esc_id,Mil_end_cep,Mil_end_estado,Mil_end_cidade,Bairro_Bairro_id,"+
+            "Mil_cnh_num,Mil_cnh_cat,Mil_pai,Mil_mae,Escolaridade_Esc_id,Mil_end_cep,Mil_end_estado,Mil_cid_id,Bairro_Bairro_id,"+
             "Mil_end_logradouro,Mil_end_num,Mil_end_complemento,Mil_fone1,Mil_fone2,Mil_email,Mil_contato_referencia,Mil_fone_referencia,"+
             "Mil_senha) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     
     private final String UPDATE = "UPDATE militar SET DivisaoSecao_ds_id=?,PostoGraduacao_pg_id=?,QAS_QMS_Arma_id=?,Situacao_id=?,"+
             "Mil_nome=?,Mil_nome_guerra=?,Mil_sexo=?,Mil_naturalidade=?,Mil_est_civil=?,Mil_dt_praca=?,Mil_cpf=?,Mil_preccp=?,"+
             "Mil_data_nasc=?,Mil_cnh_num=?,Mil_cnh_cat=?,Mil_pai=?,Mil_mae=?,Escolaridade_Esc_id=?,Mil_end_cep=?,Mil_end_estado=?,"+
-            "Mil_end_cidade=?,Bairro_Bairro_id=?,Mil_end_logradouro=?,Mil_end_num=?,Mil_end_complemento=?,Mil_fone1=?,Mil_fone2=?,"+
+            "Mil_cid_id=?,Bairro_Bairro_id=?,Mil_end_logradouro=?,Mil_end_num=?,Mil_end_complemento=?,Mil_fone1=?,Mil_fone2=?,"+
             "Mil_email=?,Mil_contato_referencia=?,Mil_fone_referencia=? WHERE Mil_identidade=? AND Mil_senha=?";
     
     Connection conn;
@@ -71,7 +71,7 @@ public class MilitarDAO {
                 //Dados de Endereço
                 pstm.setString(20, mil.getEnd_cep());
                 pstm.setString(21, mil.getEnd_estado());
-                pstm.setString(22, mil.getEnd_cidade());
+                pstm.setInt(22, mil.getId_cid());
                 pstm.setInt(23, mil.getId_bairro());
                 pstm.setString(24, mil.getEnd_logradouro());
                 pstm.setString(25, mil.getEnd_numero());
@@ -133,7 +133,7 @@ public class MilitarDAO {
                 //Dados de Endereço
                 pstm.setString(20, mil.getEnd_cep());
                 pstm.setString(21, mil.getEnd_estado());
-                pstm.setString(22, mil.getEnd_cidade());
+                pstm.setInt(22, mil.getId_cid());
                 pstm.setInt(23, mil.getId_bairro());
                 pstm.setString(24, mil.getEnd_logradouro());
                 pstm.setString(25, mil.getEnd_numero());
@@ -316,7 +316,7 @@ public class MilitarDAO {
                 //Dados de Endereço
                 mil.setEnd_cep(rs.getString("Mil_end_cep"));
                 mil.setEnd_estado(rs.getString("Mil_end_estado"));
-                mil.setEnd_cidade(rs.getString("Mil_end_cidade"));
+                mil.setId_cid(rs.getInt("Mil_cid_id"));
                 mil.setId_bairro(rs.getInt("Bairro_Bairro_id"));
                 mil.setEnd_logradouro(rs.getString("Mil_end_logradouro"));
                 mil.setEnd_numero(rs.getString("Mil_end_num"));
@@ -381,7 +381,7 @@ public class MilitarDAO {
                 //Dados de Endereço
                 mil.setEnd_cep(rs.getString("Mil_end_cep"));
                 mil.setEnd_estado(rs.getString("Mil_end_estado"));
-                mil.setEnd_cidade(rs.getString("Mil_end_cidade"));
+                mil.setId_cid(rs.getInt("Mil_cid_id"));
                 mil.setId_bairro(rs.getInt("Bairro_Bairro_id"));
                 mil.setEnd_logradouro(rs.getString("Mil_end_logradouro"));
                 mil.setEnd_numero(rs.getString("Mil_end_num"));
@@ -418,7 +418,7 @@ public class MilitarDAO {
                 pstm.setString(1, mil.getIdentidade());
                 pstm.setString(2, mil.getSenha());
                 ResultSet rs = pstm.executeQuery();
-                
+                System.out.println("isso");
                 if(rs.next()){
                     milRetorno = new Militar();
                     milRetorno.setId_div_sec(rs.getInt("DivisaoSecao_ds_id"));
@@ -444,7 +444,7 @@ public class MilitarDAO {
                     //Dados de Endereço
                     milRetorno.setEnd_cep(rs.getString("Mil_end_cep"));
                     milRetorno.setEnd_estado(rs.getString("Mil_end_estado"));
-                    milRetorno.setEnd_cidade(rs.getString("Mil_end_cidade"));
+                    milRetorno.setId_cid(rs.getInt("Mil_cid_id"));
                     milRetorno.setId_bairro(rs.getInt("Bairro_Bairro_id"));
                     milRetorno.setEnd_logradouro(rs.getString("Mil_end_logradouro"));
                     milRetorno.setEnd_numero(rs.getString("Mil_end_num"));

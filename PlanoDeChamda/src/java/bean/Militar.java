@@ -11,10 +11,18 @@ package bean;
  */
 public class Militar {
     int id;
-    int id_post_grad, id_div_sec, id_sit, id_bairro, id_qas_qms, id_esc;
+    int id_post_grad, id_div_sec, id_sit, id_bairro, id_qas_qms, id_esc, id_cid;
     String nome, nome_guerra, senha, sexo, naturalidade, pai, est_civil, mae, data_nasc, email, cnh_cat, 
-           end_logradouro, end_numero, end_complemento, end_estado, end_cidade, fone1, fone2, cont_referencia, fone_referencia,
+           end_logradouro, end_numero, end_complemento, end_estado, fone1, fone2, cont_referencia, fone_referencia,
            dt_praca, end_cep, identidade, cpf, cnh_num, preccp, tipo_acesso; 
+
+    public int getId_cid() {
+        return id_cid;
+    }
+
+    public void setId_cid(int id_cid) {
+        this.id_cid = id_cid;
+    }
 
     public String getTipo_acesso() {
         return tipo_acesso;
@@ -30,14 +38,6 @@ public class Militar {
 
     public void setEnd_estado(String end_estado) {
         this.end_estado = end_estado;
-    }
-
-    public String getEnd_cidade() {
-        return end_cidade;
-    }
-
-    public void setEnd_cidade(String end_cidade) {
-        this.end_cidade = end_cidade;
     }
 
     public String getEnd_logradouro() {

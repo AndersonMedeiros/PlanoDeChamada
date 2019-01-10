@@ -47,7 +47,7 @@ public class BairroDAO {
         return b;
     }
     
-    public Bairro getBairroByIdC(int id){
+    public Bairro getBairroById(int id){
         conn = null;
         pstm = null;
         ResultSet rs = null;
