@@ -59,9 +59,12 @@ public class autenticador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession sessao = request.getSession(false);
+        if(sessao != null){
+            sessao.invalidate();
+        }
+        response.sendRedirect("index.jsp");
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *

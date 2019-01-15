@@ -120,34 +120,34 @@ public class MilitarDAO {
                 pstm.setString(8, mil.getNaturalidade());
                 pstm.setString(9, mil.getEst_civil());
                 pstm.setString(10, mil.getDt_praca());
-                pstm.setString(11, mil.getIdentidade());
-                pstm.setString(12, mil.getCpf());
-                pstm.setString(13, mil.getPreccp());
-                pstm.setString(14, mil.getData_nasc());
-                pstm.setString(15, mil.getCnh_num());
-                pstm.setString(16, mil.getCnh_cat());
-                pstm.setString(17, mil.getPai());
-                pstm.setString(18, mil.getMae());
-                pstm.setInt(19, mil.getId_esc());
+                
+                pstm.setString(11, mil.getCpf());
+                pstm.setString(12, mil.getPreccp());
+                pstm.setString(13, mil.getData_nasc());
+                pstm.setString(14, mil.getCnh_num());
+                pstm.setString(15, mil.getCnh_cat());
+                pstm.setString(16, mil.getPai());
+                pstm.setString(17, mil.getMae());
+                pstm.setInt(18, mil.getId_esc());
                                 
                 //Dados de Endereço
-                pstm.setString(20, mil.getEnd_cep());
-                pstm.setString(21, mil.getEnd_estado());
-                pstm.setInt(22, mil.getId_cid());
-                pstm.setInt(23, mil.getId_bairro());
-                pstm.setString(24, mil.getEnd_logradouro());
-                pstm.setString(25, mil.getEnd_numero());
-                pstm.setString(26, mil.getEnd_complemento());
+                pstm.setString(19, mil.getEnd_cep());
+                pstm.setString(20, mil.getEnd_estado());
+                pstm.setInt(21, mil.getId_cid());
+                pstm.setInt(22, mil.getId_bairro());
+                pstm.setString(23, mil.getEnd_logradouro());
+                pstm.setString(24, mil.getEnd_numero());
+                pstm.setString(25, mil.getEnd_complemento());
                 
                 //Dados de Contato
-                pstm.setString(27, mil.getFone1());
-                pstm.setString(28, mil.getFone2());
-                pstm.setString(29, mil.getEmail());
-                pstm.setString(30, mil.getCont_referencia());
-                pstm.setString(31, mil.getFone_referencia());
+                pstm.setString(26, mil.getFone1());
+                pstm.setString(27, mil.getFone2());
+                pstm.setString(28, mil.getEmail());
+                pstm.setString(29, mil.getCont_referencia());
+                pstm.setString(30, mil.getFone_referencia());
                 
                 //Dados de Acesso
-                
+                pstm.setString(31, mil.getIdentidade());
                 pstm.setString(32, mil.getSenha());
                                 
                 pstm.execute();
