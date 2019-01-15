@@ -21,17 +21,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="../bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet"/>
-        <link href="../css/estilo.css" type="text/css" rel="stylesheet"/>
-        <link href="../css/estilo_cadastro.css" type="text/css" rel="stylesheet"/>
-        <link href="../css/estilo-att.css" type="text/css" rel="stylesheet"/>
-        <script src="../js/validacao_de_campos.js" type="text/javascript"></script>
+        <link href="bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        <link href="css/estilo.css" type="text/css" rel="stylesheet"/>
+        <link href="css/estilo_cadastro.css" type="text/css" rel="stylesheet"/>
+        <link href="css/estilo-att.css" type="text/css" rel="stylesheet"/>
+        <script src="js/validacao_de_campos.js" type="text/javascript"></script>
         
         <title>Plano de Chamada - Atualização</title>
     </head>
     <body class="tela">
         <header class="header">
-            <img src="../img/background-topo2.png" class="img-responsive">
+            <img src="img/background-topo2.png" class="img-responsive">
             <div class="row">
                     <div class="col-md-12">
                         <nav class="navbar navbar-default" style="margin-top: 0; margin-bottom: 15px;">
@@ -60,7 +60,7 @@
                                   <!-- <li><a href="FaleConosco.jsp">Sair <span class="sr-only">(current)</span></a></li> -->
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li><form name="formSair" method="post" action="../Sair"><button class="btn-sair" type="submit">Sair</button></form></li>
+                                    <li><form name="formSair" method="get" action="autenticador"><button class="btn-sair" type="submit">Sair</button></form></li>
                                 </ul>
                               </div><!-- /.navbar-collapse -->
                             </div><!-- /.container-fluid -->
@@ -69,16 +69,18 @@
                 </div>
         </header>
         <section class="container area-form">
-            <form name="formAtualizacao" method="post" action="Atualizar" onsubmit="return validacao_att()">
+            <form name="formAtualizacao" method="post" action="atualizar" onsubmit="return validacao_att()">
                     <%
-                        Militar mil = new Militar();
-                        DivisaoSecao ds = new DivisaoSecao();
-                        PostoGraduacao pg = new PostoGraduacao();
-                        QasQms qasqms = new QasQms();
+                        
+                            MilitarDAO milDAO = new MilitarDAO();
+                            Militar milAutenticado = (Militar) sessao.getAttribute("militarAutenticado");
+                            Militar mil = milDAO.getMilitar(milAutenticado.getIdentidade(), milAutenticado.getSenha());
+                           
+                        
                         DadosCheckBox dcb = new DadosCheckBox();
                         
 
-                        MilitarDAO milDAO = new MilitarDAO();
+                        
                         BairroDAO bDAO = new BairroDAO();
                         CidadeDAO cDAO = new CidadeDAO();
                         DivisaoSecaoDAO dsDAO = new DivisaoSecaoDAO();
@@ -86,11 +88,10 @@
                         QasQmsDAO qasqmsDAO = new QasQmsDAO();
                         EscolaridadeDAO escDAO = new EscolaridadeDAO();
                         
-                        if(sessao.getAttribute("situacao_login") != null){
+                        
 
-                        mil = milDAO.getMilitar(String.valueOf(sessao.getAttribute("identidade_militar")), 
-                                                    String.valueOf(sessao.getAttribute("senha_militar")));
-                        }
+                        
+                        
 
                             
                         out.println("<fieldset class=\"parte-form col-md-12\">"+
@@ -168,7 +169,7 @@
                                     "<label id=\"lblNomeComp\" name=\"lblNomeComp\" for=\"lblNomeComp\">Nome Completo: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control\" type=\"text\" name=\"txtNomeComp\" value=\""+mil.getNome()+"\" onchange=\"borda_NomeComp()\"/>"+
                                     "</div>"+
-                                    
+                                   
                                     "<div class=\"form-group col-md-3\">"+
                                     "<label id=\"lblNomeGuerra\" name=\"lblNomeGuerra\" for=\"lblNomeGuerra\">Nome de Guerra: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control\" type=\"text\" name=\"txtNomeGuerra\" value=\""+mil.getNome_guerra()+"\" onchange=\"borda_NomeGuerra()\"/> "+
@@ -295,13 +296,13 @@
 
                                                 out.println("</select>"+
                                                 "</div>"+
-
-                                                "<div class=\"form-group col-md-6\">"+
+                                                            
+                                                "<div class=\"form-group col-md-5\">"+
                                                 "<label id=\"lblPai\" name=\"lblPai\" for=\"lbPai\">Pai: </label>"+
                                                 "<input class=\"form-control\" type=\"text\" name=\"txtPai\" value=\""+mil.getPai()+"\"/>"+
                                                 "</div>"+
 
-                                                "<div class=\"form-group col-md-6\">"+
+                                                "<div class=\"form-group col-md-4\">"+
                                                 "<label id=\"lblMae\" name=\"lblMae\" for=\"lblMae\">Mãe: </label>"+
                                                 "<input class=\"form-control\" type=\"text\" name=\"txtMae\" value=\""+mil.getMae()+"\"/>"+
                                                 "</div>"+
@@ -457,7 +458,7 @@
                         %>
                     <div class="linha-botoes col-md-12">
                         <button type="submit" id="btnCad" class="btn-padrao" value="Salvar">Salvar</button> 
-                        <button type="reset" id="btnEnt" class="btn-padrao" value="Limpar">Limpar</button>  
+                        
                     </div>
                 </form>
             </div>
@@ -475,12 +476,12 @@
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
             
-        <script src="../bootstrap/js/bootstrap.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
         
         
-        <script type="text/javascript" src="../js/mascaras.js"></script>
-        <script type="text/javascript" src="../js/preenchimento-endereco.js"></script>
-        <script type="text/javascript" src="../js/manipulacao.js"></script>
+        <script type="text/javascript" src="js/mascaras.js"></script>
+        <script type="text/javascript" src="js/preenchimento-endereco.js"></script>
+        <script type="text/javascript" src="js/manipulacao.js"></script>
         
     </body>
 </html>
