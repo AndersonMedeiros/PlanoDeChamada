@@ -16,6 +16,10 @@
         <servlet-name>sair</servlet-name>
         <servlet-class>controller.sair</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>cadastrar</servlet-name>
+        <servlet-class>controller.cadastrar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>autenticador</servlet-name>
         <url-pattern>/autenticador</url-pattern>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>sair</servlet-name>
         <url-pattern>/restrito/sair</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cadastrar</servlet-name>
+        <url-pattern>/cadastrar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
