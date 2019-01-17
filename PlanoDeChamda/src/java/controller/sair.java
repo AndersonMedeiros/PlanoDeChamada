@@ -5,8 +5,6 @@
  */
 package controller;
 
-import bean.Militar;
-import dao.MilitarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,7 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author de_paula
  */
-public class autenticador extends HttpServlet {
+public class sair extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +36,10 @@ public class autenticador extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet autenticador</title>");            
+            out.println("<title>Servlet sair</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet autenticador at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet sair at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,12 +57,9 @@ public class autenticador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession sessao = request.getSession(false);
-        if(sessao != null){
-            sessao.invalidate();
-        }
-        response.sendRedirect("index.jsp");
+        processRequest(request, response);
     }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -76,25 +71,11 @@ public class autenticador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String identidade = request.getParameter("txtIdentidade");
-        String senha = request.getParameter("txtSenha");
-        
-        Militar mil = new Militar();
-        mil.setIdentidade(identidade);
-        mil.setSenha(senha);
-        
-        MilitarDAO milDAO = new MilitarDAO();
-        Militar milAutenticado = milDAO.autenticacao(mil);
-        
-        if(milAutenticado != null){
-            HttpSession sessao = request.getSession();
-            sessao.setAttribute("militarAutenticado", milAutenticado);
-            
-            //request.getRequestDispatcher("/restrito/Atualizacao.jsp").forward(request, response);
-            response.sendRedirect("/PlanoDeChamda/restrito/Atualizacao.jsp");
-        }else{
-            response.sendRedirect("/PlanoDeChamda/erroLogin.jsp");
+        HttpSession sessao = request.getSession(false);
+        if(sessao != null){
+            sessao.invalidate();
         }
+        response.sendRedirect("/PlanoDeChamda/index.jsp");
     }
 
     /**

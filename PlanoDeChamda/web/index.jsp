@@ -10,11 +10,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/estilo.css" type="text/css" rel="stylesheet"/>
         <link href="css/estilo_login.css" type="text/css" rel="stylesheet"/>
         <title>Plano de Chamada - Login</title>
     </head>
+    
     <body class="tela col-12">
         <div class="form-login col-2">
                 <h1 id="titulo">Plano de Chamada</h1>

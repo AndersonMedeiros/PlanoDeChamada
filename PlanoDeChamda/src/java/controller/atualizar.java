@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -116,10 +117,12 @@ public class atualizar extends HttpServlet {
         //Dados de Acesso
 
         mil.setSenha(request.getParameter("txtSenha"));
+        HttpSession sessao = request.getSession();
         
-
-        MilitarDAO milDAO = new MilitarDAO();
-        milDAO.atualizar(mil);
+        if(sessao.getAttribute("militarAutenticado") != null){
+            MilitarDAO milDAO = new MilitarDAO();
+            milDAO.atualizar(mil);
+        }
         System.out.println("aaaa");
         
         RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/Atualizacao.jsp");

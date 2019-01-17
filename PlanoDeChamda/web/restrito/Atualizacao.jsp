@@ -21,17 +21,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet"/>
-        <link href="css/estilo.css" type="text/css" rel="stylesheet"/>
-        <link href="css/estilo_cadastro.css" type="text/css" rel="stylesheet"/>
-        <link href="css/estilo-att.css" type="text/css" rel="stylesheet"/>
-        <script src="js/validacao_de_campos.js" type="text/javascript"></script>
+        <link href="../bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        <link href="../css/estilo.css" type="text/css" rel="stylesheet"/>
+        <link href="../css/estilo_cadastro.css" type="text/css" rel="stylesheet"/>
+        <link href="../css/estilo-att.css" type="text/css" rel="stylesheet"/>
+        <script src="../js/validacao_de_campos.js" type="text/javascript"></script>
         
         <title>Plano de Chamada - Atualização</title>
     </head>
     <body class="tela">
         <header class="header">
-            <img src="img/background-topo2.png" class="img-responsive">
+            <img src="../img/background-topo2.png" class="img-responsive">
             <div class="row">
                     <div class="col-md-12">
                         <nav class="navbar navbar-default" style="margin-top: 0; margin-bottom: 15px;">
@@ -60,7 +60,7 @@
                                   <!-- <li><a href="FaleConosco.jsp">Sair <span class="sr-only">(current)</span></a></li> -->
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li><form name="formSair" method="get" action="autenticador"><button class="btn-sair" type="submit">Sair</button></form></li>
+                                    <li><form name="formSair" method="post" action="sair"><button class="btn-sair" type="submit">Sair</button></form></li>
                                 </ul>
                               </div><!-- /.navbar-collapse -->
                             </div><!-- /.container-fluid -->
@@ -72,10 +72,11 @@
             <form name="formAtualizacao" method="post" action="atualizar" onsubmit="return validacao_att()">
                     <%
                         
+                        //if(milAutenticado != null){
                             MilitarDAO milDAO = new MilitarDAO();
                             Militar milAutenticado = (Militar) sessao.getAttribute("militarAutenticado");
                             Militar mil = milDAO.getMilitar(milAutenticado.getIdentidade(), milAutenticado.getSenha());
-                           
+                        //} 
                         
                         DadosCheckBox dcb = new DadosCheckBox();
                         
@@ -479,9 +480,9 @@
         <script src="bootstrap/js/bootstrap.js"></script>
         
         
-        <script type="text/javascript" src="js/mascaras.js"></script>
-        <script type="text/javascript" src="js/preenchimento-endereco.js"></script>
-        <script type="text/javascript" src="js/manipulacao.js"></script>
+        <script type="text/javascript" src="../js/mascaras.js"></script>
+        <script type="text/javascript" src="../js/preenchimento-endereco.js"></script>
+        <script type="text/javascript" src="../js/manipulacao.js"></script>
         
     </body>
 </html>

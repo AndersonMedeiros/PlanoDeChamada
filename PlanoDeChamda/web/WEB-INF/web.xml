@@ -8,17 +8,37 @@
         <servlet-name>atualizar</servlet-name>
         <servlet-class>controller.atualizar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>filtroPaginas</servlet-name>
+        <servlet-class>controller.filtroPaginas</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sair</servlet-name>
+        <servlet-class>controller.sair</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>autenticador</servlet-name>
         <url-pattern>/autenticador</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>atualizar</servlet-name>
-        <url-pattern>/atualizar</url-pattern>
+        <url-pattern>/restrito/atualizar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sair</servlet-name>
+        <url-pattern>/restrito/sair</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <filter>
+        <filter-name>filtroPaginas</filter-name>
+        <filter-class>controller.filtroPaginas</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>filtroPaginas</filter-name>
+        <url-pattern>/restrito/*</url-pattern>
+    </filter-mapping>
 </web-app>
