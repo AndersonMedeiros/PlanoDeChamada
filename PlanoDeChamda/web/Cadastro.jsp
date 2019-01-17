@@ -4,6 +4,8 @@
     Author     : ander
 --%>
 
+<%@page import="dao.CidadeDAO"%>
+<%@page import="bean.Cidade"%>
 <%@page import="dao.MilitarDAO"%>
 <%@page import="dao.EscolaridadeDAO"%>
 <%@page import="bean.Escolaridade"%>
@@ -35,10 +37,10 @@
             {
                 id('cidade').onchange = function()
                 {
-                    id('padrao').style.display = this.value=="" ? 'block' : 'none';
-                    id('bairrosManaus').style.display = this.value=="Manaus" ? 'block' : 'none';
-                    id('bairrosRioPreto').style.display = this.value=="Rio Preto da Eva" ? 'block' : 'none';
-                    id('bairrosIranduba').style.display = this.value=="Iranduba" ? 'block' : 'none';
+                    id('padrao').style.display = this.value=="0" ? 'block' : 'none';
+                    id('bairrosManaus').style.display = this.value=="1" ? 'block' : 'none';//1 - Manaus
+                    id('bairrosRioPreto').style.display = this.value=="2" ? 'block' : 'none';//2 - Rio Preto da Eva
+                    id('bairrosIranduba').style.display = this.value=="3" ? 'block' : 'none';//3 - Iranduba
                 }  
             }
             
@@ -57,7 +59,7 @@
         </header>
         
         <section class="container area-form">
-            <form name="formCadastro" method="post" action="Cadastrar" onsubmit="return validacao_cad()">                   
+            <form name="formCadastro" method="post" action="cadastrar" onsubmit="return validacao_cad()">                   
                     <fieldset class="parte-form col-md-12" >
                         <legend>Dados Pessoais</legend>
                         
@@ -281,33 +283,33 @@
                             <label id="lblCidade" name="lblCidade" for="lblCidade">Cidade: </label><b class="obg"> *</b>
                             
                             <select name="txtCidade" id="cidade" class="form-control" onchange="borda_Cidade()">
-                                <option value="" selected>Selecione a sua Cidade...</option>
-                                <option value="Manaus">Manaus</option>
-                                <option value="Iranduba">Iranduba</option>
-                                <option value="Rio Preto da Eva">Rio Preto da Eva</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group col-md-3">
-                            <label id="lblCidade" name="lblCidade" for="lblCidade">Cidade: </label><b class="obg"> *</b>
-                            
-                            <select name="txtCidade" id="cidade" class="form-control" onchange="borda_Cidade()">
-                                <option value="" selected>Selecione a sua Cidade...</option>
+                                <option value="0" selected>Selecione a sua Cidade...</option>
+                                
+                                
                                 <%
+                                    Cidade c = new Cidade();
+                                    CidadeDAO cDAO = new CidadeDAO();
                                     
+                                    int qtdeCidades = cDAO.getCidades().size();
+                                    
+                                    for(int i=0;i<qtdeCidades;i++){
+                                        
+                                        out.println("<option value='"+cDAO.getCidades().get(i).getId()+"'>"+cDAO.getCidades().get(i).getNome()+"</option>");
+                                    } 
                                 %>
                             </select>
+                            
                         </div>
-                        
+                                               
                         <div class="form-group col-md-3">
                             <label id="lblBairro" name="lblBairro" for="lblBairro">Bairro: </label><b class="obg"> *</b>
                             
                             <select name="txtBairro" id="padrao" class="form-control" onchange="borda_Bairro()">
-                                <option value="" selected>Selecione o seu Bairro...</option>
+                                <option value="0" selected>Selecione o seu Bairro...</option>
                             </select>
                             
                             <select name="txtBairro" id="bairrosManaus" class="form-control" onchange="borda_Bairro()" style="display: none">
-                                <option value="" selected>Selecione o seu Bairro...</option>
+                                <option value="0" selected>Selecione o seu Bairro...</option>
                                 <%
                                     Bairro b = new Bairro();
                                     BairroDAO bDAO = new BairroDAO();
@@ -322,7 +324,7 @@
                             </select>
                             
                             <select name="txtBairro" id="bairrosRioPreto" class="form-control" onchange="borda_Bairro()" style="display: none">
-                                <option value="" selected>Selecione o seu Bairro...</option>
+                                <option value="0" selected>Selecione o seu Bairro...</option>
                                 <%                                  
                                     qtdeBairros = bDAO.getBairrosByCidade(2).size();
                                     
@@ -334,7 +336,7 @@
                             </select>
                             
                             <select name="txtBairro" id="bairrosIranduba" class="form-control" onchange="borda_Bairro()" style="display: none">
-                                <option value="" selected>Selecione o seu Bairro...</option>
+                                <option value="0" selected>Selecione o seu Bairro...</option>
                                 <%                                  
                                     qtdeBairros = bDAO.getBairrosByCidade(3).size();
                                     
@@ -396,7 +398,7 @@
 
                         <div class="form-group col-md-6">
                             <label id="lblSenha" name="lblNomeComp" for="lblSenha">Senha: </label><b class="obg"> *</b>
-                            <input class="form-control" type="password" name="txtSenha" maxlength="20" onblur="return validaSenha();"/>
+                            <input class="form-control" type="password" name="txtSenha" maxlength="20" onchange="return validaSenha();"/>
                             <b class="obg">*No mínimo 6 caracteres</b>
                         </div>   
                         

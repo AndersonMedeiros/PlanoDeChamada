@@ -5,6 +5,8 @@ function validaSenha(){
         document.formCadastro.txtSenha.style.border='1px solid red';
         document.formCadastro.txtSenha.focus();
         return false;
+    }else{
+        document.formCadastro.txtSenha.style.border='1px solid green';
     }
 }
 
@@ -811,7 +813,7 @@ function validacao_cad(){
         return false;
     }
     
-    if(document.formCadastro.txtBairro.selectedIndex==0){
+    if(document.formCadastro.txtBairro.selectedIndex=="0"){
         alert("Campo Obrigatório!\nSelecione o seu Bairro.");
         document.formCadastro.txtBairro.style.border='1px solid red';
         document.formCadastro.txtBairro.focus();

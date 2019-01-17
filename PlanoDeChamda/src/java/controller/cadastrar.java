@@ -102,7 +102,9 @@ public class cadastrar extends HttpServlet {
         mil.setEnd_estado(request.getParameter("txtEstado"));
         mil.setId_cid(Integer.parseInt(request.getParameter("txtCidade")));
         
+        
         mil.setId_bairro(Integer.parseInt(request.getParameter("txtBairro")));
+        System.out.println("Id: " + Integer.parseInt(request.getParameter("txtCidade")) + " bairro: " + Integer.parseInt(request.getParameter("txtBairro")));
         mil.setEnd_logradouro(request.getParameter("txtLogradouro"));
         mil.setEnd_numero(request.getParameter("txtNum"));
         mil.setEnd_complemento(request.getParameter("txtComplemento"));

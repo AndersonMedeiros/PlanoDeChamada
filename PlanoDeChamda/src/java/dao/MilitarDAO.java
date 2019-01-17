@@ -39,6 +39,7 @@ public class MilitarDAO {
     PreparedStatement pstm;
     
     public void inserir(Militar mil) {
+        System.out.println("Chega no Dao Inserir");
         if (mil != null) {
             conn = null;
             pstm = null;
@@ -72,7 +73,9 @@ public class MilitarDAO {
                 pstm.setString(20, mil.getEnd_cep());
                 pstm.setString(21, mil.getEnd_estado());
                 pstm.setInt(22, mil.getId_cid());
+                System.out.println(".." + mil.getId_cid());
                 pstm.setInt(23, mil.getId_bairro());
+                System.out.println("..." + mil.getId_bairro());
                 pstm.setString(24, mil.getEnd_logradouro());
                 pstm.setString(25, mil.getEnd_numero());
                 pstm.setString(26, mil.getEnd_complemento());

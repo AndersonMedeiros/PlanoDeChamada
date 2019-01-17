@@ -142,7 +142,7 @@ insert into bairro values (1, null, 'Centro', 'Sul'),
                           (1, null, 'Cidade de Deus', 'Norte'),
                           (1, null, 'Nova Cidade', 'Norte');
   
-select *from bairro group by Bairro_zona, Bairro_nome;
+select * from bairro;
 
 insert into militar(DivisaoSecao_ds_id,PostoGraduacao_pg_id,QAS_QMS_Arma_id,Situacao_id,Mil_nome,
             Mil_nome_guerra,Mil_sexo,Mil_naturalidade,Mil_est_civil,Mil_dt_praca,Mil_identidade,Mil_cpf,Mil_preccp,Mil_data_nasc,
