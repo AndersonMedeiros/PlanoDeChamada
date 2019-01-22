@@ -3,6 +3,7 @@
     Created on : 05/12/2018, 14:49:15
     Author     : ander
 --%>
+<%@page import="dao.EstadoDAO"%>
 <%@page import="dao.CidadeDAO"%>
 <%@page import="bean.DadosCheckBox"%>
 <%@page import="bean.QasQms"%>
@@ -52,8 +53,12 @@
                                     <li class="active"><a href="Atualizacao.jsp">Atualizar Dados <span class="sr-only">(current)</span></a></li>                                 
                                     <% 
                                         HttpSession sessao = request.getSession();
+                                        
+                                        MilitarDAO milDAO = new MilitarDAO();
+                                        Militar milAutenticado = (Militar) sessao.getAttribute("militarAutenticado");
+                                        Militar mil = milDAO.getMilitar(milAutenticado.getIdentidade(), milAutenticado.getSenha());
                                        
-                                        if(String.valueOf(sessao.getAttribute("tipo_acesso")).equals("admin")){
+                                        if(String.valueOf(mil.getTipo_acesso()).equals("admin")){
                                             out.println("<li><a href=\"EmitirRelatorio.jsp\">Emitir Relatório</a></li>");
                                         }
                                     %>                                   
@@ -71,30 +76,16 @@
         <section class="container area-form">
             <form name="formAtualizacao" method="post" action="atualizar" onsubmit="return validacao_att()">
                     <%
-                        
-                        //if(milAutenticado != null){
-                            MilitarDAO milDAO = new MilitarDAO();
-                            Militar milAutenticado = (Militar) sessao.getAttribute("militarAutenticado");
-                            Militar mil = milDAO.getMilitar(milAutenticado.getIdentidade(), milAutenticado.getSenha());
-                        //} 
-                        
                         DadosCheckBox dcb = new DadosCheckBox();
-                        
-
-                        
-                        BairroDAO bDAO = new BairroDAO();
+                        EstadoDAO estDAO = new EstadoDAO();
                         CidadeDAO cDAO = new CidadeDAO();
+                        BairroDAO bDAO = new BairroDAO();
+                        
                         DivisaoSecaoDAO dsDAO = new DivisaoSecaoDAO();
                         PostoGraduacaoDAO pgDAO = new PostoGraduacaoDAO();
                         QasQmsDAO qasqmsDAO = new QasQmsDAO();
                         EscolaridadeDAO escDAO = new EscolaridadeDAO();
-                        
-                        
-
-                        
-                        
-
-                            
+   
                         out.println("<fieldset class=\"parte-form col-md-12\">"+
                                     "<legend>Dados Pessoais</legend>"+
 
@@ -257,25 +248,40 @@
                                                 "<label id=\"lblCpf\" name=\"lblCpf\" for=\"lblCpf\">Cpf: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control cpf\" type=\"text\" name=\"txtCpf\" value=\""+mil.getCpf()+"\" onblur=\"return validarCPF_Att();\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>"+
+                                                
+                                                "<div class=\"form-group col-md-4\">"+
+                                                "<label id=\"lblTituloEleitor\" name=\"lblTituloEleitor\" for=\"lblTituloEleitor\">Titulo Eleitor: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control titulo_eleitor\"  type=\"text\" name=\"txtTituloEleitor\" maxlength=\"12\" id=\"titulo_eleitor\" value=\""+mil.getTitulo_num()+"\" onblur=\"return validarTITULO();\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                "</div>"+
+                                                        
+                                                "<div class=\"form-group col-md-2\">"+
+                                                "<label id=\"lblZona\" name=\"lblZona\" for=\"lblZona\">Zona: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control\"  type=\"text\" name=\"txtZona\" maxlength=\"3\" value=\""+mil.getTitulo_zona()+"\" onblur=\"return validarZONA();\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                "</div>"+
+                                                        
+                                                "<div class=\"form-group col-md-2\">"+
+                                                "<label id=\"lblSecao\" name=\"lblSecao\" for=\"lblSecao\">Seção: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control\"  type=\"text\" name=\"txtSecao\" maxlength=\"4\" value=\""+mil.getTitulo_secao()+"\" onblur=\"return validarSECAO();\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                "</div>"+
 
-                                                "<div class=\"form-group col-md-3\">"+
+                                                "<div class=\"form-group col-md-4\">"+
                                                 "<label id=\"lblPreccp\" name=\"lblPreccp\" for=\"lblPreccp\">Preccp: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control\" type=\"text\" name=\"txtPreccp\" maxlength=\"9\" value=\""+mil.getPreccp()+"\" onblur=\"validarPRECCP_Att();\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>");
                                                 
                                                 if(mil.getData_nasc() != null){
-                                                    out.println("<div class=\"form-group col-md-3\">"+
+                                                    out.println("<div class=\"form-group col-md-4\">"+
                                                                 "<label id=\"lblDataNasc\" name=\"lblDataNasc\" for=\"lblDataNasc\">Data de Nascimento: </label>"+
                                                                 "<input class=\"form-control data\" type=\"date\" name=\"txtDataNasc\" value=\""+mil.getData_nasc().substring(0, 4)+"-"+mil.getData_nasc().substring(4, 6)+"-"+mil.getData_nasc().substring(6, 8)+"\" onblur=\"validarDataNasc_Att();\"/>"+
                                                                 "</div>");
                                                 }
 
-                                                out.println("<div class=\"form-group col-md-3\">"+
+                                                out.println("<div class=\"form-group col-md-4\">"+
                                                 "<label id=\"lblCnhNum\" name=\"lblCnhNum\" for=\"lblCnhNum\">CNH Número: </label>"+
                                                 "<input class=\"form-control\" type=\"text\" name=\"txtCnhNum\" maxlength=\"11\" value=\""+mil.getCnh_num()+"\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>"+
 
-                                                "<div class=\"form-group col-md-3\">"+
+                                                "<div class=\"form-group col-md-4\">"+
                                                 "<label id=\"lblCnhCat\" name=\"lblCnhCat\" for=\"lblCnhCat\">CNH Categoria: </label>"+
                                                 "<select name=\"txtCnhCat\" id=\"cnh_cat\" class=\"form-control\">");
 
@@ -298,12 +304,12 @@
                                                 out.println("</select>"+
                                                 "</div>"+
                                                             
-                                                "<div class=\"form-group col-md-5\">"+
+                                                "<div class=\"form-group col-md-6\">"+
                                                 "<label id=\"lblPai\" name=\"lblPai\" for=\"lbPai\">Pai: </label>"+
                                                 "<input class=\"form-control\" type=\"text\" name=\"txtPai\" value=\""+mil.getPai()+"\"/>"+
                                                 "</div>"+
 
-                                                "<div class=\"form-group col-md-4\">"+
+                                                "<div class=\"form-group col-md-6\">"+
                                                 "<label id=\"lblMae\" name=\"lblMae\" for=\"lblMae\">Mãe: </label>"+
                                                 "<input class=\"form-control\" type=\"text\" name=\"txtMae\" value=\""+mil.getMae()+"\"/>"+
                                                 "</div>"+
@@ -340,18 +346,18 @@
                                                 "<label id=\"lblEstado\" name=\"lblEstado\" for=\"lblEstado\">Estado: </label><b class=\"obg\"> *</b>"+
                                                 "<select name=\"txtEstado\" id=\"estado\" class=\"form-control\"> onchange=\"borda_Estado()\"");
                                     
-                                                if(mil.getEnd_estado() != null && mil.getEnd_estado().equals("")){
-                                                    out.println("<option value=\"\" selected>Selecione o seu Estado...</option>");
+                                                if(mil.getId_est()==0){
+                                                    out.println("<option value=\"0\" selected>Selecione o seu Estado...</option>");
                                                 }else{
-                                                    out.println("<option value=\"\">Selecione o seu Estado...</option>");
+                                                    out.println("<option value=\"0\">Selecione o seu Estado...</option>");
                                                 }
-                                                int qtdEstados = dcb.getEstados().size();
+                                                int qtdEstados = estDAO.getEstados().size();
 
                                                     for(int i=0;i<qtdEstados;i++){
-                                                        if(mil.getEnd_estado() != null && mil.getEnd_estado().equals(String.valueOf(dcb.getEstados().get(i)))){
-                                                            out.println("<option value='"+String.valueOf(dcb.getEstados().get(i))+"' selected>"+String.valueOf(dcb.getEstados().get(i))+"</option>");
+                                                        if(mil.getId_est()==estDAO.getEstados().get(i).getId()){
+                                                            out.println("<option value='"+estDAO.getEstados().get(i).getId()+"' selected>"+estDAO.getEstados().get(i).getNome()+"</option>");
                                                         }else{
-                                                            out.println("<option value='"+String.valueOf(dcb.getEstados().get(i))+"'>"+String.valueOf(dcb.getEstados().get(i))+"</option>");
+                                                            out.println("<option value='"+estDAO.getEstados().get(i).getId()+"'>"+estDAO.getEstados().get(i).getNome()+"</option>");
                                                         }
                                                     }
                                                 out.println("</select>"+

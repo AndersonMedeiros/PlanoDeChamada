@@ -7,4 +7,5 @@ $(document).ready(function(){
         $(".identidade").mask("999999999-9");
        // $(".data").mask("99/99/9999");
         $(".cep").mask("99999-999");
+        $(".titulo_eleitor").mask("9999 9999 9999");
 });

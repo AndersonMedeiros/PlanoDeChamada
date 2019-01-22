@@ -278,9 +278,10 @@ function validarIDENTIDADE_Att(){
         alert("Número de Identidade Inválido!");
         document.formAtualizacao.txtIdentidade.style.border='1px solid red';
         document.formAtualizacao.txtIdentidade.focus();
-        
+        return false;
     }else{
         document.formAtualizacao.txtIdentidade.style.border='1px solid green';
+        return true;
     }
 }
 
@@ -289,6 +290,7 @@ function validarIDENTIDADE(){
     if(identidade == ''){
         document.formCadastro.txtIdentidade.style.border='1px solid red';
         document.formCadastro.txtIdentidade.focus();
+        return false;
     }
     else if(document.formCadastro.txtIdentidade.value!="" && identidade == '0000000000' || identidade == '1111111111' || 
        identidade == '2222222222' || identidade == '3333333333' || identidade == '4444444444' || identidade == '5555555555' ||
@@ -300,6 +302,44 @@ function validarIDENTIDADE(){
         
     }else{
         document.formCadastro.txtIdentidade.style.border='1px solid green';
+    }
+}
+
+function validarTITULO(){
+    var titulo = document.formCadastro.txtTituloEleitor.value.replace(" ","");
+    if(titulo == ''){
+        document.formCadastro.txtTituloEleitor.style.border='1px solid red';
+        document.formCadastro.txtTituloEleitor.focus();
+    }
+    else if(document.formCadastro.txtTituloEleitor.value!="" && titulo == '000000000000' ||titulo == '111111111111' || 
+       titulo == '222222222222' || titulo == '333333333333' || titulo == '444444444444' || titulo == '555555555555' ||
+       titulo == '666666666666' || titulo == '777777777777' || titulo == '888888888888' || titulo == '999999999999'){
+       
+        alert("Número de Titulo Eleitoral Inválido!");
+        document.formCadastro.txtTituloEleitor.style.border='1px solid red';
+        document.formCadastro.txtTituloEleitor.focus();
+        
+    }else{
+        document.formCadastro.txtTituloEleitor.style.border='1px solid green';
+    }
+}
+
+function validarTITULO_Att(){
+    var titulo = document.formAtualizacao.txtTituloEleitor.value.replace(" ","");
+    if(titulo == ''){
+        document.formAtualizacao.txtTituloEleitor.style.border='1px solid red';
+        document.formAtualizacao.txtTituloEleitor.focus();
+    }
+    else if(document.formAtualizacao.txtTituloEleitor.value!="" && titulo == '000000000000' ||titulo == '111111111111' || 
+       titulo == '222222222222' || titulo == '333333333333' || titulo == '444444444444' || titulo == '555555555555' ||
+       titulo == '666666666666' || titulo == '777777777777' || titulo == '888888888888' || titulo == '999999999999'){
+       
+        alert("Número de Titulo Eleitoral Inválido!");
+        document.formAtualizacao.txtTituloEleitor.style.border='1px solid red';
+        document.formAtualizacao.txtTituloEleitor.focus();
+        
+    }else{
+        document.formAtualizacao.txtTituloEleitor.style.border='1px solid green';
     }
 }
 

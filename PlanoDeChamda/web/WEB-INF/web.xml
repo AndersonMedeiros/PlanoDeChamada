@@ -20,6 +20,10 @@
         <servlet-name>cadastrar</servlet-name>
         <servlet-class>controller.cadastrar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>gerarRelatorio</servlet-name>
+        <servlet-class>controller.gerarRelatorio</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>autenticador</servlet-name>
         <url-pattern>/autenticador</url-pattern>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>cadastrar</servlet-name>
         <url-pattern>/cadastrar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>gerarRelatorio</servlet-name>
+        <url-pattern>/restrito/gerarRelatorio</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
