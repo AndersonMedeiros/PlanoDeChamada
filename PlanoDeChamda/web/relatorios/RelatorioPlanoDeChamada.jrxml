@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioPlanoDeChamada" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0df2e9a-f0f5-49be-9e8e-4222ea375f56">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="cigs"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT ds.nome AS ds_nome,
+	pg.nome AS pg_nome,
+	nome_guerra,
+	m.nome AS mil_nome,
+	c.nome AS cid_nome,
+	b.nome AS bairro_nome,
+	end_logradouro,
+	end_num,
+	end_complemento,
+	fone1,
+	fone2,
+	email,
+	nome_referencia,
+	fone_referencia
+FROM militar AS m,
+	cidade AS c,
+	postograduacao AS pg,
+	divisaosecao AS ds,
+	qasqms AS qq,
+	bairro AS b
+WHERE 
+	 ds.id=m.divisaosecao_id AND 
+	 pg.id=m.postograduacao_id AND 
+	 c.id=m.bairro_cidade_id AND
+	  b.id=m.bairro_id]]>
+	</queryString>
+	<field name="ds_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ds_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="divisaosecao"/>
+	</field>
+	<field name="pg_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pg_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="postograduacao"/>
+	</field>
+	<field name="nome_guerra" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome_guerra"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="militar"/>
+	</field>
+	<field name="mil_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mil_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="militar"/>
+	</field>
+	<field name="cid_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cid_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cidade"/>
+	</field>
+	<field name="bairro_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="bairro_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bairro"/>
+	</field>
+	<field name="end_logradouro" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="end_logradouro"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="militar"/>
+	</field>
+	<field name="end_num" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="end_num"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="militar"/>
+	</field>
+	<field name="end_complemento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="end_complemento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="militar"/>
+	</field>
+	<field name="fone1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fone1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="militar"/>
+	</field>
+	<field name="fone2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fone2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="militar"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="militar"/>
+	</field>
+	<field name="nome_referencia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome_referencia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="militar"/>
+	</field>
+	<field name="fone_referencia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fone_referencia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="militar"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="121" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="76" width="684" height="42" isPrintWhenDetailOverflows="true" backcolor="#ABABAB" uuid="7836c273-33a0-4db1-9c73-8bb6bc595133"/>
+				<textField>
+					<reportElement x="1" y="0" width="674" height="42" isPrintWhenDetailOverflows="true" uuid="00f99faa-f7ae-46ca-8929-242414e620ae"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="23" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ds_nome}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<image>
+				<reportElement x="697" y="0" width="100" height="121" uuid="f6018c8f-2087-428e-a638-37d140658fad"/>
+				<imageExpression><![CDATA["C:/Users/ander/Documents/NetBeansProjects/PlanoDeChamada/web/img/CigsFinal.gif"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement key="" mode="Opaque" x="0" y="0" width="684" height="70" isPrintWhenDetailOverflows="true" backcolor="#000000" uuid="9f3916d8-b139-40ab-ba28-9fadc6a79041"/>
+				<staticText>
+					<reportElement x="24" y="-1" width="654" height="71" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="597b5593-d9cf-443e-96b4-7fbd948e4b60"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="48" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Plano de Chamada]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="3" width="802" height="43" isPrintWhenDetailOverflows="true" backcolor="#000000" uuid="2a430be6-934d-4d0b-9601-2f1c527e07fd"/>
+				<staticText>
+					<reportElement x="1" y="0" width="60" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="6697d57c-fcb5-426a-9d91-1e2b7e966d10"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Post/Grad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="65" y="0" width="65" height="41" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="6ae297f5-31e1-4cb5-8485-1025995ee108"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome Guerra]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="134" y="0" width="65" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="9fe0f2fb-1a69-40b9-9d45-ac98b0b2e26a"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="203" y="0" width="65" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="bb52bd20-8703-4e99-be3f-3ab96c3d79d0"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cidade]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="272" y="0" width="65" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="e0a2292e-84b3-4639-b9ad-7497cca0a131"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Bairro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="341" y="0" width="80" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="585be2ef-1775-45f5-ba0e-8e533d076f86"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Logradouro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="425" y="0" width="20" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="e01f7fa5-2c39-4287-8763-a11f424662cf"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nº]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="449" y="0" width="85" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="443b702d-b7b2-43c9-90c7-bd2aa2d794ae"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Complemento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="538" y="0" width="40" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="4c76f2c5-7543-486f-9be1-99c901ccd2be"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Fone 1]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="582" y="0" width="40" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="1e503f11-3aa9-4eed-ab10-cf945bc889b3"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Fone 2]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="626" y="0" width="60" height="42" forecolor="#FFFFFF" uuid="977826ea-6e08-4977-a655-f8bbe3211ad2"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Email]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="760" y="0" width="40" height="42" forecolor="#FFFFFF" uuid="9b9749f5-4d44-41a1-a9c8-082d0119803d"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Fone Ref.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="690" y="0" width="66" height="42" forecolor="#FFFFFF" uuid="8aa75e70-b9e5-4e93-b853-fb0991f800f6"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Referência]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="73" splitType="Stretch">
+			<textField>
+				<reportElement x="65" y="0" width="64" height="68" isPrintWhenDetailOverflows="true" uuid="40e8cc04-aa9f-4e8d-9b95-e0e9fef26823"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_guerra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="0" width="64" height="68" isPrintWhenDetailOverflows="true" uuid="82cf6c76-93d7-4381-9713-878eefc8a7e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mil_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="0" width="64" height="68" isPrintWhenDetailOverflows="true" uuid="4214f074-1a79-471a-9b31-187645160b99"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cid_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="0" width="64" height="68" isPrintWhenDetailOverflows="true" uuid="1152f03e-1b6b-405b-abef-451bba6e2128"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bairro_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="0" width="80" height="68" isPrintWhenDetailOverflows="true" uuid="9e6a9cc5-ffac-4f20-be16-7a4a11f9eddd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{end_logradouro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="582" y="0" width="40" height="68" isPrintWhenDetailOverflows="true" uuid="31185e41-bddc-46fe-9ce5-f910b6dbd8a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fone2}.equals("")  ?  "-"  : "("+$F{fone2}.substring(0,2)+") "+$F{fone2}.substring(2,7)+"-"+$F{fone2}.substring(7,11)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="538" y="0" width="40" height="68" isPrintWhenDetailOverflows="true" uuid="8f9a5243-8f2c-43b8-83f5-2b0706f65741"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fone1}.equals("") ? "-" : "("+$F{fone1}.substring( 0,2)+") "+$F{fone1}.substring(2,7)+"-"+$F{fone1}.substring(7,11)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="449" y="0" width="84" height="68" isPrintWhenDetailOverflows="true" uuid="ee09ed15-5903-487c-923e-d0aa70a49729"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{end_complemento}.equals("") ? "-" : $F{end_complemento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="0" width="20" height="68" isPrintWhenDetailOverflows="true" uuid="31c00d9a-b458-443e-b34a-6611ee1fb50f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{end_num}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="760" y="0" width="40" height="68" uuid="4e09017a-1774-4e13-a928-c47e698d2cf9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fone_referencia}.equals("") ? "-" : "("+$F{fone_referencia}.substring(0,2)+") "+$F{fone_referencia}.substring(2,7)+"-"+$F{fone_referencia}.substring(7,11)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="690" y="0" width="66" height="68" uuid="201af386-a3d1-4602-a08f-86aa55288c69"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_referencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="626" y="0" width="60" height="68" uuid="f011f9cf-fca4-48f2-bb0e-cff6d6c7260e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="60" height="68" isPrintWhenDetailOverflows="true" uuid="809decbd-9ec1-4d40-8972-b5d80214b826"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pg_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="38" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="3" width="802" height="32" isPrintWhenDetailOverflows="true" backcolor="#000000" uuid="90b810dd-4de4-4556-8749-252a88a373cd"/>
+				<textField>
+					<reportElement x="650" y="0" width="108" height="32" forecolor="#FFFFFF" uuid="37fe6c1e-e4f8-49fb-9def-7af523b46d44"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="762" y="0" width="32" height="32" forecolor="#FFFFFF" uuid="688183d9-eeab-4040-b7ba-266a86af7e1e"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[ $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField pattern="MMMMM dd, yyyy">
+					<reportElement x="20" y="0" width="170" height="32" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="f302f6f6-268e-4b8b-ba94-8791ca482c74"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
