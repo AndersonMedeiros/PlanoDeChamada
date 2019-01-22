@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author ander
  */
 public class DivisaoSecaoDAO {
-    private final String GETDIVSECBYID = "SELECT ds_id, ds_nome FROM divisaodecao WHERE ds_id=?";
+    private final String GETDIVSECBYID = "SELECT id, nome FROM divisaodecao WHERE id=?";
     private final String GETDIVSECS = "SELECT * FROM divisaosecao";
     
     Connection conn;
@@ -36,8 +36,8 @@ public class DivisaoSecaoDAO {
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               ds.setId(rs.getInt("ds_id"));
-               ds.setNome(rs.getString("ds_nome"));
+               ds.setId(rs.getInt("id"));
+               ds.setNome(rs.getString("nome"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(Exception e){
@@ -61,8 +61,8 @@ public class DivisaoSecaoDAO {
         
             while (rs.next()) {
                DivisaoSecao ds = new DivisaoSecao();
-               ds.setId(rs.getInt("ds_id"));
-               ds.setNome(rs.getString("ds_nome"));
+               ds.setId(rs.getInt("id"));
+               ds.setNome(rs.getString("nome"));
                dss.add(ds);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);

@@ -17,29 +17,27 @@ import java.util.ArrayList;
  * @author ander
  */
 public class MilitarDAO {
-    private final String GETIDTSENHA = "SELECT Mil_identidade, Mil_senha FROM militar WHERE Mil_identidade=? AND Mil_senha=?";
-    private final String GETSENHA = "SELECT Mil_senha FROM militar WHERE Mil_senha=?";
-    private final String GETCPF = "SELECT Mil_cpf FROM militar WHERE Mil_cpf=?";
-    private final String GETIDENTIDADE = "SELECT Mil_identidade FROM militar WHERE Mil_identidade=?";
-    private final String GETMILITAR = "SELECT * FROM militar WHERE Mil_identidade=? AND Mil_senha=?";
+    private final String GETIDTSENHA = "SELECT identidade, senha FROM militar WHERE identidade=? AND senha=?";
+    private final String GETSENHA = "SELECT senha FROM militar WHERE senha=?";
+    private final String GETCPF = "SELECT cpf FROM militar WHERE cpf=?";
+    private final String GETIDENTIDADE = "SELECT identidade FROM militar WHERE identidade=?";
+    private final String GETMILITAR = "SELECT * FROM militar WHERE identidade=? AND senha=?";
     
-    private final String INSERT = "INSERT INTO militar(DivisaoSecao_ds_id,PostoGraduacao_pg_id,QAS_QMS_Arma_id,Situacao_id,Mil_nome,"+
-            "Mil_nome_guerra,Mil_sexo,Mil_naturalidade,Mil_est_civil,Mil_dt_praca,Mil_identidade,Mil_cpf,Mil_preccp,Mil_data_nasc,"+
-            "Mil_cnh_num,Mil_cnh_cat,Mil_pai,Mil_mae,Escolaridade_Esc_id,Mil_end_cep,Mil_end_estado,Mil_cid_id,Bairro_Bairro_id,"+
-            "Mil_end_logradouro,Mil_end_num,Mil_end_complemento,Mil_fone1,Mil_fone2,Mil_email,Mil_contato_referencia,Mil_fone_referencia,"+
-            "Mil_senha) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final String INSERT = "INSERT INTO militar (identidade,nome,nome_guerra,cpf,preccp,cnh_num,cnh_cat,sexo,est_civil,data_nasc,data_praca,pai,mae,fone1,fone2,email,nome_referencia," +
+"					                fone_referencia,end_cep,end_logradouro,end_num,end_complemento,naturalidade,senha,titulo_num,titulo_zona,titulo_secao," +
+"                                                       escolaridade_id,qasqms_id,postograduacao_id,divisaosecao_id,bairro_id,bairro_cidade_id,bairro_cidade_estado_id," +
+"                                                       situacao_id)" +
+"                                               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     
-    private final String UPDATE = "UPDATE militar SET DivisaoSecao_ds_id=?,PostoGraduacao_pg_id=?,QAS_QMS_Arma_id=?,Situacao_id=?,"+
-            "Mil_nome=?,Mil_nome_guerra=?,Mil_sexo=?,Mil_naturalidade=?,Mil_est_civil=?,Mil_dt_praca=?,Mil_cpf=?,Mil_preccp=?,"+
-            "Mil_data_nasc=?,Mil_cnh_num=?,Mil_cnh_cat=?,Mil_pai=?,Mil_mae=?,Escolaridade_Esc_id=?,Mil_end_cep=?,Mil_end_estado=?,"+
-            "Mil_cid_id=?,Bairro_Bairro_id=?,Mil_end_logradouro=?,Mil_end_num=?,Mil_end_complemento=?,Mil_fone1=?,Mil_fone2=?,"+
-            "Mil_email=?,Mil_contato_referencia=?,Mil_fone_referencia=? WHERE Mil_identidade=? AND Mil_senha=?";
+    private final String UPDATE = "UPDATE militar SET nome=?,nome_guerra=?,cpf=?,preccp=?,cnh_num=?,cnh_cat=?,sexo=?,est_civil=?,data_nasc=?,data_praca=?,pai=?,mae=?,fone1=?,fone2=?,"+
+                                                     "email=?,nome_referencia=?,fone_referencia=?,end_cep=?,end_logradouro=?,end_num=?,end_complemento=?,naturalidade=?,titulo_num=?,titulo_zona=?,titulo_secao=?,"+
+                                                     "escolaridade_id=?,qasqms_id=?,postograduacao_id=?,divisaosecao_id=?,bairro_id=?,bairro_cidade_id=?,bairro_cidade_estado_id=?,situacao_id=? "+
+                                                 "WHERE identidade=? AND senha=?";
     
     Connection conn;
     PreparedStatement pstm;
     
     public void inserir(Militar mil) {
-        System.out.println("Chega no Dao Inserir");
         if (mil != null) {
             conn = null;
             pstm = null;
@@ -48,49 +46,42 @@ public class MilitarDAO {
                 
                 pstm = conn.prepareStatement(INSERT);
                 
-                //Dados Pessoais
-                pstm.setInt(1, mil.getId_div_sec());
-                pstm.setInt(2, mil.getId_post_grad());
-                pstm.setInt(3, mil.getId_qas_qms());
-                pstm.setInt(4, mil.getId_sit());
-                pstm.setString(5, mil.getNome());
-                pstm.setString(6, mil.getNome_guerra());
-                pstm.setString(7, mil.getSexo());
-                pstm.setString(8, mil.getNaturalidade());
+                pstm.setString(1, mil.getIdentidade());
+                pstm.setString(2, mil.getNome());
+                pstm.setString(3, mil.getNome_guerra());//
+                pstm.setString(4, mil.getCpf());
+                pstm.setString(5, mil.getPreccp());
+                pstm.setString(6, mil.getCnh_num());
+                pstm.setString(7, mil.getCnh_cat());
+                pstm.setString(8, mil.getSexo());
                 pstm.setString(9, mil.getEst_civil());
-                pstm.setString(10, mil.getDt_praca());
-                pstm.setString(11, mil.getIdentidade());
-                pstm.setString(12, mil.getCpf());
-                pstm.setString(13, mil.getPreccp());
-                pstm.setString(14, mil.getData_nasc());
-                pstm.setString(15, mil.getCnh_num());
-                pstm.setString(16, mil.getCnh_cat());
-                pstm.setString(17, mil.getPai());
-                pstm.setString(18, mil.getMae());
-                pstm.setInt(19, mil.getId_esc());
-                                
-                //Dados de Endereço
-                pstm.setString(20, mil.getEnd_cep());
-                pstm.setString(21, mil.getEnd_estado());
-                pstm.setInt(22, mil.getId_cid());
-                System.out.println(".." + mil.getId_cid());
-                pstm.setInt(23, mil.getId_bairro());
-                System.out.println("..." + mil.getId_bairro());
-                pstm.setString(24, mil.getEnd_logradouro());
-                pstm.setString(25, mil.getEnd_numero());
-                pstm.setString(26, mil.getEnd_complemento());
-                
-                //Dados de Contato
-                pstm.setString(27, mil.getFone1());
-                pstm.setString(28, mil.getFone2());
-                pstm.setString(29, mil.getEmail());
-                pstm.setString(30, mil.getCont_referencia());
-                pstm.setString(31, mil.getFone_referencia());
-                
-                //Dados de Acesso
-                
-                pstm.setString(32, mil.getSenha());
-                                
+                pstm.setString(10, mil.getData_nasc());
+                pstm.setString(11, mil.getDt_praca());
+                pstm.setString(12, mil.getPai());
+                pstm.setString(13, mil.getMae());
+                pstm.setString(14, mil.getFone1());
+                pstm.setString(15, mil.getFone2());
+                pstm.setString(16, mil.getEmail());
+                pstm.setString(17, mil.getCont_referencia());
+                pstm.setString(18, mil.getFone_referencia());
+                pstm.setString(19, mil.getEnd_cep());
+                pstm.setString(20, mil.getEnd_logradouro());
+                pstm.setString(21, mil.getEnd_numero());
+                pstm.setString(22, mil.getEnd_complemento());
+                pstm.setString(23, mil.getNaturalidade());
+                pstm.setString(24, mil.getSenha());
+                pstm.setString(25, mil.getTitulo_num());
+                pstm.setString(26, mil.getTitulo_zona());
+                pstm.setString(27, mil.getTitulo_secao());
+                pstm.setInt(28, mil.getId_esc());
+                pstm.setInt(29, mil.getId_qas_qms());
+                pstm.setInt(30, mil.getId_post_grad());
+                pstm.setInt(31, mil.getId_div_sec());
+                pstm.setInt(32, mil.getId_bairro());
+                pstm.setInt(33, mil.getId_cid());
+                pstm.setInt(34, mil.getId_est());
+                pstm.setInt(35, mil.getId_sit());
+              
                 pstm.execute();
                 
                 ConnectionFactory.fechaConexao(conn, pstm);
@@ -109,52 +100,45 @@ public class MilitarDAO {
             conn = null;
             try {
                 conn = ConnectionFactory.getConnection();
-                System.out.println("passou");
                 pstm = conn.prepareStatement(UPDATE);
                 
-               //Dados Pessoais
-                pstm.setInt(1, mil.getId_div_sec());
-                pstm.setInt(2, mil.getId_post_grad());
-                pstm.setInt(3, mil.getId_qas_qms());
-                pstm.setInt(4, mil.getId_sit());
-                pstm.setString(5, mil.getNome());
-                pstm.setString(6, mil.getNome_guerra());
+                pstm.setString(1, mil.getNome());
+                pstm.setString(2, mil.getNome_guerra());//
+                pstm.setString(3, mil.getCpf());
+                pstm.setString(4, mil.getPreccp());
+                pstm.setString(5, mil.getCnh_num());
+                pstm.setString(6, mil.getCnh_cat());
                 pstm.setString(7, mil.getSexo());
-                pstm.setString(8, mil.getNaturalidade());
-                pstm.setString(9, mil.getEst_civil());
+                pstm.setString(8, mil.getEst_civil());
+                pstm.setString(9, mil.getData_nasc());
                 pstm.setString(10, mil.getDt_praca());
-                
-                pstm.setString(11, mil.getCpf());
-                pstm.setString(12, mil.getPreccp());
-                pstm.setString(13, mil.getData_nasc());
-                pstm.setString(14, mil.getCnh_num());
-                pstm.setString(15, mil.getCnh_cat());
-                pstm.setString(16, mil.getPai());
-                pstm.setString(17, mil.getMae());
-                pstm.setInt(18, mil.getId_esc());
-                                
-                //Dados de Endereço
-                pstm.setString(19, mil.getEnd_cep());
-                pstm.setString(20, mil.getEnd_estado());
-                pstm.setInt(21, mil.getId_cid());
-                pstm.setInt(22, mil.getId_bairro());
-                pstm.setString(23, mil.getEnd_logradouro());
-                pstm.setString(24, mil.getEnd_numero());
-                pstm.setString(25, mil.getEnd_complemento());
-                
-                //Dados de Contato
-                pstm.setString(26, mil.getFone1());
-                pstm.setString(27, mil.getFone2());
-                pstm.setString(28, mil.getEmail());
-                pstm.setString(29, mil.getCont_referencia());
-                pstm.setString(30, mil.getFone_referencia());
-                
-                //Dados de Acesso
-                pstm.setString(31, mil.getIdentidade());
-                pstm.setString(32, mil.getSenha());
+                pstm.setString(11, mil.getPai());
+                pstm.setString(12, mil.getMae());
+                pstm.setString(13, mil.getFone1());
+                pstm.setString(14, mil.getFone2());
+                pstm.setString(15, mil.getEmail());
+                pstm.setString(16, mil.getCont_referencia());
+                pstm.setString(17, mil.getFone_referencia());
+                pstm.setString(18, mil.getEnd_cep());
+                pstm.setString(19, mil.getEnd_logradouro());
+                pstm.setString(20, mil.getEnd_numero());
+                pstm.setString(21, mil.getEnd_complemento());
+                pstm.setString(22, mil.getNaturalidade());
+                pstm.setString(23, mil.getTitulo_num());
+                pstm.setString(24, mil.getTitulo_zona());
+                pstm.setString(25, mil.getTitulo_secao());
+                pstm.setInt(26, mil.getId_esc());
+                pstm.setInt(27, mil.getId_qas_qms());
+                pstm.setInt(28, mil.getId_post_grad());
+                pstm.setInt(29, mil.getId_div_sec());
+                pstm.setInt(30, mil.getId_bairro());
+                pstm.setInt(31, mil.getId_cid());
+                pstm.setInt(32, mil.getId_est());
+                pstm.setInt(33, mil.getId_sit());
+                pstm.setString(34, mil.getIdentidade());
+                pstm.setString(35, mil.getSenha());
                                 
                 pstm.execute();
-                System.out.println("ps tambem");
                 ConnectionFactory.fechaConexao(conn, pstm);
 
             } catch (Exception e) {
@@ -296,46 +280,50 @@ public class MilitarDAO {
             while (rs.next()) {
                 
                 //Dados Pessoais
-                mil.setId_div_sec(rs.getInt("DivisaoSecao_ds_id"));
-                mil.setId_post_grad(rs.getInt("PostoGraduacao_pg_id"));
-                mil.setId_qas_qms(rs.getInt("QAS_QMS_Arma_id"));
-                mil.setId_sit(rs.getInt("Situacao_id"));
-                mil.setNome(rs.getString("Mil_nome"));
-                mil.setNome_guerra(rs.getString("Mil_nome_guerra"));
-                mil.setSexo(rs.getString("Mil_sexo"));
-                mil.setNaturalidade(rs.getString("Mil_naturalidade"));
-                mil.setEst_civil(rs.getString("Mil_est_civil"));
-                mil.setDt_praca(rs.getString("Mil_dt_praca"));
-                mil.setIdentidade(rs.getString("Mil_identidade"));
-                mil.setCpf(rs.getString("Mil_cpf"));
-                mil.setPreccp(rs.getString("Mil_preccp"));
-                mil.setData_nasc(rs.getString("Mil_data_nasc")); 
-                mil.setCnh_num(rs.getString("Mil_cnh_num"));
-                mil.setCnh_cat(rs.getString("Mil_cnh_cat"));
-                mil.setPai(rs.getString("Mil_pai"));
-                mil.setMae(rs.getString("Mil_mae"));
-                mil.setId_esc(rs.getInt("Escolaridade_Esc_id"));
+                mil.setId_div_sec(rs.getInt("divisaoSecao_id"));
+                mil.setId_post_grad(rs.getInt("postograduacao_id"));
+                mil.setId_qas_qms(rs.getInt("qasqms_id"));
+                mil.setId_sit(rs.getInt("situacao_id"));
+                mil.setNome(rs.getString("nome"));
+                mil.setNome_guerra(rs.getString("nome_guerra"));
+                mil.setSexo(rs.getString("sexo"));
+                mil.setNaturalidade(rs.getString("naturalidade"));
+                mil.setEst_civil(rs.getString("est_civil"));
+                mil.setDt_praca(rs.getString("data_praca"));
+                mil.setIdentidade(rs.getString("identidade"));
+                mil.setCpf(rs.getString("cpf"));
+                mil.setPreccp(rs.getString("preccp"));
+                mil.setData_nasc(rs.getString("data_nasc")); 
+                mil.setCnh_num(rs.getString("cnh_num"));
+                mil.setCnh_cat(rs.getString("cnh_cat"));
+                mil.setPai(rs.getString("pai"));
+                mil.setMae(rs.getString("mae"));
+                mil.setId_esc(rs.getInt("escolaridade_id"));
+                mil.setTitulo_num(rs.getString("titulo_num"));
+                mil.setTitulo_zona(rs.getString("titulo_zona"));
+                mil.setTitulo_secao(rs.getString("titulo_secao"));
+                System.out.println(mil.getTitulo_num() + " " + mil.getTitulo_zona() + " " + mil.getTitulo_secao());
                 
                 //Dados de Endereço
-                mil.setEnd_cep(rs.getString("Mil_end_cep"));
-                mil.setEnd_estado(rs.getString("Mil_end_estado"));
-                mil.setId_cid(rs.getInt("Mil_cid_id"));
-                mil.setId_bairro(rs.getInt("Bairro_Bairro_id"));
-                mil.setEnd_logradouro(rs.getString("Mil_end_logradouro"));
-                mil.setEnd_numero(rs.getString("Mil_end_num"));
-                mil.setEnd_complemento(rs.getString("Mil_end_complemento"));
+                mil.setEnd_cep(rs.getString("end_cep"));
+                mil.setEnd_logradouro(rs.getString("end_logradouro"));
+                mil.setEnd_numero(rs.getString("end_num"));
+                mil.setEnd_complemento(rs.getString("end_complemento"));
+                mil.setId_est(rs.getInt("bairro_cidade_estado_id"));
+                mil.setId_cid(rs.getInt("bairro_cidade_id"));
+                mil.setId_bairro(rs.getInt("bairro_id"));
                 
                 //Dados de Contato
-                mil.setFone1(rs.getString("Mil_fone1"));
-                mil.setFone2(rs.getString("Mil_fone2"));
-                mil.setEmail(rs.getString("Mil_email"));
-                mil.setCont_referencia(rs.getString("Mil_contato_referencia"));
-                mil.setFone_referencia(rs.getString("Mil_fone_referencia"));        
+                mil.setFone1(rs.getString("fone1"));
+                mil.setFone2(rs.getString("fone2"));
+                mil.setEmail(rs.getString("email"));
+                mil.setCont_referencia(rs.getString("nome_referencia"));
+                mil.setFone_referencia(rs.getString("fone_referencia"));        
                 
                 //Dados de Acesso
                 
-                mil.setSenha(rs.getString("Mil_senha"));
-                mil.setTipo_acesso(rs.getString("Mil_tipo_acesso"));
+                mil.setSenha(rs.getString("senha"));
+                mil.setTipo_acesso(rs.getString("tipo_acesso"));
 
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
@@ -360,46 +348,51 @@ public class MilitarDAO {
             while (rs.next()) {
                 Militar mil = new Militar();
                 //Dados Pessoais
-                mil.setId_div_sec(rs.getInt("DivisaoSe"
-                        + "cao_ds_id"));
-                mil.setId_post_grad(rs.getInt("PostoGraduacao_pg_id"));
-                mil.setId_qas_qms(rs.getInt("QAS_QMS_Arma_id"));
-                mil.setId_sit(rs.getInt("Situacao_id"));
-                mil.setNome(rs.getString("Mil_nome"));
-                mil.setNome_guerra(rs.getString("Mil_nome_guerra"));
-                mil.setSexo(rs.getString("Mil_sexo"));
-                mil.setNaturalidade(rs.getString("Mil_naturalidade"));
-                mil.setEst_civil(rs.getString("Mil_est_civil"));
-                mil.setDt_praca(rs.getString("Mil_dt_praca"));
-                mil.setIdentidade(rs.getString("Mil_identidade"));
-                mil.setCpf(rs.getString("Mil_cpf"));
-                mil.setPreccp(rs.getString("Mil_preccp"));
-                mil.setData_nasc("Mil_data_nasc"); 
-                mil.setCnh_num(rs.getString("Mil_cnh_num"));
-                mil.setCnh_cat(rs.getString("Mil_cnh_cat"));
-                mil.setPai(rs.getString("Mil_pai"));
-                mil.setMae(rs.getString("Mil_mae"));
-                mil.setId_esc(rs.getInt("Escolaridade_Esc_id"));
+                //Dados Pessoais
+                mil.setId_div_sec(rs.getInt("divisaoSecao_id"));
+                mil.setId_post_grad(rs.getInt("postograduacao_id"));
+                mil.setId_qas_qms(rs.getInt("qasqms_id"));
+                mil.setId_sit(rs.getInt("situacao_id"));
+                mil.setNome(rs.getString("nome"));
+                mil.setNome_guerra(rs.getString("nome_guerra"));
+                mil.setSexo(rs.getString("sexo"));
+                mil.setNaturalidade(rs.getString("naturalidade"));
+                mil.setEst_civil(rs.getString("est_civil"));
+                mil.setDt_praca(rs.getString("data_praca"));
+                mil.setIdentidade(rs.getString("identidade"));
+                mil.setCpf(rs.getString("cpf"));
+                mil.setPreccp(rs.getString("preccp"));
+                mil.setData_nasc(rs.getString("data_nasc")); 
+                mil.setCnh_num(rs.getString("cnh_num"));
+                mil.setCnh_cat(rs.getString("cnh_cat"));
+                mil.setPai(rs.getString("pai"));
+                mil.setMae(rs.getString("mae"));
+                mil.setId_esc(rs.getInt("escolaridade_id"));
+                mil.setTitulo_num(rs.getString("titulo_num"));
+                mil.setTitulo_zona(rs.getString("titulo_zona"));
+                mil.setTitulo_secao(rs.getString("titulo_secao"));
+                System.out.println(mil.getTitulo_num() + " " + mil.getTitulo_zona() + " " + mil.getTitulo_secao());
                 
                 //Dados de Endereço
-                mil.setEnd_cep(rs.getString("Mil_end_cep"));
-                mil.setEnd_estado(rs.getString("Mil_end_estado"));
-                mil.setId_cid(rs.getInt("Mil_cid_id"));
-                mil.setId_bairro(rs.getInt("Bairro_Bairro_id"));
-                mil.setEnd_logradouro(rs.getString("Mil_end_logradouro"));
-                mil.setEnd_numero(rs.getString("Mil_end_num"));
-                mil.setEnd_complemento(rs.getString("Mil_end_complemento"));
+                mil.setEnd_cep(rs.getString("end_cep"));
+                mil.setEnd_logradouro(rs.getString("end_logradouro"));
+                mil.setEnd_numero(rs.getString("end_num"));
+                mil.setEnd_complemento(rs.getString("end_complemento"));
+                mil.setId_est(rs.getInt("bairro_cidade_estado_id"));
+                mil.setId_cid(rs.getInt("bairro_cidade_id"));
+                mil.setId_bairro(rs.getInt("bairro_id"));
                 
                 //Dados de Contato
-                mil.setFone1(rs.getString("Mil_fone1"));
-                mil.setFone2(rs.getString("Mil_fone2"));
-                mil.setEmail(rs.getString("Mil_email"));
-                mil.setCont_referencia(rs.getString("Mil_contato_referencia"));
-                mil.setFone_referencia(rs.getString("Mil_fone_referencia"));        
+                mil.setFone1(rs.getString("fone1"));
+                mil.setFone2(rs.getString("fone2"));
+                mil.setEmail(rs.getString("email"));
+                mil.setCont_referencia(rs.getString("nome_referencia"));
+                mil.setFone_referencia(rs.getString("fone_referencia"));        
                 
                 //Dados de Acesso
                 
-                mil.setSenha(rs.getString("Mil_senha"));
+                mil.setSenha(rs.getString("senha"));
+                mil.setTipo_acesso(rs.getString("tipo_acesso"));
                 
                 
                 militares.add(mil);
@@ -421,47 +414,51 @@ public class MilitarDAO {
                 pstm.setString(1, mil.getIdentidade());
                 pstm.setString(2, mil.getSenha());
                 ResultSet rs = pstm.executeQuery();
-                System.out.println("isso");
+                
                 if(rs.next()){
                     milRetorno = new Militar();
-                    milRetorno.setId_div_sec(rs.getInt("DivisaoSecao_ds_id"));
-                    milRetorno.setId_post_grad(rs.getInt("PostoGraduacao_pg_id"));
-                    milRetorno.setId_qas_qms(rs.getInt("QAS_QMS_Arma_id"));
-                    milRetorno.setId_sit(rs.getInt("Situacao_id"));
-                    milRetorno.setNome(rs.getString("Mil_nome"));
-                    milRetorno.setNome_guerra(rs.getString("Mil_nome_guerra"));
-                    milRetorno.setSexo(rs.getString("Mil_sexo"));
-                    milRetorno.setNaturalidade(rs.getString("Mil_naturalidade"));
-                    milRetorno.setEst_civil(rs.getString("Mil_est_civil"));
-                    milRetorno.setDt_praca(rs.getString("Mil_dt_praca"));
-                    milRetorno.setIdentidade(rs.getString("Mil_identidade"));
-                    milRetorno.setCpf(rs.getString("Mil_cpf"));
-                    milRetorno.setPreccp(rs.getString("Mil_preccp"));
-                    milRetorno.setData_nasc("Mil_data_nasc"); 
-                    milRetorno.setCnh_num(rs.getString("Mil_cnh_num"));
-                    milRetorno.setCnh_cat(rs.getString("Mil_cnh_cat"));
-                    milRetorno.setPai(rs.getString("Mil_pai"));
-                    milRetorno.setMae(rs.getString("Mil_mae"));
-                    milRetorno.setId_esc(rs.getInt("Escolaridade_Esc_id"));
+                    
+                    milRetorno.setId_div_sec(rs.getInt("divisaosecao_id"));
+                    milRetorno.setId_post_grad(rs.getInt("postograduacao_id"));
+                    milRetorno.setId_qas_qms(rs.getInt("qasqms_id"));
+                    milRetorno.setId_sit(rs.getInt("situacao_id"));
+                    milRetorno.setNome(rs.getString("nome"));
+                    milRetorno.setNome_guerra(rs.getString("nome_guerra"));
+                    milRetorno.setSexo(rs.getString("sexo"));
+                    milRetorno.setNaturalidade(rs.getString("naturalidade"));
+                    milRetorno.setEst_civil(rs.getString("est_civil"));
+                    milRetorno.setDt_praca(rs.getString("data_praca"));
+                    milRetorno.setIdentidade(rs.getString("identidade"));
+                    milRetorno.setCpf(rs.getString("cpf"));
+                    milRetorno.setPreccp(rs.getString("preccp"));
+                    milRetorno.setData_nasc("data_nasc"); 
+                    milRetorno.setCnh_num(rs.getString("cnh_num"));
+                    milRetorno.setCnh_cat(rs.getString("cnh_cat"));
+                    milRetorno.setPai(rs.getString("pai"));
+                    milRetorno.setMae(rs.getString("mae"));
+                    milRetorno.setId_esc(rs.getInt("escolaridade_id"));
+                    milRetorno.setTitulo_num(rs.getString("titulo_num"));
+                    milRetorno.setTitulo_zona(rs.getString("titulo_zona"));
+                    milRetorno.setTitulo_secao(rs.getString("titulo_secao"));
 
                     //Dados de Endereço
-                    milRetorno.setEnd_cep(rs.getString("Mil_end_cep"));
-                    milRetorno.setEnd_estado(rs.getString("Mil_end_estado"));
-                    milRetorno.setId_cid(rs.getInt("Mil_cid_id"));
-                    milRetorno.setId_bairro(rs.getInt("Bairro_Bairro_id"));
-                    milRetorno.setEnd_logradouro(rs.getString("Mil_end_logradouro"));
-                    milRetorno.setEnd_numero(rs.getString("Mil_end_num"));
-                    milRetorno.setEnd_complemento(rs.getString("Mil_end_complemento"));
+                    milRetorno.setEnd_cep(rs.getString("end_cep"));
+                    milRetorno.setEnd_logradouro(rs.getString("end_logradouro"));
+                    milRetorno.setEnd_numero(rs.getString("end_num"));
+                    milRetorno.setEnd_complemento(rs.getString("end_complemento"));
+                    milRetorno.setId_est(rs.getInt("bairro_cidade_estado_id"));
+                    milRetorno.setId_cid(rs.getInt("bairro_cidade_id"));
+                    milRetorno.setId_bairro(rs.getInt("bairro_id"));
 
                     //Dados de Contato
-                    milRetorno.setFone1(rs.getString("Mil_fone1"));
-                    milRetorno.setFone2(rs.getString("Mil_fone2"));
-                    milRetorno.setEmail(rs.getString("Mil_email"));
-                    milRetorno.setCont_referencia(rs.getString("Mil_contato_referencia"));
-                    milRetorno.setFone_referencia(rs.getString("Mil_fone_referencia"));        
+                    milRetorno.setFone1(rs.getString("fone1"));
+                    milRetorno.setFone2(rs.getString("fone2"));
+                    milRetorno.setEmail(rs.getString("email"));
+                    milRetorno.setCont_referencia(rs.getString("nome_referencia"));
+                    milRetorno.setFone_referencia(rs.getString("fone_referencia"));        
 
                     //Dados de Acesso
-                    milRetorno.setSenha(rs.getString("Mil_senha"));
+                    milRetorno.setSenha(rs.getString("senha"));
                 }
                 
                 ConnectionFactory.fechaConexao(conn, pstm, rs);

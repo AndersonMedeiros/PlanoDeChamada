@@ -5,7 +5,7 @@
  */
 package dao;
 
-import bean.Bairro;
+
 import bean.PostoGraduacao;
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author ander
  */
 public class PostoGraduacaoDAO {
-    private final String GETPOSTGRADBYID = "SELECT pg_id, pg_nome FROM postograduacao WHERE pg_id=?";
+    private final String GETPOSTGRADBYID = "SELECT id, nome FROM postograduacao WHERE id=?";
     private final String GETPOSTGRADS = "SELECT * FROM postograduacao";
     
     Connection conn;
@@ -37,8 +37,8 @@ public class PostoGraduacaoDAO {
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               pg.setId(rs.getInt("pg_id"));
-               pg.setNome(rs.getString("pg_nome"));
+               pg.setId(rs.getInt("id"));
+               pg.setNome(rs.getString("nome"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(Exception e){
@@ -62,8 +62,8 @@ public class PostoGraduacaoDAO {
         
             while (rs.next()) {
                PostoGraduacao pg = new PostoGraduacao();
-               pg.setId(rs.getInt("pg_id"));
-               pg.setNome(rs.getString("pg_nome"));
+               pg.setId(rs.getInt("id"));
+               pg.setNome(rs.getString("nome"));
                pgs.add(pg);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);

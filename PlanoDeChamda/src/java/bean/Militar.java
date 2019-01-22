@@ -11,11 +11,44 @@ package bean;
  */
 public class Militar {
     int id;
-    int id_post_grad, id_div_sec, id_sit, id_bairro, id_qas_qms, id_esc, id_cid;
-    String nome, nome_guerra, senha, sexo, naturalidade, pai, est_civil, mae, data_nasc, email, cnh_cat, 
-           end_logradouro, end_numero, end_complemento, end_estado, fone1, fone2, cont_referencia, fone_referencia,
-           dt_praca, end_cep, identidade, cpf, cnh_num, preccp, tipo_acesso; 
+    int id_post_grad, id_div_sec, id_sit, id_bairro, id_qas_qms, id_esc, id_cid, id_est;
 
+    
+    String nome, nome_guerra, senha, sexo, naturalidade, pai, est_civil, mae, data_nasc, email, cnh_cat, 
+           end_logradouro, end_numero, end_complemento, fone1, fone2, cont_referencia, fone_referencia,
+           dt_praca, end_cep, identidade, cpf, cnh_num, preccp, titulo_num, titulo_zona, titulo_secao, tipo_acesso; 
+
+    public String getTitulo_num() {
+        return titulo_num;
+    }
+
+    public void setTitulo_num(String titulo_num) {
+        this.titulo_num = titulo_num;
+    }
+
+    public String getTitulo_zona() {
+        return titulo_zona;
+    }
+
+    public void setTitulo_zona(String titulo_zona) {
+        this.titulo_zona = titulo_zona;
+    }
+
+    public String getTitulo_secao() {
+        return titulo_secao;
+    }
+
+    public void setTitulo_secao(String titulo_secao) {
+        this.titulo_secao = titulo_secao;
+    }
+
+    public int getId_est() {
+        return id_est;
+    }
+
+    public void setId_est(int id_est) {
+        this.id_est = id_est;
+    }
     public int getId_cid() {
         return id_cid;
     }
@@ -32,13 +65,7 @@ public class Militar {
         this.tipo_acesso = tipo_acesso;
     }
 
-    public String getEnd_estado() {
-        return end_estado;
-    }
 
-    public void setEnd_estado(String end_estado) {
-        this.end_estado = end_estado;
-    }
 
     public String getEnd_logradouro() {
         return end_logradouro;

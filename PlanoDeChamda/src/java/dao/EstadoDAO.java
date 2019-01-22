@@ -5,8 +5,8 @@
  */
 package dao;
 
-
 import bean.Cidade;
+import bean.Estado;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,90 +15,89 @@ import java.util.ArrayList;
 
 /**
  *
- * @author de_paula
+ * @author ander
  */
-public class CidadeDAO {
-    private final String GETCIDADEBYID = "SELECT * FROM cidade WHERE id=?";
-    private final String GETCIDADES = "SELECT * FROM cidade";
+public class EstadoDAO {
+    private final String GETESTADOBYID = "SELECT * FROM estado WHERE id=?";
+    private final String GETESTADOS = "SELECT * FROM estado";
     
     Connection conn;
     PreparedStatement pstm;
       
-    public Cidade getCidadeById(int id){
+    public Estado getEstadoById(int id){
         conn = null;
         pstm = null;
         ResultSet rs = null;
-        Cidade c = new Cidade();
+        Estado e = new Estado();
         
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETCIDADEBYID);
+            pstm = conn.prepareStatement(GETESTADOBYID);
             pstm.setInt(1, id);
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               c.setId(rs.getInt("id"));
-               c.setNome(rs.getString("nome"));
+               e.setId(rs.getInt("id"));
+               e.setNome(rs.getString("nome"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
-            throw new RuntimeException(e.getMessage());
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new RuntimeException(ex.getMessage());
         }
-        return c;
+        return e;
     }
     
-    public ArrayList<Cidade> getCidades(){
+    public ArrayList<Estado> getEstados(){
         conn = null;
         pstm = null;
         ResultSet rs = null;
         
-        ArrayList<Cidade> cidades = new ArrayList<Cidade>();
+        ArrayList<Estado> estados = new ArrayList<Estado>();
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETCIDADES);
+            pstm = conn.prepareStatement(GETESTADOS);
             
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               Cidade c = new Cidade();
-               c.setId(rs.getInt("id"));
-               c.setNome(rs.getString("nome"));
-               
-               cidades.add(c);
+               Estado e = new Estado();
+               e.setId(rs.getInt("id"));
+               e.setNome(rs.getString("nome"));
+               estados.add(e);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(Exception e){
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }
-        return cidades;
+        return estados;
     }
     
-    public ArrayList<Cidade> getCidadesById(int id){
+    public ArrayList<Estado> getEstadosById(int id){
         conn = null;
         pstm = null;
         ResultSet rs = null;
         
-        ArrayList<Cidade> cidades = new ArrayList<Cidade>();
+        ArrayList<Estado> estados = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETCIDADEBYID);
+            pstm = conn.prepareStatement(GETESTADOBYID);
             pstm.setInt(1, id);
             
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               Cidade c = new Cidade();
-               c.setId(rs.getInt("id"));
-               c.setNome(rs.getString("nome"));
-               cidades.add(c);
+               Estado e = new Estado();
+               e.setId(rs.getInt("id"));
+               e.setNome(rs.getString("nome"));
+               estados.add(e);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(Exception e){
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }
-        return cidades;
+        return estados;
     }
 }

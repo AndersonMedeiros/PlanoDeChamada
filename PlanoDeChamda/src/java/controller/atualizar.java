@@ -90,6 +90,9 @@ public class atualizar extends HttpServlet {
         mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));
         mil.setCpf(request.getParameter("txtCpf").replace(".", "").replace("-", ""));
         mil.setPreccp(request.getParameter("txtPreccp"));
+        mil.setTitulo_num(request.getParameter("txtTituloEleitor").replace(" ", ""));
+        mil.setTitulo_zona(request.getParameter("txtZona"));
+        mil.setTitulo_secao(request.getParameter("txtSecao"));
         mil.setData_nasc(request.getParameter("txtDataNasc").replace("/", "").replace("-", ""));
         mil.setCnh_num(request.getParameter("txtCnhNum"));
         mil.setCnh_cat(request.getParameter("txtCnhCat"));
@@ -99,9 +102,8 @@ public class atualizar extends HttpServlet {
 
         //Dados de Endereco
         mil.setEnd_cep(request.getParameter("txtCep").replace("-", ""));
-        mil.setEnd_estado(request.getParameter("txtEstado"));
+        mil.setId_est(Integer.parseInt(request.getParameter("txtEstado")));
         mil.setId_cid(Integer.parseInt(request.getParameter("txtCidade")));
-        
         mil.setId_bairro(Integer.parseInt(request.getParameter("txtBairro")));
         mil.setEnd_logradouro(request.getParameter("txtLogradouro"));
         mil.setEnd_numero(request.getParameter("txtNum"));
@@ -115,7 +117,6 @@ public class atualizar extends HttpServlet {
         mil.setFone_referencia(request.getParameter("txtContFamiliar").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
 
         //Dados de Acesso
-
         mil.setSenha(request.getParameter("txtSenha"));
         HttpSession sessao = request.getSession();
         
@@ -123,7 +124,7 @@ public class atualizar extends HttpServlet {
             MilitarDAO milDAO = new MilitarDAO();
             milDAO.atualizar(mil);
         }
-        System.out.println("aaaa");
+        
         
         RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/Atualizacao.jsp");
         despachante.forward(request, response);

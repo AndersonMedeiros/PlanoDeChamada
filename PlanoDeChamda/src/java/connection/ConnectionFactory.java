@@ -28,7 +28,7 @@ public class ConnectionFactory {
     //AM10
     private static final String USER="root";
     private static final String SENHA="am10";
-    private static final String DATABASE = "cigs_generico";
+    private static final String DATABASE = "cigs";
     private static final String DRIVER_CONEXAO = "com.mysql.jdbc.Driver";
     private static final String STR_CONEXAO = "jdbc:mysql://localhost:3306/";
     

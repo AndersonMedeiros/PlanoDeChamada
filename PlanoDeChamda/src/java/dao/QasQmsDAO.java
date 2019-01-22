@@ -17,8 +17,8 @@ import java.util.ArrayList;
  * @author ander
  */
 public class QasQmsDAO {
-    private final String GETQASQMSBYID = "SELECT Arma_id, Arma_nome FROM qas_qms WHERE Arma_id=?";
-    private final String GETARMAS = "SELECT * FROM qas_qms";
+    private final String GETQASQMSBYID = "SELECT id, nome FROM qasqms WHERE id=?";
+    private final String GETARMAS = "SELECT * FROM qasqms";
     
     Connection conn;
     PreparedStatement pstm;
@@ -36,8 +36,8 @@ public class QasQmsDAO {
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               arma.setId(rs.getInt("Arma_id"));
-               arma.setDesc(rs.getString("Arma_nome"));
+               arma.setId(rs.getInt("id"));
+               arma.setDesc(rs.getString("nome"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(Exception e){
@@ -61,8 +61,8 @@ public class QasQmsDAO {
         
             while (rs.next()) {
                QasQms arma = new QasQms();
-               arma.setId(rs.getInt("Arma_id"));
-               arma.setDesc(rs.getString("Arma_nome"));
+               arma.setId(rs.getInt("id"));
+               arma.setDesc(rs.getString("nome"));
                armas.add(arma);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);

@@ -11,7 +11,16 @@ package bean;
  * @author ander
  */
 public class Bairro {
-    int id, id_cid;
+    int id, id_cid, id_est;
+
+    public int getId_est() {
+        return id_est;
+    }
+
+    public void setId_est(int id_est) {
+        this.id_est = id_est;
+    }
+    String nome,zona;
 
     public int getId_cid() {
         return id_cid;
@@ -20,7 +29,7 @@ public class Bairro {
     public void setId_cid(int id_cid) {
         this.id_cid = id_cid;
     }
-    String nome, zona;
+    
 
     public int getId() {
         return id;
