@@ -123,6 +123,8 @@ public class atualizar extends HttpServlet {
         if(sessao.getAttribute("militarAutenticado") != null){
             MilitarDAO milDAO = new MilitarDAO();
             milDAO.atualizar(mil);
+        }else{
+            response.sendRedirect("/PlanoDeChamda/erro.jsp?x=sessao-encerrada");
         }
         
         

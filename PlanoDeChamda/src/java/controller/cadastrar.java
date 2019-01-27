@@ -5,8 +5,16 @@
  */
 package controller;
 
+import bean.Endereco;
+import bean.Fone;
+import bean.Habilitacao;
 import bean.Militar;
+import bean.TituloEleitor;
+import dao.EnderecoDAO;
+import dao.FoneDAO;
+import dao.HabilitacaoDAO;
 import dao.MilitarDAO;
+import dao.TituloEleitorDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -74,65 +82,80 @@ public class cadastrar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Militar mil = new Militar();
+        //Endereço
+        Endereco end = new Endereco();
+        end.setCep(request.getParameter("txtCep").replace("-", ""));
+        end.setLogradouro(request.getParameter("txtLogradouro"));
+        end.setComplemento(request.getParameter("txtComplemento"));
+        end.setId_bairro(Integer.parseInt(request.getParameter("txtBairro")));
+        EnderecoDAO endDAO = new EnderecoDAO();
+        endDAO.inserir(end);
         
-        //Dados Pessoais
-        mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec")));
-        mil.setId_post_grad(Integer.parseInt(request.getParameter("txtPostGrad")));
-        mil.setId_qas_qms(Integer.parseInt(request.getParameter("txtQasQms")));
-        mil.setId_sit(Integer.parseInt(request.getParameter("txtSit")));
+        //Titulo Eleitor
+        TituloEleitor teleitor = new TituloEleitor();
+        teleitor.setRegistro(request.getParameter("txtTeleitorRegistro").replace(" ", ""));
+        teleitor.setSecao(request.getParameter("txtTeleitorSecao"));
+        teleitor.setZona(request.getParameter("txtTeleitorZona"));
+        TituloEleitorDAO teleitorDAO = new TituloEleitorDAO();
+        teleitorDAO.inserir(teleitor);
+        
+        //Habilitação
+        Habilitacao cnh = new Habilitacao();
+        cnh.setNum(request.getParameter("txtCnhNum"));
+        cnh.setCat(request.getParameter("txtCnhCat"));
+        HabilitacaoDAO cnhDAO = new HabilitacaoDAO();
+        cnhDAO.inserir(cnh);
+        
+        //Fones
+        Fone fone1 = new Fone();
+        FoneDAO foneDAO = new FoneDAO();
+        fone1.setNum(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
+        fone1.setIdentidade_mil(request.getParameter("txtIdentidade").replace("-", ""));
+        foneDAO.inserir(fone1);
+        Fone fone2 = new Fone();
+        fone2.setNum(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
+        fone2.setIdentidade_mil(request.getParameter("txtIdentidade").replace("-", ""));
+        foneDAO.inserir(fone2);
+
+        //Militar
+        Militar mil = new Militar();
+        mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));
         mil.setNome(request.getParameter("txtNomeComp"));
         mil.setNome_guerra(request.getParameter("txtNomeGuerra"));
-        mil.setSexo(request.getParameter("txtSexo"));
-        mil.setNaturalidade(request.getParameter("txtNaturalidade"));
-        mil.setEst_civil(request.getParameter("txtEstCivil"));
-        mil.setDt_praca(request.getParameter("txtDataPraca").replace("/", "").replace("-", ""));
-        mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));
         mil.setCpf(request.getParameter("txtCpf").replace(".", "").replace("-", ""));
         mil.setPreccp(request.getParameter("txtPreccp"));
-        mil.setTitulo_num(request.getParameter("txtTituloEleitor").replace(" ", ""));
-        mil.setTitulo_zona(request.getParameter("txtZona"));
-        mil.setTitulo_secao(request.getParameter("txtSecao"));
+        mil.setSexo(request.getParameter("txtSexo"));
         mil.setData_nasc(request.getParameter("txtDataNasc").replace("/", "").replace("-", ""));
-        mil.setCnh_num(request.getParameter("txtCnhNum"));
-        mil.setCnh_cat(request.getParameter("txtCnhCat"));
+        mil.setData_praca(request.getParameter("txtDataPraca").replace("/", "").replace("-", ""));
         mil.setPai(request.getParameter("txtPai"));
         mil.setMae(request.getParameter("txtMae"));
-        mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
-
-        //Dados de Endereco
-        mil.setEnd_cep(request.getParameter("txtCep").replace("-", ""));
-        mil.setId_est(Integer.parseInt(request.getParameter("txtEstado")));
-        mil.setId_cid(Integer.parseInt(request.getParameter("txtCidade")));
-        
-        
-        mil.setId_bairro(Integer.parseInt(request.getParameter("txtBairro")));
-     
-        mil.setEnd_logradouro(request.getParameter("txtLogradouro"));
-        mil.setEnd_numero(request.getParameter("txtNum"));
-        mil.setEnd_complemento(request.getParameter("txtComplemento"));
-
-        //Dados de Contato
-        mil.setFone1(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-        mil.setFone2(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
         mil.setEmail(request.getParameter("txtEmail"));
-        mil.setCont_referencia(request.getParameter("txtFamiliar"));
-        mil.setFone_referencia(request.getParameter("txtContFamiliar").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-
-        //Dados de Acesso
+        mil.setNome_referencia(request.getParameter("txtNomeReferencia"));
+        mil.setFone_referencia(request.getParameter("txtFoneReferencia").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
+        mil.setNaturalidade(request.getParameter("txtNaturalidade"));
+        mil.setEnd_num(request.getParameter("txtNum"));
         mil.setSenha(request.getParameter("txtSenha"));
-       
+        
+        mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
+        mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec")));
+        mil.setId_pg(Integer.parseInt(request.getParameter("txtPostGrad")));
+        mil.setId_qq(Integer.parseInt(request.getParameter("txtQasQms")));
+        mil.setId_ec(Integer.parseInt(request.getParameter("EstCivil")));
+        mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
+        mil.setId_sit(Integer.parseInt(request.getParameter("txtSit")));
+        mil.setId_cnh(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat()));
+        mil.setId_teleitor(teleitorDAO.getIdTituloEleitor(teleitor.getRegistro(), teleitor.getZona(), teleitor.getSecao()));
         MilitarDAO milDAO = new MilitarDAO();
         
         if(milDAO.validarCPF(request.getParameter("txtCpf").replace(".", "").replace("-", ""))){
-            response.sendRedirect("/PlanoDeChamda/erro.jsp?x=login-duplicado");
+            response.sendRedirect("/PlanoDeChamda/erro.jsp?x=cadastro-duplicado");
         }
         else if(milDAO.validarIDENTIDADE(request.getParameter("txtIdentidade").replace("-", ""))){
-            response.sendRedirect("/PlanoDeChamda/erro.jsp?x=login-duplicado");
+            response.sendRedirect("/PlanoDeChamda/erro.jsp?x=cadastro-duplicado");
         }
         else{
             milDAO.inserir(mil);
-            RequestDispatcher despachante = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher despachante = getServletContext().getRequestDispatcher("/index.jsp?x=cadastro-sucesso");
             despachante.forward(request, response);
         }
         
