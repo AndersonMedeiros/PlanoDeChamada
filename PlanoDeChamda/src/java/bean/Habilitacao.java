@@ -7,11 +7,11 @@ package bean;
 
 /**
  *
- * @author de_paula
+ * @author ander
  */
-public class Cidade {
-    int id, id_est;
-    String nome;
+public class Habilitacao {
+    int id;
+    String num, cat;
 
     public int getId() {
         return id;
@@ -21,19 +21,21 @@ public class Cidade {
         this.id = id;
     }
 
-    public int getId_est() {
-        return id_est;
+    public String getNum() {
+        return num;
     }
 
-    public void setId_est(int id_est) {
-        this.id_est = id_est;
+    public void setNum(String num) {
+        this.num = num;
     }
 
-    public String getNome() {
-        return nome;
+    public String getCat() {
+        return cat;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }  
+    public void setCat(String cat) {
+        this.cat = cat;
+    }
+    
+    
 }

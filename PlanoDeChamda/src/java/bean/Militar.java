@@ -10,110 +10,16 @@ package bean;
  * @author ander
  */
 public class Militar {
-    int id;
-    int id_post_grad, id_div_sec, id_sit, id_bairro, id_qas_qms, id_esc, id_cid, id_est;
-
+    String identidade, nome, nome_guerra, cpf, preccp, sexo, data_nasc, data_praca, pai, mae,
+           email, nome_referencia, fone_referencia, naturalidade, tipo_acesso, end_num, senha;
+    int id, id_end, id_div_sec, id_pg, id_qq, id_ec, id_esc, id_sit, id_cnh, id_teleitor;
     
-    String nome, nome_guerra, senha, sexo, naturalidade, pai, est_civil, mae, data_nasc, email, cnh_cat, 
-           end_logradouro, end_numero, end_complemento, fone1, fone2, cont_referencia, fone_referencia,
-           dt_praca, end_cep, identidade, cpf, cnh_num, preccp, titulo_num, titulo_zona, titulo_secao, tipo_acesso; 
-
-    public String getTitulo_num() {
-        return titulo_num;
+    public String getEnd_num() {
+        return end_num;
     }
 
-    public void setTitulo_num(String titulo_num) {
-        this.titulo_num = titulo_num;
-    }
-
-    public String getTitulo_zona() {
-        return titulo_zona;
-    }
-
-    public void setTitulo_zona(String titulo_zona) {
-        this.titulo_zona = titulo_zona;
-    }
-
-    public String getTitulo_secao() {
-        return titulo_secao;
-    }
-
-    public void setTitulo_secao(String titulo_secao) {
-        this.titulo_secao = titulo_secao;
-    }
-
-    public int getId_est() {
-        return id_est;
-    }
-
-    public void setId_est(int id_est) {
-        this.id_est = id_est;
-    }
-    public int getId_cid() {
-        return id_cid;
-    }
-
-    public void setId_cid(int id_cid) {
-        this.id_cid = id_cid;
-    }
-
-    public String getTipo_acesso() {
-        return tipo_acesso;
-    }
-
-    public void setTipo_acesso(String tipo_acesso) {
-        this.tipo_acesso = tipo_acesso;
-    }
-
-
-
-    public String getEnd_logradouro() {
-        return end_logradouro;
-    }
-
-    public void setEnd_logradouro(String end_logradouro) {
-        this.end_logradouro = end_logradouro;
-    }
-
-    public String getEnd_numero() {
-        return end_numero;
-    }
-
-    public void setEnd_numero(String end_numero) {
-        this.end_numero = end_numero;
-    }
-
-    public String getEnd_complemento() {
-        return end_complemento;
-    }
-
-    public void setEnd_complemento(String end_complemento) {
-        this.end_complemento = end_complemento;
-    }
-
-    public String getEnd_cep() {
-        return end_cep;
-    }
-
-    public void setEnd_cep(String end_cep) {
-        this.end_cep = end_cep;
-    }
-    
-    public String getNome_guerra() {
-        return nome_guerra;
-    }
-
-    public void setNome_guerra(String nome_guerra) {
-        this.nome_guerra = nome_guerra;
-    }
-
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setEnd_num(String end_num) {
+        this.end_num = end_num;
     }
 
     public int getId() {
@@ -124,84 +30,28 @@ public class Militar {
         this.id = id;
     }
 
+    public int getId_cnh() {
+        return id_cnh;
+    }
+
+    public void setId_cnh(int id_cnh) {
+        this.id_cnh = id_cnh;
+    }
+
+    public int getId_teleitor() {
+        return id_teleitor;
+    }
+
+    public void setId_teleitor(int id_teleitor) {
+        this.id_teleitor = id_teleitor;
+    }
+
     public String getIdentidade() {
         return identidade;
     }
 
     public void setIdentidade(String identidade) {
         this.identidade = identidade;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getCnh_num() {
-        return cnh_num;
-    }
-
-    public void setCnh_num(String cnh_num) {
-        this.cnh_num = cnh_num;
-    }
-
-    public String getPreccp() {
-        return preccp;
-    }
-
-    public void setPreccp(String preccp) {
-        this.preccp = preccp;
-    }
-
-    public int getId_post_grad() {
-        return id_post_grad;
-    }
-
-    public void setId_post_grad(int id_post_grad) {
-        this.id_post_grad = id_post_grad;
-    }
-
-    public int getId_div_sec() {
-        return id_div_sec;
-    }
-
-    public void setId_div_sec(int id_div_sec) {
-        this.id_div_sec = id_div_sec;
-    }
-
-    public int getId_sit() {
-        return id_sit;
-    }
-
-    public void setId_sit(int id_sit) {
-        this.id_sit = id_sit;
-    }
-
-    public int getId_bairro() {
-        return id_bairro;
-    }
-
-    public void setId_bairro(int id_bairro) {
-        this.id_bairro = id_bairro;
-    }
-
-    public int getId_qas_qms() {
-        return id_qas_qms;
-    }
-
-    public void setId_qas_qms(int id_qas_qms) {
-        this.id_qas_qms = id_qas_qms;
-    }
-
-    public int getId_esc() {
-        return id_esc;
-    }
-
-    public void setId_esc(int id_esc) {
-        this.id_esc = id_esc;
     }
 
     public String getNome() {
@@ -212,44 +62,36 @@ public class Militar {
         this.nome = nome;
     }
 
+    public String getNome_guerra() {
+        return nome_guerra;
+    }
+
+    public void setNome_guerra(String nome_guerra) {
+        this.nome_guerra = nome_guerra;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getPreccp() {
+        return preccp;
+    }
+
+    public void setPreccp(String preccp) {
+        this.preccp = preccp;
+    }
+
     public String getSexo() {
         return sexo;
     }
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
-    }
-
-    public String getNaturalidade() {
-        return naturalidade;
-    }
-
-    public void setNaturalidade(String naturalidade) {
-        this.naturalidade = naturalidade;
-    }
-
-    public String getPai() {
-        return pai;
-    }
-
-    public void setPai(String pai) {
-        this.pai = pai;
-    }
-
-    public String getEst_civil() {
-        return est_civil;
-    }
-
-    public void setEst_civil(String est_civil) {
-        this.est_civil = est_civil;
-    }
-
-    public String getMae() {
-        return mae;
-    }
-
-    public void setMae(String mae) {
-        this.mae = mae;
     }
 
     public String getData_nasc() {
@@ -260,6 +102,30 @@ public class Militar {
         this.data_nasc = data_nasc;
     }
 
+    public String getData_praca() {
+        return data_praca;
+    }
+
+    public void setData_praca(String data_praca) {
+        this.data_praca = data_praca;
+    }
+
+    public String getPai() {
+        return pai;
+    }
+
+    public void setPai(String pai) {
+        this.pai = pai;
+    }
+
+    public String getMae() {
+        return mae;
+    }
+
+    public void setMae(String mae) {
+        this.mae = mae;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -268,36 +134,12 @@ public class Militar {
         this.email = email;
     }
 
-    public String getCnh_cat() {
-        return cnh_cat;
+    public String getNome_referencia() {
+        return nome_referencia;
     }
 
-    public void setCnh_cat(String cnh_cat) {
-        this.cnh_cat = cnh_cat;
-    }
-
-    public String getFone1() {
-        return fone1;
-    }
-
-    public void setFone1(String fone1) {
-        this.fone1 = fone1;
-    }
-
-    public String getFone2() {
-        return fone2;
-    }
-
-    public void setFone2(String fone2) {
-        this.fone2 = fone2;
-    }
-
-    public String getCont_referencia() {
-        return cont_referencia;
-    }
-
-    public void setCont_referencia(String cont_referencia) {
-        this.cont_referencia = cont_referencia;
+    public void setNome_referencia(String nome_referencia) {
+        this.nome_referencia = nome_referencia;
     }
 
     public String getFone_referencia() {
@@ -308,11 +150,85 @@ public class Militar {
         this.fone_referencia = fone_referencia;
     }
 
-    public String getDt_praca() {
-        return dt_praca;
+    public String getNaturalidade() {
+        return naturalidade;
     }
 
-    public void setDt_praca(String dt_praca) {
-        this.dt_praca = dt_praca;
+    public void setNaturalidade(String naturalidade) {
+        this.naturalidade = naturalidade;
     }
+
+    public String getTipo_acesso() {
+        return tipo_acesso;
+    }
+
+    public void setTipo_acesso(String tipo_acesso) {
+        this.tipo_acesso = tipo_acesso;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public int getId_end() {
+        return id_end;
+    }
+
+    public void setId_end(int id_end) {
+        this.id_end = id_end;
+    }
+
+    public int getId_div_sec() {
+        return id_div_sec;
+    }
+
+    public void setId_div_sec(int id_div_sec) {
+        this.id_div_sec = id_div_sec;
+    }
+
+    public int getId_pg() {
+        return id_pg;
+    }
+
+    public void setId_pg(int id_pg) {
+        this.id_pg = id_pg;
+    }
+
+    public int getId_qq() {
+        return id_qq;
+    }
+
+    public void setId_qq(int id_qq) {
+        this.id_qq = id_qq;
+    }
+
+    public int getId_ec() {
+        return id_ec;
+    }
+
+    public void setId_ec(int id_ec) {
+        this.id_ec = id_ec;
+    }
+
+    public int getId_esc() {
+        return id_esc;
+    }
+
+    public void setId_esc(int id_esc) {
+        this.id_esc = id_esc;
+    }
+
+    public int getId_sit() {
+        return id_sit;
+    }
+
+    public void setId_sit(int id_sit) {
+        this.id_sit = id_sit;
+    }
+
+   
 }

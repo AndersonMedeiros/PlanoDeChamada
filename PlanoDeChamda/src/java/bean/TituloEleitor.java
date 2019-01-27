@@ -10,8 +10,9 @@ package bean;
  * @author ander
  */
 public class TituloEleitor {
-    int id, registro, zona, secao, id_mil;
-
+    int id;
+    String registro, secao, zona;
+    
     public int getId() {
         return id;
     }
@@ -19,38 +20,29 @@ public class TituloEleitor {
     public void setId(int id) {
         this.id = id;
     }
+  
 
-    public int getRegistro() {
+    public String getRegistro() {
         return registro;
     }
 
-    public void setRegistro(int registro) {
+    public void setRegistro(String registro) {
         this.registro = registro;
     }
 
-    public int getZona() {
-        return zona;
-    }
-
-    public void setZona(int zona) {
-        this.zona = zona;
-    }
-
-    public int getSecao() {
+    public String getSecao() {
         return secao;
     }
 
-    public void setSecao(int secao) {
+    public void setSecao(String secao) {
         this.secao = secao;
     }
 
-    public int getId_mil() {
-        return id_mil;
+    public String getZona() {
+        return zona;
     }
 
-    public void setId_mil(int id_mil) {
-        this.id_mil = id_mil;
+    public void setZona(String zona) {
+        this.zona = zona;
     }
-    
-    
 }

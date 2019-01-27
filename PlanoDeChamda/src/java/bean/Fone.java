@@ -9,9 +9,17 @@ package bean;
  *
  * @author ander
  */
-public class Estado {
+public class Fone {
     int id;
-    String nome, uf;
+    String num, identidade_mil;
+    
+    public String getIdentidade_mil() {
+        return identidade_mil;
+    }
+
+    public void setIdentidade_mil(String identidade_mil) {
+        this.identidade_mil = identidade_mil;
+    }
 
     public int getId() {
         return id;
@@ -21,19 +29,14 @@ public class Estado {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNum() {
+        return num;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNum(String num) {
+        this.num = num;
     }
 
-    public String getUf() {
-        return uf;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
+ 
+    
 }

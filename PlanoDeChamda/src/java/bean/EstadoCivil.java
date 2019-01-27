@@ -7,10 +7,10 @@ package bean;
 
 /**
  *
- * @author de_paula
+ * @author ander
  */
-public class Cidade {
-    int id, id_est;
+public class EstadoCivil {
+    int id;
     String nome;
 
     public int getId() {
@@ -21,19 +21,11 @@ public class Cidade {
         this.id = id;
     }
 
-    public int getId_est() {
-        return id_est;
-    }
-
-    public void setId_est(int id_est) {
-        this.id_est = id_est;
-    }
-
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-    }  
+    }
 }
