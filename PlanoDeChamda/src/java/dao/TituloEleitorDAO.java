@@ -5,26 +5,50 @@
  */
 package dao;
 
-import bean.Bairro;
-import bean.QasQms;
 import bean.TituloEleitor;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author ander
  */
 public class TituloEleitorDAO {
-    private final String GETTITELEITORBYID = "SELECT Tit_eleitor_id, Tit_eleitor_registro, "
-            + "Tit_eleitor_zona, Tit_eleitor_secao, Militar_mil_id FROM tituloeleitor WHERE Tit_eleitor_id=?";
+    private final String GETTITELEITORBYID = "SELECT * FROM TituloEleitor WHERE teleitor_registro=?";
+    private final String INSERT = "INSERT INTO TituloEleitor(teleitor_registro,teleitor_zona,teleitor_secao) VALUES(?,?,?);";
+    private final String GETID = "SELECT teleitor_id FROM TituloEleitor WHERE teleitor_registro=? AND teleitor_zona=? AND teleitor_secao=?";
     
-    Connection conn;
-    PreparedStatement pstm;
+    Connection conn = null;
+    PreparedStatement pstm = null;
+    ResultSet rs = null;
     
-    public TituloEleitor getTituloEleitor(int id){
+    public void inserir(TituloEleitor teleitor){
+        if (teleitor != null) {
+            try {
+                conn = ConnectionFactory.getConnection();
+                
+                pstm = conn.prepareStatement(INSERT);
+                
+                pstm.setString(1, teleitor.getRegistro());
+                pstm.setString(2, teleitor.getZona());
+                pstm.setString(3, teleitor.getSecao());//
+                              
+                pstm.execute();
+                
+                ConnectionFactory.fechaConexao(conn, pstm);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage());  
+            }
+        } else {
+            throw new RuntimeException();
+        }
+    }
+    
+    public TituloEleitor getTituloEleitor(int registro){
         conn = null;
         pstm = null;
         ResultSet rs = null;
@@ -33,21 +57,39 @@ public class TituloEleitorDAO {
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETTITELEITORBYID);
-            pstm.setInt(1, id);
+            pstm.setInt(1, registro);
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               te.setId(rs.getInt("Tit_eleitor_id"));
-               te.setRegistro(rs.getInt("Tit_eleitor_registro"));
-               te.setZona(rs.getInt("Tit_eleitor_zona"));
-               te.setSecao(rs.getInt("Tit_eleitor_secao"));
-               te.setId_mil(rs.getInt("Militar_mil_id"));
+               te.setRegistro(rs.getString("teleitor_registro"));
+               te.setSecao(rs.getString("teleitor_secao"));
+               te.setZona(rs.getString("teleitor_zona"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return te;
+    }
+    
+    public int getIdTituloEleitor(String reg, String zona, String secao){ 
+        int teleitor_id=0;
+        try{
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETID);
+            pstm.setString(1, reg);
+            pstm.setString(2, zona);
+            pstm.setString(3, secao);
+            
+            rs = pstm.executeQuery();
+        
+            while (rs.next()) {
+               teleitor_id = Integer.parseInt(String.valueOf(rs.getInt("teleitor_id")));
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        }catch(SQLException ex){
+            throw new RuntimeException(ex.getMessage());
+        }
+        return teleitor_id;
     }
 }

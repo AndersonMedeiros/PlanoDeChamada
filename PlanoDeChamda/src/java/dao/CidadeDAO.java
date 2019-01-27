@@ -11,6 +11,7 @@ import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -18,8 +19,8 @@ import java.util.ArrayList;
  * @author de_paula
  */
 public class CidadeDAO {
-    private final String GETCIDADEBYID = "SELECT * FROM cidade WHERE id=?";
-    private final String GETCIDADES = "SELECT * FROM cidade";
+    private final String GETCIDADEBYID = "SELECT * FROM Cidade WHERE cid_id=?";
+    private final String GETCIDADES = "SELECT * FROM Cidade";
     
     Connection conn;
     PreparedStatement pstm;
@@ -37,12 +38,12 @@ public class CidadeDAO {
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               c.setId(rs.getInt("id"));
-               c.setNome(rs.getString("nome"));
+               c.setId(rs.getInt("cid_id"));
+               c.setNome(rs.getString("cid_nome"));
+               c.setId_est(rs.getInt("cid_estado_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return c;
@@ -53,7 +54,7 @@ public class CidadeDAO {
         pstm = null;
         ResultSet rs = null;
         
-        ArrayList<Cidade> cidades = new ArrayList<Cidade>();
+        ArrayList<Cidade> cidades = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETCIDADES);
@@ -62,14 +63,13 @@ public class CidadeDAO {
         
             while (rs.next()) {
                Cidade c = new Cidade();
-               c.setId(rs.getInt("id"));
-               c.setNome(rs.getString("nome"));
-               
+               c.setId(rs.getInt("cid_id"));
+               c.setNome(rs.getString("cid_nome"));
+               c.setId_est(rs.getInt("cid_estado_id"));
                cidades.add(c);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return cidades;
@@ -80,7 +80,7 @@ public class CidadeDAO {
         pstm = null;
         ResultSet rs = null;
         
-        ArrayList<Cidade> cidades = new ArrayList<Cidade>();
+        ArrayList<Cidade> cidades = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETCIDADEBYID);
@@ -90,13 +90,13 @@ public class CidadeDAO {
         
             while (rs.next()) {
                Cidade c = new Cidade();
-               c.setId(rs.getInt("id"));
-               c.setNome(rs.getString("nome"));
+               c.setId(rs.getInt("cid_id"));
+               c.setNome(rs.getString("cid_nome"));
+               c.setId_est(rs.getInt("cid_estado_id"));
                cidades.add(c);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return cidades;

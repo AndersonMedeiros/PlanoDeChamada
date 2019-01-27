@@ -11,13 +11,14 @@ import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author ander
  */
 public class SituacaoDAO {
-    private final String GETSITBYID = "SELECT Sit_id, Sit_nome FROM situacao WHERE Sit_id=?";
+    private final String GETSITBYID = "SELECT * FROM Situacao WHERE Sit_id=?";
     
     Connection conn;
     PreparedStatement pstm;
@@ -39,8 +40,7 @@ public class SituacaoDAO {
                sit.setNome(rs.getString("Sit_nome"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return sit;

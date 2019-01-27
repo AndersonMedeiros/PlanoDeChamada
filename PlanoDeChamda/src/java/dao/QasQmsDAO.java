@@ -10,6 +10,7 @@ import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -17,8 +18,8 @@ import java.util.ArrayList;
  * @author ander
  */
 public class QasQmsDAO {
-    private final String GETQASQMSBYID = "SELECT id, nome FROM qasqms WHERE id=?";
-    private final String GETARMAS = "SELECT * FROM qasqms";
+    private final String GETQASQMSBYID = "SELECT * FROM QAS_QMS WHERE Arma_id=?";
+    private final String GETARMAS = "SELECT * FROM QAS_QMS";
     
     Connection conn;
     PreparedStatement pstm;
@@ -36,12 +37,11 @@ public class QasQmsDAO {
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               arma.setId(rs.getInt("id"));
-               arma.setDesc(rs.getString("nome"));
+               arma.setId(rs.getInt("Arma_id"));
+               arma.setDesc(rs.getString("Arma_desc"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return arma;
@@ -52,7 +52,7 @@ public class QasQmsDAO {
         pstm = null;
         ResultSet rs = null;
         
-        ArrayList<QasQms> armas = new ArrayList<QasQms>();
+        ArrayList<QasQms> armas = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETARMAS);
@@ -61,13 +61,12 @@ public class QasQmsDAO {
         
             while (rs.next()) {
                QasQms arma = new QasQms();
-               arma.setId(rs.getInt("id"));
-               arma.setDesc(rs.getString("nome"));
+               arma.setId(rs.getInt("Arma_id"));
+               arma.setDesc(rs.getString("Arma_desc"));
                armas.add(arma);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return armas;

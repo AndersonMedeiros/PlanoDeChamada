@@ -10,6 +10,7 @@ import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -17,8 +18,8 @@ import java.util.ArrayList;
  * @author ander
  */
 public class DivisaoSecaoDAO {
-    private final String GETDIVSECBYID = "SELECT id, nome FROM divisaodecao WHERE id=?";
-    private final String GETDIVSECS = "SELECT * FROM divisaosecao";
+    private final String GETDIVSECBYID = "SELECT * FROM DivisaoSecao WHERE ds_id=?";
+    private final String GETDIVSECS = "SELECT * FROM DivisaoSecao";
     
     Connection conn;
     PreparedStatement pstm;
@@ -36,12 +37,11 @@ public class DivisaoSecaoDAO {
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               ds.setId(rs.getInt("id"));
-               ds.setNome(rs.getString("nome"));
+               ds.setId(rs.getInt("ds_id"));
+               ds.setNome(rs.getString("ds_nome"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return ds;
@@ -52,7 +52,7 @@ public class DivisaoSecaoDAO {
         pstm = null;
         ResultSet rs = null;
         
-        ArrayList<DivisaoSecao> dss = new ArrayList<DivisaoSecao>();
+        ArrayList<DivisaoSecao> dss = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETDIVSECS);
@@ -61,13 +61,12 @@ public class DivisaoSecaoDAO {
         
             while (rs.next()) {
                DivisaoSecao ds = new DivisaoSecao();
-               ds.setId(rs.getInt("id"));
-               ds.setNome(rs.getString("nome"));
+               ds.setId(rs.getInt("ds_id"));
+               ds.setNome(rs.getString("ds_nome"));
                dss.add(ds);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return dss;

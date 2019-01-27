@@ -5,8 +5,8 @@
  */
 package dao;
 
-import bean.Cidade;
 import bean.Estado;
+import bean.EstadoCivil;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,87 +18,84 @@ import java.util.ArrayList;
  *
  * @author ander
  */
-public class EstadoDAO {
-    private final String GETESTADOBYID = "SELECT * FROM estados WHERE estado_id=?";
-    private final String GETESTADOS = "SELECT * FROM estados";
+public class EstadoCivilDAO {
+    private final String GETESTCIVILBYID = "SELECT * FROM estado_civil WHERE estado_civil_id=?";
+    private final String GETESTCIVIS = "SELECT * FROM estado_civil";
     
     Connection conn;
     PreparedStatement pstm;
       
-    public Estado getEstadoById(int id){
+    public EstadoCivil getEstadoCivilById(int id){
         conn = null;
         pstm = null;
         ResultSet rs = null;
-        Estado e = new Estado();
+        EstadoCivil ec = new EstadoCivil();
         
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETESTADOBYID);
+            pstm = conn.prepareStatement(GETESTCIVILBYID);
             pstm.setInt(1, id);
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               e.setId(rs.getInt("estado_id"));
-               e.setNome(rs.getString("estado_nome"));
-               e.setUf(rs.getString("estado_uf"));
+               ec.setId(rs.getInt("estado_civil_id"));
+               ec.setNome(rs.getString("estado_civil_nome"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException ex){
             throw new RuntimeException(ex.getMessage());
         }
-        return e;
+        return ec;
     }
     
-    public ArrayList<Estado> getEstados(){
+    public ArrayList<EstadoCivil> getEstadosCivis(){
         conn = null;
         pstm = null;
         ResultSet rs = null;
         
-        ArrayList<Estado> estados = new ArrayList<Estado>();
+        ArrayList<EstadoCivil> estcivis = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETESTADOS);
+            pstm = conn.prepareStatement(GETESTCIVIS);
             
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               Estado e = new Estado();
-               e.setId(rs.getInt("estado_id"));
-               e.setNome(rs.getString("estado_nome"));
-               e.setUf(rs.getString("estado_uf"));
-               estados.add(e);
+               EstadoCivil ec = new EstadoCivil();
+               ec.setId(rs.getInt("estado_civil_id"));
+               ec.setNome(rs.getString("estado_civil_nome"));
+               estcivis.add(ec);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
-        return estados;
+        return estcivis;
     }
     
-    public ArrayList<Estado> getEstadosById(int id){
+    public ArrayList<EstadoCivil> getEstadosCivisById(int id){
         conn = null;
         pstm = null;
         ResultSet rs = null;
         
-        ArrayList<Estado> estados = new ArrayList<>();
+        ArrayList<EstadoCivil> estcivis = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETESTADOBYID);
+            pstm = conn.prepareStatement(GETESTCIVILBYID);
             pstm.setInt(1, id);
             
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               Estado e = new Estado();
-               e.setId(rs.getInt("estado_id"));
-               e.setNome(rs.getString("estado_nome"));
-               e.setUf(rs.getString("estado_uf"));
-               estados.add(e);
+               EstadoCivil ec = new EstadoCivil();
+               ec.setId(rs.getInt("estado_civil_id"));
+               ec.setNome(rs.getString("estado_civil_nome"));
+               estcivis.add(ec);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
-        return estados;
+        return estcivis;
     }
 }

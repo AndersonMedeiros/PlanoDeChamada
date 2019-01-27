@@ -11,6 +11,7 @@ import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -18,8 +19,8 @@ import java.util.ArrayList;
  * @author ander
  */
 public class EscolaridadeDAO {
-    private final String GETESCBYID = "SELECT id, nome FROM escolaridade WHERE id=?";
-    private final String GETESCS = "SELECT * FROM escolaridade";
+    private final String GETESCBYID = "SELECT * FROM Escolaridade WHERE Esc_id=?";
+    private final String GETESCS = "SELECT * FROM Escolaridade";
     
     Connection conn;
     PreparedStatement pstm;
@@ -37,12 +38,11 @@ public class EscolaridadeDAO {
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               esc.setId(rs.getInt("id"));
-               esc.setNome(rs.getString("nome"));
+               esc.setId(rs.getInt("Esc_id"));
+               esc.setNome(rs.getString("Esc_nome"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return esc;
@@ -62,13 +62,12 @@ public class EscolaridadeDAO {
         
             while (rs.next()) {
                Escolaridade esc = new Escolaridade();
-               esc.setId(rs.getInt("id"));
-               esc.setNome(rs.getString("nome"));
+               esc.setId(rs.getInt("Esc_id"));
+               esc.setNome(rs.getString("Esc_nome"));
                escs.add(esc);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
         return escs;
