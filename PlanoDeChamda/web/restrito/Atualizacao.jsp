@@ -250,18 +250,18 @@
                                                 "</div>"+
                                                 
                                                 "<div class=\"form-group col-md-4\">"+
-                                                "<label id=\"lblTituloEleitor\" name=\"lblTituloEleitor\" for=\"lblTituloEleitor\">Titulo Eleitor: </label><b class=\"obg\"> *</b>"+
-                                                "<input class=\"form-control titulo_eleitor\"  type=\"text\" name=\"txtTituloEleitor\" maxlength=\"12\" id=\"titulo_eleitor\" value=\""+mil.getTitulo_num()+"\" onblur=\"return validarTITULO();\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                "<label id=\"lblTeleitorRegistro\" name=\"lblTeleitorRegistro\" for=\"lblTeleitorRegistro\">Titulo Eleitor: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control titulo_eleitor\"  type=\"text\" name=\"txtTeleitorRegistro\" maxlength=\"12\" id=\"titulo_eleitor\" value=\""+mil.getTitulo_num()+"\" onblur=\"return validarTITULO();\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>"+
                                                         
                                                 "<div class=\"form-group col-md-2\">"+
-                                                "<label id=\"lblZona\" name=\"lblZona\" for=\"lblZona\">Zona: </label><b class=\"obg\"> *</b>"+
-                                                "<input class=\"form-control\"  type=\"text\" name=\"txtZona\" maxlength=\"3\" value=\""+mil.getTitulo_zona()+"\" onblur=\"return validarZONA();\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                "<label id=\"lblTeleitorZona\" name=\"lblTeleitorZona\" for=\"lblTeleitorZona\">Zona: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control\"  type=\"text\" name=\"txtTeleitorZona\" maxlength=\"3\" value=\""+mil.getTitulo_zona()+"\" onblur=\"return validarZONA();\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>"+
                                                         
                                                 "<div class=\"form-group col-md-2\">"+
-                                                "<label id=\"lblSecao\" name=\"lblSecao\" for=\"lblSecao\">Seção: </label><b class=\"obg\"> *</b>"+
-                                                "<input class=\"form-control\"  type=\"text\" name=\"txtSecao\" maxlength=\"4\" value=\""+mil.getTitulo_secao()+"\" onblur=\"return validarSECAO();\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                "<label id=\"lblTeleitorSecao\" name=\"lblTeleitorSecao\" for=\"lblTeleitorSecao\">Seção: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control\"  type=\"text\" name=\"txtTeleitorSecao\" maxlength=\"4\" value=\""+mil.getTitulo_secao()+"\" onblur=\"return validarSECAO();\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>"+
 
                                                 "<div class=\"form-group col-md-4\">"+
@@ -441,13 +441,13 @@
                                                 "</div>"+
 
                                                 "<div class=\"form-group col-md-6\">"+
-                                                "<label id=\"lblFamiliar\" name=\"lblFamiliar\" for=\"lblFamiliar\">Familiar de Contato: </label><b class=\"obg\"> *</b>"+
-                                                "<input class=\"form-control\" type=\"text\" name=\"txtFamiliar\" value=\""+mil.getCont_referencia()+"\" onchange=\"borda_Familiar()\"/>"+
+                                                "<label id=\"lblNomeReferencia\" name=\"lblNomeReferencia\" for=\"lblNomeReferencia\">Familiar de Contato: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control\" type=\"text\" name=\"txtNomeReferencia\" value=\""+mil.getCont_referencia()+"\" onchange=\"borda_Familiar()\"/>"+
                                                 "</div>"+
 
                                                 "<div class=\"form-group col-md-6\">"+
-                                                "<label id=\"lblContFamiliar\" name=\"lblContFamiliar\" for=\"lblContFamiliar\">Contato do Familiar: </label><b class=\"obg\"> *</b>"+
-                                                "<input class=\"form-control fone\" type=\"text\" name=\"txtContFamiliar\" value=\""+mil.getFone_referencia()+"\" onblur=\"validarContFam_Att();\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                "<label id=\"lblFoneReferencia\" name=\"lblFoneReferencia\" for=\"lblFoneReferencia\">Contato do Familiar: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control fone\" type=\"text\" name=\"txtFoneReferencia\" value=\""+mil.getFone_referencia()+"\" onblur=\"validarContFam_Att();\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>"+
                                                 "</fieldset>"+
 
@@ -456,7 +456,7 @@
                                                 
 
                                                 "<div class=\"form-group col-md-6\">"+
-                                                "<label id=\"lblSenha\" name=\"lblNomeComp\" for=\"lblSenha\">Senha: </label><b class=\"obg\"> *</b>"+
+                                                "<label id=\"lblSenha\" name=\"lblSenha\" for=\"lblSenha\">Senha: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control\" type=\"password\" name=\"txtSenha\" maxlength=\"20\" value=\""+mil.getSenha()+"\" onblur=\"return validaSenha();\"/>"+
                                                 "<b class=\"obg\">*No mínimo 6 caracteres</b>"+
                                                 "</div>"+

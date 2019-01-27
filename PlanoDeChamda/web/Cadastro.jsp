@@ -4,6 +4,8 @@
     Author     : ander
 --%>
 
+<%@page import="dao.EstadoCivilDAO"%>
+<%@page import="bean.EstadoCivil"%>
 <%@page import="dao.EstadoDAO"%>
 <%@page import="bean.Estado"%>
 <%@page import="dao.CidadeDAO"%>
@@ -182,12 +184,17 @@
                         <div class="form-group col-md-4">
                             <label id="lblEstCivil" name="lblEstCivil" for="lblEstCivil">Estado Cívil: </label><b class="obg"> *</b>
                             <select name="txtEstCivil" id="est_civil" class="form-control" onchange="borda_Est_Civil()">
-                                <option value="" selected>Selecione o seu Estado Cívil...</option>
-                                <option value="Solteiro(a)">Solteiro(a)</option>
-                                <option value="Casado(a)">Casado(a)</option>
-                                <option value="Divorciado(a)">Divorciado(a)</option>
-                                <option value="Viúvo(a)">Viúvo(a)</option>
-                                <option value="Separado(a)">Separado(a)</option>
+                                <option value="0" selected>Selecione o seu Estado Cívil...</option>
+                                <%
+                                    EstadoCivil ec = new EstadoCivil();
+                                    EstadoCivilDAO ecDAO = new EstadoCivilDAO();
+                                    
+                                    int qtdeEC = ecDAO.getEstadosCivis().size();
+                                    
+                                    for(int i=0;i<qtdeEC;i++){
+                                        out.println("<option value='"+ecDAO.getEstadosCivis().get(i).getId()+"'>"+ecDAO.getEstadosCivis().get(i).getNome()+"</option>");
+                                    } 
+                                %>
                             </select>
                         </div>
                             
@@ -205,16 +212,16 @@
                             <input class="form-control cpf"  type="text" name="txtCpf" id="cpf" placeholder="Ex.: 000.000.000-00" onblur="return validarCPF();" onkeypress="return somenteNumero(event);"/> 
                         </div>
                         <div class="form-group col-md-4">
-                            <label id="lblTituloEleitor" name="lblTituloEleitor" for="lblTituloEleitor">Titulo Eleitor: </label><b class="obg"> *</b>
-                            <input class="form-control titulo_eleitor"  type="text" name="txtTituloEleitor" maxlength="12" id="titulo_eleitor" placeholder="Ex.: 0000 0000 0000" onblur="return validarTITULO();" onkeypress="return somenteNumero(event);"/> 
+                            <label id="lblTeleitorRegistro" name="lblTeleitorRegistro" for="lblTeleitorRegistro">Titulo Eleitor: </label><b class="obg"> *</b>
+                            <input class="form-control titulo_eleitor"  type="text" name="txtTeleitorRegistro" maxlength="12" id="titulo_eleitor" placeholder="Ex.: 0000 0000 0000" onblur="return validarTITULO();" onkeypress="return somenteNumero(event);"/> 
                         </div>
                         <div class="form-group col-md-2">
-                            <label id="lblZona" name="lblZona" for="lblZona">Zona: </label><b class="obg"> *</b>
-                            <input class="form-control"  type="text" name="txtZona" maxlength="3" placeholder="Ex.: 000" onblur="return validarZONA();" onkeypress="return somenteNumero(event);"/> 
+                            <label id="lblTeleitorZona" name="lblTeleitorZona" for="lblTeleitorZona">Zona: </label><b class="obg"> *</b>
+                            <input class="form-control"  type="text" name="txtTeleitorZona" maxlength="3" placeholder="Ex.: 000" onblur="return validarZONA();" onkeypress="return somenteNumero(event);"/> 
                         </div>
                         <div class="form-group col-md-2">
-                            <label id="lblSecao" name="lblSecao" for="lblSecao">Seção: </label><b class="obg"> *</b>
-                            <input class="form-control"  type="text" name="txtSecao" maxlength="4" placeholder="Ex.: 0000" onblur="return validarSECAO();" onkeypress="return somenteNumero(event);"/> 
+                            <label id="lblTeleitorSecao" name="lblTeleitorSecao" for="lblTeleitorSecao">Seção: </label><b class="obg"> *</b>
+                            <input class="form-control"  type="text" name="txtTeleitorSecao" maxlength="4" placeholder="Ex.: 0000" onblur="return validarSECAO();" onkeypress="return somenteNumero(event);"/> 
                         </div>
                         <div class="form-group col-md-4">
                             <label id="lblPreccp" name="lblPreccp" for="lblPreccp">Preccp: </label><b class="obg"> *</b>
@@ -372,12 +379,12 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label id="lblFamiliar" name="lblFamiliar" for="lblFamiliar">Familiar de Contato: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" name="txtFamiliar" onchange="borda_Familiar()"/>
+                            <label id="lblNomeReferencia" name="lblNomeReferencia" for="lblNomeReferencia">Familiar de Contato: </label><b class="obg"> *</b>
+                            <input class="form-control" type="text" name="txtNomeReferencia" onchange="borda_Familiar()"/>
                         </div>
                         <div class="form-group col-md-6">
-                            <label id="lblContFamiliar" name="lblContFamiliar" for="lblContFamiliar">Contato do Familiar: </label><b class="obg"> *</b>
-                            <input class="form-control fone" type="text" name="txtContFamiliar" placeholder="Ex.: (00) 00000-0000" onblur="validarContFam();" onkeypress="return somenteNumero(event);"/>
+                            <label id="lblFoneReferencia" name="lblFoneReferencia" for="lblFoneReferencia">Contato do Familiar: </label><b class="obg"> *</b>
+                            <input class="form-control fone" type="text" name="txtFoneReferencia" placeholder="Ex.: (00) 00000-0000" onblur="validarContFam();" onkeypress="return somenteNumero(event);"/>
                         </div>
                     </fieldset>
 

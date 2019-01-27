@@ -31,7 +31,7 @@
         <script type="text/javascript" src="../js/comportamento_pagina.js"></script>
         <script src="../js/manipulacao.js" type="text/javascript"></script>
         <script src="../js/validacao_de_campos.js" type="text/javascript"></script>
-        <title>Emitir RelatÃ³rio</title>
+        <title>Plano de Chamada - Emissão de Relatório</title>
     </head>
     <body class="tela">
         <header class="header">
@@ -53,14 +53,14 @@
                               <!-- Collect the nav links, forms, and other content for toggling -->
                               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-bottom: 0px;">
                                 <ul class="nav navbar-nav">
-                                    <li class="active"><a href="Atualizacao.jsp">Atualizar Dados <span class="sr-only">(current)</span></a></li>
-
+                                    <li class=""><a href="Atualizacao.jsp">Atualizar Dados <span class="sr-only">(current)</span></a></li>
+                                    <li class="active"><a href="EmitirRelatorio.jsp">Emitir Relatório <span class="sr-only">(current)</span></a></li>
                                     
-                                  <!-- <li><a href="FaleConosco.jsp">Sair <span class="sr-only">(current)</span></a></li> -->
+                                  
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
                                  
-                                    <li><form name="formSair" method="post" action="Sair"><button class="btn-sair" type="submit">Sair</button></form></li>
+                                    <li><form name="formSair" method="post" action="sair"><button class="btn-sair" type="submit">Sair</button></form></li>
                                 </ul>
                               </div><!-- /.navbar-collapse -->
                             </div><!-- /.container-fluid -->
@@ -71,6 +71,8 @@
         </header>
         
         <section class="container area-form">
+            
+            <label style="font-size: 18px;">Selecione as opções desejadas: </label><b class="obg"> *</b>
             <form name="formRelatorio" method="post" onsubmit="return validacao_emitir_relatorio();">
                 <%
                     DivisaoSecaoDAO dsDAO = new DivisaoSecaoDAO();
@@ -128,14 +130,14 @@
                     </label>
                 </div>
                     <div class="linha-botoes col-md-12">
-                    <button type="submit" class="btn-cent" formaction="EmitirRelatorio">Gerar Relatório na Tela</button>
+                    <!--<button type="submit" class="btn-cent" formaction="EmitirRelatorio">Gerar Relatório na Tela</button>-->
                     <button type="submit" class="btn-cent" formaction="gerarRelatorio">Gerar Relatório em PDF</button>
                 </div>
             </form>
         </section>
            
         <footer class="rodape col-md-12">
-            <p>Desenvolvido pela SeÃ§Ã£o de Tecnologia da InformaÃ§Ã£o - 2018</p>
+            <p>Desenvolvido pela Seção de Tecnologia da Informação - 2018</p>
         </footer>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

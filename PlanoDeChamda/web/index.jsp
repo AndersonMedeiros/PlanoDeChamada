@@ -17,7 +17,7 @@
     </head>
     
     <body class="tela col-12">
-        <div class="form-login col-2">
+        <div class="form-login col-3">
                 <h1 id="titulo">Plano de Chamada</h1>
                 
                 <img id="icone" src="img/telefone.png" class="img-responsiva" width="100px" height="100px"/>
