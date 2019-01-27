@@ -4,31 +4,29 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="cigs"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<queryString>
-		<![CDATA[SELECT ds.nome AS ds_nome,
-	pg.nome AS pg_nome,
-	nome_guerra,
+		<![CDATA[SELECT ds.nome AS ds_nome, 
+	pg.nome AS pg_nome, 
+	m.nome_guerra, 
 	m.nome AS mil_nome,
 	c.nome AS cid_nome,
-	b.nome AS bairro_nome,
-	end_logradouro,
-	end_num,
-	end_complemento,
-	fone1,
-	fone2,
-	email,
-	nome_referencia,
-	fone_referencia
-FROM militar AS m,
-	cidade AS c,
-	postograduacao AS pg,
-	divisaosecao AS ds,
-	qasqms AS qq,
-	bairro AS b
-WHERE 
-	 ds.id=m.divisaosecao_id AND 
-	 pg.id=m.postograduacao_id AND 
-	 c.id=m.bairro_cidade_id AND
-	  b.id=m.bairro_id]]>
+	b.nome AS bairro_nome, 
+	m.end_logradouro, 
+	m.end_num, 
+	m.end_complemento,
+	 m.fone1, 
+	 m.fone2, 
+	 m.email, 
+	 m.nome_referencia,
+	 m.fone_referencia
+FROM militar as m, 
+	divisaosecao as ds, 
+	postograduacao as pg, 
+	cidade as c, 
+	bairro as b
+WHERE m.divisaosecao_id=ds.id and 
+	m.postograduacao_id=pg.id and 
+	m.bairro_cidade_id=c.id and 
+	m.bairro_id=b.id]]>
 	</queryString>
 	<field name="ds_nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="ds_nome"/>
@@ -332,7 +330,7 @@ WHERE
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font fontName="Arial" size="14" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[ $V{PAGE_NUMBER}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField pattern="MMMMM dd, yyyy">
 					<reportElement x="20" y="0" width="170" height="32" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="f302f6f6-268e-4b8b-ba94-8791ca482c74"/>
