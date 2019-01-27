@@ -35,8 +35,7 @@ public class filtroPaginas implements Filter{
 	HttpSession sessao = httpServletRequest.getSession();	
         String url = httpServletRequest.getRequestURI();
 
-        
-/*
+        /*
         if (sessao.getAttribute("militarAutenticado") != null || url.lastIndexOf("index.jsp")>-1 ||
             url.lastIndexOf("autenticador")>-1 ){
                         
@@ -52,7 +51,7 @@ public class filtroPaginas implements Filter{
         }else{logado=false;}
         
         if(!logado){
-            ((HttpServletResponse) response).sendRedirect("/PlanoDeChamda/index.jsp");
+            ((HttpServletResponse) response).sendRedirect("/PlanoDeChamda/erro.jsp?x=sessao-encerrada");
         }
         try{
             chain.doFilter(request, response);
