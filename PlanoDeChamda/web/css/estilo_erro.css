@@ -1,0 +1,37 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22/01/2019, 10:03:45
+    Author     : ander
+*/
+
+.area-erro{
+    margin: 20px;
+}
+
+.titulo-erro{
+    color: black;
+    font-family: sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.descricao-erro{
+    color: black;
+    font-family: cursive;
+    font-size: 20px;
+}
+
+.solucao-erro{
+    color: maroon;
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
+.solucao-erro:hover{
+    color: red;
+  
+}
