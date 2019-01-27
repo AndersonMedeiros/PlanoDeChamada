@@ -80,31 +80,29 @@ public class gerarRelatorio extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id_div_sec, id_post_grad, id_qas_qms; 
-        String sql_query =  "SELECT ds.nome AS ds_nome," +
-                            "	pg.nome AS pg_nome," +
-                            "	nome_guerra," +
-                            "	m.nome AS mil_nome," +
-                            "	c.nome AS cid_nome," +
-                            "	b.nome AS bairro_nome," +
-                            "	end_logradouro," +
-                            "	end_num," +
-                            "	end_complemento," +
-                            "	fone1," +
-                            "	fone2," +
-                            "	email," +
-                            "	nome_referencia," +
-                            "	fone_referencia " +
-                            "FROM militar AS m," +
-                            "	cidade AS c," +
-                            "	postograduacao AS pg," +
-                            "	divisaosecao AS ds," +
-                            "	qasqms AS qq," +
-                            "	bairro AS b " +
-                            "WHERE " +
-                            "	 ds.id=m.divisaosecao_id AND " +
-                            "	 pg.id=m.postograduacao_id AND " +
-                            "	 c.id=m.bairro_cidade_id AND " +
-                            "	 b.id=m.bairro_id AND";
+        String sql_query =  "SELECT ds.nome AS ds_nome, " +
+                            "       pg.nome AS pg_nome, " +
+                            "       m.nome_guerra,  "+
+                            "       m.nome AS mil_nome, " +
+                            "       c.nome AS cid_nome, " +
+                            "       b.nome AS bairro_nome, " +
+                            "       m.end_logradouro, " +
+                            "       m.end_num, " +
+                            "       m.end_complemento, " +
+                            "       m.fone1, " +
+                            "       m.fone2, " +
+                            "       m.email, " +
+                            "       m.nome_referencia, " +
+                            "       m.fone_referencia " +
+                            "FROM militar as m, " +
+                            "     divisaosecao as ds, " +
+                            "     postograduacao as pg, " +
+                            "	  cidade as c, " +
+                            "	  bairro as b " +
+                            "WHERE m.divisaosecao_id=ds.id and " +
+                            "      m.postograduacao_id=pg.id and " +
+                            "      m.bairro_cidade_id=c.id and " +
+                            "      m.bairro_id=b.id and";
 
         if((request.getParameter("txtDivSec")!=null) && (request.getParameter("txtPostGrad")!=null)
                 && (request.getParameter("txtQasQms")!=null)){
