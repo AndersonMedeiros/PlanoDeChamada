@@ -5,7 +5,6 @@
  */
 package dao;
 
-import bean.Cidade;
 import bean.Estado;
 import connection.ConnectionFactory;
 import java.sql.Connection;

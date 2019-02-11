@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,8 +19,10 @@ import java.sql.SQLException;
  */
 public class HabilitacaoDAO {
     private final String GETCNHBYID = "SELECT * FROM Habilitacao WHERE cnh_id=?";
-    private final String INSERT = "INSERT INTO Hablitacao(cnh_num,cnh_cat) VALUES(?,?);";
+    private final String INSERT = "INSERT INTO Habilitacao(cnh_num,cnh_cat) VALUES(?,?);";
+    private final String UPDATE = "UPDATE Habilitacao SET cnh_num=?,cnh_cat=? WHERE cnh_id=?";
     private final String GETID = "SELECT cnh_id FROM Habilitacao WHERE cnh_num=? AND cnh_cat=?";
+    private final String GETCNHS = "SELECT * FROM Habilitacao";
     
     Connection conn = null;
     PreparedStatement pstm = null;
@@ -38,8 +41,27 @@ public class HabilitacaoDAO {
                 
                 ConnectionFactory.fechaConexao(conn, pstm);
             }catch(SQLException e){
-            throw new RuntimeException(e.getMessage());
+                throw new RuntimeException(e.getMessage());
+            }
         }
+    }
+    
+    public void atualizar(Habilitacao cnh){
+        if(cnh != null){
+            try{
+                conn = ConnectionFactory.getConnection();
+                
+                pstm = conn.prepareStatement(INSERT);
+                pstm.setString(1, cnh.getNum());
+                pstm.setString(2, cnh.getCat());
+                pstm.setInt(3, cnh.getId());
+                
+                pstm.execute();
+                
+                ConnectionFactory.fechaConexao(conn, pstm);
+            }catch(SQLException e){
+                throw new RuntimeException(e.getMessage());
+            }
         }
     }
     
@@ -82,5 +104,27 @@ public class HabilitacaoDAO {
             throw new RuntimeException(ex.getMessage());
         }
         return cnh_id;
+    }
+    
+    public ArrayList<Habilitacao> getCNHS(){
+        ArrayList<Habilitacao> cnhs = new ArrayList<>();
+        try{
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETCNHS);
+            
+            rs = pstm.executeQuery();
+        
+            while (rs.next()) {
+               Habilitacao cnh = new Habilitacao();
+               cnh.setId(rs.getInt("cnh_id"));
+               cnh.setNum(rs.getString("cnh_num"));
+               cnh.setCat(rs.getString("cnh_cat"));
+               cnhs.add(cnh);
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return cnhs;
     }
 }

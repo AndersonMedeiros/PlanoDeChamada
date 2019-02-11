@@ -21,8 +21,8 @@ public class EnderecoDAO {
     private final String GETENDBYID = "SELECT * FROM Endereco WHERE end_id=?";
     private final String GETENDERECOS = "SELECT * FROM Endereco";
     private final String INSERT = "INSERT INTO Endereco(end_cep,end_logradouro,end_complemento,end_bairro_id) VALUES(?,?,?,?);";
-    private final String GETID = "SELECT end_id FROM Endereco WHERE end_cep=? AND end_logradouro=? AND end_complemento=? AND end_bairro_id";
-    
+    private final String GETID = "SELECT end_id FROM Endereco WHERE end_cep=? AND end_logradouro=? AND end_complemento=? AND end_bairro_id=?";
+    private final String UPDATE = "UPDATE Endereco SET end_cep=?,end_logradouro=?,end_complemento=?,end_bairro_id=? WHERE end_id=?";
     Connection conn = null;
     PreparedStatement pstm = null;
     ResultSet rs = null;
@@ -30,7 +30,7 @@ public class EnderecoDAO {
     public void inserir(Endereco end){
         if(end != null){
             try{
-                ConnectionFactory.getConnection();
+                conn = ConnectionFactory.getConnection();
 
                 pstm = conn.prepareStatement(INSERT);
                 pstm.setString(1, end.getCep());
@@ -44,6 +44,31 @@ public class EnderecoDAO {
             }catch(SQLException ex){
                 throw new RuntimeException(ex.getMessage());
             }
+        }else {
+            throw new RuntimeException();
+        }
+    }
+    
+    public void atualizar(Endereco end){
+        if(end != null){
+            try{
+                conn = ConnectionFactory.getConnection();
+
+                pstm = conn.prepareStatement(UPDATE);
+                pstm.setString(1, end.getCep());
+                pstm.setString(2, end.getLogradouro());
+                pstm.setString(3, end.getComplemento());
+                pstm.setInt(4, end.getId_bairro());
+                pstm.setInt(5, end.getId());
+
+                pstm.execute();
+
+                ConnectionFactory.fechaConexao(conn, pstm);
+            }catch(SQLException ex){
+                throw new RuntimeException(ex.getMessage());
+            }
+        }else {
+            throw new RuntimeException();
         }
     }
       
@@ -61,7 +86,7 @@ public class EnderecoDAO {
                end.setCep(rs.getString("end_cep"));
                end.setLogradouro(rs.getString("end_logradouro"));
                end.setComplemento(rs.getString("end_complemento"));
-               end.setId(rs.getInt("end_bairro_id"));
+               end.setId_bairro(rs.getInt("end_bairro_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException ex){
@@ -91,7 +116,7 @@ public class EnderecoDAO {
         return end_id;
     }
     
-    public ArrayList<Endereco> getEstados(){
+    public ArrayList<Endereco> getEnderecos(){
         ArrayList<Endereco> enderecos = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
@@ -105,7 +130,7 @@ public class EnderecoDAO {
                end.setCep(rs.getString("end_cep"));
                end.setLogradouro(rs.getString("end_logradouro"));
                end.setComplemento(rs.getString("end_complemento"));
-               end.setId(rs.getInt("end_bairro_id"));
+               end.setId_bairro(rs.getInt("end_bairro_id"));
                enderecos.add(end);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
@@ -115,7 +140,7 @@ public class EnderecoDAO {
         return enderecos;
     }
     
-    public ArrayList<Endereco> getEstadosById(int id){
+    public ArrayList<Endereco> getEnderecosById(int id){
         ArrayList<Endereco> enderecos = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
@@ -130,7 +155,7 @@ public class EnderecoDAO {
                end.setCep(rs.getString("end_cep"));
                end.setLogradouro(rs.getString("end_logradouro"));
                end.setComplemento(rs.getString("end_complemento"));
-               end.setId(rs.getInt("end_bairro_id"));
+               end.setId_bairro(rs.getInt("end_bairro_id"));
                enderecos.add(end);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
@@ -139,4 +164,29 @@ public class EnderecoDAO {
         }
         return enderecos;
     }
+    
+    /*public boolean getEndExistente(String cep, String log, String complemento, String){
+        boolean existe = false;
+        try{
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETENDERECOS);
+            
+            rs = pstm.executeQuery();
+        
+            while (rs.next()) {
+               if()
+               Endereco end = new Endereco();
+               end.setId(rs.getInt("end_id"));
+               end.setCep(rs.getString("end_cep"));
+               end.setLogradouro(rs.getString("end_logradouro"));
+               end.setComplemento(rs.getString("end_complemento"));
+               end.setId(rs.getInt("end_bairro_id"));
+               enderecos.add(end);
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return existe;
+    }*/
 }

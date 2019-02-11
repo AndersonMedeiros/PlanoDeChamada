@@ -17,9 +17,10 @@ import java.sql.SQLException;
  * @author ander
  */
 public class TituloEleitorDAO {
-    private final String GETTITELEITORBYID = "SELECT * FROM TituloEleitor WHERE teleitor_registro=?";
+    private final String GETTITELEITORBYID = "SELECT * FROM TituloEleitor WHERE teleitor_id=?";
     private final String INSERT = "INSERT INTO TituloEleitor(teleitor_registro,teleitor_zona,teleitor_secao) VALUES(?,?,?);";
     private final String GETID = "SELECT teleitor_id FROM TituloEleitor WHERE teleitor_registro=? AND teleitor_zona=? AND teleitor_secao=?";
+    private final String UPDATE = "UPDATE TituloEleitor SET teleitor_registro=?,teleitor_zona=?,teleitor_secao=? WHERE teleitor_id=?";
     
     Connection conn = null;
     PreparedStatement pstm = null;
@@ -48,7 +49,30 @@ public class TituloEleitorDAO {
         }
     }
     
-    public TituloEleitor getTituloEleitor(int registro){
+    public void atualizar(TituloEleitor teleitor){
+        if (teleitor != null) {
+            try {
+                conn = ConnectionFactory.getConnection();
+                
+                pstm = conn.prepareStatement(UPDATE);
+                
+                pstm.setString(1, teleitor.getRegistro());
+                pstm.setString(2, teleitor.getZona());
+                pstm.setString(3, teleitor.getSecao());
+                pstm.setInt(4, teleitor.getId());
+                              
+                pstm.execute();
+                
+                ConnectionFactory.fechaConexao(conn, pstm);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage());  
+            }
+        } else {
+            throw new RuntimeException();
+        }
+    }
+    public TituloEleitor getTituloEleitor(int id){
         conn = null;
         pstm = null;
         ResultSet rs = null;
@@ -57,7 +81,7 @@ public class TituloEleitorDAO {
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETTITELEITORBYID);
-            pstm.setInt(1, registro);
+            pstm.setInt(1, id);
             rs = pstm.executeQuery();
         
             while (rs.next()) {
