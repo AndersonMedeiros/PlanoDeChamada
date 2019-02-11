@@ -35,7 +35,7 @@
     </head>
     <body class="tela">
         <header class="header">
-            <img src="../img/background-topo2.png" class="img-responsive">
+            <img src="../img/background-topo.png" class="img-responsive">
             <div class="row">
                     <div class="col-md-12">
                         <nav class="navbar navbar-default" style="margin-top: 0; margin-bottom: 15px;">

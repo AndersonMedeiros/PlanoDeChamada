@@ -4,6 +4,8 @@
     Author     : ander
 --%>
 
+<%@page import="dao.FoneDAO"%>
+<%@page import="bean.Fone"%>
 <%@page import="dao.EstadoCivilDAO"%>
 <%@page import="bean.EstadoCivil"%>
 <%@page import="dao.EstadoDAO"%>
@@ -43,19 +45,17 @@
                 {
                     id('padrao').style.display = this.value=="0" ? 'block' : 'none';
                     id('bairrosManaus').style.display = this.value=='1' ? 'block' : 'none';//1 - Manaus
-                    id('bairrosRioPreto').style.display = this.value=='2' ? 'block' : 'none';//2 - Rio Preto da Eva
+                    id('bairrosRioPretoDaEva').style.display = this.value=='2' ? 'block' : 'none';//2 - Rio Preto da Eva
                     id('bairrosIranduba').style.display = this.value=='3' ? 'block' : 'none';//3 - Iranduba
                     id('bairrosManacapuru').style.display = this.value=='4' ? 'block' : 'none';//4 - Manacapuru
                 }
             }
-            
-            
         </script>
         <title>Plano de Chamada - Cadastro</title>
     </head>
     <body class="tela">
         <header class="header">
-            <img src="img/background-topo2.png" class="img-responsive"/>
+            <img src="img/background-topo.png" class="img-responsive"/>
             
             <div class="col-md-12 titulos">
                 <h1 id="titulo">Plano de Chamada - CIGS</h1>
@@ -244,8 +244,11 @@
                                     <option value="B">B</option>
                                     <option value="AB">AB</option>
                                     <option value="C">C</option>
+                                    <option value="AC">AC</option>
                                     <option value="D">D</option>
+                                    <option value="AD">AD</option>
                                     <option value="E">E</option>
+                                    <option value="AE">AE</option>
                             </select>
                         </div>
                         
@@ -301,7 +304,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label id="lblCidade" name="lblCidade" for="lblCidade">Cidade: </label><b class="obg"> *</b>
-                            <select name="txtCidade" id="padrao" class="form-control" onchange="borda_Cidade()">
+                            <select name="txtCidade" id="cidade" class="form-control" onchange="borda_Cidade()">
                                 <option value="0" selected>Selecione a sua Cidade...</option>
                                 <%
                                    Cidade c = new Cidade();
@@ -313,35 +316,73 @@
                                        out.println("<option value='"+cDAO.getCidades().get(i).getId()+"'>"+cDAO.getCidades().get(i).getNome()+"</option>");
                                        //System.out.println(cDAO.getCidades().get(i).getId() + " " + cDAO.getCidades().get(i).getNome());
                                    } 
+                                   
                                 %>
                             </select>
-                            
-                            
                         </div>
                                                
                         <div class="form-group col-md-3">
                             <label id="lblBairro" name="lblBairro" for="lblBairro">Bairro: </label><b class="obg"> *</b>
                             
-                            
-                            
-                            <select name="txtBairro" id="bairrosManaus" class="form-control" onchange="borda_Bairro()" style="">
+                            <select name="txtpadrao" id="padrao" class="form-control" onchange="borda_Bairro()">
+                                <option value="0" selected>Selecione o seu Bairro...</option>
+                                
+                            </select>
+                                                        
+                            <select name="txtBairroManaus" id="bairrosManaus" class="form-control" onclick="getSelect()" onchange="borda_Bairro()" style="display: none;">
                                 <option value="0" selected>Selecione o seu Bairro...</option>
                                 <%
-                                    Bairro b = new Bairro();
                                     BairroDAO bDAO = new BairroDAO();
-                                    
+                                                                                                          
                                     int qtdeBairros = bDAO.getBairrosByCidade(1).size();
                                     
                                     for(int i=0;i<qtdeBairros;i++){
-                                        System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
+                                        //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
                                         out.println("<option value='"+bDAO.getBairrosByCidade(1).get(i).getId()+"'>"+bDAO.getBairrosByCidade(1).get(i).getNome()+"</option>");
                                     } 
                                 %>
                             </select>
                             
+                            <select name="txtBairroRioPretoDaEva" id="bairrosRioPretoDaEva" class="form-control" onchange="borda_Bairro()" style="display: none;">
+                                <option value="0" selected>Selecione o seu Bairro...</option>
+                                <%
+                                                                                                                              
+                                    qtdeBairros = bDAO.getBairrosByCidade(2).size();
+                                    
+                                    for(int i=0;i<qtdeBairros;i++){
+                                        //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
+                                        out.println("<option value='"+bDAO.getBairrosByCidade(2).get(i).getId()+"'>"+bDAO.getBairrosByCidade(2).get(i).getNome()+"</option>");
+                                    } 
+                                %>
+                            </select>
                             
+                            <select name="txtBairroIranduba" id="bairrosIranduba" class="form-control" onchange="borda_Bairro()" style="display: none;">
+                                <option value="0" selected>Selecione o seu Bairro...</option>
+                                <%
+                                                                                                                              
+                                    qtdeBairros = bDAO.getBairrosByCidade(3).size();
+                                    
+                                    for(int i=0;i<qtdeBairros;i++){
+                                        //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
+                                        out.println("<option value='"+bDAO.getBairrosByCidade(3).get(i).getId()+"'>"+bDAO.getBairrosByCidade(3).get(i).getNome()+"</option>");
+                                    } 
+                                %>
+                            </select>
                             
-                            
+                            <select name="txtBairroManacapuru" id="bairrosManacapuru" class="form-control"
+                                    
+                                    onchange="borda_Bairro()" style="display: none;">
+                                <option value="0" selected>Selecione o seu Bairro...</option>
+                                <%
+                                                                                                                              
+                                    qtdeBairros = bDAO.getBairrosByCidade(4).size();
+                                    
+                                    for(int i=0;i<qtdeBairros;i++){
+                                        //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
+                                        out.println("<option value='"+bDAO.getBairrosByCidade(4).get(i).getId()+"'>"+bDAO.getBairrosByCidade(4).get(i).getNome()+"</option>");
+                                    } 
+                                %>
+                            </select>
                         </div> 
 
                         <div class="form-group col-md-10">
@@ -362,7 +403,7 @@
                     <br>
                     <fieldset class="parte-form col-md-12">
                         <legend>Dados de Contato</legend>
-
+                        
                         <div class="form-group col-md-6">
                             <label id="lblFone01" name="lblFone01" for="lblFone01">Telefone 01: </label><b class="obg"> *</b>
                             <input class="form-control fone" type="text" name="txtFone01" placeholder="Ex.: (00) 00000-0000" onblur="validarFONE01();" onkeypress="return somenteNumero(event);"/>
@@ -390,14 +431,11 @@
 
                     <fieldset class="parte-form col-md-12">
                         <legend>Dados de Acesso</legend>
-                        
-
                         <div class="form-group col-md-6">
-                            <label id="lblSenha" name="lblNomeComp" for="lblSenha">Senha: </label><b class="obg"> *</b>
+                            <label id="lblSenha" name="lblSenha" for="lblSenha">Senha: </label><b class="obg"> *</b>
                             <input class="form-control" type="password" name="txtSenha" maxlength="20" onchange="return validaSenha();"/>
                             <b class="obg">*No mínimo 6 caracteres</b>
                         </div>   
-                        
                     </fieldset>
                     <div class="linha-botoes col-md-12">
                         <button type="submit" id="btnCad" class="btn-padrao" value="Salvar">Salvar</button> 

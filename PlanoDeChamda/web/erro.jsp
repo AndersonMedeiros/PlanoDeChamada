@@ -31,7 +31,7 @@
     </head>
     <body class="tela">
         <header class="header">
-            <img src="img/background-topo2.png" class="img-responsive"/>
+            <img src="img/background-topo.png" class="img-responsive"/>
 
         </header>
         <section class="area-erro">
