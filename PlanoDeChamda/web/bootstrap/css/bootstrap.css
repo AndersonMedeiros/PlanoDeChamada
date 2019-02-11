@@ -4503,7 +4503,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: black;
+  background-color: #264710;
   border: 0;
   border-radius: inherit;
 }
@@ -4523,12 +4523,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    background-color: black;
+    background-color: #3D660E;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: black;
+  color: #264710;
   background-color: white;
 }
 .navbar-default .navbar-nav > .disabled > a,
