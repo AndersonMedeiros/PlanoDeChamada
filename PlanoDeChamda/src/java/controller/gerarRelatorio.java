@@ -80,29 +80,29 @@ public class gerarRelatorio extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id_div_sec, id_post_grad, id_qas_qms; 
-        String sql_query =  "SELECT ds.nome AS ds_nome, " +
-                            "       pg.nome AS pg_nome, " +
-                            "       m.nome_guerra,  "+
-                            "       m.nome AS mil_nome, " +
-                            "       c.nome AS cid_nome, " +
-                            "       b.nome AS bairro_nome, " +
-                            "       m.end_logradouro, " +
-                            "       m.end_num, " +
-                            "       m.end_complemento, " +
-                            "       m.fone1, " +
-                            "       m.fone2, " +
-                            "       m.email, " +
-                            "       m.nome_referencia, " +
-                            "       m.fone_referencia " +
-                            "FROM militar as m, " +
-                            "     divisaosecao as ds, " +
-                            "     postograduacao as pg, " +
-                            "	  cidade as c, " +
-                            "	  bairro as b " +
-                            "WHERE m.divisaosecao_id=ds.id and " +
-                            "      m.postograduacao_id=pg.id and " +
-                            "      m.bairro_cidade_id=c.id and " +
-                            "      m.bairro_id=b.id and";
+        String sql_query =  "SELECT\n" +
+                            "if(STRCMP(ds.ds_nome,'')=0, '-', ds.ds_nome) as divisaosecao,\n" +
+                            "if(STRCMP(pg.pg_nome,'')=0, '-', pg.pg_nome) as postograduacao,\n" +
+                            "if(STRCMP(m.mil_nome,'')=0, '-', m.mil_nome) as nome,\n" +
+                            "if(STRCMP(m.mil_nome_guerra,'')=0, '-', m.mil_nome_guerra) as nomeguerra,\n" +
+                            "if(STRCMP(c.cid_nome,'')=0, '-', c.cid_nome) as cidade,\n" +
+                            "if(STRCMP(b.Bairro_nome,'')=0, '-', b.Bairro_nome) as bairro,\n" +
+                            "if(STRCMP(e.end_logradouro,'')=0, '-', e.end_logradouro) as logradouro,\n" +
+                            "if(STRCMP(m.mil_end_num,'')=0, '-', m.mil_end_num) as numero,\n" +
+                            "if(STRCMP(e.end_complemento,'')=0, '-', e.end_complemento) as complemento,\n" +
+                            "if(STRCMP(m.mil_fone1,'')=0, '-', m.mil_fone1) as fone1,\n" +
+                            "if(STRCMP(m.mil_fone2,'')=0, '-', m.mil_fone2) as fone2,\n" +
+                            "if(STRCMP(m.mil_email,'')=0, '-', m.mil_email) as email,\n" +
+                            "if(STRCMP(m.mil_nome_referencia,'')=0, '-', m.mil_nome_referencia) as nomereferencia,\n" +
+                            "if(STRCMP(m.mil_fone_referencia,'')=0, '-', m.mil_fone_referencia) as fonereferencia\n" +
+                            "FROM Militar as m\n" +
+                            "inner join Endereco as e on e.end_id = m.mil_end_id\n" +
+                            "inner join Bairro as b on b.Bairro_id = e.end_bairro_id\n" +
+                            "inner join Cidade as c on cid_id = b.Bairro_cid_id\n" +
+                            "inner join estados as est on est.estado_id = c.cid_estado_id\n" +
+                            "inner join DivisaoSecao as ds on ds.ds_id = m.mil_divisaosecao_id\n" +
+                            "inner join PostoGraduacao as pg on pg.pg_id = m.mil_postograduacao_id ";
+                            
 
         if((request.getParameter("txtDivSec")!=null) && (request.getParameter("txtPostGrad")!=null)
                 && (request.getParameter("txtQasQms")!=null)){
@@ -111,26 +111,26 @@ public class gerarRelatorio extends HttpServlet {
             id_qas_qms = Integer.parseInt(request.getParameter("txtQasQms"));
             
             if(id_div_sec!=0 && id_post_grad==0 && id_qas_qms==0){
-                sql_query+=" m.divisaosecao_id="+id_div_sec;
+                sql_query+=" WHERE m.mil_divisaosecao_id="+id_div_sec;
             }
             else if(id_div_sec==0 && id_post_grad!=0 && id_qas_qms==0){
-                sql_query+=" m.postograduacao_id="+id_post_grad; 
+                sql_query+=" WHERE m.mil_postograduacao_id="+id_post_grad; 
             }
             else if(id_div_sec==0 && id_post_grad==0 && id_qas_qms!=0){
-                sql_query+=" m.qasqms_id="+id_qas_qms; 
+                sql_query+=" WHERE m.mil_qasqms_id="+id_qas_qms; 
             }   
             else if(id_div_sec==0 && id_post_grad!=0 && id_qas_qms!=0){
-                sql_query+=" m.postograduacao_id="+id_post_grad+" AND m.qasqms_id="+id_qas_qms;
+                sql_query+=" WHERE m.mil_postograduacao_id="+id_post_grad+" AND m.mil_qasqms_id="+id_qas_qms;
             }
             else if(id_div_sec!=0 && id_post_grad==0 && id_qas_qms!=0){
-                sql_query+=" m.divisaosecao_id="+id_div_sec+" AND m.qasqms_id="+id_qas_qms;
+                sql_query+=" WHERE m.mil_divisaosecao_id="+id_div_sec+" AND m.mil_qasqms_id="+id_qas_qms;
             }
             else if(id_div_sec!=0 && id_post_grad!=0 && id_qas_qms==0){
-                sql_query+=" m.divisaosecao_id="+id_div_sec+" AND m.postograduacao_id="+id_post_grad;
+                sql_query+=" WHERE m.mil_divisaosecao_id="+id_div_sec+" AND m.mil_postograduacao_id="+id_post_grad;
             }
                   
             else if(id_div_sec!=0 && id_post_grad!=0 && id_qas_qms!=0){
-                sql_query+=" m.divisaosecao_id="+id_div_sec+" AND m.postograduacao_id="+id_post_grad+" AND m.qasqms_id="+id_qas_qms;           
+                sql_query+=" WHERE m.mil_divisaosecao_id="+id_div_sec+" AND m.mil_postograduacao_id="+id_post_grad+" AND m.mil_qasqms_id="+id_qas_qms;           
             }
             
             ServletContext contexto = getServletContext();

@@ -85,15 +85,22 @@ public class autenticador extends HttpServlet {
         
         MilitarDAO milDAO = new MilitarDAO();
         Militar milAutenticado = milDAO.autenticacao(mil);
+        boolean valida_login = milDAO.validarLogin(identidade);
+        boolean valida_senha = milDAO.validarSenha(senha);
+        boolean valida_login_senha = milDAO.validarLoginSenha(identidade, senha);
         
-        if(milAutenticado != null){
+        if(valida_login == false && valida_senha == true){
+            response.sendRedirect("/PlanoDeChamda/index.jsp?x=erro-login");
+        }else if(valida_login == true && valida_senha == false){
+            response.sendRedirect("/PlanoDeChamda/index.jsp?x=erro-senha");
+        }
+        else if(valida_login == false && valida_senha == false){
+            response.sendRedirect("/PlanoDeChamda/index.jsp?x=erro-login-senha");
+        }else if(milAutenticado != null && valida_login_senha == true){
             HttpSession sessao = request.getSession();
             sessao.setAttribute("militarAutenticado", milAutenticado);
-            
             //request.getRequestDispatcher("/restrito/Atualizacao.jsp").forward(request, response);
             response.sendRedirect("/PlanoDeChamda/restrito/Atualizacao.jsp");
-        }else{
-            response.sendRedirect("/PlanoDeChamda/erroLogin.jsp");
         }
     }
 

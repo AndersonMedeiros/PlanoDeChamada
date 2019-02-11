@@ -10,17 +10,17 @@ package bean;
  * @author ander
  */
 public class Fone {
-    int id;
-    String num, identidade_mil;
+    int id, id_mil;
+    String num;
+
+    public int getId_mil() {
+        return id_mil;
+    }
+
+    public void setId_mil(int id_mil) {
+        this.id_mil = id_mil;
+    }
     
-    public String getIdentidade_mil() {
-        return identidade_mil;
-    }
-
-    public void setIdentidade_mil(String identidade_mil) {
-        this.identidade_mil = identidade_mil;
-    }
-
     public int getId() {
         return id;
     }

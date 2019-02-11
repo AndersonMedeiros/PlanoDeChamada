@@ -12,7 +12,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -45,11 +44,10 @@ public class filtroPaginas implements Filter{
             ((HttpServletResponse) response).sendRedirect("/PlanoDeChamda/index.jsp");
         }
         */
-        boolean logado;
+        boolean logado = false;
         if(sessao.getAttribute("militarAutenticado") != null){
             logado = true;
-        }else{logado=false;}
-        
+        }
         if(!logado){
             ((HttpServletResponse) response).sendRedirect("/PlanoDeChamda/erro.jsp?x=sessao-encerrada");
         }

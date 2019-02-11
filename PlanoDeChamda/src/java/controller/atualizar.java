@@ -5,8 +5,16 @@
  */
 package controller;
 
+import bean.Endereco;
+import bean.Fone;
+import bean.Habilitacao;
 import bean.Militar;
+import bean.TituloEleitor;
+import dao.EnderecoDAO;
+import dao.FoneDAO;
+import dao.HabilitacaoDAO;
 import dao.MilitarDAO;
+import dao.TituloEleitorDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -74,62 +82,109 @@ public class atualizar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Militar mil = new Militar();
-        
-        //Dados Pessoais
-        mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec")));
-        mil.setId_post_grad(Integer.parseInt(request.getParameter("txtPostGrad")));
-        mil.setId_qas_qms(Integer.parseInt(request.getParameter("txtQasQms")));
-        mil.setId_sit(Integer.parseInt(request.getParameter("txtSit")));
-        mil.setNome(request.getParameter("txtNomeComp"));
-        mil.setNome_guerra(request.getParameter("txtNomeGuerra"));
-        mil.setSexo(request.getParameter("txtSexo"));
-        mil.setNaturalidade(request.getParameter("txtNaturalidade"));
-        mil.setEst_civil(request.getParameter("txtEstCivil"));
-        mil.setDt_praca(request.getParameter("txtDataPraca").replace("/", "").replace("-", ""));
-        mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));
-        mil.setCpf(request.getParameter("txtCpf").replace(".", "").replace("-", ""));
-        mil.setPreccp(request.getParameter("txtPreccp"));
-        mil.setTitulo_num(request.getParameter("txtTituloEleitor").replace(" ", ""));
-        mil.setTitulo_zona(request.getParameter("txtZona"));
-        mil.setTitulo_secao(request.getParameter("txtSecao"));
-        mil.setData_nasc(request.getParameter("txtDataNasc").replace("/", "").replace("-", ""));
-        mil.setCnh_num(request.getParameter("txtCnhNum"));
-        mil.setCnh_cat(request.getParameter("txtCnhCat"));
-        mil.setPai(request.getParameter("txtPai"));
-        mil.setMae(request.getParameter("txtMae"));
-        mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
-
-        //Dados de Endereco
-        mil.setEnd_cep(request.getParameter("txtCep").replace("-", ""));
-        mil.setId_est(Integer.parseInt(request.getParameter("txtEstado")));
-        mil.setId_cid(Integer.parseInt(request.getParameter("txtCidade")));
-        mil.setId_bairro(Integer.parseInt(request.getParameter("txtBairro")));
-        mil.setEnd_logradouro(request.getParameter("txtLogradouro"));
-        mil.setEnd_numero(request.getParameter("txtNum"));
-        mil.setEnd_complemento(request.getParameter("txtComplemento"));
-
-        //Dados de Contato
-        mil.setFone1(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-        mil.setFone2(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-        mil.setEmail(request.getParameter("txtEmail"));
-        mil.setCont_referencia(request.getParameter("txtFamiliar"));
-        mil.setFone_referencia(request.getParameter("txtContFamiliar").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-
-        //Dados de Acesso
-        mil.setSenha(request.getParameter("txtSenha"));
         HttpSession sessao = request.getSession();
-        
+        MilitarDAO milDAO = new MilitarDAO();
+        Militar milAtual = milDAO.getMilitar(request.getParameter("txtIdentidade").replace("-", ""));
+        FoneDAO foneDAO = new FoneDAO();
         if(sessao.getAttribute("militarAutenticado") != null){
-            MilitarDAO milDAO = new MilitarDAO();
+            //Endereço
+            Endereco end = new Endereco();
+            end.setId(milAtual.getId_end());
+            end.setCep(request.getParameter("txtCep").replace("-", ""));       
+            end.setLogradouro(request.getParameter("txtLogradouro"));
+            end.setComplemento(request.getParameter("txtComplemento"));
+            int id_cid = Integer.parseInt(request.getParameter("txtCidade"));
+            switch (id_cid) {
+                case 1:
+                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroManaus")));
+                    break;
+                case 2:
+                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroRioPretoDaEva")));
+                    break;
+                case 3:
+                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroIranduba")));
+                    break;
+                case 4:
+                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroManacapuru")));
+                    break;
+            }
+            EnderecoDAO endDAO = new EnderecoDAO();
+            
+            if(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro())==0){endDAO.atualizar(end);}
+
+            //Titulo Eleitor
+            TituloEleitor teleitor = new TituloEleitor();
+            teleitor.setId(milAtual.getId_teleitor());
+            teleitor.setRegistro(request.getParameter("txtTeleitorRegistro").replace(" ", ""));
+            teleitor.setSecao(request.getParameter("txtTeleitorSecao"));
+            teleitor.setZona(request.getParameter("txtTeleitorZona"));
+            TituloEleitorDAO teleitorDAO = new TituloEleitorDAO();
+            
+            if(!teleitor.getRegistro().equals("")){teleitorDAO.atualizar(teleitor);System.out.println("I"+teleitor.getId() + " r"+teleitor.getRegistro()+ " z"+teleitor.getZona() + " s"+teleitor.getSecao());}
+
+            //Habilitação
+            Habilitacao cnh = new Habilitacao();
+            cnh.setId(milAtual.getId_cnh());
+            cnh.setNum(request.getParameter("txtCnhNum"));
+            cnh.setCat(request.getParameter("txtCnhCat"));
+            HabilitacaoDAO cnhDAO = new HabilitacaoDAO();
+            if(!cnh.getNum().equals("")){cnhDAO.atualizar(cnh);}
+
+            //Militar
+            Militar mil = new Militar();
+            mil.setId(milAtual.getId());
+            mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));
+
+            mil.setNome(request.getParameter("txtNomeComp"));
+            mil.setNome_guerra(request.getParameter("txtNomeGuerra"));
+            mil.setCpf(request.getParameter("txtCpf").replace(".", "").replace("-", ""));
+
+            mil.setPreccp(request.getParameter("txtPreccp"));
+            mil.setSexo(request.getParameter("txtSexo"));
+            mil.setData_nasc(request.getParameter("txtDataNasc").replace("/", "").replace("-", ""));
+            mil.setData_praca(request.getParameter("txtDataPraca").replace("/", "").replace("-", ""));
+            mil.setPai(request.getParameter("txtPai"));
+            mil.setMae(request.getParameter("txtMae"));
+            mil.setEmail(request.getParameter("txtEmail"));
+            mil.setNome_referencia(request.getParameter("txtNomeReferencia"));
+            mil.setFone_referencia(request.getParameter("txtFoneReferencia").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
+            mil.setFone1(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
+            mil.setFone2(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
+            mil.setNaturalidade(request.getParameter("txtNaturalidade"));
+            mil.setEnd_num(request.getParameter("txtNum"));
+            mil.setSenha(request.getParameter("txtSenha"));
+
+            mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
+            mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec")));
+            mil.setId_pg(Integer.parseInt(request.getParameter("txtPostGrad")));
+            mil.setId_qq(Integer.parseInt(request.getParameter("txtQasQms")));
+            mil.setId_ec(Integer.parseInt(request.getParameter("txtEstCivil")));
+            mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
+            mil.setId_sit(Integer.parseInt(request.getParameter("txtSit")));
+            if(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat())!=0){mil.setId_cnh(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat()));}else{mil.setId_cnh(0);}
+            mil.setId_teleitor(teleitorDAO.getIdTituloEleitor(teleitor.getRegistro(), teleitor.getZona(), teleitor.getSecao()));
             milDAO.atualizar(mil);
+
+            /*//Fones
+            Fone fone1 = new Fone();
+            
+            fone1.setNum(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", "")); 
+            fone1.setId_mil(milDAO.getIdMilitar(milAtual.getIdentidade()));
+            if(!fone1.getNum().equals("")){foneDAO.atualizar(fone1);}
+
+            Fone fone2 = new Fone();
+            fone2.setNum(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
+            fone2.setId_mil(milDAO.getIdMilitar(milAtual.getIdentidade()));
+            if(!fone2.getNum().equals("")){foneDAO.atualizar(fone2);}*/
+            
+            RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/Atualizacao.jsp");
+            despachante.forward(request, response);
         }else{
             response.sendRedirect("/PlanoDeChamda/erro.jsp?x=sessao-encerrada");
         }
         
         
-        RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/Atualizacao.jsp");
-        despachante.forward(request, response);
+        
     }
 
     /**
