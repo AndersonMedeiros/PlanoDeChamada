@@ -30,7 +30,7 @@
 .rodape{
     padding-bottom: 15px;
     padding-top: 15px;
-    background-color: black;
+    background-color: #264710;
     
     font-family: sans-serif;
     text-align: center;
@@ -63,7 +63,7 @@
         -ms-user-select: none;
             user-select: none;
     background-image: none;
-    background-color: black;
+    background-color: #3D660E;
     color: white;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -98,4 +98,8 @@
 
 label{
     color: black;
+}
+
+.barra-navegacao{
+    background-color: #264710;
 }

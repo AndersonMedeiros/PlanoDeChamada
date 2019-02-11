@@ -3,10 +3,15 @@
 }
 
 body {
-    background: url(../img/fundo.png) no-repeat center top fixed;
+    background-image: url(../img/guerra.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-clip: border-box;
+    background-origin: border-box;
+    background-size: auto;
     -webkit-background-size: cover;
     -moz-background-size: cover;
-    background-size: cover;
 }
 
 .tela{
@@ -18,7 +23,7 @@ body {
     align-items: center;
 }
 .form-login{
-    padding: 15px;
+    padding: 15px;;
     background-color: rgba(200,200,200,0.8);
     border-radius: 10px;
 }
@@ -126,18 +131,17 @@ body {
     margin-right: 0px;
 }
 
-.cx-erro-login{
-    background: red;
-    margin-top: 15px;
-    padding: 5px;
+.div-erro-login, .div-cad-sucesso{
+    background-color: #264710;
+    padding: 1px;
     border-radius: 4px;
 }
 
-.cx-erro-login > b{
+.div-erro-login > center > p,
+.div-cad-sucesso > center > p{
     font-family: sans-serif;
     font-weight: bold;
     color: white;
-    
 }
 
 .div-login-duplicado{
@@ -147,4 +151,8 @@ body {
     padding: 15px;
     font-family: sans-serif;
     text-align: justify;
+}
+
+.btEntrar{
+    background-color: #264710;
 }
