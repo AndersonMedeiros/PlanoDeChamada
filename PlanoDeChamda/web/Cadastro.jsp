@@ -4,6 +4,8 @@
     Author     : ander
 --%>
 
+<%@page import="dao.ReligiaoDAO"%>
+<%@page import="bean.Religiao"%>
 <%@page import="dao.FoneDAO"%>
 <%@page import="bean.Fone"%>
 <%@page import="dao.EstadoCivilDAO"%>
@@ -49,6 +51,18 @@
                     id('bairrosIranduba').style.display = this.value=='3' ? 'block' : 'none';//3 - Iranduba
                     id('bairrosManacapuru').style.display = this.value=='4' ? 'block' : 'none';//4 - Manacapuru
                 }
+                
+                id('religiao').onchange = function(){
+                    id("out_rel").style.display = this.value == "1000" ? 'block' : 'none';
+                }
+                
+                id('op_esposa').onchange = function(){
+                    if(id('op_esposa').value == "N"){
+                        id("op_esp").style.display = 'block';
+                    }else{
+                        id("op_esp").style.display = 'none';
+                    }
+                }
             }
         </script>
         <title>Plano de Chamada - Cadastro</title>
@@ -65,7 +79,7 @@
         
         <section class="container area-form">
             <form name="formCadastro" method="post" action="cadastrar" onsubmit="return validacao_cad()">                   
-                    <fieldset class="parte-form col-md-12">
+                    <fieldset class="parte-form col-md-12" id="dados_pessoais">
                         <legend>Dados Pessoais</legend>
                         
                         <div class="form-group col-md-3">
@@ -206,11 +220,13 @@
                         <div class="form-group col-md-4">
                             <label id="lblIdentidade" name="lblIdentidade" for="lblIdentidade">Identidade: </label><b class="obg"> *</b>
                             <input class="form-control identidade" type="text" name="txtIdentidade" placeholder="Ex.: 00000000-0" onblur="validarIDENTIDADE();" onkeypress="return somenteNumero(event);"/>
-                        </div>                                                        
+                        </div>            
+                            
                         <div class="form-group col-md-4">
                             <label id="lblCpf" name="lblCpf" for="lblCpf">Cpf: </label><b class="obg"> *</b>
                             <input class="form-control cpf"  type="text" name="txtCpf" id="cpf" placeholder="Ex.: 000.000.000-00" onblur="return validarCPF();" onkeypress="return somenteNumero(event);"/> 
                         </div>
+                            
                         <div class="form-group col-md-4">
                             <label id="lblTeleitorRegistro" name="lblTeleitorRegistro" for="lblTeleitorRegistro">Titulo Eleitor: </label><b class="obg"> *</b>
                             <input class="form-control titulo_eleitor"  type="text" name="txtTeleitorRegistro" maxlength="12" id="titulo_eleitor" placeholder="Ex.: 0000 0000 0000" onblur="return validarTITULO();" onkeypress="return somenteNumero(event);"/> 
@@ -227,6 +243,7 @@
                             <label id="lblPreccp" name="lblPreccp" for="lblPreccp">Preccp: </label><b class="obg"> *</b>
                             <input class="form-control" type="text" name="txtPreccp" maxlength="9" onblur="validarPRECCP();" onkeypress="return somenteNumero(event);"/>
                         </div>
+                        
                         <div class="form-group col-md-4">
                             <label id="lblDataNasc" name="lblDataNasc" for="lblDataNasc">Data de Nascimento: </label>
                             <input class="form-control" type="date" name="txtDataNasc" onblur="validarDataNasc();"/>
@@ -236,7 +253,7 @@
                             <input class="form-control" type="text" name="txtCnhNum" maxlength="11" onkeypress="return somenteNumero(event);"/>
                         </div>
                             
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-2">
                             <label id="lblCnhCat" name="lblCnhCat" for="lblCnhCat">CNH Categoria: </label>
                             <select name="txtCnhCat" id="cnh_cat" class="form-control">
                                  <option value="" selected>Selecione a categoria...</option>
@@ -278,6 +295,61 @@
                                 %>
                             </select>
                         </div>
+                            <div class="form-group col-md-6">
+                            <label id="lblReligiao" name="lblReligiao" for="lblReligiao">Religião: </label><b class="obg"> *</b>
+                            <select name="txtReligiao" id="religiao" class="form-control" onchange="borda_Est_Civil()">
+                                <option value="0" selected>Selecione a sua Religião...</option>
+                                <%
+                                    
+                                    
+                                    ReligiaoDAO relDAO = new ReligiaoDAO();
+                                    
+                                    int qtdeReligiao = relDAO.getReligioes().size();
+                                    
+                                    for(int i=0;i<qtdeReligiao;i++){
+                                        out.println("<option value='"+relDAO.getReligioes().get(i).getId()+"'>"+relDAO.getReligioes().get(i).getNome()+"</option>");
+                                    } 
+                                %>
+                                <option value="1000" selected>Outro(a)</option>
+                            </select>
+                        </div>
+                                
+                        <div class="form-group col-md-6" id="out_rel" style="display: none;">
+                            <label id="lblOutraReligiao" name="lblOutraReligiao" for="lblOutraReligiao">Religião: </label><b class="obg"> *</b>
+                            <input class="form-control" type="text" name="txtOutraReligiao" onchange="borda_Logradouro()" />
+                        </div>
+                                
+                               
+                        
+                        
+                             
+                                
+                        <div class="form-group col-md-2" id="qtde_filho">
+                            <label id="lblNumFilho" name="lblNumFilho" for="lblNumFilho">Quantidade de Filho: </label><b class="obg"> *</b>
+                            <input class="form-control" type="text" name="txtNumFilho" onchange="qtdeFilho()" onkeypress="return somenteNumero(event);"/>
+                        </div>
+                                 <p id="demo"> aqui</p>
+                                <script type="text/javascript">
+                                    function qtdeFilho(){
+                                        var fieldset = document.getElementById("dados_pessoais");
+                                        var qtdeFilho = document.formCadastro.txtNumFilho.value;
+                                        fieldset.innerHTML = "<div>asdfdhsafdghf</div>";
+                                        for(int i=0;i<qtdeFilho;i++){
+                                            fieldset.innerHTML = "<>";
+                                        }
+                                        
+                                        
+                                    }
+                                </script>
+                                
+                                
+                                
+                        <div class="form-group col-md-9">
+                            <label id="lblNomeComp" name="lblNomeComp" for="lblNomeComp">Nome Completo: </label><b class="obg"> *</b>
+                            <input class="form-control" type="text" name="txtNomeComp" onchange="borda_NomeComp()"/>
+                        </div>
+                         
+                                
                     </fieldset>
                     <br>
                     <fieldset class="parte-form col-md-12">
