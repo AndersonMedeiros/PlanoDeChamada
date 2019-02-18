@@ -36,6 +36,7 @@
         <link href="css/estilo_cadastro.css" rel="stylesheet"/>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
         <script type="text/javascript" src="js/validacao_de_campos.js"></script>
+        <script type="text/javascript" src="js/manipulacao_campos.js"></script>
         <script type="text/javascript">
             function id( el ){
                 return document.getElementById( el );
@@ -79,7 +80,7 @@
         
         <section class="container area-form">
             <form name="formCadastro" method="post" action="cadastrar" onsubmit="return validacao_cad()">                   
-                    <fieldset class="parte-form col-md-12" id="dados_pessoais">
+                    <fieldset class="parte-form col-md-12" id="fd_dados_pessoais">
                         <legend>Dados Pessoais</legend>
                         
                         <div class="form-group col-md-3">
@@ -163,8 +164,8 @@
                         </div>
                             
                         <div class="form-group col-md-4">
-                            <label id="lblNaturalidade" name="lblNaturalidade" for="lblNaturalidade">Naturalidade: </label><b class="obg"> *</b>
-                            <select name="txtNaturalidade" id="naturalidade" class="form-control" onchange="borda_Naturalidade()">
+                            <label id="lblNaturalidade" name="lblNatMilitar" for="lblNatMilitar">Naturalidade: </label><b class="obg"> *</b>
+                            <select name="txtNatMilitar" id="txt_natmilitar" class="form-control" onchange="borda_Naturalidade()">
                                 <option value="" selected>Selecione a sua Naturalidade...</option>
                                 <option value="Acriano(a)">Acriano(a)</option>
                                 <option value="Amazonense">Amazonense</option>
@@ -253,7 +254,7 @@
                             <input class="form-control" type="text" name="txtCnhNum" maxlength="11" onkeypress="return somenteNumero(event);"/>
                         </div>
                             
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-4">
                             <label id="lblCnhCat" name="lblCnhCat" for="lblCnhCat">CNH Categoria: </label>
                             <select name="txtCnhCat" id="cnh_cat" class="form-control">
                                  <option value="" selected>Selecione a categoria...</option>
@@ -318,40 +319,96 @@
                             <label id="lblOutraReligiao" name="lblOutraReligiao" for="lblOutraReligiao">Religião: </label><b class="obg"> *</b>
                             <input class="form-control" type="text" name="txtOutraReligiao" onchange="borda_Logradouro()" />
                         </div>
-                                
-                               
-                        
-                        
-                             
-                                
-                        <div class="form-group col-md-2" id="qtde_filho">
-                            <label id="lblNumFilho" name="lblNumFilho" for="lblNumFilho">Quantidade de Filho: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" name="txtNumFilho" onchange="qtdeFilho()" onkeypress="return somenteNumero(event);"/>
-                        </div>
-                                 <p id="demo"> aqui</p>
-                                <script type="text/javascript">
-                                    function qtdeFilho(){
-                                        var fieldset = document.getElementById("dados_pessoais");
-                                        var qtdeFilho = document.formCadastro.txtNumFilho.value;
-                                        fieldset.innerHTML = "<div>asdfdhsafdghf</div>";
-                                        for(int i=0;i<qtdeFilho;i++){
-                                            fieldset.innerHTML = "<>";
-                                        }
-                                        
-                                        
-                                    }
-                                </script>
-                                
-                                
-                                
-                        <div class="form-group col-md-9">
-                            <label id="lblNomeComp" name="lblNomeComp" for="lblNomeComp">Nome Completo: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" name="txtNomeComp" onchange="borda_NomeComp()"/>
-                        </div>
-                         
-                                
                     </fieldset>
                     <br>
+                    
+                    <fieldset class="parte-form col-md-12">
+                        <legend>Dados Familiares</legend>
+                        
+                        <center>
+                            <div class="checkbox col-md-12">
+                                <label>
+                                    <input type="checkbox" id="checkboxEsposa" value="" onclick="checkedEsposa()">
+                                    Possui Esposa(o)?
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="checkboxFilho" value="" onclick="checkedFilho()">
+                                    Possui Filhos(as)?
+                                </label>
+                            </div>
+                        </center>
+                        <div id="div_dados_esposa" style="display: none;">
+                            <div class="form-group col-md-9">
+                                <label id="lblNomeEsposa" name="lblNomeEsposa" for="lblNomeEsposa">Nome Completo: </label><b class="obg"> *</b>
+                                <input class="form-control" type="text" name="txtNNomeEsposa" onchange="borda_NomeComp()"/>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label id="lblFoneEsposa" name="lblFoneEsposa" for="lblFoneEsposa">Telefone: </label><b class="obg"> *</b>
+                                <input class="form-control fone" type="text" name="txtFoneEsposa" placeholder="Ex.: (00) 00000-0000" onblur="validarFONE01();" onkeypress="return somenteNumero(event);"/>
+                            </div>
+
+                            <div class="form-group col-md-9">
+                                <label id="lblEmailEsposa" name="lblEmailEsposa" for="lblEmailEsposa">Email: </label><b class="obg"> *</b>
+                                <input class="form-control" type="email" name="txtEmailEsposa" onchange="borda_Email()"/>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label id="lblProfissao" name="lblProfissao" for="lblProfissao">Profissão: </label><b class="obg"> *</b>
+                                <input class="form-control" type="email" name="txtProfissao" onchange="borda_Email()"/>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label id="lblDataNascEsposa" name="lblDataNascEsposa" for="lblDataNascEsposa">Data Praça: </label><b class="obg"> *</b>
+                                <input class="form-control data" type="date" name="txtDataNascEsposa" onblur="validarDataPraca()"/>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label id="lblNaturalidade" name="lblNatEsposa" for="lblNatEsposa">Naturalidade: </label><b class="obg"> *</b>
+                                <select name="txtNatEsposa" id="txt_nat_esposa" class="form-control" onchange="borda_Naturalidade()">
+                                    <option value="" selected>Selecione a sua Naturalidade...</option>
+                                    <option value="Acriano(a)">Acriano(a)</option>
+                                    <option value="Amazonense">Amazonense</option>
+                                    <option value="Rondoniense">Rondoniense</option>
+                                    <option value="Roraimense">Roraimense</option>
+                                    <option value="Amapaense">Amapaense</option>
+                                    <option value="Paraense">Paraense</option>
+                                    <option value="Tocantinense">Tocantinense</option>
+                                    <option value="Mato-Grossense">Mato-Grossense</option>
+                                    <option value="Sul-Mato-Grossense">Sul-Mato-Grossense</option>
+                                    <option value="Goiano(a)">Goiano(a)</option>
+                                    <option value="Maranhense">Maranhense</option>
+                                    <option value="Cearense">Cearense</option>
+                                    <option value="Potiguar ou Rio-Grandense-do-Norte">Potiguar ou Rio-Grandense-do-Norte</option>
+                                    <option value="Piauiense">Piauiense</option>
+                                    <option value="Paraibano(a)">Paraibano(a)</option>
+                                    <option value="Pernambucano(a)">Pernambucano(a)</option>
+                                    <option value="Alagoano(a)">Alagoano(a)</option>
+                                    <option value="Sergipano(a)">Sergipano(a)</option>
+                                    <option value="Baiano(a)">Baiano(a)</option>
+                                    <option value="Mineiro(a)">Mineiro(a)</option>
+                                    <option value="Capixaba ou Espírito-Santinense">Capixaba ou Espírito-Santinense</option>
+                                    <option value="Carioca">Carioca</option>
+                                    <option value="Paulista">Paulista</option>
+                                    <option value="Paranaense">Paranaense</option>
+                                    <option value="Catarinense">Catarinense</option>
+                                    <option value="Gaúcho ou Rio-Grandense-do-Sul">Gaúcho ou Rio-Grandense-do-Sul</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                       
+                        <div class="form-group col-md-12" id="div_qtde_filho" style="display: none;">
+                                 <center>
+                                    <label id="lblNumFilho" name="lblNumFilho" for="lblNumFilho">Quantidade de Filho: </label><b class="obg"> *</b>
+                                    <input class="form-control" type="number" name="txtNumFilho" min="0" max="50" onchange="limpa_div_dados_filho(); qtdeFilho();" onkeypress="return somenteNumero(event);"/>
+                                </center>
+                            </div> 
+                        
+                        <div id="div_dados_filho" style="display: none;">
+                            
+                        </div>
+                    </fieldset>
                     <fieldset class="parte-form col-md-12">
                         <legend>Dados de Endereço</legend>
                         <div class="form-group col-md-3">
