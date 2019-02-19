@@ -6,7 +6,6 @@
 package dao;
 
 import bean.Filho;
-import bean.QasQms;
 import bean.Religiao;
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -19,25 +18,26 @@ import java.util.ArrayList;
  *
  * @author root
  */
-public class ReligiaoDAO {
-    private final String GETRELBYID = "SELECT * FROM Religiao WHERE rel_id=?";
-    private final String GETRELBYNOME = "SELECT * FROM Religiao WHERE rel_nome=?";
-    private final String GETRELIGIOES = "SELECT * FROM Religiao";
+public class FilhoDAO {
+    private final String GETFILHOBYID = "SELECT * FROM Filho WHERE fil_id=?";
+    private final String GETFILHOS = "SELECT * FROM Filho";
     
-    private final String INSERT = "INSERT INTO Religiao (rel_nome) VALUES(?)";
+    private final String INSERT = "INSERT INTO Filho (fil_nome, fil_data_nasc, fil_mil_id) VALUES(?,?,?)";
     
     Connection conn;
     PreparedStatement pstm;
     ResultSet rs;
     
-    public void inserir(String nome_rel){
-        if (nome_rel != null) {
+    public void inserir(Filho filho){
+        if (filho != null) {
             try {
                 conn = ConnectionFactory.getConnection();
                 
                 pstm = conn.prepareStatement(INSERT);
                 
-                pstm.setString(1, nome_rel);
+                pstm.setString(1, filho.getNome());
+                pstm.setString(2, filho.getData_nasc());
+                pstm.setInt(3, filho.getMil_id());
               
                 pstm.execute();
                 
@@ -51,74 +51,55 @@ public class ReligiaoDAO {
         }
     }
     
-    public Religiao getReligiaoByID(int id){
+    public Filho getFilhooByID(int id){
         conn = null;
         pstm = null;
         rs = null;
-        Religiao rel = new Religiao();
+        Filho filho = new Filho();
         
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETRELBYID);
+            pstm = conn.prepareStatement(GETFILHOBYID);
             pstm.setInt(1, id);
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               rel.setId(rs.getInt("rel_id"));
-               rel.setNome(rs.getString("rel_nome"));
+               filho.setId(rs.getInt("fil_id"));
+               filho.setNome(rs.getString("fil_nome"));
+               filho.setData_nasc(rs.getString("fil_data_nasc"));
+               filho.setMil_id(rs.getInt("fil_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
-        return rel;
+        return filho;
     }
     
-    public Religiao getReligiaoByNome(String nome_rel){
-        conn = null;
-        pstm = null;
-        rs = null;
-        Religiao rel = new Religiao();
-        
-        try{
-            conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETRELBYNOME);
-            pstm.setString(1, nome_rel);
-            rs = pstm.executeQuery();
-        
-            while (rs.next()) {
-               rel.setId(rs.getInt("rel_id"));
-               rel.setNome(rs.getString("rel_nome"));
-            }
-            ConnectionFactory.fechaConexao(conn, pstm, rs);
-        }catch(SQLException e){
-            throw new RuntimeException(e.getMessage());
-        }
-        return rel;
-    }
-    
-    public ArrayList<Religiao> getReligioes(){
+    public ArrayList<Filho> getFilhos(){
         conn = null;
         pstm = null;
         ResultSet rs = null;
         
-        ArrayList<Religiao> religioes = new ArrayList<>();
+        ArrayList<Filho> filhos = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETRELIGIOES);
+            pstm = conn.prepareStatement(GETFILHOS);
             
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               Religiao rel = new Religiao();
-               rel.setId(rs.getInt("rel_id"));
-               rel.setNome(rs.getString("rel_nome"));
-               religioes.add(rel);
+               Filho filho = new Filho();
+               filho.setId(rs.getInt("fil_id"));
+               filho.setNome(rs.getString("fil_nome"));
+               filho.setData_nasc(rs.getString("fil_data_nasc"));
+               filho.setMil_id(rs.getInt("fil_mil_id"));
+               filhos.add(filho);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
-        return religioes;
+        return filhos;
     }
 }
