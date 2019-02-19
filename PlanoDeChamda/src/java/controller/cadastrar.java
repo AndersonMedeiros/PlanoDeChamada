@@ -5,25 +5,26 @@
  */
 package controller;
 
+import bean.Conjuge;
 import bean.Endereco;
-import bean.Fone;
 import bean.Habilitacao;
 import bean.Militar;
 import bean.TituloEleitor;
+import dao.ConjugeDAO;
 import dao.EnderecoDAO;
 import dao.FoneDAO;
 import dao.HabilitacaoDAO;
 import dao.MilitarDAO;
+import dao.ReligiaoDAO;
 import dao.TituloEleitorDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 /**
  *
@@ -131,36 +132,71 @@ public class cadastrar extends HttpServlet {
 
             //Militar
             Militar mil = new Militar();
-            mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));
-
+            mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec")));
+            mil.setId_pg(Integer.parseInt(request.getParameter("txtPostGrad")));
+            mil.setId_qq(Integer.parseInt(request.getParameter("txtQasQms")));
+            mil.setId_sit(Integer.parseInt(request.getParameter("txtSit")));
+            
             mil.setNome(request.getParameter("txtNomeComp"));
             mil.setNome_guerra(request.getParameter("txtNomeGuerra"));
-            mil.setCpf(request.getParameter("txtCpf").replace(".", "").replace("-", ""));
-
-            mil.setPreccp(request.getParameter("txtPreccp"));
+            
             mil.setSexo(request.getParameter("txtSexo"));
-            mil.setData_nasc(request.getParameter("txtDataNasc").replace("/", "").replace("-", ""));
+            mil.setNaturalidade(request.getParameter("txtNatMilitar"));
+            mil.setId_ec(Integer.parseInt(request.getParameter("txtEstCivil")));
+            
             mil.setData_praca(request.getParameter("txtDataPraca").replace("/", "").replace("-", ""));
+            mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));          
+            mil.setCpf(request.getParameter("txtCpf").replace(".", "").replace("-", ""));
+            
+            mil.setId_teleitor(teleitorDAO.getIdTituloEleitor(teleitor.getRegistro(), teleitor.getZona(), teleitor.getSecao()));
+            mil.setPreccp(request.getParameter("txtPreccp"));
+            
+            mil.setData_nasc(request.getParameter("txtDataNasc").replace("/", "").replace("-", ""));
+            if(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat())!=0){mil.setId_cnh(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat()));}else{mil.setId_cnh(0);}
+            
             mil.setPai(request.getParameter("txtPai"));
             mil.setMae(request.getParameter("txtMae"));
+            
+            mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
+            
+            int id_religiao = Integer.parseInt(request.getParameter("txtReligiao"));
+            ReligiaoDAO religiaoDAO = new ReligiaoDAO();
+            if(id_religiao == 1000){
+                String nova_religiao = request.getParameter("txtOutraReligiao");
+                religiaoDAO.inserir(nova_religiao);
+                int id_nova_religiao = religiaoDAO.getReligiaoByNome(nova_religiao).getId();
+                mil.setId_religiao(id_nova_religiao);
+            }else{
+                mil.setId_religiao(id_religiao);
+            }
+            
+            ConjugeDAO conjugeDAO = new ConjugeDAO();
+            if(request.getParameter("checkboxEsposa") != null){
+                Conjuge conjuge = new Conjuge();
+                conjuge.setNome(request.getParameter("txtNomeConjuge"));
+                conjuge.setFone(request.getParameter("txtFoneConjuge"));
+                conjuge.setEmail(request.getParameter("txtEmailConjuge"));
+                conjuge.setProfissao(request.getParameter("txtProfissaoConjuge"));
+                conjuge.setData_nasc(request.getParameter("txtDataNascConjuge"));
+                conjuge.setNaturalidade(request.getParameter("txtNatConjuge"));
+                conjuge.setCpf(request.getParameter("txtCpfConjuge"));
+                conjugeDAO.inserir(conjuge);
+                
+                mil.setId_conjuge(conjugeDAO.getIdConjuge(conjuge.getCpf()));
+            }
+            
+            
             mil.setEmail(request.getParameter("txtEmail"));
             mil.setNome_referencia(request.getParameter("txtNomeReferencia"));
             mil.setFone_referencia(request.getParameter("txtFoneReferencia").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
             mil.setFone1(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
             mil.setFone2(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-            mil.setNaturalidade(request.getParameter("txtNaturalidade"));
+            
             mil.setEnd_num(request.getParameter("txtNum"));
             mil.setSenha(request.getParameter("txtSenha"));
 
             mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
-            mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec")));
-            mil.setId_pg(Integer.parseInt(request.getParameter("txtPostGrad")));
-            mil.setId_qq(Integer.parseInt(request.getParameter("txtQasQms")));
-            mil.setId_ec(Integer.parseInt(request.getParameter("txtEstCivil")));
-            mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
-            mil.setId_sit(Integer.parseInt(request.getParameter("txtSit")));
-            if(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat())!=0){mil.setId_cnh(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat()));}else{mil.setId_cnh(0);}
-            mil.setId_teleitor(teleitorDAO.getIdTituloEleitor(teleitor.getRegistro(), teleitor.getZona(), teleitor.getSecao()));
+          
             milDAO.inserir(mil);
 
             /*//Fones
