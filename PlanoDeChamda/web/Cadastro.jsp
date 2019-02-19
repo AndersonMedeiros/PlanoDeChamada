@@ -328,44 +328,49 @@
                         <center>
                             <div class="checkbox col-md-12">
                                 <label>
-                                    <input type="checkbox" id="checkboxEsposa" value="" onclick="checkedEsposa()">
+                                    <input type="checkbox" id="checkboxConjuge" name="checkboxConjuge" value="checkConjuge" onclick="checkedConjuge()">
                                     Possui Esposa(o)?
                                 </label>
                                 <label>
-                                    <input type="checkbox" id="checkboxFilho" value="" onclick="checkedFilho()">
-                                    Possui Filhos(as)?
+                                    <input type="checkbox" id="checkboxDependente" name="checkboxDependente" value="checkDependente" onclick="checkedDependente()">
+                                    Possui Dependentes?
                                 </label>
                             </div>
                         </center>
-                        <div id="div_dados_esposa" style="display: none;">
+                        <div id="div_dados_conjuge" style="display: none;">
                             <div class="form-group col-md-9">
-                                <label id="lblNomeEsposa" name="lblNomeEsposa" for="lblNomeEsposa">Nome Completo: </label><b class="obg"> *</b>
-                                <input class="form-control" type="text" name="txtNNomeEsposa" onchange="borda_NomeComp()"/>
+                                <label id="lblNomeConjuge" name="lblNomeConjuge" for="lblNomeConjuge">Nome Completo: </label><b class="obg"> *</b>
+                                <input class="form-control" type="text" name="txtNNomeConjuge" onchange="borda_NomeComp()"/>
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label id="lblFoneEsposa" name="lblFoneEsposa" for="lblFoneEsposa">Telefone: </label><b class="obg"> *</b>
-                                <input class="form-control fone" type="text" name="txtFoneEsposa" placeholder="Ex.: (00) 00000-0000" onblur="validarFONE01();" onkeypress="return somenteNumero(event);"/>
+                                <label id="lblCpfConjuge" name="lblCpfConjuge" for="lblCpfConjuge">Cpf: </label><b class="obg"> *</b>
+                                <input class="form-control cpf"  type="text" name="txtCpfConjuge" id="cpf" placeholder="Ex.: 000.000.000-00" onblur="return validarCPF();" onkeypress="return somenteNumero(event);"/> 
                             </div>
 
-                            <div class="form-group col-md-9">
-                                <label id="lblEmailEsposa" name="lblEmailEsposa" for="lblEmailEsposa">Email: </label><b class="obg"> *</b>
-                                <input class="form-control" type="email" name="txtEmailEsposa" onchange="borda_Email()"/>
+                            <div class="form-group col-md-6">
+                                <label id="lblEmailConjuge" name="lblEmailConjuge" for="lblEmailConjuge">Email: </label><b class="obg"> *</b>
+                                <input class="form-control" type="email" name="txtEmailConjuge" onchange="borda_Email()"/>
+                            </div>
+                            
+                            <div class="form-group col-md-3">
+                                <label id="lblFoneConjuge" name="lblFoneConjuge" for="lblFoneConjuge">Telefone: </label><b class="obg"> *</b>
+                                <input class="form-control fone" type="text" name="txtFoneConjuge" placeholder="Ex.: (00) 00000-0000" onblur="validarFONE01();" onkeypress="return somenteNumero(event);"/>
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label id="lblProfissao" name="lblProfissao" for="lblProfissao">Profissão: </label><b class="obg"> *</b>
-                                <input class="form-control" type="email" name="txtProfissao" onchange="borda_Email()"/>
+                                <label id="lblProfissaoConjuge" name="lblProfissaoConjuge" for="lblProfissaoConjuge">Profissão: </label><b class="obg"> *</b>
+                                <input class="form-control" type="email" name="txtProfissaoConjuge" onchange="borda_Email()"/>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label id="lblDataNascEsposa" name="lblDataNascEsposa" for="lblDataNascEsposa">Data Praça: </label><b class="obg"> *</b>
-                                <input class="form-control data" type="date" name="txtDataNascEsposa" onblur="validarDataPraca()"/>
+                                <label id="lblDataNascConjuge" name="lblDataNascConjuge" for="lblDataNascConjuge">Data de Nascimento: </label><b class="obg"> *</b>
+                                <input class="form-control data" type="date" name="txtDataNascConjuge" onblur="validarDataPraca()"/>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label id="lblNaturalidade" name="lblNatEsposa" for="lblNatEsposa">Naturalidade: </label><b class="obg"> *</b>
-                                <select name="txtNatEsposa" id="txt_nat_esposa" class="form-control" onchange="borda_Naturalidade()">
+                                <label id="lblNatConjuge" name="lblNatConjuge" for="lblNatConjuge">Naturalidade: </label><b class="obg"> *</b>
+                                <select name="txtNatConjuge" id="txt_nat_conjuge" class="form-control" onchange="borda_Naturalidade()">
                                     <option value="" selected>Selecione a sua Naturalidade...</option>
                                     <option value="Acriano(a)">Acriano(a)</option>
                                     <option value="Amazonense">Amazonense</option>
@@ -398,14 +403,14 @@
                         </div>
                         
                        
-                        <div class="form-group col-md-12" id="div_qtde_filho" style="display: none;">
+                        <div class="form-group col-md-12" id="div_qtde_dependente" style="display: none;">
                                  <center>
-                                    <label id="lblNumFilho" name="lblNumFilho" for="lblNumFilho">Quantidade de Filho: </label><b class="obg"> *</b>
-                                    <input class="form-control" type="number" name="txtNumFilho" min="0" max="50" onchange="limpa_div_dados_filho(); qtdeFilho();" onkeypress="return somenteNumero(event);"/>
+                                    <label id="lblNumDependente" name="lblNumDependente" for="lblNumDependente">Quantidade de Dependente: </label><b class="obg"> *</b>
+                                    <input class="form-control" type="number" name="txtNumDependente" min="0" max="50" onchange="limpa_div_dados_dependente(); qtdeDependente();" onkeypress="return somenteNumero(event);"/>
                                 </center>
                             </div> 
                         
-                        <div id="div_dados_filho" style="display: none;">
+                        <div id="div_dados_dependente" style="display: none;">
                             
                         </div>
                     </fieldset>
