@@ -11,7 +11,15 @@ package bean;
  */
 public class Conjuge {
     int id;
-    String nome, email, fone, profissao, data_nasc, naturalidade;
+    String nome, email, fone, profissao, data_nasc, naturalidade, cpf;
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
     public int getId() {
         return id;
