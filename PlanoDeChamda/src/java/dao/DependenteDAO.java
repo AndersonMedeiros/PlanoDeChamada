@@ -5,7 +5,7 @@
  */
 package dao;
 
-import bean.Filho;
+import bean.Dependente;
 import bean.Religiao;
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -18,26 +18,27 @@ import java.util.ArrayList;
  *
  * @author root
  */
-public class FilhoDAO {
-    private final String GETFILHOBYID = "SELECT * FROM Filho WHERE fil_id=?";
-    private final String GETFILHOS = "SELECT * FROM Filho";
+public class DependenteDAO {
+    private final String GETDEPBYID = "SELECT * FROM Dependente WHERE fil_id=?";
+    private final String GETDEPENDENTES = "SELECT * FROM Dependente";
     
-    private final String INSERT = "INSERT INTO Filho (fil_nome, fil_data_nasc, fil_mil_id) VALUES(?,?,?)";
+    private final String INSERT = "INSERT INTO Dependente (dep_nome, dep_data_nasc, dep_grau_parentesco, dep_mil_id) VALUES(?,?,?,?)";
     
     Connection conn;
     PreparedStatement pstm;
     ResultSet rs;
     
-    public void inserir(Filho filho){
-        if (filho != null) {
+    public void inserir(Dependente dependente){
+        if (dependente != null) {
             try {
                 conn = ConnectionFactory.getConnection();
                 
                 pstm = conn.prepareStatement(INSERT);
                 
-                pstm.setString(1, filho.getNome());
-                pstm.setString(2, filho.getData_nasc());
-                pstm.setInt(3, filho.getMil_id());
+                pstm.setString(1, dependente.getNome());
+                pstm.setString(2, dependente.getData_nasc());
+                pstm.setString(3, dependente.getGrau_parentesco());
+                pstm.setInt(4, dependente.getMil_id());
               
                 pstm.execute();
                 
@@ -51,55 +52,57 @@ public class FilhoDAO {
         }
     }
     
-    public Filho getFilhooByID(int id){
+    public Dependente getDependenteByID(int id){
         conn = null;
         pstm = null;
         rs = null;
-        Filho filho = new Filho();
+        Dependente dependente = new Dependente();
         
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETFILHOBYID);
+            pstm = conn.prepareStatement(GETDEPBYID);
             pstm.setInt(1, id);
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               filho.setId(rs.getInt("fil_id"));
-               filho.setNome(rs.getString("fil_nome"));
-               filho.setData_nasc(rs.getString("fil_data_nasc"));
-               filho.setMil_id(rs.getInt("fil_mil_id"));
+               dependente.setId(rs.getInt("dep_id"));
+               dependente.setNome(rs.getString("dep_nome"));
+               dependente.setData_nasc(rs.getString("dep_data_nasc"));
+               dependente.setGrau_parentesco(rs.getString("dep_grau_parentesco"));
+               dependente.setMil_id(rs.getInt("dep_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
-        return filho;
+        return dependente;
     }
     
-    public ArrayList<Filho> getFilhos(){
+    public ArrayList<Dependente> getFilhos(){
         conn = null;
         pstm = null;
         ResultSet rs = null;
         
-        ArrayList<Filho> filhos = new ArrayList<>();
+        ArrayList<Dependente> dependentes = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETFILHOS);
+            pstm = conn.prepareStatement(GETDEPENDENTES);
             
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               Filho filho = new Filho();
-               filho.setId(rs.getInt("fil_id"));
-               filho.setNome(rs.getString("fil_nome"));
-               filho.setData_nasc(rs.getString("fil_data_nasc"));
-               filho.setMil_id(rs.getInt("fil_mil_id"));
-               filhos.add(filho);
+               Dependente dependente = new Dependente();
+               dependente.setId(rs.getInt("dep_id"));
+               dependente.setNome(rs.getString("dep_nome"));
+               dependente.setData_nasc(rs.getString("dep_data_nasc"));
+               dependente.setGrau_parentesco(rs.getString("dep_grau_parentesco"));
+               dependente.setMil_id(rs.getInt("dep_mil_id"));
+               dependentes.add(dependente);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
             throw new RuntimeException(e.getMessage());
         }
-        return filhos;
+        return dependentes;
     }
 }

@@ -6,7 +6,6 @@
 package dao;
 
 import bean.Conjuge;
-import bean.Religiao;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,11 +19,11 @@ import java.util.ArrayList;
  */
 public class ConjugeDAO {
     private final String GETCONBYID = "SELECT * FROM Conjuge WHERE con_id=?";
-    private final String GETID = "SELECT con_id FROM Conjuge WHERE con_cpf=?";
-    private final String GETCONBYNOME_CPF = "SELECT * FROM Conjuge WHERE con_nome=? AND con_cpf=?";
+    private final String GETID = "SELECT con_id FROM Conjuge WHERE con_nome=?";
+    private final String GETCONBYNOME_CPF = "SELECT * FROM Conjuge WHERE con_nome=?";
     private final String GETCONJUGES = "SELECT * FROM Conjuge";
     
-    private final String INSERT = "INSERT INTO Conjuge (con_nome,con_email,con_fone,con_profissao,con_data_nasc,con_naturalidade,con_cpf) VALUES(?,?,?,?,?,?,?)";
+    private final String INSERT = "INSERT INTO Conjuge (con_nome,con_fone,con_data_nasc,con_mil_id) VALUES(?,?,?,?)";
     
     Connection conn;
     PreparedStatement pstm;
@@ -38,12 +37,9 @@ public class ConjugeDAO {
                 pstm = conn.prepareStatement(INSERT);
                 
                 pstm.setString(1, con.getNome());
-                pstm.setString(2, con.getEmail());
-                pstm.setString(3, con.getFone());
-                pstm.setString(4, con.getProfissao());
-                pstm.setString(5, con.getData_nasc());
-                pstm.setString(6, con.getNaturalidade());
-                pstm.setString(7, con.getCpf());
+                pstm.setString(2, con.getFone());
+                pstm.setString(3, con.getData_nasc());
+                pstm.setInt(4, con.getMil_id());
               
                 pstm.execute();
                 
@@ -72,12 +68,9 @@ public class ConjugeDAO {
             while (rs.next()) {
                conjuge.setId(rs.getInt("con_id"));
                conjuge.setNome(rs.getString("con_nome"));
-               conjuge.setEmail(rs.getString("con_email"));
                conjuge.setFone(rs.getString("con_fone"));
-               conjuge.setProfissao(rs.getString("con_profissao"));
                conjuge.setData_nasc(rs.getString("con_data_nasc"));
-               conjuge.setNaturalidade(rs.getString("con_naturalidade"));
-               conjuge.setCpf(rs.getString("con_cpf"));
+               conjuge.setMil_id(rs.getInt("con_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
@@ -102,12 +95,9 @@ public class ConjugeDAO {
             while (rs.next()) {
                conjuge.setId(rs.getInt("con_id"));
                conjuge.setNome(rs.getString("con_nome"));
-               conjuge.setEmail(rs.getString("con_email"));
                conjuge.setFone(rs.getString("con_fone"));
-               conjuge.setProfissao(rs.getString("con_profissao"));
                conjuge.setData_nasc(rs.getString("con_data_nasc"));
-               conjuge.setNaturalidade(rs.getString("con_naturalidade"));
-               conjuge.setCpf(rs.getString("con_cpf"));
+               conjuge.setMil_id(rs.getInt("con_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
@@ -152,12 +142,9 @@ public class ConjugeDAO {
                Conjuge conjuge = new Conjuge();
                conjuge.setId(rs.getInt("con_id"));
                conjuge.setNome(rs.getString("con_nome"));
-               conjuge.setEmail(rs.getString("con_email"));
                conjuge.setFone(rs.getString("con_fone"));
-               conjuge.setProfissao(rs.getString("con_profissao"));
                conjuge.setData_nasc(rs.getString("con_data_nasc"));
-               conjuge.setNaturalidade(rs.getString("con_naturalidade"));
-               conjuge.setCpf(rs.getString("con_cpf"));
+               conjuge.setMil_id(rs.getInt("con_mil_id"));
                conjuges.add(conjuge);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);

@@ -29,15 +29,15 @@ public class MilitarDAO {
                                   "                     mil_sexo,mil_data_nasc,mil_data_praca,mil_pai,mil_mae,mil_email,"+
                                   "                     mil_nome_referencia,mil_fone_referencia,mil_fone1,mil_fone2,mil_naturalidade,mil_end_num,mil_senha,"+
 	                          "                     mil_end_id,mil_divisaosecao_id,mil_postograduacao_id,mil_qasqms_id,mil_estadocivil_id,"+
-                                  "                     mil_escolaridade_id,mil_situacao_id,mil_cnh_id,mil_tituloeleitor_id,mil_conjuge_id,mil_religiao_id) "+
-                                  "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                                  "                     mil_escolaridade_id,mil_situacao_id,mil_tituloeleitor_id,mil_religiao_id) "+
+                                  "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     
     private final String UPDATE = "UPDATE Militar "+
                                   "SET mil_nome=?,mil_nome_guerra=?,mil_cpf=?,mil_preccp=?,mil_sexo=?,mil_data_nasc=?,"+
                                   "    mil_data_praca=?,mil_pai=?,mil_mae=?,mil_email=?,mil_nome_referencia=?,mil_fone_referencia=?,mil_fone1=?,mil_fone2=?,"+
                                   "    mil_naturalidade=?,mil_end_num=?,mil_senha=?,mil_end_id=?,mil_divisaosecao_id=?,"+
                                   "    mil_postograduacao_id=?,mil_qasqms_id=?,mil_estadocivil_id=?,mil_escolaridade_id=?,mil_situacao_id=?,"+
-                                  "    mil_cnh_id=?,mil_tituloeleitor_id=?,mil_conjuge_id=?,mil_religiao_id=? WHERE mil_id=? AND mil_identidade=?";
+                                  "    mil_cnh_id=?,mil_tituloeleitor_id=?,mil_religiao_id=? WHERE mil_id=? AND mil_identidade=?";
     
     Connection conn = null;
     PreparedStatement pstm = null;
@@ -75,10 +75,9 @@ public class MilitarDAO {
                 pstm.setInt(23, mil.getId_ec());
                 pstm.setInt(24, mil.getId_esc());
                 pstm.setInt(25, mil.getId_sit());
-                pstm.setInt(26, mil.getId_cnh());
-                pstm.setInt(27, mil.getId_teleitor());
-                pstm.setInt(28, mil.getId_conjuge());
-                pstm.setInt(29, mil.getId_religiao());
+                pstm.setInt(26, mil.getId_teleitor());
+                
+                pstm.setInt(27, mil.getId_religiao());
                               
                 pstm.execute();
                 
@@ -122,13 +121,12 @@ public class MilitarDAO {
                 pstm.setInt(22, mil.getId_ec());
                 pstm.setInt(23, mil.getId_esc());
                 pstm.setInt(24, mil.getId_sit());
-                pstm.setInt(25, mil.getId_cnh());
-                pstm.setInt(26, mil.getId_teleitor());
-                pstm.setInt(27, mil.getId_conjuge());
-                pstm.setInt(28, mil.getId_religiao());
+                pstm.setInt(25, mil.getId_teleitor());
+                pstm.setInt(26, mil.getId_conjuge());
+                pstm.setInt(27, mil.getId_religiao());
                 
-                pstm.setInt(29, mil.getId());
-                pstm.setString(30, mil.getIdentidade());
+                pstm.setInt(28, mil.getId());
+                pstm.setString(29, mil.getIdentidade());
             
                 pstm.execute();
                 ConnectionFactory.fechaConexao(conn, pstm);
@@ -271,7 +269,7 @@ public class MilitarDAO {
                 mil.setId_ec(rs.getInt("mil_estadocivil_id"));
                 mil.setId_esc(rs.getInt("mil_escolaridade_id"));
                 mil.setId_sit(rs.getInt("mil_situacao_id"));
-                mil.setId_cnh(rs.getInt("mil_cnh_id"));
+                
                 mil.setId_teleitor(rs.getInt("mil_tituloeleitor_id"));
                 mil.setId_conjuge(rs.getInt("mil_conjuge_id"));
                 mil.setId_religiao(rs.getInt("mil_religiao_id"));
@@ -324,7 +322,7 @@ public class MilitarDAO {
                 mil.setId_ec(rs.getInt("mil_estadocivil_id"));
                 mil.setId_esc(rs.getInt("mil_escolaridade_id"));
                 mil.setId_sit(rs.getInt("mil_situacao_id"));
-                mil.setId_cnh(rs.getInt("mil_cnh_id"));
+                
                 mil.setId_teleitor(rs.getInt("mil_tituloeleitor_id"));
                 mil.setId_conjuge(rs.getInt("mil_conjuge_id"));
                 mil.setId_religiao(rs.getInt("mil_religiao_id"));
@@ -380,7 +378,7 @@ public class MilitarDAO {
                     milRetorno.setId_ec(rs.getInt("mil_estadocivil_id"));
                     milRetorno.setId_esc(rs.getInt("mil_escolaridade_id"));
                     milRetorno.setId_sit(rs.getInt("mil_situacao_id"));
-                    milRetorno.setId_cnh(rs.getInt("mil_cnh_id"));
+                    
                     milRetorno.setId_teleitor(rs.getInt("mil_tituloeleitor_id"));
                     mil.setId_conjuge(rs.getInt("mil_conjuge_id"));
                     mil.setId_religiao(rs.getInt("mil_religiao_id"));

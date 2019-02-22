@@ -5,7 +5,7 @@
  */
 package dao;
 
-import bean.Filho;
+import bean.Dependente;
 import bean.QasQms;
 import bean.Religiao;
 import connection.ConnectionFactory;
@@ -100,7 +100,7 @@ public class ReligiaoDAO {
     public ArrayList<Religiao> getReligioes(){
         conn = null;
         pstm = null;
-        ResultSet rs = null;
+        rs = null;
         
         ArrayList<Religiao> religioes = new ArrayList<>();
         try{
