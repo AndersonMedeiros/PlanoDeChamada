@@ -53,7 +53,7 @@ public class HabilitacaoDAO {
             try{
                 conn = ConnectionFactory.getConnection();
                 
-                pstm = conn.prepareStatement(INSERT);
+                pstm = conn.prepareStatement(UPDATE);
                 pstm.setString(1, cnh.getNum());
                 pstm.setString(2, cnh.getCat());
                 pstm.setString(3, cnh.getData_validade());
