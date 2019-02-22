@@ -19,8 +19,8 @@ import java.util.ArrayList;
  */
 public class HabilitacaoDAO {
     private final String GETCNHBYID = "SELECT * FROM Habilitacao WHERE cnh_id=?";
-    private final String INSERT = "INSERT INTO Habilitacao(cnh_num,cnh_cat) VALUES(?,?);";
-    private final String UPDATE = "UPDATE Habilitacao SET cnh_num=?,cnh_cat=? WHERE cnh_id=?";
+    private final String INSERT = "INSERT INTO Habilitacao(cnh_num,cnh_cat,cnh_data_validade,cnh_mil_id) VALUES(?,?,?,?);";
+    private final String UPDATE = "UPDATE Habilitacao SET cnh_num=?,cnh_cat=?,cnh_data_validade=?,cnh_mil_id=? WHERE cnh_id=?";
     private final String GETID = "SELECT cnh_id FROM Habilitacao WHERE cnh_num=? AND cnh_cat=?";
     private final String GETCNHS = "SELECT * FROM Habilitacao";
     
@@ -36,6 +36,8 @@ public class HabilitacaoDAO {
                 pstm = conn.prepareStatement(INSERT);
                 pstm.setString(1, cnh.getNum());
                 pstm.setString(2, cnh.getCat());
+                pstm.setString(3, cnh.getData_validade());
+                pstm.setString(4, cnh.getMil_id());
                 
                 pstm.execute();
                 
@@ -54,7 +56,9 @@ public class HabilitacaoDAO {
                 pstm = conn.prepareStatement(INSERT);
                 pstm.setString(1, cnh.getNum());
                 pstm.setString(2, cnh.getCat());
-                pstm.setInt(3, cnh.getId());
+                pstm.setString(3, cnh.getData_validade());
+                pstm.setString(4, cnh.getMil_id());
+                pstm.setInt(5, cnh.getId());
                 
                 pstm.execute();
                 
@@ -78,6 +82,8 @@ public class HabilitacaoDAO {
                cnh.setId(rs.getInt("cnh_id"));
                cnh.setNum(rs.getString("cnh_num"));
                cnh.setCat(rs.getString("cnh_cat"));
+               cnh.setData_validade(rs.getString("cnh_data_validade"));
+               cnh.setMil_id(rs.getString("cnh_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
@@ -119,6 +125,8 @@ public class HabilitacaoDAO {
                cnh.setId(rs.getInt("cnh_id"));
                cnh.setNum(rs.getString("cnh_num"));
                cnh.setCat(rs.getString("cnh_cat"));
+               cnh.setData_validade(rs.getString("cnh_data_validade"));
+               cnh.setMil_id(rs.getString("cnh_mil_id"));
                cnhs.add(cnh);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
