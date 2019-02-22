@@ -10,16 +10,8 @@ package bean;
  * @author root
  */
 public class Conjuge {
-    int id;
-    String nome, email, fone, profissao, data_nasc, naturalidade, cpf;
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
+    int id, mil_id;
+    String nome, fone, data_nasc;
 
     public int getId() {
         return id;
@@ -37,28 +29,12 @@ public class Conjuge {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getFone() {
         return fone;
     }
 
     public void setFone(String fone) {
         this.fone = fone;
-    }
-
-    public String getProfissao() {
-        return profissao;
-    }
-
-    public void setProfissao(String profissao) {
-        this.profissao = profissao;
     }
 
     public String getData_nasc() {
@@ -69,13 +45,13 @@ public class Conjuge {
         this.data_nasc = data_nasc;
     }
 
-    public String getNaturalidade() {
-        return naturalidade;
+    public int getMil_id() {
+        return mil_id;
     }
 
-    public void setNaturalidade(String naturalidade) {
-        this.naturalidade = naturalidade;
+    public void setMil_id(int mil_id) {
+        this.mil_id = mil_id;
     }
     
-    
+        
 }

@@ -9,9 +9,9 @@ package bean;
  *
  * @author root
  */
-public class Filho {
+public class Dependente {
     int id, mil_id;
-    String nome, data_nasc;
+    String nome, data_nasc,grau_parentesco;
 
     public int getId() {
         return id;
@@ -43,6 +43,14 @@ public class Filho {
 
     public void setData_nasc(String data_nasc) {
         this.data_nasc = data_nasc;
+    }
+
+    public String getGrau_parentesco() {
+        return grau_parentesco;
+    }
+
+    public void setGrau_parentesco(String grau_parentesco) {
+        this.grau_parentesco = grau_parentesco;
     }
     
     
