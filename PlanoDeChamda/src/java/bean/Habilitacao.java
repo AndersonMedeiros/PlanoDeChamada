@@ -10,8 +10,8 @@ package bean;
  * @author ander
  */
 public class Habilitacao {
-    int id;
-    String num, cat, data_validade, mil_id;
+    int id, mil_id;
+    String num, cat, data_validade;
 
     public int getId() {
         return id;
@@ -45,11 +45,11 @@ public class Habilitacao {
         this.data_validade = data_validade;
     }
 
-    public String getMil_id() {
+    public int getMil_id() {
         return mil_id;
     }
 
-    public void setMil_id(String mil_id) {
+    public void setMil_id(int mil_id) {
         this.mil_id = mil_id;
     }
     
