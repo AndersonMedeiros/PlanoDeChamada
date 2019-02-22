@@ -11,7 +11,7 @@ package bean;
  */
 public class Habilitacao {
     int id;
-    String num, cat;
+    String num, cat, data_validade, mil_id;
 
     public int getId() {
         return id;
@@ -35,6 +35,22 @@ public class Habilitacao {
 
     public void setCat(String cat) {
         this.cat = cat;
+    }
+
+    public String getData_validade() {
+        return data_validade;
+    }
+
+    public void setData_validade(String data_validade) {
+        this.data_validade = data_validade;
+    }
+
+    public String getMil_id() {
+        return mil_id;
+    }
+
+    public void setMil_id(String mil_id) {
+        this.mil_id = mil_id;
     }
     
     
