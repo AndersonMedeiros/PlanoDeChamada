@@ -37,7 +37,7 @@ public class HabilitacaoDAO {
                 pstm.setString(1, cnh.getNum());
                 pstm.setString(2, cnh.getCat());
                 pstm.setString(3, cnh.getData_validade());
-                pstm.setString(4, cnh.getMil_id());
+                pstm.setInt(4, cnh.getMil_id());
                 
                 pstm.execute();
                 
@@ -57,7 +57,7 @@ public class HabilitacaoDAO {
                 pstm.setString(1, cnh.getNum());
                 pstm.setString(2, cnh.getCat());
                 pstm.setString(3, cnh.getData_validade());
-                pstm.setString(4, cnh.getMil_id());
+                pstm.setInt(4, cnh.getMil_id());
                 pstm.setInt(5, cnh.getId());
                 
                 pstm.execute();
@@ -83,7 +83,7 @@ public class HabilitacaoDAO {
                cnh.setNum(rs.getString("cnh_num"));
                cnh.setCat(rs.getString("cnh_cat"));
                cnh.setData_validade(rs.getString("cnh_data_validade"));
-               cnh.setMil_id(rs.getString("cnh_mil_id"));
+               cnh.setMil_id(rs.getInt("cnh_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
@@ -126,7 +126,7 @@ public class HabilitacaoDAO {
                cnh.setNum(rs.getString("cnh_num"));
                cnh.setCat(rs.getString("cnh_cat"));
                cnh.setData_validade(rs.getString("cnh_data_validade"));
-               cnh.setMil_id(rs.getString("cnh_mil_id"));
+               cnh.setMil_id(rs.getInt("cnh_mil_id"));
                cnhs.add(cnh);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
