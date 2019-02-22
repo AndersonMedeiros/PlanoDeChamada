@@ -496,7 +496,7 @@
 
                         <div class="form-group col-md-12">
                             <label id="lblEmail" name="lblEmail" for="lblEmail">Email: </label><b class="obg"> *</b>
-                            <input class="form-control" type="email" name="txtEmail" onchange="borda_Email()"/>
+                            <input class="form-control" type="email" id="txtEmail" name="txtEmail" onchange="borda_input_text(this.id)"/>
                         </div>
 
                         <div class="form-group col-md-6">
