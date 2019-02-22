@@ -80,32 +80,30 @@
         
         <section class="container area-form">
             <form name="formCadastro" method="post" action="cadastrar" onsubmit="return validacao_cad()">                   
-                    <fieldset class="parte-form col-md-12" id="fd_dados_pessoais">
-                        <legend>Dados Pessoais</legend>
+                <fieldset class="parte-form col-md-12" id="fd_dados_pessoais">
+                    <legend>Dados Pessoais</legend>
                         
-                        <div class="form-group col-md-3">
-                            <label id="lblDivSec" name="lblDivSec" for="lblDivSec">Divisão/Seção: </label><b class="obg"> *</b>
-                            <select name="txtDivSec" id="divsec" class="form-control" onchange="borda_DivSec();">
-                                <option value="0" selected>Selecione a Divisão/Seção...</option>
-                                <%
-                                    DivisaoSecao ds = new DivisaoSecao();
-                                    DivisaoSecaoDAO dsDAO = new DivisaoSecaoDAO();
-                                    
-                                    int qtdeDivSec = dsDAO.getDivSec().size();
-                                    
-                                    for(int i=0;i<qtdeDivSec;i++){
-                                        out.println("<option value='"+dsDAO.getDivSec().get(i).getId()+"'>"+dsDAO.getDivSec().get(i).getNome()+"</option>");
-                                    } 
-                                %>
-                            </select>
-                        </div>
+                    <div class="form-group col-md-3">
+                        <label id="lblDivSec" name="lblDivSec" for="lblDivSec">Divisão/Seção: </label><b class="obg"> *</b>
+                        <select name="txtDivSec" id="divsec" class="form-control" onchange="borda_DivSec();">
+                            <option value="0" selected>Selecione a Divisão/Seção...</option>
+                            <%
+                                DivisaoSecaoDAO dsDAO = new DivisaoSecaoDAO();
+
+                                int qtdeDivSec = dsDAO.getDivSec().size();
+
+                                for(int i=0;i<qtdeDivSec;i++){
+                                    out.println("<option value='"+dsDAO.getDivSec().get(i).getId()+"'>"+dsDAO.getDivSec().get(i).getNome()+"</option>");
+                                } 
+                            %>
+                        </select>
+                    </div>
                         
                         <div class="form-group col-md-3">
                             <label id="lblPostGrad" name="lblPostGrad" for="lblPostGrad">Posto/Graduação: </label><b class="obg"> *</b>
                             <select name="txtPostGrad" id="postgrad" class="form-control" onchange="borda_PostGrad();">
                                  <option value="0"selected>Selecione o Posto/Graduação...</option>
                                 <%
-                                    PostoGraduacao pg = new PostoGraduacao();
                                     PostoGraduacaoDAO pgDAO = new PostoGraduacaoDAO();
                                     
                                     int qtdePGS = pgDAO.getPostGrads().size();
@@ -122,7 +120,6 @@
                             <select name="txtQasQms" id="qasqms" class="form-control" onchange="borda_QasQms();">
                                 <option value="0" selected>Selecione a QAS/QMS...</option>
                                 <%
-                                    QasQms arma = new QasQms();
                                     QasQmsDAO armaDAO = new QasQmsDAO();
                                     
                                     int qtdeArmas = armaDAO.getArmas().size();
@@ -201,7 +198,6 @@
                             <select name="txtEstCivil" id="est_civil" class="form-control" onchange="borda_Est_Civil()">
                                 <option value="0" selected>Selecione o seu Estado Cívil...</option>
                                 <%
-                                    EstadoCivil ec = new EstadoCivil();
                                     EstadoCivilDAO ecDAO = new EstadoCivilDAO();
                                     
                                     int qtdeEC = ecDAO.getEstadosCivis().size();
@@ -213,17 +209,23 @@
                             </select>
                         </div>
                             
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label id="lblDataPraca" name="lblDataPraca" for="lblDataPraca">Data Praça: </label><b class="obg"> *</b>
-                            <input class="form-control data" type="date" name="txtDataPraca" onblur="validarDataPraca()"/>
+                            <input class="form-control data" type="date" name="txtDataPraca" onblur=""/>
+                        </div>
+                        
+                        
+                        <div class="form-group col-md-3">
+                            <label id="lblDataNasc" name="lblDataNasc" for="lblDataNasc">Data de Nascimento: </label><b class="obg"> *</b>
+                            <input class="form-control" type="date" name="txtDataNasc" onblur=""/>
                         </div>
                             
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label id="lblIdentidade" name="lblIdentidade" for="lblIdentidade">Identidade: </label><b class="obg"> *</b>
                             <input class="form-control identidade" type="text" name="txtIdentidade" placeholder="Ex.: 00000000-0" onblur="validarIDENTIDADE();" onkeypress="return somenteNumero(event);"/>
                         </div>            
                             
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label id="lblCpf" name="lblCpf" for="lblCpf">Cpf: </label><b class="obg"> *</b>
                             <input class="form-control cpf"  type="text" name="txtCpf" id="cpf" placeholder="Ex.: 000.000.000-00" onblur="return validarCPF();" onkeypress="return somenteNumero(event);"/> 
                         </div>
@@ -244,11 +246,7 @@
                             <label id="lblPreccp" name="lblPreccp" for="lblPreccp">Preccp: </label><b class="obg"> *</b>
                             <input class="form-control" type="text" name="txtPreccp" maxlength="9" onblur="validarPRECCP();" onkeypress="return somenteNumero(event);"/>
                         </div>
-                        
-                        <div class="form-group col-md-4">
-                            <label id="lblDataNasc" name="lblDataNasc" for="lblDataNasc">Data de Nascimento: </label>
-                            <input class="form-control" type="date" name="txtDataNasc" onblur="validarDataNasc();"/>
-                        </div>     
+                                                    
                         <div class="form-group col-md-4">
                             <label id="lblCnhNum" name="lblCnhNum" for="lblCnhNum">CNH Número: </label>
                             <input class="form-control" type="text" name="txtCnhNum" maxlength="11" onkeypress="return somenteNumero(event);"/>
@@ -270,6 +268,11 @@
                             </select>
                         </div>
                         
+                        <div class="form-group col-md-4">
+                            <label id="lblCnhDataVal" name="lblCnhDataVal" for="lblCnhDataVal">Data de Validadde da CNH: </label>
+                            <input class="form-control" type="date" name="txtCnhDataVal" onblur=""/>
+                        </div>  
+                        
                         <div class="form-group col-md-6">
                             <label id="lblPai" name="lblPai" for="lbPai">Pai: </label>
                             <input class="form-control" type="text" name="txtPai"/>
@@ -280,12 +283,11 @@
                             <input class="form-control" type="text" name="txtMae"/>
                         </div>
                         
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-4">
                             <label id="lblEscolaridade" name="lblEscolaridade" for="lblEscolaridade">Escolaridade: </label><b class="obg"> *</b>
                             <select name="txtEscolaridade" id="esc" class="form-control" onchange="borda_Escolaridade();">
                                 <option value="0" selected>Selecione a sua Escolaridade...</option>
                                 <%
-                                    Escolaridade esc = new Escolaridade();
                                     EscolaridadeDAO escDAO = new EscolaridadeDAO();
                                     
                                     int qtdeEsc = escDAO.getEscs().size();
@@ -296,13 +298,11 @@
                                 %>
                             </select>
                         </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                             <label id="lblReligiao" name="lblReligiao" for="lblReligiao">Religião: </label><b class="obg"> *</b>
                             <select name="txtReligiao" id="religiao" class="form-control" onchange="borda_Est_Civil()">
                                 <option value="0" selected>Selecione a sua Religião...</option>
                                 <%
-                                    
-                                    
                                     ReligiaoDAO relDAO = new ReligiaoDAO();
                                     
                                     int qtdeReligiao = relDAO.getReligioes().size();
@@ -311,11 +311,11 @@
                                         out.println("<option value='"+relDAO.getReligioes().get(i).getId()+"'>"+relDAO.getReligioes().get(i).getNome()+"</option>");
                                     } 
                                 %>
-                                <option value="1000" selected>Outro(a)</option>
+                                <option value="1000">Outro(a)</option>
                             </select>
                         </div>
                                 
-                        <div class="form-group col-md-6" id="out_rel" style="display: none;">
+                        <div class="form-group col-md-4" id="out_rel" style="display: none;">
                             <label id="lblOutraReligiao" name="lblOutraReligiao" for="lblOutraReligiao">Religião: </label><b class="obg"> *</b>
                             <input class="form-control" type="text" name="txtOutraReligiao" onchange="borda_Logradouro()" />
                         </div>
@@ -338,20 +338,11 @@
                             </div>
                         </center>
                         <div id="div_dados_conjuge" style="display: none;">
-                            <div class="form-group col-md-9">
-                                <label id="lblNomeConjuge" name="lblNomeConjuge" for="lblNomeConjuge">Nome Completo: </label><b class="obg"> *</b>
-                                <input class="form-control" type="text" name="txtNNomeConjuge" onchange="borda_NomeComp()"/>
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label id="lblCpfConjuge" name="lblCpfConjuge" for="lblCpfConjuge">Cpf: </label><b class="obg"> *</b>
-                                <input class="form-control cpf"  type="text" name="txtCpfConjuge" id="cpf" placeholder="Ex.: 000.000.000-00" onblur="return validarCPF();" onkeypress="return somenteNumero(event);"/> 
-                            </div>
-
                             <div class="form-group col-md-6">
-                                <label id="lblEmailConjuge" name="lblEmailConjuge" for="lblEmailConjuge">Email: </label><b class="obg"> *</b>
-                                <input class="form-control" type="email" name="txtEmailConjuge" onchange="borda_Email()"/>
+                                <label id="lblNomeConjuge" name="lblNomeConjuge" for="lblNomeConjuge">Nome Completo: </label><b class="obg"> *</b>
+                                <input class="form-control" type="text" name="txtNomeConjuge" onchange="borda_NomeComp()"/>
                             </div>
+
                             
                             <div class="form-group col-md-3">
                                 <label id="lblFoneConjuge" name="lblFoneConjuge" for="lblFoneConjuge">Telefone: </label><b class="obg"> *</b>
@@ -359,60 +350,21 @@
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label id="lblProfissaoConjuge" name="lblProfissaoConjuge" for="lblProfissaoConjuge">Profissão: </label><b class="obg"> *</b>
-                                <input class="form-control" type="email" name="txtProfissaoConjuge" onchange="borda_Email()"/>
-                            </div>
-
-                            <div class="form-group col-md-6">
                                 <label id="lblDataNascConjuge" name="lblDataNascConjuge" for="lblDataNascConjuge">Data de Nascimento: </label><b class="obg"> *</b>
                                 <input class="form-control data" type="date" name="txtDataNascConjuge" onblur="validarDataPraca()"/>
                             </div>
-
-                            <div class="form-group col-md-6">
-                                <label id="lblNatConjuge" name="lblNatConjuge" for="lblNatConjuge">Naturalidade: </label><b class="obg"> *</b>
-                                <select name="txtNatConjuge" id="txt_nat_conjuge" class="form-control" onchange="borda_Naturalidade()">
-                                    <option value="" selected>Selecione a sua Naturalidade...</option>
-                                    <option value="Acriano(a)">Acriano(a)</option>
-                                    <option value="Amazonense">Amazonense</option>
-                                    <option value="Rondoniense">Rondoniense</option>
-                                    <option value="Roraimense">Roraimense</option>
-                                    <option value="Amapaense">Amapaense</option>
-                                    <option value="Paraense">Paraense</option>
-                                    <option value="Tocantinense">Tocantinense</option>
-                                    <option value="Mato-Grossense">Mato-Grossense</option>
-                                    <option value="Sul-Mato-Grossense">Sul-Mato-Grossense</option>
-                                    <option value="Goiano(a)">Goiano(a)</option>
-                                    <option value="Maranhense">Maranhense</option>
-                                    <option value="Cearense">Cearense</option>
-                                    <option value="Potiguar ou Rio-Grandense-do-Norte">Potiguar ou Rio-Grandense-do-Norte</option>
-                                    <option value="Piauiense">Piauiense</option>
-                                    <option value="Paraibano(a)">Paraibano(a)</option>
-                                    <option value="Pernambucano(a)">Pernambucano(a)</option>
-                                    <option value="Alagoano(a)">Alagoano(a)</option>
-                                    <option value="Sergipano(a)">Sergipano(a)</option>
-                                    <option value="Baiano(a)">Baiano(a)</option>
-                                    <option value="Mineiro(a)">Mineiro(a)</option>
-                                    <option value="Capixaba ou Espírito-Santinense">Capixaba ou Espírito-Santinense</option>
-                                    <option value="Carioca">Carioca</option>
-                                    <option value="Paulista">Paulista</option>
-                                    <option value="Paranaense">Paranaense</option>
-                                    <option value="Catarinense">Catarinense</option>
-                                    <option value="Gaúcho ou Rio-Grandense-do-Sul">Gaúcho ou Rio-Grandense-do-Sul</option>
-                                </select>
-                            </div>
                         </div>
                         
-                       
                         <div class="form-group col-md-12" id="div_qtde_dependente" style="display: none;">
-                                 <center>
-                                    <label id="lblNumDependente" name="lblNumDependente" for="lblNumDependente">Quantidade de Dependente: </label><b class="obg"> *</b>
-                                    <input class="form-control" type="number" name="txtNumDependente" min="0" max="50" onchange="limpa_div_dados_dependente(); qtdeDependente();" onkeypress="return somenteNumero(event);"/>
-                                </center>
-                            </div> 
-                        
-                        <div id="div_dados_dependente" style="display: none;">
+                                <center>
+                                   <label id="lblNumDependente" name="lblQtdeDependente" for="lblQtdeDependente">Quantidade de Dependente: </label><b class="obg"> *</b>
+                                   <input class="form-control" type="number" name="txtQtdeDependente" min="0" max="50" onchange="limpa_div_dados_dependente(); qtdeDependente();" onkeypress="return somenteNumero(event);"/>
+                               </center>
+                        </div> 
+                      
+                        <div id="div_dados_dependente" style="display: none;"></div>
                             
-                        </div>
+                        
                     </fieldset>
                     <fieldset class="parte-form col-md-12">
                         <legend>Dados de Endereço</legend>
@@ -425,7 +377,6 @@
                             <select name="txtEstado" id="estado" class="form-control" onchange="borda_Estado()">
                                 <option value="0" selected>Selecione o seu Estado...</option>
                                 <%
-                                   Estado est = new Estado();
                                    EstadoDAO estDAO = new EstadoDAO();
 
                                    int qtdeEst = estDAO.getEstados().size();
@@ -441,7 +392,6 @@
                             <select name="txtCidade" id="cidade" class="form-control" onchange="borda_Cidade()">
                                 <option value="0" selected>Selecione a sua Cidade...</option>
                                 <%
-                                   Cidade c = new Cidade();
                                    CidadeDAO cDAO = new CidadeDAO();
 
                                    int qtdeCid = cDAO.getCidades().size();
@@ -479,8 +429,7 @@
                             
                             <select name="txtBairroRioPretoDaEva" id="bairrosRioPretoDaEva" class="form-control" onchange="borda_Bairro()" style="display: none;">
                                 <option value="0" selected>Selecione o seu Bairro...</option>
-                                <%
-                                                                                                                              
+                                <%                                                                                      
                                     qtdeBairros = bDAO.getBairrosByCidade(2).size();
                                     
                                     for(int i=0;i<qtdeBairros;i++){
@@ -492,8 +441,7 @@
                             
                             <select name="txtBairroIranduba" id="bairrosIranduba" class="form-control" onchange="borda_Bairro()" style="display: none;">
                                 <option value="0" selected>Selecione o seu Bairro...</option>
-                                <%
-                                                                                                                              
+                                <%                                                                                       
                                     qtdeBairros = bDAO.getBairrosByCidade(3).size();
                                     
                                     for(int i=0;i<qtdeBairros;i++){
@@ -503,12 +451,9 @@
                                 %>
                             </select>
                             
-                            <select name="txtBairroManacapuru" id="bairrosManacapuru" class="form-control"
-                                    
-                                    onchange="borda_Bairro()" style="display: none;">
+                            <select name="txtBairroManacapuru" id="bairrosManacapuru" class="form-control" onchange="borda_Bairro()" style="display: none;">
                                 <option value="0" selected>Selecione o seu Bairro...</option>
-                                <%
-                                                                                                                              
+                                <%                                                                                         
                                     qtdeBairros = bDAO.getBairrosByCidade(4).size();
                                     
                                     for(int i=0;i<qtdeBairros;i++){
