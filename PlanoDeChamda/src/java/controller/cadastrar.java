@@ -96,9 +96,12 @@ public class cadastrar extends HttpServlet {
         }else{
             //Endereço
             Endereco end = new Endereco();
-            end.setCep(request.getParameter("txtCep").replace("-", ""));       
+            end.setCep(request.getParameter("txtCep").replace("-", ""));
+           
             end.setLogradouro(request.getParameter("txtLogradouro"));
-            end.setComplemento(request.getParameter("txtComplemento"));
+            String complemento = "";
+            if(request.getParameter("txtComplemento") != null){complemento = request.getParameter("txtComplemento");}
+            end.setComplemento(complemento);
             int id_cid = Integer.parseInt(request.getParameter("txtCidade"));
             switch (id_cid) {
                 case 1:
@@ -145,7 +148,8 @@ public class cadastrar extends HttpServlet {
             mil.setPai(request.getParameter("txtPai"));
             mil.setMae(request.getParameter("txtMae"));
             mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
-            
+            System.out.println(end.getCep()+ " "+end.getLogradouro()+" "+end.getComplemento()+" " +end.getId_bairro()+"idend"+endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
+            mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
             //Religião
             int id_religiao = Integer.parseInt(request.getParameter("txtReligiao"));
             ReligiaoDAO religiaoDAO = new ReligiaoDAO();
@@ -169,7 +173,8 @@ public class cadastrar extends HttpServlet {
             mil.setEnd_num(request.getParameter("txtNum"));
             mil.setSenha(request.getParameter("txtSenha"));
 
-            mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
+            
+            
             milDAO.inserir(mil);
             
             //Habilitação
@@ -195,7 +200,6 @@ public class cadastrar extends HttpServlet {
             //Dependentes
             DependenteDAO dependenteDAO = new DependenteDAO();
             if(request.getParameter("checkboxDependente") != null){
-                
                 int qtdeDependentes = Integer.parseInt(request.getParameter("txtQtdeDependente"));
                 for(int i=0;i<qtdeDependentes;i++){
                     System.out.println("sdfsd "+request.getParameter("txtDataNascDependente"+(i+1)).replace("/", "").replace("-", ""));
