@@ -59,8 +59,11 @@ public class DadosCheckBox {
         cnh_cats.add("B");
         cnh_cats.add("AB");
         cnh_cats.add("C");
+        cnh_cats.add("AC");
         cnh_cats.add("D");
+        cnh_cats.add("AD");
         cnh_cats.add("E");
+        cnh_cats.add("AE");
 
         return cnh_cats;
     }
