@@ -26,6 +26,202 @@ function borda_input_text(id){
     }
 }
 
+function valida_identidade(id){
+    var input = document.getElementById(id);
+    var identidade = input.value.replace(".","").replace("-","");
+    
+    if(identidade == "__________"){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(input.value!="" && identidade == '0000000000' || identidade == '1111111111' || 
+       identidade == '2222222222' || identidade == '3333333333' || identidade == '4444444444' || identidade == '5555555555' ||
+       identidade == '6666666666' || identidade == '7777777777' || identidade == '8888888888' || identidade == '9999999999'){
+       
+        alert("Número de Identidade Inválido!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+        
+    }else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+        
+    }
+}
+
+function valida_cpf(id) {
+    var input = document.getElementById(id);
+    cpf = input.value.replace(/[^\d]+/g,'').replace(".","").replace("-","");	
+	// Elimina CPFs invalidos conhecidos	
+        if(cpf == ''){
+            input.style.border='2px solid red';
+            input.style.background='rgba(255,0,0,0.2)';
+            input.focus();
+            return false;
+        }
+        if(cpf == "00000000000" || cpf == "11111111111" || cpf == "22222222222" ||
+            cpf == "33333333333" ||	cpf == "44444444444" || cpf == "55555555555" || 
+            cpf == "66666666666" || cpf == "77777777777" || cpf == "88888888888" || 
+            cpf == "99999999999"){
+                alert("CPF Inválido!");
+                input.style.border='2px solid red';
+                input.style.background='rgba(255,0,0,0.2)';
+                input.focus();
+                return false;
+        }
+	// Valida 1o digito	
+	add = 0;	
+	for (i=0; i < 9; i ++)		
+            add += parseInt(cpf.charAt(i)) * (10 - i);	
+            rev = 11 - (add % 11);	
+            if (rev == 10 || rev == 11)		
+                rev = 0;	
+            if (rev != parseInt(cpf.charAt(9))){
+                alert("CPF Inválido!");
+                input.style.border='2px solid red';
+                input.style.background='rgba(255,0,0,0.2)';
+                input.focus();
+                return false;
+            }
+	// Valida 2o digito	
+	add = 0;	
+	for (i = 0; i < 10; i ++)		
+            add += parseInt(cpf.charAt(i)) * (11 - i);	
+	rev = 11 - (add % 11);	
+	if (rev == 10 || rev == 11)	
+            rev = 0;	
+	if (rev != parseInt(cpf.charAt(10))){
+            alert("CPF Inválido!");
+            input.style.border='2px solid red';
+            input.style.background='rgba(255,0,0,0.2)';
+            input.focus();
+            return false;
+        }
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+        return true;
+}
+
+function valida_titulo(id){
+    var input = document.getElementById(id);
+    var titulo = input.value.replace(" ","").replace(" ","");
+    
+    if(titulo == '____________'){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(input.value!="" && titulo == '000000000000' ||titulo == '111111111111' || 
+       titulo == '222222222222' || titulo == '333333333333' || titulo == '444444444444' || titulo == '555555555555' ||
+       titulo == '666666666666' || titulo == '777777777777' || titulo == '888888888888' || titulo == '999999999999'){
+       
+        alert("Número de Titulo Eleitoral Inválido!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+        
+    }else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
+function valida_dataPraca(id){
+    var input = document.getElementById(id);
+    var anoPraca = input.value.substring(0,4);
+    var mesPraca = input.value.substring(5,7);
+    var diaPraca = input.value.substring(8,10);
+    var dataAtual = new Date();
+    var mesAtual = dataAtual.getMonth()+1;
+    if(input.value == ""){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoPraca && mesAtual == mesPraca && dataAtual.getDate() < diaPraca){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoPraca && mesAtual < mesPraca){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() < anoPraca){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
+function valida_dataNasc(id){
+    var input = document.getElementById(id);
+    var anoNasc = input.value.substring(0,4);
+    var mesNasc = input.value.substring(5,7);
+    var diaNasc = input.value.substring(8,10);
+    var anoPraca = document.formCadastro.txtDataPraca.value.substring(0,4);
+    var mesPraca = document.formCadastro.txtDataPraca.value.substring(5,7);
+    var diaPraca = document.formCadastro.txtDataPraca.value.substring(8,10);
+    var dataAtual = new Date();
+    var mesAtual = dataAtual.getMonth()+1;
+    
+    if(input.value == ""){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoNasc && mesAtual == mesNasc && dataAtual.getDate() < diaNasc){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoNasc && mesAtual < mesNasc){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() < anoNasc){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(anoNasc == anoPraca && mesNasc == mesPraca && diaNasc > diaPraca){
+        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(anoNasc == anoPraca && mesNasc > mesPraca){
+        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(anoNasc > anoPraca){
+        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
 function valida_fone(id){
     var input = document.getElementById(id);
     var fone = input.value.replace(".","").replace("-","").replace("(","").replace(")","").replace(" ","");
@@ -36,7 +232,7 @@ function valida_fone(id){
     }
     else if(input.value != "" && fone == '00000000000' || fone == '11111111111' ||
             fone == '22222222222' || fone == '33333333333' || fone == '44444444444' || fone == '55555555555' ||
-             fone == '66666666666' || fone == '77777777777' || fone == '88888888888' || fone == '99999999999'){
+            fone == '66666666666' || fone == '77777777777' || fone == '88888888888' || fone == '99999999999'){
        
         alert("Número de Telefoone Inválido!");
         input.style.border='2px solid red';
@@ -85,7 +281,8 @@ function validacao_cad(){
     
     if(document.formCadastro.txtNomeGuerra.value==""){
         alert("Campo Obrigatório!\nDigite o seu Nome de Guerra.");
-        document.formCadastro.txtNomeGuerra.style.border='1px solid red';
+        document.formCadastro.txtNomeGuerra.style.border='2px solid red';
+        document.formCadastro.txtNomeGuerra.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtNomeGuerra.focus();
         return false;
     }
@@ -96,23 +293,26 @@ function validacao_cad(){
         return false;
     }
     
-    if(document.formCadastro.txtNaturalidade.selectedIndex==0){
+    if(document.formCadastro.txtNatMilitar.selectedIndex==0){
         alert("Campo Obrigatório!\nSelecione a sua Naturalidade.");
-        document.formCadastro.txtNaturalidade.style.border='1px solid red';
-        document.formCadastro.txtNaturalidade.focus();
+        document.formCadastro.txtNatMilitar.style.border='2px solid red';
+        document.formCadastro.txtNatMilitar.style.background='rgba(255,0,0,0.2)';
+        document.formCadastro.txtNatMilitar.focus();
         return false;
     }
     
     if(document.formCadastro.txtEstCivil.selectedIndex==0){
         alert("Campo Obrigatório!\nSelecione o seu Estado Cívil.");
-        document.formCadastro.txtEstCivil.style.border='1px solid red';
+        document.formCadastro.txtEstCivil.style.border='2px solid red';
+        document.formCadastro.txtEstCivil.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtEstCivil.focus();
         return false;
     }   
     
     if(document.formCadastro.txtDataPraca.value==""){
         alert("Campo Obrigatório!\nDigite a sua Data Praça.");
-        document.formCadastro.txtDataPraca.style.border='1px solid red';
+        document.formCadastro.txtDataPraca.style.border='2px solid red';
+        document.formCadastro.txtDataPraca.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtDataPraca.focus();
         return false;
     }   
@@ -125,26 +325,30 @@ function validacao_cad(){
         
     if(document.formCadastro.txtDataPraca.value!="" && dataAtual.getFullYear() == anoPraca && mesAtual == mesPraca && dataAtual.getDate() < diaPraca){
         alert("Data Inválida!");
-        document.formCadastro.txtDataPraca.style.border='1px solid red';
+        document.formCadastro.txtDataPraca.style.border='2px solid red';
+        document.formCadastro.txtDataPraca.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtDataPraca.focus();
         return false;
     }
     if(document.formCadastro.txtDataPraca.value!="" && dataAtual.getFullYear() == anoPraca && mesAtual < mesPraca){
         alert("Data Inválida!");
-        document.formCadastro.txtDataPraca.style.border='1px solid red';
+        document.formCadastro.txtDataPraca.style.border='2px solid red';
+        document.formCadastro.txtDataPraca.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtDataPraca.focus();
         return false;
     }
     if(document.formCadastro.txtDataPraca.value!="" && dataAtual.getFullYear() < anoPraca){
         alert("Data Inválida!");
-        document.formCadastro.txtDataPraca.style.border='1px solid red';
+        document.formCadastro.txtDataPraca.style.border='2px solid red';
+        document.formCadastro.txtDataPraca.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtDataPraca.focus();
         return false;
     }
     
     if(document.formCadastro.txtIdentidade.value==""){
         alert("Campo Obrigatório!\nDigite a sua Identidade.");
-        document.formCadastro.txtIdentidade.style.border='1px solid red';
+        document.formCadastro.txtIdentidade.style.border='2px solid red';
+        document.formCadastro.txtIdentidade.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtIdentidade.focus();
         return false;
     }
