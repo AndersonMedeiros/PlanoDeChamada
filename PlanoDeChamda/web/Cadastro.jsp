@@ -52,10 +52,14 @@
                     id('bairrosRioPretoDaEva').style.display = this.value=='2' ? 'block' : 'none';//2 - Rio Preto da Eva
                     id('bairrosIranduba').style.display = this.value=='3' ? 'block' : 'none';//3 - Iranduba
                     id('bairrosManacapuru').style.display = this.value=='4' ? 'block' : 'none';//4 - Manacapuru
+                    
+                    borda_input_select(this.id);
                 }
                 
                 id('religiao').onchange = function(){
                     id("out_rel").style.display = this.value == "1000" ? 'block' : 'none';
+                    
+                    borda_input_select(this.id);
                 }
                 
                 id('op_esposa').onchange = function(){
@@ -86,7 +90,7 @@
                         
                     <div class="form-group col-md-3">
                         <label id="lblDivSec" name="lblDivSec" for="lblDivSec">Divisão/Seção: </label><b class="obg"> *</b>
-                        <select name="txtDivSec" id="divsec" class="form-control" onchange="borda_input_select()(this.id);">
+                        <select name="txtDivSec" id="divsec" class="form-control" onchange="borda_input_select(this.id)">
                             <option value="0" selected>Selecione a Divisão/Seção...</option>
                             <%
                                 DivisaoSecaoDAO dsDAO = new DivisaoSecaoDAO();
@@ -102,7 +106,7 @@
                         
                         <div class="form-group col-md-3">
                             <label id="lblPostGrad" name="lblPostGrad" for="lblPostGrad">Posto/Graduação: </label><b class="obg"> *</b>
-                            <select name="txtPostGrad" id="postgrad" class="form-control" onchange="borda_input_select()(this.id);">
+                            <select name="txtPostGrad" id="postgrad" class="form-control" onchange="borda_input_select(this.id)">
                                  <option value="0"selected>Selecione o Posto/Graduação...</option>
                                 <%
                                     PostoGraduacaoDAO pgDAO = new PostoGraduacaoDAO();
@@ -118,7 +122,7 @@
                         
                         <div class="form-group col-md-3">
                             <label id="lblQasQms" name="lblQasQms" for="lblQasQms">QAS/QMS: </label><b class="obg"> *</b>
-                            <select name="txtQasQms" id="qasqms" class="form-control" onchange="borda_input_select()(this.id);">
+                            <select name="txtQasQms" id="qasqms" class="form-control" onchange="borda_input_select(this.id)">
                                 <option value="0" selected>Selecione a QAS/QMS...</option>
                                 <%
                                     QasQmsDAO armaDAO = new QasQmsDAO();
@@ -163,7 +167,7 @@
                             
                         <div class="form-group col-md-4">
                             <label id="lblNaturalidade" name="lblNatMilitar" for="lblNatMilitar">Naturalidade: </label><b class="obg"> *</b>
-                            <select name="txtNatMilitar" id="txt_natmilitar" class="form-control" onchange="borda_input_select()(this.id);">
+                            <select name="txtNatMilitar" id="txt_natmilitar" class="form-control" onchange="borda_input_select(this.id)">
                                 <option value="" selected>Selecione a sua Naturalidade...</option>
                                 <option value="Acriano(a)">Acriano(a)</option>
                                 <option value="Amazonense">Amazonense</option>
@@ -196,7 +200,7 @@
                             
                         <div class="form-group col-md-4">
                             <label id="lblEstCivil" name="lblEstCivil" for="lblEstCivil">Estado Cívil: </label><b class="obg"> *</b>
-                            <select name="txtEstCivil" id="est_civil" class="form-control" onchange="borda_input_select()(this.id);">
+                            <select name="txtEstCivil" id="est_civil" class="form-control" onchange="borda_input_select(this.id)">
                                 <option value="0" selected>Selecione o seu Estado Cívil...</option>
                                 <%
                                     EstadoCivilDAO ecDAO = new EstadoCivilDAO();
@@ -212,40 +216,40 @@
                             
                         <div class="form-group col-md-3">
                             <label id="lblDataPraca" name="lblDataPraca" for="lblDataPraca">Data Praça: </label><b class="obg"> *</b>
-                            <input class="form-control data" type="date" name="txtDataPraca" onblur=""/>
+                            <input class="form-control data" type="date" id="txtDataPraca" name="txtDataPraca" onblur="valida_dataPraca(this.id);"/>
                         </div>
                         
                         
                         <div class="form-group col-md-3">
                             <label id="lblDataNasc" name="lblDataNasc" for="lblDataNasc">Data de Nascimento: </label><b class="obg"> *</b>
-                            <input class="form-control" type="date" name="txtDataNasc" onblur=""/>
+                            <input class="form-control" type="date" id="txtDataNasc" name="txtDataNasc" onblur="valida_dataNasc(this.id);"/>
                         </div>
                             
                         <div class="form-group col-md-3">
                             <label id="lblIdentidade" name="lblIdentidade" for="lblIdentidade">Identidade: </label><b class="obg"> *</b>
-                            <input class="form-control identidade" type="text" name="txtIdentidade" placeholder="Ex.: 00000000-0" onblur="validarIDENTIDADE();" onkeypress="return somenteNumero(event);"/>
+                            <input class="form-control identidade" type="text" id="txtIdentidade" name="txtIdentidade" placeholder="Ex.: 00000000-0" onblur="valida_identidade(this.id)" onkeypress="return somenteNumero(event);"/>
                         </div>            
                             
                         <div class="form-group col-md-3">
                             <label id="lblCpf" name="lblCpf" for="lblCpf">Cpf: </label><b class="obg"> *</b>
-                            <input class="form-control cpf"  type="text" name="txtCpf" id="cpf" placeholder="Ex.: 000.000.000-00" onblur="return validarCPF();" onkeypress="return somenteNumero(event);"/> 
+                            <input class="form-control cpf"  type="text" name="txtCpf" id="cpf" placeholder="Ex.: 000.000.000-00" onblur="return valida_cpf(this.id);" onkeypress="return somenteNumero(event);"/> 
                         </div>
                             
                         <div class="form-group col-md-4">
                             <label id="lblTeleitorRegistro" name="lblTeleitorRegistro" for="lblTeleitorRegistro">Titulo Eleitor: </label><b class="obg"> *</b>
-                            <input class="form-control titulo_eleitor"  type="text" name="txtTeleitorRegistro" maxlength="12" id="titulo_eleitor" placeholder="Ex.: 0000 0000 0000" onblur="return validarTITULO();" onkeypress="return somenteNumero(event);"/> 
+                            <input class="form-control titulo_eleitor"  type="text" id="txtTeleitorRegistro" name="txtTeleitorRegistro" maxlength="12" id="titulo_eleitor" placeholder="Ex.: 0000 0000 0000" onblur="valida_titulo(this.id);" onkeypress="return somenteNumero(event);"/> 
                         </div>
                         <div class="form-group col-md-2">
                             <label id="lblTeleitorZona" name="lblTeleitorZona" for="lblTeleitorZona">Zona: </label><b class="obg"> *</b>
-                            <input class="form-control"  type="text" name="txtTeleitorZona" maxlength="3" placeholder="Ex.: 000" onblur="return validarZONA();" onkeypress="return somenteNumero(event);"/> 
+                            <input class="form-control"  type="text" id="txtTeleitorZona" name="txtTeleitorZona" maxlength="3" placeholder="Ex.: 000" onchange="valida_input_text(this.id)" onkeypress="return somenteNumero(event);"/> 
                         </div>
                         <div class="form-group col-md-2">
                             <label id="lblTeleitorSecao" name="lblTeleitorSecao" for="lblTeleitorSecao">Seção: </label><b class="obg"> *</b>
-                            <input class="form-control"  type="text" name="txtTeleitorSecao" maxlength="4" placeholder="Ex.: 0000" onblur="return validarSECAO();" onkeypress="return somenteNumero(event);"/> 
+                            <input class="form-control"  type="text" id="txtTeleitorSecao" name="txtTeleitorSecao" maxlength="4" placeholder="Ex.: 0000" onchange="valida_input_text(this.id)" onkeypress="return somenteNumero(event);"/> 
                         </div>
                         <div class="form-group col-md-4">
                             <label id="lblPreccp" name="lblPreccp" for="lblPreccp">Preccp: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" name="txtPreccp" maxlength="9" onblur="validarPRECCP();" onkeypress="return somenteNumero(event);"/>
+                            <input class="form-control" type="text" id="txtPreccp" name="txtPreccp" maxlength="9" onblur="valida_preccp(this.id);" onkeypress="return somenteNumero(event);"/>
                         </div>
                                                     
                         <div class="form-group col-md-4">
@@ -255,7 +259,7 @@
                             
                         <div class="form-group col-md-4">
                             <label id="lblCnhCat" name="lblCnhCat" for="lblCnhCat">CNH Categoria: </label>
-                            <select name="txtCnhCat" id="cnh_cat" class="form-control" onchange="borda_input_select()(this.id);>
+                            <select name="txtCnhCat" id="cnh_cat" class="form-control" onchange="borda_input_select(this.id);">
                                  <option value="" selected>Selecione a categoria...</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
@@ -286,7 +290,7 @@
                         
                         <div class="form-group col-md-4">
                             <label id="lblEscolaridade" name="lblEscolaridade" for="lblEscolaridade">Escolaridade: </label><b class="obg"> *</b>
-                            <select name="txtEscolaridade" id="esc" class="form-control" onchange="borda_input_select()(this.id);">
+                            <select name="txtEscolaridade" id="esc" class="form-control" onchange="borda_input_select(this.id);">
                                 <option value="0" selected>Selecione a sua Escolaridade...</option>
                                 <%
                                     EscolaridadeDAO escDAO = new EscolaridadeDAO();
@@ -301,7 +305,7 @@
                         </div>
                             <div class="form-group col-md-4">
                             <label id="lblReligiao" name="lblReligiao" for="lblReligiao">Religião: </label><b class="obg"> *</b>
-                            <select name="txtReligiao" id="religiao" class="form-control" onchange="borda_input_select()(this.id);">
+                            <select name="txtReligiao" id="religiao" class="form-control">
                                 <option value="0" selected>Selecione a sua Religião...</option>
                                 <%
                                     ReligiaoDAO relDAO = new ReligiaoDAO();
@@ -347,19 +351,19 @@
                             
                             <div class="form-group col-md-3">
                                 <label id="lblFoneConjuge" name="lblFoneConjuge" for="lblFoneConjuge">Telefone: </label><b class="obg"> *</b>
-                                <input class="form-control fone" type="text" name="txtFoneConjuge" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id);" onkeypress="return somenteNumero(event);"/>
+                                <input class="form-control fone" type="text" id="txtFoneConjuge" name="txtFoneConjuge" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id);" onkeypress="return somenteNumero(event);"/>
                             </div>
 
                             <div class="form-group col-md-3">
                                 <label id="lblDataNascConjuge" name="lblDataNascConjuge" for="lblDataNascConjuge">Data de Nascimento: </label><b class="obg"> *</b>
-                                <input class="form-control data" type="date" name="txtDataNascConjuge" onblur="validarDataPraca()"/>
+                                <input class="form-control data" type="date" id="txtDataNascConjuge" name="txtDataNascConjuge" onblur="validarDataPraca()"/>
                             </div>
                         </div>
                         
                         <div class="form-group col-md-12" id="div_qtde_dependente" style="display: none;">
                                 <center>
                                    <label id="lblNumDependente" name="lblQtdeDependente" for="lblQtdeDependente">Quantidade de Dependente: </label><b class="obg"> *</b>
-                                   <input class="form-control" type="number" name="txtQtdeDependente" min="0" max="50" onchange="limpa_div_dados_dependente(); qtdeDependente();" onkeypress="return somenteNumero(event);"/>
+                                   <input class="form-control" type="number" name="txtQtdeDependente" min="0" max="50" onchange="limpa_div_dados_dependente(); qtdeDependente_cad();" onkeypress="return somenteNumero(event);"/>
                                </center>
                         </div> 
                       
@@ -371,11 +375,11 @@
                         <legend>Dados de Endereço</legend>
                         <div class="form-group col-md-3">
                             <label id="lblCep" name="lblCep" for="lblCep">Cep: </label><b class="obg"> *</b>
-                            <input class="form-control cep" type="text" name="txtCep" id="cep" placeholder="Ex.: 00000-000" onblur="validarCEP();" onkeypress="return somenteNumero(event);"/>
+                            <input class="form-control cep" type="text" name="txtCep" id="txtCep" placeholder="Ex.: 00000-000" onblur="validarCEP();" onkeypress="return somenteNumero(event);"/>
                         </div>
                         <div class="form-group col-md-3">
                             <label id="lblEstado" name="lblEstado" for="lblEstado">Estado: </label><b class="obg"> *</b>
-                            <select name="txtEstado" id="estado" class="form-control" onchange="borda_input_select()(this.id);">
+                            <select name="txtEstado" id="estado" class="form-control" onchange="borda_input_select(this.id)">
                                 <option value="0" selected>Selecione o seu Estado...</option>
                                 <%
                                    EstadoDAO estDAO = new EstadoDAO();
@@ -390,7 +394,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label id="lblCidade" name="lblCidade" for="lblCidade">Cidade: </label><b class="obg"> *</b>
-                            <select name="txtCidade" id="cidade" class="form-control" onchange="borda_input_select()(this.id);">
+                            <select name="txtCidade" id="cidade" class="form-control" >
                                 <option value="0" selected>Selecione a sua Cidade...</option>
                                 <%
                                    CidadeDAO cDAO = new CidadeDAO();
@@ -409,12 +413,12 @@
                         <div class="form-group col-md-3">
                             <label id="lblBairro" name="lblBairro" for="lblBairro">Bairro: </label><b class="obg"> *</b>
                             
-                            <select name="txtpadrao" id="padrao" class="form-control" onchange="borda_input_select()(this.id);">
+                            <select name="txtpadrao" id="padrao" class="form-control" onchange="borda_input_select(this.id);">
                                 <option value="0" selected>Selecione o seu Bairro...</option>
                                 
                             </select>
                                                         
-                            <select name="txtBairroManaus" id="bairrosManaus" class="form-control" onchange="borda_input_select()(this.id);" style="display: none;">
+                            <select name="txtBairroManaus" id="bairrosManaus" class="form-control" onchange="borda_input_select(this.id);" style="display: none;">
                                 <option value="0" selected>Selecione o seu Bairro...</option>
                                 <%
                                     BairroDAO bDAO = new BairroDAO();
@@ -428,7 +432,7 @@
                                 %>
                             </select>
                             
-                            <select name="txtBairroRioPretoDaEva" id="bairrosRioPretoDaEva" class="form-control" onchange="borda_input_select()(this.id);" style="display: none;">
+                            <select name="txtBairroRioPretoDaEva" id="bairrosRioPretoDaEva" class="form-control" onchange="borda_input_select(this.id);" style="display: none;">
                                 <option value="0" selected>Selecione o seu Bairro...</option>
                                 <%                                                                                      
                                     qtdeBairros = bDAO.getBairrosByCidade(2).size();
@@ -440,7 +444,7 @@
                                 %>
                             </select>
                             
-                            <select name="txtBairroIranduba" id="bairrosIranduba" class="form-control" onchange="borda_input_select()(this.id);" style="display: none;">
+                            <select name="txtBairroIranduba" id="bairrosIranduba" class="form-control" onchange="borda_input_select(this.id);" style="display: none;">
                                 <option value="0" selected>Selecione o seu Bairro...</option>
                                 <%                                                                                       
                                     qtdeBairros = bDAO.getBairrosByCidade(3).size();
@@ -452,7 +456,7 @@
                                 %>
                             </select>
                             
-                            <select name="txtBairroManacapuru" id="bairrosManacapuru" class="form-control" onchange="borda_input_select()(this.id);" style="display: none;">
+                            <select name="txtBairroManacapuru" id="bairrosManacapuru" class="form-control" onchange="borda_input_select(this.id);" style="display: none;">
                                 <option value="0" selected>Selecione o seu Bairro...</option>
                                 <%                                                                                         
                                     qtdeBairros = bDAO.getBairrosByCidade(4).size();
@@ -486,12 +490,12 @@
                         
                         <div class="form-group col-md-6">
                             <label id="lblFone01" name="lblFone01" for="lblFone01">Telefone 01: </label><b class="obg"> *</b>
-                            <input class="form-control fone" type="text" name="txtFone01" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id);" onkeypress="return somenteNumero(event);"/>
+                            <input class="form-control fone" type="text" id="txtFone01" name="txtFone01" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id)" onkeypress="return somenteNumero(event);"/>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label id="lblFone02" name="lblFone02" for="lblFone02">Telefone 02: </label>
-                            <input class="form-control fone" type="text" name="txtFone02" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id);" onkeypress="return somenteNumero(event);"/>
+                            <input class="form-control fone" type="text" id="txtFone02" name="txtFone02" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id)" onkeypress="return somenteNumero(event);"/>
                         </div>    
 
                         <div class="form-group col-md-12">
@@ -505,7 +509,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label id="lblFoneReferencia" name="lblFoneReferencia" for="lblFoneReferencia">Contato do Familiar: </label><b class="obg"> *</b>
-                            <input class="form-control fone" type="text" name="txtFoneReferencia" placeholder="Ex.: (00) 00000-0000" onblur="validarContFam();" onkeypress="return somenteNumero(event);"/>
+                            <input class="form-control fone" type="text" id="txtFoneReferencia" name="txtFoneReferencia" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id)" onkeypress="return somenteNumero(event);"/>
                         </div>
                     </fieldset>
 
@@ -513,7 +517,7 @@
                         <legend>Dados de Acesso</legend>
                         <div class="form-group col-md-6">
                             <label id="lblSenha" name="lblSenha" for="lblSenha">Senha: </label><b class="obg"> *</b>
-                            <input class="form-control" type="password" name="txtSenha" maxlength="20" onchange="return validaSenha();"/>
+                            <input class="form-control" type="password" id="txtSenha" name="txtSenha" maxlength="20" onchange="return validaSenha();"/>
                             <b class="obg">*No mínimo 6 caracteres</b>
                         </div>   
                     </fieldset>

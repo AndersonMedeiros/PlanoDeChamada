@@ -3,6 +3,9 @@
     Created on : 05/12/2018, 14:49:15
     Author     : ander
 --%>
+<%@page import="dao.DependenteDAO"%>
+<%@page import="dao.ConjugeDAO"%>
+<%@page import="dao.ReligiaoDAO"%>
 <%@page import="dao.FoneDAO"%>
 <%@page import="dao.EnderecoDAO"%>
 <%@page import="dao.HabilitacaoDAO"%>
@@ -31,6 +34,7 @@
         <link href="../css/estilo.css" type="text/css" rel="stylesheet"/>
         <link href="../css/estilo_cadastro.css" type="text/css" rel="stylesheet"/>
         <link href="../css/estilo-att.css" type="text/css" rel="stylesheet"/>
+        
         <script src="../js/validacao_de_campos.js" type="text/javascript"></script>
         <script type="text/javascript">
             function id( el ){
@@ -113,7 +117,9 @@
                         HabilitacaoDAO cnhDAO = new HabilitacaoDAO();
                         EnderecoDAO endDAO = new EnderecoDAO();
                         FoneDAO foneDAO = new FoneDAO();
-                        
+                        ReligiaoDAO relDAO = new ReligiaoDAO();
+                        ConjugeDAO conDAO = new ConjugeDAO();
+                        DependenteDAO depDAO = new DependenteDAO();
    
                         out.println("<fieldset class=\"parte-form col-md-12\">"+
                                     "<legend>Dados Pessoais</legend>"+
@@ -219,8 +225,8 @@
                                     }
                                     
                                     out.println("<div class=\"form-group col-md-4\">"+
-                                                "<label id=\"lblNaturalidade\" name=\"lblNaturalidade\" for=\"lblNaturalidade\">Naturalidade: </label><b class=\"obg\"> *</b>"+
-                                                "<select name=\"txtNaturalidade\" id=\"naturalidade\" class=\"form-control\" onchange=\"borda_Naturalidade()\"> ");
+                                                "<label id=\"lblNatMilitar\" name=\"lblNatMilitar\" for=\"lblNatMilitar\">Naturalidade: </label><b class=\"obg\"> *</b>"+
+                                                "<select name=\"txtNatMilitar\" id=\"txt_natmilitar\" class=\"form-control\" onchange=\"borda_Naturalidade()\"> ");
                                     
                                     if(mil.getNaturalidade() != null && mil.getNaturalidade().equals("")){
                                         out.println("<option value=\"\" selected>Selecione a sua Naturalidade...</option>");
@@ -257,19 +263,27 @@
                                         }
                                     }
                                     out.println("</select>"+"</div>");
+                                    
                                     if(mil.getData_praca() != null){
-                                        out.println(                                            
-                                        "<div class=\"form-group col-md-4\">"+
-                                        "<label id=\"lblDataPraca\" name=\"lblDataPraca\" for=\"lblDataPraca\">Data Praça: </label><b class=\"obg\"> *</b>"+
-                                        "<input class=\"form-control data\" type=\"date\" name=\"txtDataPraca\" value=\""+mil.getData_praca().substring(0, 4)+"-"+mil.getData_praca().substring(4, 6)+"-"+mil.getData_praca().substring(6, 8)+"\" onblur=\"validarDataPraca_Att()\"/> "+
-                                        "</div>");
+                                        out.println("<div class=\"form-group col-md-3\">"+
+                                                    "<label id=\"lblDataPraca\" name=\"lblDataPraca\" for=\"lblDataPraca\">Data Praça: </label><b class=\"obg\"> *</b>"+
+                                                    "<input class=\"form-control data\" type=\"date\" name=\"txtDataPraca\" value=\""+mil.getData_praca().substring(0, 4)+"-"+mil.getData_praca().substring(4, 6)+"-"+mil.getData_praca().substring(6, 8)+"\" onblur=\"validarDataPraca_Att()\"/> "+
+                                                    "</div>");
                                     }
-                                    out.println("<div class=\"form-group col-md-4\">"+
+                                    
+                                    if(mil.getData_nasc() != null){
+                                        out.println("<div class=\"form-group col-md-3\">"+
+                                                    "<label id=\"lblDataNasc\" name=\"lblDataNasc\" for=\"lblDataNasc\">Data de Nascimento: </label>"+
+                                                    "<input class=\"form-control data\" type=\"date\" name=\"txtDataNasc\" value=\""+mil.getData_nasc().substring(0, 4)+"-"+mil.getData_nasc().substring(4, 6)+"-"+mil.getData_nasc().substring(6, 8)+"\" onblur=\"validarDataNasc_Att();\"/>"+
+                                                    "</div>");
+                                    }
+                                    
+                                    out.println("<div class=\"form-group col-md-3\">"+
                                     "<label id=\"lblIdentidade\" name=\"lblIdentidade\" for=\"lblIdentidade\">Identidade: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control identidade\" type=\"text\" name=\"txtIdentidade\" value=\""+mil.getIdentidade()+"\" onblur=\"validarIDENTIDADE_Att();\" onkeypress=\"return somenteNumero(event);\"/>"+
                                     "</div>"+
 
-                                    "<div class=\"form-group col-md-4\">"+
+                                    "<div class=\"form-group col-md-3\">"+
                                     "<label id=\"lblCpf\" name=\"lblCpf\" for=\"lblCpf\">Cpf: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control cpf\" type=\"text\" name=\"txtCpf\" value=\""+mil.getCpf()+"\" onblur=\"return validarCPF_Att();\" onkeypress=\"return somenteNumero(event);\"/>"+
                                     "</div>"+
@@ -293,15 +307,8 @@
                                     "<label id=\"lblPreccp\" name=\"lblPreccp\" for=\"lblPreccp\">Preccp: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control\" type=\"text\" name=\"txtPreccp\" maxlength=\"9\" value=\""+mil.getPreccp()+"\" onblur=\"validarPRECCP_Att();\" onkeypress=\"return somenteNumero(event);\"/>"+
                                     "</div>");
-
-                                    if(mil.getData_nasc() != null){
-                                        out.println("<div class=\"form-group col-md-4\">"+
-                                                    "<label id=\"lblDataNasc\" name=\"lblDataNasc\" for=\"lblDataNasc\">Data de Nascimento: </label>"+
-                                                    "<input class=\"form-control data\" type=\"date\" name=\"txtDataNasc\" value=\""+mil.getData_nasc().substring(0, 4)+"-"+mil.getData_nasc().substring(4, 6)+"-"+mil.getData_nasc().substring(6, 8)+"\" onblur=\"validarDataNasc_Att();\"/>"+
-                                                    "</div>");
-                                    }
-                                                
-                                    if(mil.getId_cnh() == 0){
+                                    
+                                    if(cnhDAO.getCNHByIdMil(mil.getId()).getId() == 0){
                                         out.println("<div class=\"form-group col-md-4\">"+
                                         "<label id=\"lblCnhNum\" name=\"lblCnhNum\" for=\"lblCnhNum\">CNH Número: </label>"+
                                         "<input class=\"form-control\" type=\"text\" name=\"txtCnhNum\" maxlength=\"11\" value=\"\" onkeypress=\"return somenteNumero(event);\"/>"+
@@ -309,28 +316,33 @@
                                     }else{
                                         out.println("<div class=\"form-group col-md-4\">"+
                                         "<label id=\"lblCnhNum\" name=\"lblCnhNum\" for=\"lblCnhNum\">CNH Número: </label>"+
-                                        "<input class=\"form-control\" type=\"text\" name=\"txtCnhNum\" maxlength=\"11\" value=\""+cnhDAO.getCNH(mil.getId_cnh()).getNum()+"\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                        "<input class=\"form-control\" type=\"text\" name=\"txtCnhNum\" maxlength=\"11\" value=\""+cnhDAO.getCNHByIdMil(mil.getId()).getNum()+"\" onkeypress=\"return somenteNumero(event);\"/>"+
                                         "</div>");
                                     }
 
                                     out.println("<div class=\"form-group col-md-4\">"+
                                     "<label id=\"lblCnhCat\" name=\"lblCnhCat\" for=\"lblCnhCat\">CNH Categoria: </label>"+
                                     "<select name=\"txtCnhCat\" id=\"cnh_cat\" class=\"form-control\">");
-                                    if(mil.getId_cnh()== 0){
-                                    out.println("<option value=\"0\" selected>Selecione a Categoria...</option>");
+                                    if(cnhDAO.getCNHByIdMil(mil.getId()).getCat() != null && cnhDAO.getCNHByIdMil(mil.getId()).getCat().equals("")){
+                                        out.println("<option value=\"\" selected>Selecione a categoria...</option>");
                                     }else{
-                                        out.println("<option value=\"0\">Selecione a Categoria...</option>");
+                                        out.println("<option value=\"\">Selecione a categoria...</option>");
                                     }
-                                    int qtdCnh = cnhDAO.getCNHS().size();
+                                    int qtdCnhCat = dcb.getCnhCat().size();
 
-                                    for(int i=0;i<qtdCnh;i++){
-                                        if(mil.getId_ec()==cnhDAO.getCNHS().get(i).getId()){
-                                            out.println("<option value='"+cnhDAO.getCNHS().get(i).getCat()+"' selected>"+cnhDAO.getCNHS().get(i).getCat()+"</option>");
-                                        }else{
-                                            out.println("<option value='"+cnhDAO.getCNHS().get(i).getCat()+"'>"+cnhDAO.getCNHS().get(i).getCat()+"</option>");
+                                        for(int i=0;i<qtdCnhCat;i++){
+                                            if(cnhDAO.getCNHByIdMil(mil.getId()).getCat() != null && cnhDAO.getCNHByIdMil(mil.getId()).getCat().equals(String.valueOf(dcb.getCnhCat().get(i)))){
+                                                out.println("<option value='"+String.valueOf(dcb.getCnhCat().get(i))+"' selected>"+String.valueOf(dcb.getCnhCat().get(i))+"</option>");
+                                            }else{
+                                                out.println("<option value='"+String.valueOf(dcb.getCnhCat().get(i))+"'>"+String.valueOf(dcb.getCnhCat().get(i))+"</option>");
+                                            }
                                         }
-                                    }
                                     out.println("</select>"+
+                                    "</div>"+
+                                    
+                                    "<div class=\"form-group col-md-4\">"+
+                                    "<label id=\"lblCnhDataVal\" name=\"lblCnhDataVal\" for=\"lblCnhDataVal\">Data de Validadde da CNH: </label>"+
+                                    "<input class=\"form-control\" type=\"date\" name=\"txtCnhDataVal\" onblur=\"\"/>"+
                                     "</div>"+
                                                             
                                     "<div class=\"form-group col-md-6\">"+
@@ -343,7 +355,7 @@
                                     "<input class=\"form-control\" type=\"text\" name=\"txtMae\" value=\""+mil.getMae()+"\"/>"+
                                     "</div>"+
 
-                                   "<div class=\"form-group col-md-12\">"+
+                                    "<div class=\"form-group col-md-4\">"+
                                     "<label id=\"lblEscolaridade\" name=\"lblEscolaridade\" for=\"lblEscolaridade\">Escolaridade: </label><b class=\"obg\"> *</b>"+
                                     "<select name=\"txtEscolaridade\" id=\"escolaridade\" class=\"form-control\" onchange=\"borda_Escolaridade();\">");
                                     if(mil.getId_esc() == 0){
@@ -360,20 +372,106 @@
                                                 out.println("<option value='"+escDAO.getEscs().get(i).getId()+"'>"+escDAO.getEscs().get(i).getNome()+"</option>");
                                             }
                                         }
+                                    out.println("</select>"+"</div>");
+                                     
+                                    out.println("<div class=\"form-group col-md-4\">"+
+                                                "<label id=\"lblReligiao\" name=\"lblReligiao\" for=\"lblReligiao\">Religião: </label><b class=\"obg\"> *</b>"+
+                                                "<select name=\"txtReligiao\" id=\"religiao\" class=\"form-control\" onchange=\"borda_input_select(this.id);\">");
+                                    if(mil.getId_religiao()== 0){
+                                        out.println("<option value=\"0\" selected>Selecione a sua Religião...</option>");
+                                    }else{
+                                        out.println("<option value=\"0\">Selecione a sua Religião...</option>");
+                                    }
+                                    int qtdReligioes = relDAO.getReligioes().size();
+
+                                        for(int i=0;i<qtdReligioes;i++){
+                                            if(mil.getId_religiao()==relDAO.getReligioes().get(i).getId()){
+                                                out.println("<option value='"+relDAO.getReligioes().get(i).getId()+"' selected>"+relDAO.getReligioes().get(i).getNome()+"</option>");
+                                            }else{
+                                                out.println("<option value='"+relDAO.getReligioes().get(i).getId()+"'>"+relDAO.getReligioes().get(i).getNome()+"</option>");
+                                            }
+                                        }
                                     out.println("</select>"+
                                     "</div>"+
-                                    "</fieldset>"+
-
-                                    "<fieldset class=\"parte-form col-md-12\">"+
-                                    "<legend>Dados de Endereço</legend>"+
-                                    "<div class=\"form-group col-md-3\">"+
-                                    "<label id=\"lblCep\" name=\"lblCep\" for=\"lblCep\">Cep: </label><b class=\"obg\"> *</b>"+
-                                    "<input class=\"form-control cep\" type=\"text\" name=\"txtCep\" id=\"cep\" value=\""+endDAO.getEnderecoById(mil.getId_end()).getCep()+"\" onblur=\"validarCEP_Att();\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                
+                                    "<div class=\"form-group col-md-4\" id=\"out_rel\" style=\"display: none;\">"+
+                                    "<label id=\"lblOutraReligiao\" name=\"lblOutraReligiao\" for=\"lblOutraReligiao\">Religião: </label><b class=\"obg\"> *</b>"+
+                                    "<input class=\"form-control\" type=\"text\" id=\"txtOutraReligiao\" name=\"txtOutraReligiao\" onchange=\"borda_input_text(this.id)\"/>"+
                                     "</div>"+
+                                            
+                                    "</fieldset>"+
+                                    "<br>"+
+                                            
+                                    "<fieldset class=\"parte-form col-md-12\">"+
+                                    "<legend>Dados Familiares</legend>"+
+                                    "<center>"+
+                                    "<div class=\"checkbox col-md-12\">");
 
-                                    "<div class=\"form-group col-md-3\">"+
-                                    "<label id=\"lblEstado\" name=\"lblEstado\" for=\"lblEstado\">Estado: </label><b class=\"obg\"> *</b>"+
-                                    "<select name=\"txtEstado\" id=\"estado\" class=\"form-control\"> onchange=\"borda_Estado()\"");
+                                    if(conDAO.getConjugeByIDMil(mil.getId()).getId() == 0){
+                                        out.println("<label>"+
+                                                    "<input type=\"checkbox\" id=\"checkboxConjuge\" name=\"checkboxConjuge\" value=\"checkConjuge\" onclick=\"checkedConjuge()\">"+
+                                                    "Possui Esposa(o)?"+
+                                                    "</label>");
+                                                    
+                                    }else{
+                                        out.println("<label>"+
+                                                    "<input type=\"checkbox\" id=\"checkboxConjuge\" name=\"checkboxConjuge\" value=\"checkConjuge\" onclick=\"checkedConjuge()\" checked>"+
+                                                    "Possui Esposa(o)?"+
+                                                    "</label>");
+                                    }
+                                    
+                                    if(depDAO.getDependenteByIDMil(mil.getId()).getId() == 0){
+                                        out.println("<label>"+
+                                                    "<input type=\"checkbox\" id=\"checkboxDependente\" name=\"checkboxDependente\" value=\"checkDependente\" onclick=\"checkedDependente()\">"+
+                                                    "Possui Dependentes?"+
+                                                    "</label>");                                       
+                                    }else{
+                                        out.println("<label>"+
+                                                    "<input type=\"checkbox\" id=\"checkboxDependente\" name=\"checkboxDependente\" value=\"checkDependente\" onclick=\"checkedDependente()\" checked>"+
+                                                    "Possui Dependentes?"+
+                                                    "</label>");
+                                    }
+                                    out.println("</div>"+
+                                                "</center>");
+                                   
+                                    out.println("<div id=\"div_dados_conjuge\" style=\"display: none;\">"+
+                                                "<div class=\"form-group col-md-6\">"+
+                                                "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onchange=\"borda_input_text(this.id)\" value=\""+conDAO.getConjugeByIDMil(mil.getId()).getNome()+"\"/>"+
+                                                "</div>"+
+
+                                                "<div class=\"form-group col-md-3\">"+
+                                                "<label id=\"lblFoneConjuge\" name=\"lblFoneConjuge\" for=\"lblFoneConjuge\">Telefone: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control fone\" type=\"text\" name=\"txtFoneConjuge\" placeholder=\"Ex.: (00) 00000-0000\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\" value=\""+conDAO.getConjugeByIDMil(mil.getId()).getFone()+"\"/>"+
+                                                "</div>");
+                                                    
+                                                String con_data_nasc = conDAO.getConjugeByIDMil(mil.getId()).getData_nasc();
+                                    out.println("<div class=\"form-group col-md-3\">"+
+                                                "<label id=\"lblDataNascConjuge\" name=\"lblDataNascConjuge\" for=\"lblDataNascConjuge\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control data\" type=\"date\" name=\"txtDataNascConjuge\" onblur=\"validarDataPraca()\" value=\""+con_data_nasc.substring(0, 4)+"-"+con_data_nasc.substring(4, 6)+"-"+con_data_nasc.substring(6, 8)+"\"/>"+
+                                                "</div>"+
+                                                "</div>"+
+
+                                                "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: none;\">"+
+                                                "<center>"+
+                                                "<label id=\"lblNumDependente\" name=\"lblQtdeDependente\" for=\"lblQtdeDependente\">Quantidade de Dependente: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control\" type=\"number\" name=\"txtQtdeDependente\" min=\"0\" max=\"50\" onchange=\"limpa_div_dados_dependente(); qtdeDependente_att();\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                "</center>"+
+                                                "</div>"+
+                                                "<div id=\"div_dados_dependente\" style=\"display: none;\"></div>"+
+                                                "</fieldset>");
+                                   
+                                    out.println(
+                                                "<fieldset class=\"parte-form col-md-12\">"+
+                                                "<legend>Dados de Endereço</legend>"+
+                                                "<div class=\"form-group col-md-3\">"+
+                                                "<label id=\"lblCep\" name=\"lblCep\" for=\"lblCep\">Cep: </label><b class=\"obg\"> *</b>"+
+                                                "<input class=\"form-control cep\" type=\"text\" name=\"txtCep\" id=\"cep\" value=\""+endDAO.getEnderecoById(mil.getId_end()).getCep()+"\" onblur=\"validarCEP_Att();\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                "</div>"+
+
+                                                "<div class=\"form-group col-md-3\">"+
+                                                "<label id=\"lblEstado\" name=\"lblEstado\" for=\"lblEstado\">Estado: </label><b class=\"obg\"> *</b>"+
+                                                "<select name=\"txtEstado\" id=\"estado\" class=\"form-control\"> onchange=\"borda_Estado()\"");
 
                                     if(cDAO.getCidadeById(bDAO.getBairroByID(endDAO.getEnderecoById(mil.getId()).getId_bairro()).getId_cid()).getId_est()==0){
                                         out.println("<option value=\"0\" selected>Selecione o seu Estado...</option>");
@@ -419,47 +517,6 @@
                                                 out.println("<select name=\"txtpadrao\" id=\"padrao\" class=\"form-control\" onchange=\"borda_Bairro()\" style=\"display: none;\"> ");
                                                 out.println("<option value=\"0\" selected>Selecione o Bairro...</option>");  
                                                 out.println("</select>");
-
-                                                        /*
-                                                        for(int i=1;i<=qtdCidades;i++){
-                                                            if(id_cid==i){
-                                                                String nome_cid = cDAO.getCidades().get(i).getNome().replace(" ", "");
-                                                                out.println("<select name=txtBairro"+nome_cid+" id=bairros"+nome_cid+" class=form-control onchange=borda_Bairro()>");
-                                                                if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro() == 0){
-                                                                    out.println("<option value=\"0\" selected>Selecione o Bairro...</option>");
-                                                                }else{
-                                                                    out.println("<option value=\"0\">Selecione o Bairro...</option>");
-                                                                }
-                                                                int qtdBairros = bDAO.getBairrosByCidade(i).size();
-                                                                for(int j=0;j<qtdBairros;j++){
-                                                                    if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro()==bDAO.getBairrosByCidade(i).get(j).getId()){
-                                                                        out.println("<option value='"+bDAO.getBairrosByCidade(i).get(j).getId()+"' selected>"+bDAO.getBairrosByCidade(i).get(j).getNome()+"</option>");
-                                                                    }else{
-                                                                        out.println("<option value='"+bDAO.getBairrosByCidade(i).get(j).getId()+"'>"+bDAO.getBairrosByCidade(i).get(j).getNome()+"</option>");
-                                                                    }
-                                                                }
-                                                            out.println("</select>"+
-                                                            "</div>");
-                                                            }else{
-                                                                String nome_cid = cDAO.getCidades().get(i).getNome().replace(" ", "");
-                                                                out.println("<select name=txtBairro"+nome_cid+" id=bairros"+nome_cid+" class=\"form-control\" onchange=\"borda_Bairro()\" style=\"display: none;\">");
-                                                                if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro() == 0){
-                                                                    out.println("<option value=\"0\" selected>Selecione o Bairro...</option>");
-                                                                }else{
-                                                                    out.println("<option value=\"0\">Selecione o Bairro...</option>");
-                                                                }
-                                                                int qtdBairros = bDAO.getBairrosByCidade(i).size();
-                                                                for(int j=0;j<qtdBairros;j++){
-                                                                    if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro()==bDAO.getBairrosByCidade(i).get(j).getId()){
-                                                                        out.println("<option value='"+bDAO.getBairrosByCidade(i).get(j).getId()+"' selected>"+bDAO.getBairrosByCidade(i).get(j).getNome()+"</option>");
-                                                                    }else{
-                                                                        out.println("<option value='"+bDAO.getBairrosByCidade(i).get(j).getId()+"'>"+bDAO.getBairrosByCidade(i).get(j).getNome()+"</option>");
-                                                                    }
-                                                                }
-                                                                out.println("</select>"+
-                                                                "</div>");
-                                                            }
-                                                        }*/
                                                     switch(id_cid){
                                                         case 1:
                                                             out.println("<select name=\"txtBairroManaus\" id=\"bairrosManaus\" class=\"form-control\" onchange=\"borda_Bairro()\"> ");
@@ -730,88 +787,6 @@
                                                                     "</div>");
                                                             break;
                                                     }
-                                    
-                                                     
-                                                
-                                                /*out.println("<div class=\"form-group col-md-3\">"+
-                                                "<label id=\"lblBairro\" name=\"lblBairro\" for=\"lblBairro\">Bairro: </label><b class=\"obg\"> *</b>");
-                                                switch(id_cid){
-                                                    case 1:
-                                                        out.println("<select name=\"txtBairroManaus\" id=\"bairrosManaus\" class=\"form-control\" onchange=\"borda_Bairro()\"> ");
-                                                        if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro() == 0){
-                                                            out.println("<option value=\"0\" selected>Selecione o Bairro...</option>");
-                                                        }else{
-                                                            out.println("<option value=\"0\">Selecione o Bairro...</option>");
-                                                        }
-                                                        int qtdBairros = bDAO.getBairrosByCidade(1).size();
-                                                        for(int i=0;i<qtdBairros;i++){
-                                                            if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro()==bDAO.getBairrosByCidade(1).get(i).getId()){
-                                                                out.println("<option value='"+bDAO.getBairrosByCidade(1).get(i).getId()+"' selected>"+bDAO.getBairrosByCidade(1).get(i).getNome()+"</option>");
-                                                            }else{
-                                                                out.println("<option value='"+bDAO.getBairrosByCidade(1).get(i).getId()+"'>"+bDAO.getBairrosByCidade(1).get(i).getNome()+"</option>");
-                                                            }
-                                                        }
-                                                        out.println("</select>"+
-                                                        "</div>"); 
-                                                        break;
-                                                    case 2:
-                                                        out.println("<select name=\"txtBairroRioPretoDaEva\" id=\"bairrosRioPretoDaEva\" class=\"form-control\" onchange=\"borda_Bairro()\"> ");
-                                                        if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro() == 0){
-                                                            out.println("<option value=\"0\" selected>Selecione o Bairro...</option>");
-                                                        }else{
-                                                            out.println("<option value=\"0\">Selecione o Bairro...</option>");
-                                                        }
-                                                        qtdBairros = bDAO.getBairrosByCidade(2).size();
-                                                        for(int i=0;i<qtdBairros;i++){
-                                                            if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro()==bDAO.getBairrosByCidade(2).get(i).getId()){
-                                                                out.println("<option value='"+bDAO.getBairrosByCidade(2).get(i).getId()+"' selected>"+bDAO.getBairrosByCidade(2).get(i).getNome()+"</option>");
-                                                            }else{
-                                                                out.println("<option value='"+bDAO.getBairrosByCidade(2).get(i).getId()+"'>"+bDAO.getBairrosByCidade(2).get(i).getNome()+"</option>");
-                                                            }
-                                                        }
-                                                        out.println("</select>"+
-                                                        "</div>"); 
-                                                        break;
-                                                    case 3:
-                                                        out.println("<select name=\"txtBairroIranduba\" id=\"bairrosIranduba\" class=\"form-control\" onchange=\"borda_Bairro()\"> ");
-                                                        if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro() == 0){
-                                                            out.println("<option value=\"0\" selected>Selecione o Bairro...</option>");
-                                                        }else{
-                                                            out.println("<option value=\"0\">Selecione o Bairro...</option>");
-                                                        }
-                                                        qtdBairros = bDAO.getBairrosByCidade(3).size();
-                                                        for(int i=0;i<qtdBairros;i++){
-                                                            if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro()==bDAO.getBairrosByCidade(3).get(i).getId()){
-                                                                out.println("<option value='"+bDAO.getBairrosByCidade(3).get(i).getId()+"' selected>"+bDAO.getBairrosByCidade(3).get(i).getNome()+"</option>");
-                                                            }else{
-                                                                out.println("<option value='"+bDAO.getBairrosByCidade(3).get(i).getId()+"'>"+bDAO.getBairrosByCidade(3).get(i).getNome()+"</option>");
-                                                            }
-                                                        }
-                                                        out.println("</select>"+
-                                                        "</div>"); 
-                                                        break;
-                                                    case 4:
-                                                        out.println("<select name=\"txtBairroManacapuru\" id=\"bairrosManacapuru\" class=\"form-control\" onchange=\"borda_Bairro()\"> ");
-                                                        if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro() == 0){
-                                                            out.println("<option value=\"0\" selected>Selecione o Bairro...</option>");
-                                                        }else{
-                                                            out.println("<option value=\"0\">Selecione o Bairro...</option>");
-                                                        }
-                                                        qtdBairros = bDAO.getBairrosByCidade(4).size();
-                                                        for(int i=0;i<qtdBairros;i++){
-                                                            if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro()==bDAO.getBairrosByCidade(4).get(i).getId()){
-                                                                out.println("<option value='"+bDAO.getBairrosByCidade(4).get(i).getId()+"' selected>"+bDAO.getBairrosByCidade(4).get(i).getNome()+"</option>");
-                                                            }else{
-                                                                out.println("<option value='"+bDAO.getBairrosByCidade(4).get(i).getId()+"'>"+bDAO.getBairrosByCidade(4).get(i).getNome()+"</option>");
-                                                            }
-                                                        }
-                                                        out.println("</select>"+
-                                                        "</div>"); 
-                                                        break;
-                                                }*/
-                                                        
-                                                
-                                                //System.out.println("mil_id: "+mil.getId()+" end: "+endDAO.getEnderecoById(mil.getId_end()).getId_bairro());
 
                                                 out.println("<div class=\"form-group col-md-10\">"+
                                                 "<label id=\"lblLogradouro\" name=\"lblLogradouro\" for=\"lblLogradouro\">Rua/Av./Ala: </label><b class=\"obg\"> *</b>"+
@@ -896,7 +871,7 @@
             
         <script src="bootstrap/js/bootstrap.js"></script>
         
-        
+        <script src="../js/manipulacao_campos.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/mascaras.js"></script>
         <script type="text/javascript" src="../js/preenchimento-endereco.js"></script>
         <script type="text/javascript" src="../js/manipulacao.js"></script>
