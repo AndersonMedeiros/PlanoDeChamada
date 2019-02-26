@@ -19,7 +19,8 @@ import java.util.ArrayList;
  * @author root
  */
 public class DependenteDAO {
-    private final String GETDEPBYID = "SELECT * FROM Dependente WHERE fil_id=?";
+    private final String GETDEPBYID = "SELECT * FROM Dependente WHERE dep_id=?";
+    private final String GETDEPBYIDMIL = "SELECT * FROM Dependente WHERE dep_mil_id=?";
     private final String GETDEPENDENTES = "SELECT * FROM Dependente";
     
     private final String INSERT = "INSERT INTO Dependente (dep_nome, dep_data_nasc, dep_grau_parentesco, dep_mil_id) VALUES(?,?,?,?)";
@@ -61,6 +62,32 @@ public class DependenteDAO {
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETDEPBYID);
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+        
+            while (rs.next()) {
+               dependente.setId(rs.getInt("dep_id"));
+               dependente.setNome(rs.getString("dep_nome"));
+               dependente.setData_nasc(rs.getString("dep_data_nasc"));
+               dependente.setGrau_parentesco(rs.getString("dep_grau_parentesco"));
+               dependente.setMil_id(rs.getInt("dep_mil_id"));
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return dependente;
+    }
+    
+    public Dependente getDependenteByIDMil(int id){
+        conn = null;
+        pstm = null;
+        rs = null;
+        Dependente dependente = new Dependente();
+        
+        try{
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETDEPBYIDMIL);
             pstm.setInt(1, id);
             rs = pstm.executeQuery();
         

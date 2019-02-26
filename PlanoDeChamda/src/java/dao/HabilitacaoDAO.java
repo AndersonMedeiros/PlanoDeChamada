@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class HabilitacaoDAO {
     private final String GETCNHBYID = "SELECT * FROM Habilitacao WHERE cnh_id=?";
+    private final String GETCNHBYIDMIL = "SELECT * FROM Habilitacao WHERE cnh_mil_id=?";
     private final String INSERT = "INSERT INTO Habilitacao(cnh_num,cnh_cat,cnh_data_validade,cnh_mil_id) VALUES(?,?,?,?);";
     private final String UPDATE = "UPDATE Habilitacao SET cnh_num=?,cnh_cat=?,cnh_data_validade=?,cnh_mil_id=? WHERE cnh_id=?";
     private final String GETID = "SELECT cnh_id FROM Habilitacao WHERE cnh_num=? AND cnh_cat=?";
@@ -75,6 +76,29 @@ public class HabilitacaoDAO {
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETCNHBYID);
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+        
+            while (rs.next()) {
+               cnh.setId(rs.getInt("cnh_id"));
+               cnh.setNum(rs.getString("cnh_num"));
+               cnh.setCat(rs.getString("cnh_cat"));
+               cnh.setData_validade(rs.getString("cnh_data_validade"));
+               cnh.setMil_id(rs.getInt("cnh_mil_id"));
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return cnh;
+    }
+    
+    public Habilitacao getCNHByIdMil(int id){
+        Habilitacao cnh = new Habilitacao();
+        
+        try{
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETCNHBYIDMIL);
             pstm.setInt(1, id);
             rs = pstm.executeQuery();
         

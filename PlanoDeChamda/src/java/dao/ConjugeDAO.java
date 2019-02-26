@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class ConjugeDAO {
     private final String GETCONBYID = "SELECT * FROM Conjuge WHERE con_id=?";
+    private final String GETCONBYIDMIL = "SELECT * FROM Conjuge WHERE con_mil_id=?";
     private final String GETID = "SELECT con_id FROM Conjuge WHERE con_nome=?";
     private final String GETCONBYNOME_CPF = "SELECT * FROM Conjuge WHERE con_nome=?";
     private final String GETCONJUGES = "SELECT * FROM Conjuge";
@@ -62,6 +63,32 @@ public class ConjugeDAO {
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETCONBYID);
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+        
+            while (rs.next()) {
+               conjuge.setId(rs.getInt("con_id"));
+               conjuge.setNome(rs.getString("con_nome"));
+               conjuge.setFone(rs.getString("con_fone"));
+               conjuge.setData_nasc(rs.getString("con_data_nasc"));
+               conjuge.setMil_id(rs.getInt("con_mil_id"));
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return conjuge;
+    }
+    
+    public Conjuge getConjugeByIDMil(int id){
+        conn = null;
+        pstm = null;
+        rs = null;
+        Conjuge conjuge = new Conjuge();
+        
+        try{
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETCONBYIDMIL);
             pstm.setInt(1, id);
             rs = pstm.executeQuery();
         
