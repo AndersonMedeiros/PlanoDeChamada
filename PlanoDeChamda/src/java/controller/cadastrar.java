@@ -97,24 +97,19 @@ public class cadastrar extends HttpServlet {
             //Endereço
             Endereco end = new Endereco();
             end.setCep(request.getParameter("txtCep").replace("-", ""));
-           
             end.setLogradouro(request.getParameter("txtLogradouro"));
             String complemento = "";
             if(request.getParameter("txtComplemento") != null){complemento = request.getParameter("txtComplemento");}
             end.setComplemento(complemento);
             int id_cid = Integer.parseInt(request.getParameter("txtCidade"));
             switch (id_cid) {
-                case 1:
-                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroManaus")));
+                case 1: end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroManaus")));
                     break;
-                case 2:
-                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroRioPretoDaEva")));
+                case 2: end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroRioPretoDaEva")));
                     break;
-                case 3:
-                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroIranduba")));
+                case 3: end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroIranduba")));
                     break;
-                case 4:
-                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroManacapuru")));
+                case 4: end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroManacapuru")));
                     break;
             }
             EnderecoDAO endDAO = new EnderecoDAO();
@@ -155,14 +150,13 @@ public class cadastrar extends HttpServlet {
             ReligiaoDAO religiaoDAO = new ReligiaoDAO();
             if(id_religiao == 1000){
                 String nova_religiao = request.getParameter("txtOutraReligiao");
+                System.out.println(nova_religiao);
                 religiaoDAO.inserir(nova_religiao);
                 int id_nova_religiao = religiaoDAO.getReligiaoByNome(nova_religiao).getId();
                 mil.setId_religiao(id_nova_religiao);
             }else{
                 mil.setId_religiao(id_religiao);
             }
-            
-            
 
             mil.setEmail(request.getParameter("txtEmail"));
             mil.setNome_referencia(request.getParameter("txtNomeReferencia"));
@@ -173,8 +167,6 @@ public class cadastrar extends HttpServlet {
             mil.setEnd_num(request.getParameter("txtNum"));
             mil.setSenha(request.getParameter("txtSenha"));
 
-            
-            
             milDAO.inserir(mil);
             
             //Habilitação
