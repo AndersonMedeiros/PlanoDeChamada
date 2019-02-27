@@ -150,7 +150,6 @@ public class cadastrar extends HttpServlet {
             ReligiaoDAO religiaoDAO = new ReligiaoDAO();
             if(id_religiao == 1000){
                 String nova_religiao = request.getParameter("txtOutraReligiao");
-                System.out.println(nova_religiao);
                 religiaoDAO.inserir(nova_religiao);
                 int id_nova_religiao = religiaoDAO.getReligiaoByNome(nova_religiao).getId();
                 mil.setId_religiao(id_nova_religiao);
