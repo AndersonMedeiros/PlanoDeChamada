@@ -16,8 +16,8 @@ import java.util.ArrayList;
  */
 public class BairroDAO {
     private final String GETBAIRROBYID = "SELECT * FROM Bairro WHERE Bairro_id=?";
-    private final String GETBAIRROS = "SELECT * FROM Bairro";
-    private final String GETBAIRROSBYIDCID = "SELECT * FROM Bairro WHERE Bairro_cid_id=?";
+    private final String GETBAIRROS = "SELECT * FROM Bairro ORDER BY Bairro_nome";
+    private final String GETBAIRROSBYIDCID = "SELECT * FROM Bairro WHERE Bairro_cid_id=? ORDER BY Bairro_nome";
     private final String UPDATE = "UPDATE Bairro SET fone_num=? WHERE fone_id=? AND fone_mil_id=?";
     Connection conn;
     PreparedStatement pstm;

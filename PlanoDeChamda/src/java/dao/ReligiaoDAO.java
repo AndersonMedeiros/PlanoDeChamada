@@ -22,9 +22,9 @@ import java.util.ArrayList;
 public class ReligiaoDAO {
     private final String GETRELBYID = "SELECT * FROM Religiao WHERE rel_id=?";
     private final String GETRELBYNOME = "SELECT * FROM Religiao WHERE rel_nome=?";
-    private final String GETRELIGIOES = "SELECT * FROM Religiao";
+    private final String GETRELIGIOES = "SELECT * FROM Religiao ORDER BY rel_nome";
     
-    private final String INSERT = "INSERT INTO Religiao (rel_nome) VALUES(?)";
+    private final String INSERT = "INSERT INTO Religiao (rel_nome) VALUE(?)";
     
     Connection conn;
     PreparedStatement pstm;

@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class EstadoCivilDAO {
     private final String GETESTCIVILBYID = "SELECT * FROM estado_civil WHERE estado_civil_id=?";
-    private final String GETESTCIVIS = "SELECT * FROM estado_civil";
+    private final String GETESTCIVIS = "SELECT * FROM estado_civil ORDER BY estado_civil_nome";
     
     Connection conn;
     PreparedStatement pstm;

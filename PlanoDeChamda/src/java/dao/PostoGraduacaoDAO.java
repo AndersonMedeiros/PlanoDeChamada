@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class PostoGraduacaoDAO {
     private final String GETPOSTGRADBYID = "SELECT * FROM PostoGraduacao WHERE pg_id=?";
-    private final String GETPOSTGRADS = "SELECT * FROM PostoGraduacao";
+    private final String GETPOSTGRADS = "SELECT * FROM PostoGraduacao ORDER BY pg_id DESC";
     
     Connection conn;
     PreparedStatement pstm;

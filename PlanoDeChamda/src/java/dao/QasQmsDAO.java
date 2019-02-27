@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class QasQmsDAO {
     private final String GETQASQMSBYID = "SELECT * FROM QAS_QMS WHERE Arma_id=?";
-    private final String GETARMAS = "SELECT * FROM QAS_QMS";
+    private final String GETARMAS = "SELECT * FROM QAS_QMS ORDER BY Arma_desc";
     
     Connection conn;
     PreparedStatement pstm;

@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class CidadeDAO {
     private final String GETCIDADEBYID = "SELECT * FROM Cidade WHERE cid_id=?";
-    private final String GETCIDADES = "SELECT * FROM Cidade";
+    private final String GETCIDADES = "SELECT * FROM Cidade ORDER BY cid_nome";
     
     Connection conn;
     PreparedStatement pstm;
