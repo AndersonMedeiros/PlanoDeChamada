@@ -168,7 +168,6 @@ function validarDataPraca_Att(){
     }
 }
 
-
 function validarCPF() {	
 
     cpf = document.formCadastro.txtCpf.value.replace(/[^\d]+/g,'').replace(".","").replace("-","");	
@@ -583,7 +582,6 @@ function validacaoLogin(){
         return false;
     }
 }
-
 
 function validacao_cad(){
     //Dados Pessoais
@@ -1297,11 +1295,6 @@ function validacao_att(){
     
 }
 
-
-
-
-
-
 /*
 unction bordas_campos(){
     //Divisao/Secao
@@ -1406,8 +1399,6 @@ else{document.formCadastro.txtNomeGuerra.style.border='1px solid red'}
     if(document.formCadastro.txtContFamiliar.value!=""){document.formCadastro.txtContFamiliar.style.border='1px solid green'}
     else{document.formCadastro.txtContFamiliar.style.border='1px solid red'}
 }*/
-
-
 
 function borda_DivSec(){
     if(document.formCadastro.txtDivSec.selectedIndex!=0){

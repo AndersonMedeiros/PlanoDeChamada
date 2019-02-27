@@ -128,7 +128,125 @@ function valida_titulo(id){
     }
 }
 
+function valida_preccp(id){
+    var input = document.getElementById(id);
+    var preccp = input.value.replace(".","").replace("-","");
+    if(preccp == ''){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(document.formCadastro.txtPreccp.value!="" && preccp == '000000000' || preccp == '111111111' || 
+       preccp == '222222222' || preccp == '333333333' || preccp == '444444444' || preccp == '555555555' ||
+       preccp == '666666666' || preccp == '777777777' || preccp == '888888888' || preccp == '999999999'){
+       
+        alert("Preccp Inválido!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+        
+    }
+    else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
+function valida_dataNasc(id){
+    var input = document.getElementById(id);
+    var anoNasc = input.value.substring(0,4);
+    var mesNasc = input.value.substring(5,7);
+    var diaNasc = input.value.substring(8,10);
+    var dataAtual = new Date();
+    var mesAtual = dataAtual.getMonth()+1;
+    if(input.value == ""){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoNasc && mesAtual == mesNasc && dataAtual.getDate() < diaNasc){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoNasc && mesAtual < mesNasc){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() < anoNasc){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
 function valida_dataPraca(id){
+    var input = document.getElementById(id);
+    var anoPraca = input.value.substring(0,4);
+    var mesPraca = input.value.substring(5,7);
+    var diaPraca = input.value.substring(8,10);
+    var anoNasc = document.formCadastro.txtDataNasc.value.substring(0,4);
+    var mesNasc = document.formCadastro.txtDataNasc.value.substring(5,7);
+    var diaNasc = document.formCadastro.txtDataNasc.value.substring(8,10);
+    var dataAtual = new Date();
+    var mesAtual = dataAtual.getMonth()+1;
+    
+    if(input.value == ""){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoPraca && mesAtual == mesPraca && dataAtual.getDate() < diaPraca){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoPraca && mesAtual < mesPraca){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() < anoPraca){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(anoPraca == anoNasc && mesPraca == mesNasc && diaPraca < diaNasc){
+        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(anoPraca == anoNasc && mesPraca < mesNasc){
+        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(anoPraca < anoNasc){
+        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
+function valida_dataValidade(id){
     var input = document.getElementById(id);
     var anoPraca = input.value.substring(0,4);
     var mesPraca = input.value.substring(5,7);
@@ -164,68 +282,34 @@ function valida_dataPraca(id){
     }
 }
 
-function valida_dataNasc(id){
+function valida_cep(id){
     var input = document.getElementById(id);
-    var anoNasc = input.value.substring(0,4);
-    var mesNasc = input.value.substring(5,7);
-    var diaNasc = input.value.substring(8,10);
-    var anoPraca = document.formCadastro.txtDataPraca.value.substring(0,4);
-    var mesPraca = document.formCadastro.txtDataPraca.value.substring(5,7);
-    var diaPraca = document.formCadastro.txtDataPraca.value.substring(8,10);
-    var dataAtual = new Date();
-    var mesAtual = dataAtual.getMonth()+1;
-    
-    if(input.value == ""){
+    var cep = input.value.replace(".","").replace("-","");
+    if(cep == '________'){
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
     }
-    else if(dataAtual.getFullYear() == anoNasc && mesAtual == mesNasc && dataAtual.getDate() < diaNasc){
-        alert("Data Inválida!");
-        input.style.border='2px solid red';
+    else if(cep == '00000000' || cep == '11111111' || cep == '22222222' ||
+       cep == '33333333' || cep == '44444444' || cep == '55555555' ||
+       cep == '66666666' || cep == '77777777' || cep == '88888888' ||
+       cep == '99999999'){
+            alert("CEP Inválido!");
+            input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
-        input.focus();
-    }
-    else if(dataAtual.getFullYear() == anoNasc && mesAtual < mesNasc){
-        alert("Data Inválida!");
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
-        input.focus();
-    }
-    else if(dataAtual.getFullYear() < anoNasc){
-        alert("Data Inválida!");
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
-        input.focus();
-    }
-    else if(anoNasc == anoPraca && mesNasc == mesPraca && diaNasc > diaPraca){
-        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
-        input.focus();
-    }
-    else if(anoNasc == anoPraca && mesNasc > mesPraca){
-        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
-        input.focus();
-    }
-    else if(anoNasc > anoPraca){
-        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
-        input.focus();
+        input.focus();     
     }
     else{
         input.style.border='2px solid green';
         input.style.background='rgba(61,102,14,0.2)';
+        
     }
 }
 
 function valida_fone(id){
     var input = document.getElementById(id);
     var fone = input.value.replace(".","").replace("-","").replace("(","").replace(")","").replace(" ","");
-    if(fone == ''){
+    if(fone == '___________'){
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
@@ -244,6 +328,46 @@ function valida_fone(id){
         input.style.background='rgba(61,102,14,0.2)';
     }
 }
+
+function valida_zona(id){
+    var input = document.getElementById(id);
+    if(input.value.length < 3){
+        alert("A Zona é formada por 3 caracteres!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }    
+}
+
+function valida_secao(id){
+    var input = document.getElementById(id);
+    if(input.value.length < 4){
+        alert("A Seção é formada por 4 caracteres!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }    
+}
+
+function valida_senha(id){
+    var input = document.getElementById(id);
+    if(input.value.length < 6){
+        alert("A senha deve conter no mínimo 6 caracteres!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
 
 function validacao_cad(){
     //Dados Pessoais
@@ -308,6 +432,69 @@ function validacao_cad(){
         document.formCadastro.txtEstCivil.focus();
         return false;
     }   
+    
+    if(document.formCadastro.txtDataNasc.value==""){
+        alert("Campo Obrigatório!\nDigite a sua Data de Nascimento.");
+        document.formCadastro.txtDataNasc.style.border='2px solid red';
+        document.formCadastro.txtDataNasc.style.background='rgba(255,0,0,0.2)';
+        document.formCadastro.txtDataNasc.focus();
+        document.formCadastro.txtDataNasc.focus();
+        return false;
+    }
+    var anoNasc = document.formCadastro.txtDataNasc.value.substring(0,4);
+    var mesNasc = document.formCadastro.txtDataNasc.value.substring(5,7);
+    var diaNasc = document.formCadastro.txtDataNasc.value.substring(8,10);
+    var anoPraca = document.formCadastro.txtDataPraca.value.substring(0,4);
+    var mesPraca = document.formCadastro.txtDataPraca.value.substring(5,7);
+    var diaPraca = document.formCadastro.txtDataPraca.value.substring(8,10);
+    var dataAtual = new Date();
+    var mesAtual = dataAtual.getMonth()+1;
+        
+    if(document.formCadastro.txtDataNasc.value!="" && dataAtual.getFullYear() == anoPraca && mesAtual == mesPraca && dataAtual.getDate() < diaPraca){
+        alert("Data Inválida!");
+        document.formCadastro.txtDataNasc.style.border='1px solid red';
+        document.formCadastro.txtDataNasc.focus();
+        return false;
+    }
+    if(document.formCadastro.txtDataNasc.value!="" && dataAtual.getFullYear() == anoPraca && mesAtual < mesPraca){
+        alert("Data Inválida!");
+        document.formCadastro.txtDataNasc.style.border='1px solid red';
+        document.formCadastro.txtDataNasc.focus();
+        return false;
+    }
+    if(document.formCadastro.txtDataNasc.value!="" && dataAtual.getFullYear() < anoPraca){
+        alert("Data Inválida!");
+        document.formCadastro.txtDataNasc.style.border='1px solid red';
+        document.formCadastro.txtDataNasc.focus();
+        return false;
+    }
+    
+    if(document.formCadastro.txtDataNasc.value!="" && anoNasc == anoPraca && mesNasc == mesPraca && diaNasc > diaPraca){
+        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
+        document.formCadastro.txtDataPraca.style.border='1px solid red';
+        document.formCadastro.txtDataPraca.focus();
+        return false;
+    }
+    if(document.formCadastro.txtDataNasc.value!="" && anoNasc == anoPraca && mesNasc > mesPraca){
+        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
+        document.formCadastro.txtDataPraca.style.border='1px solid red';
+        document.formCadastro.txtDataPraca.focus();
+        return false;
+    }
+    if(document.formCadastro.txtDataNasc.value!="" && anoNasc > anoPraca){
+        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
+        document.formCadastro.txtDataPraca.style.border='1px solid red';
+        document.formCadastro.txtDataPraca.focus();
+        return false;
+    }
+    
+        
+    if(document.formCadastro.txtEscolaridade.selectedIndex==0){
+        alert("Campo Obrigatório!\nSelecione a sua Escolaridade.");
+        document.formCadastro.txtEscolaridade.style.border='1px solid red';
+        document.formCadastro.txtEscolaridade.focus();
+        return false;
+    }
     
     if(document.formCadastro.txtDataPraca.value==""){
         alert("Campo Obrigatório!\nDigite a sua Data Praça.");
@@ -430,66 +617,7 @@ function validacao_cad(){
     }
     
     
-    if(document.formCadastro.txtDataNasc.value==""){
-        alert("Campo Obrigatório!\nDigite a sua Data de Nascimento.");
-        document.formCadastro.txtDataNasc.style.border='1px solid red';
-        document.formCadastro.txtDataNasc.focus();
-        return false;
-    }
-    var anoNasc = document.formCadastro.txtDataNasc.value.substring(0,4);
-    var mesNasc = document.formCadastro.txtDataNasc.value.substring(5,7);
-    var diaNasc = document.formCadastro.txtDataNasc.value.substring(8,10);
-    var anoPraca = document.formCadastro.txtDataPraca.value.substring(0,4);
-    var mesPraca = document.formCadastro.txtDataPraca.value.substring(5,7);
-    var diaPraca = document.formCadastro.txtDataPraca.value.substring(8,10);
-    var dataAtual = new Date();
-    var mesAtual = dataAtual.getMonth()+1;
-        
-    if(document.formCadastro.txtDataNasc.value!="" && dataAtual.getFullYear() == anoPraca && mesAtual == mesPraca && dataAtual.getDate() < diaPraca){
-        alert("Data Inválida!");
-        document.formCadastro.txtDataNasc.style.border='1px solid red';
-        document.formCadastro.txtDataNasc.focus();
-        return false;
-    }
-    if(document.formCadastro.txtDataNasc.value!="" && dataAtual.getFullYear() == anoPraca && mesAtual < mesPraca){
-        alert("Data Inválida!");
-        document.formCadastro.txtDataNasc.style.border='1px solid red';
-        document.formCadastro.txtDataNasc.focus();
-        return false;
-    }
-    if(document.formCadastro.txtDataNasc.value!="" && dataAtual.getFullYear() < anoPraca){
-        alert("Data Inválida!");
-        document.formCadastro.txtDataNasc.style.border='1px solid red';
-        document.formCadastro.txtDataNasc.focus();
-        return false;
-    }
     
-    if(document.formCadastro.txtDataNasc.value!="" && anoNasc == anoPraca && mesNasc == mesPraca && diaNasc > diaPraca){
-        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
-        document.formCadastro.txtDataPraca.style.border='1px solid red';
-        document.formCadastro.txtDataPraca.focus();
-        return false;
-    }
-    if(document.formCadastro.txtDataNasc.value!="" && anoNasc == anoPraca && mesNasc > mesPraca){
-        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
-        document.formCadastro.txtDataPraca.style.border='1px solid red';
-        document.formCadastro.txtDataPraca.focus();
-        return false;
-    }
-    if(document.formCadastro.txtDataNasc.value!="" && anoNasc > anoPraca){
-        alert("Data Inválida!\n A data de Praça não pode ser menor que a data de Nascimento!");
-        document.formCadastro.txtDataPraca.style.border='1px solid red';
-        document.formCadastro.txtDataPraca.focus();
-        return false;
-    }
-    
-        
-    if(document.formCadastro.txtEscolaridade.selectedIndex==0){
-        alert("Campo Obrigatório!\nSelecione a sua Escolaridade.");
-        document.formCadastro.txtEscolaridade.style.border='1px solid red';
-        document.formCadastro.txtEscolaridade.focus();
-        return false;
-    }
     
     //Dados de Endereço
     if(document.formCadastro.txtCep.value==""){

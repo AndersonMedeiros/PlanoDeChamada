@@ -47,8 +47,9 @@ function qtdeDependente_cad(){
         var input_nome_dependente = document.createElement("input");
         input_nome_dependente.className = "form-control";
         input_nome_dependente.type = "text";
+        input_nome_dependente.id = "txtNomeDependente"+(i+1);
         input_nome_dependente.name = "txtNomeDependente"+(i+1);
-
+        
         div_nome_dependente.appendChild(label_nome_dependente);
         div_nome_dependente.appendChild(obg);
         div_nome_dependente.appendChild(input_nome_dependente);
@@ -88,12 +89,28 @@ function qtdeDependente_cad(){
         obg.className = "obg";
         obg.innerHTML = " *";
 
-        var input_gr_parentesco_dependente = document.createElement("input");
+        /*var input_gr_parentesco_dependente = document.createElement("input");
         input_gr_parentesco_dependente.type = "text";
         input_gr_parentesco_dependente.className = "form-control";
+        input_gr_parentesco_dependente.name = "txtGrauParentescoDependente"+(i+1);*/
+        
+        var input_gr_parentesco_dependente = document.createElement("select");
+        input_gr_parentesco_dependente.className = "form-control";
         input_gr_parentesco_dependente.name = "txtGrauParentescoDependente"+(i+1);
-       
-
+        var option_gr_parentesco_dependente = document.createElement("option");
+        option_gr_parentesco_dependente.value = 0;
+        option_gr_parentesco_dependente.text = "Selecione o grau de Parentesco...";
+        input_gr_parentesco_dependente.add(option_gr_parentesco_dependente, input_gr_parentesco_dependente[0]);
+            
+        var gr_parentescos = ["Conjuge", "Filho(a)", "Pai", "Mãe"];
+        
+        for(var j=0;j<gr_parentescos.length;j++){
+            var option_gr_parentesco_dependente = document.createElement("option");
+            option_gr_parentesco_dependente.value = gr_parentescos[j];
+            option_gr_parentesco_dependente.text = gr_parentescos[j];
+            input_gr_parentesco_dependente.add(option_gr_parentesco_dependente, input_gr_parentesco_dependente[j+1]);
+        }
+        
         div_gr_parentesco_dependente.appendChild(label_gr_parentesco_dependente);
         div_gr_parentesco_dependente.appendChild(obg);
         div_gr_parentesco_dependente.appendChild(input_gr_parentesco_dependente);
@@ -167,11 +184,22 @@ function qtdeDependente_cad(){
             obg.className = "obg";
             obg.innerHTML = " *";
 
-            var input_gr_parentesco_dependente = document.createElement("input");
-            input_gr_parentesco_dependente.type = "text";
+            var input_gr_parentesco_dependente = document.createElement("select");
             input_gr_parentesco_dependente.className = "form-control";
             input_gr_parentesco_dependente.name = "txtGrauParentescoDependente"+(i+1);
+            var option_gr_parentesco_dependente = document.createElement("option");
+            option_gr_parentesco_dependente.value = 0;
+            option_gr_parentesco_dependente.text = "Selecione o grau de Parentesco...";
+            input_gr_parentesco_dependente.add(option_gr_parentesco_dependente, input_gr_parentesco_dependente[0]);
 
+            var gr_parentescos = ["Conjuge", "Filho(a)", "Pai", "Mãe"];
+        
+            for(var j=0;j<gr_parentescos.length;j++){
+                var option_gr_parentesco_dependente = document.createElement("option");
+                option_gr_parentesco_dependente.value = gr_parentescos[j];
+                option_gr_parentesco_dependente.text = gr_parentescos[j];
+                input_gr_parentesco_dependente.add(option_gr_parentesco_dependente, input_gr_parentesco_dependente[j+1]);
+            }
 
             div_gr_parentesco_dependente.appendChild(label_gr_parentesco_dependente);
             div_gr_parentesco_dependente.appendChild(obg);
