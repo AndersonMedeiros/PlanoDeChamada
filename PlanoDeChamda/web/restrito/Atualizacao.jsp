@@ -338,11 +338,13 @@
                                             }
                                         }
                                     out.println("</select>"+
-                                    "</div>"+
+                                    "</div>");
+                                            
+                                    String dataVal = cnhDAO.getCNHByIdMil(mil.getId()).getData_validade();
                                     
-                                    "<div class=\"form-group col-md-4\">"+
+                                    out.println("<div class=\"form-group col-md-4\">"+
                                     "<label id=\"lblCnhDataVal\" name=\"lblCnhDataVal\" for=\"lblCnhDataVal\">Data de Validadde da CNH: </label>"+
-                                    "<input class=\"form-control\" type=\"date\" name=\"txtCnhDataVal\" onblur=\"\"/>"+
+                                    "<input class=\"form-control\" type=\"date\" name=\"txtCnhDataVal\" value=\""+dataVal.substring(0, 4)+"-"+dataVal.substring(4, 6)+"-"+dataVal.substring(6, 8)+"\" onblur=\"validarDataNasc_Att();\"/>"+
                                     "</div>"+
                                                             
                                     "<div class=\"form-group col-md-6\">"+
