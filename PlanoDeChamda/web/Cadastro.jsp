@@ -360,7 +360,7 @@
                         <div class="form-group col-md-12" id="div_qtde_dependente" style="display: none;">
                                 <center>
                                    <label id="lblNumDependente" name="lblQtdeDependente" for="lblQtdeDependente">Quantidade de Dependente: </label><b class="obg"> *</b>
-                                   <input class="form-control" type="number" name="txtQtdeDependente" min="0" max="50" onblur="limpa_div_dados_dependente(); qtdeDependente_cad();" onkeypress="return somenteNumero(event);"/>
+                                   <input class="form-control" type="number" name="txtQtdeDependente" min="0" max="50" onchange="limpa_div_dados_dependente(); qtdeDependente_cad();" onkeypress="return somenteNumero(event);"/>
                                </center>
                         </div> 
                         <div id="div_dados_dependente" style="display: none;"></div>
