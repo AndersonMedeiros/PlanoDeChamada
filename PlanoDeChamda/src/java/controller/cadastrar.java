@@ -86,6 +86,7 @@ public class cadastrar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         MilitarDAO milDAO = new MilitarDAO();
         FoneDAO foneDAO = new FoneDAO();
         
@@ -97,7 +98,7 @@ public class cadastrar extends HttpServlet {
             //Endereço
             Endereco end = new Endereco();
             end.setCep(request.getParameter("txtCep").replace("-", ""));
-            end.setLogradouro(request.getParameter("txtLogradouro"));
+            end.setLogradouro(request.getParameter("txtLogradouro").toUpperCase());
             String complemento = "";
             if(request.getParameter("txtComplemento") != null){complemento = request.getParameter("txtComplemento");}
             end.setComplemento(complemento);
@@ -125,23 +126,23 @@ public class cadastrar extends HttpServlet {
             
             //Militar
             Militar mil = new Militar();
-            mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec")));
-            mil.setId_pg(Integer.parseInt(request.getParameter("txtPostGrad")));
-            mil.setId_qq(Integer.parseInt(request.getParameter("txtQasQms")));
-            mil.setId_sit(Integer.parseInt(request.getParameter("txtSit")));
-            mil.setNome(request.getParameter("txtNomeComp"));
-            mil.setNome_guerra(request.getParameter("txtNomeGuerra"));          
-            mil.setSexo(request.getParameter("txtSexo"));
-            mil.setNaturalidade(request.getParameter("txtNatMilitar"));
-            mil.setId_ec(Integer.parseInt(request.getParameter("txtEstCivil")));   
+            mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec").toUpperCase()));
+            mil.setId_pg(Integer.parseInt(request.getParameter("txtPostGrad").toUpperCase()));
+            mil.setId_qq(Integer.parseInt(request.getParameter("txtQasQms").toUpperCase()));
+            mil.setId_sit(Integer.parseInt(request.getParameter("txtSit").toUpperCase()));
+            mil.setNome(request.getParameter("txtNomeComp").toUpperCase());
+            mil.setNome_guerra(request.getParameter("txtNomeGuerra").toUpperCase());          
+            mil.setSexo(request.getParameter("txtSexo").toUpperCase());
+            mil.setNaturalidade(request.getParameter("txtNatMilitar").toUpperCase());
+            mil.setId_ec(Integer.parseInt(request.getParameter("txtEstCivil").toUpperCase()));   
             mil.setData_praca(request.getParameter("txtDataPraca").replace("/", "").replace("-", ""));
             mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));          
             mil.setCpf(request.getParameter("txtCpf").replace(".", "").replace("-", ""));
             mil.setId_teleitor(teleitorDAO.getIdTituloEleitor(teleitor.getRegistro(), teleitor.getZona(), teleitor.getSecao()));
             mil.setPreccp(request.getParameter("txtPreccp"));
             mil.setData_nasc(request.getParameter("txtDataNasc").replace("/", "").replace("-", ""));
-            mil.setPai(request.getParameter("txtPai"));
-            mil.setMae(request.getParameter("txtMae"));
+            mil.setPai(request.getParameter("txtPai").toUpperCase());
+            mil.setMae(request.getParameter("txtMae").toUpperCase());
             mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
             System.out.println(end.getCep()+ " "+end.getLogradouro()+" "+end.getComplemento()+" " +end.getId_bairro()+"idend"+endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
             mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
@@ -149,7 +150,7 @@ public class cadastrar extends HttpServlet {
             int id_religiao = Integer.parseInt(request.getParameter("txtReligiao"));
             ReligiaoDAO religiaoDAO = new ReligiaoDAO();
             if(id_religiao == 1000){
-                String nova_religiao = request.getParameter("txtOutraReligiao");
+                String nova_religiao = request.getParameter("txtOutraReligiao").toUpperCase();
                 religiaoDAO.inserir(nova_religiao);
                 int id_nova_religiao = religiaoDAO.getReligiaoByNome(nova_religiao).getId();
                 mil.setId_religiao(id_nova_religiao);
@@ -157,13 +158,13 @@ public class cadastrar extends HttpServlet {
                 mil.setId_religiao(id_religiao);
             }
 
-            mil.setEmail(request.getParameter("txtEmail"));
-            mil.setNome_referencia(request.getParameter("txtNomeReferencia"));
-            mil.setFone_referencia(request.getParameter("txtFoneReferencia").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-            mil.setFone1(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-            mil.setFone2(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
+            mil.setEmail(request.getParameter("txtEmail").toUpperCase());
+            mil.setNome_referencia(request.getParameter("txtNomeReferencia").toUpperCase());
+            mil.setFone_referencia(request.getParameter("txtFoneReferencia").replace("(", "").replace(")", "").replace(" ", "").replace("-", "").toUpperCase());
+            mil.setFone1(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", "").toUpperCase());
+            mil.setFone2(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", "").toUpperCase());
             
-            mil.setEnd_num(request.getParameter("txtNum"));
+            mil.setEnd_num(request.getParameter("txtNum").toUpperCase());
             mil.setSenha(request.getParameter("txtSenha"));
 
             milDAO.inserir(mil);
@@ -181,9 +182,10 @@ public class cadastrar extends HttpServlet {
             ConjugeDAO conjugeDAO = new ConjugeDAO();
             if(request.getParameter("checkboxConjuge") != null){
                 Conjuge conjuge = new Conjuge();
-                conjuge.setNome(request.getParameter("txtNomeConjuge"));
-                conjuge.setFone(request.getParameter("txtFoneConjuge").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-                conjuge.setData_nasc(request.getParameter("txtDataNascConjuge").replace("/", "").replace("-", ""));
+                conjuge.setNome(request.getParameter("txtNomeConjuge").toUpperCase());
+                conjuge.setFone(request.getParameter("txtFoneConjuge").replace("(", "").replace(")", "").replace(" ", "").replace("-", "").toUpperCase());
+                conjuge.setData_nasc(request.getParameter("txtDataNascConjuge").replace("/", "").replace("-", "").toUpperCase());
+                conjuge.setGravidez(request.getParameter("txtGravidez").toUpperCase());
                 conjuge.setMil_id(milDAO.getIdMilitar(mil.getIdentidade()));
                 conjugeDAO.inserir(conjuge);
             }
@@ -195,9 +197,9 @@ public class cadastrar extends HttpServlet {
                 for(int i=0;i<qtdeDependentes;i++){
                     System.out.println("sdfsd "+request.getParameter("txtDataNascDependente"+(i+1)).replace("/", "").replace("-", ""));
                     Dependente dependente = new Dependente();
-                    dependente.setNome(request.getParameter("txtNomeDependente"+(i+1)));
-                    dependente.setData_nasc(request.getParameter("txtDataNascDependente"+(i+1)).replace("/", "").replace("-", ""));
-                    dependente.setGrau_parentesco(request.getParameter("txtGrauParentescoDependente"+(i+1)));
+                    dependente.setNome(request.getParameter("txtNomeDependente"+(i+1)).toUpperCase());
+                    dependente.setData_nasc(request.getParameter("txtDataNascDependente"+(i+1)).replace("/", "").replace("-", "").toUpperCase());
+                    dependente.setGrau_parentesco(request.getParameter("txtGrauParentescoDependente"+(i+1)).toUpperCase());
                     dependente.setMil_id(milDAO.getIdMilitar(mil.getIdentidade()));
                     dependenteDAO.inserir(dependente); 
                 }
