@@ -11,7 +11,7 @@ package bean;
  */
 public class Conjuge {
     int id, mil_id;
-    String nome, fone, data_nasc;
+    String nome, fone, data_nasc, gravidez;
 
     public int getId() {
         return id;
@@ -52,6 +52,13 @@ public class Conjuge {
     public void setMil_id(int mil_id) {
         this.mil_id = mil_id;
     }
-    
+
+    public String getGravidez() {
+        return gravidez;
+    }
+
+    public void setGravidez(String gravidez) {
+        this.gravidez = gravidez;
+    }
         
 }

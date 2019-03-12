@@ -24,7 +24,7 @@ public class ConjugeDAO {
     private final String GETCONBYNOME_CPF = "SELECT * FROM Conjuge WHERE con_nome=?";
     private final String GETCONJUGES = "SELECT * FROM Conjuge";
     
-    private final String INSERT = "INSERT INTO Conjuge (con_nome,con_fone,con_data_nasc,con_mil_id) VALUES(?,?,?,?)";
+    private final String INSERT = "INSERT INTO Conjuge (con_nome,con_fone,con_data_nasc,con_gravidez,con_mil_id) VALUES(?,?,?,?,?)";
     
     Connection conn;
     PreparedStatement pstm;
@@ -40,7 +40,8 @@ public class ConjugeDAO {
                 pstm.setString(1, con.getNome());
                 pstm.setString(2, con.getFone());
                 pstm.setString(3, con.getData_nasc());
-                pstm.setInt(4, con.getMil_id());
+                pstm.setString(4, con.getGravidez());
+                pstm.setInt(5, con.getMil_id());
               
                 pstm.execute();
                 
@@ -71,6 +72,7 @@ public class ConjugeDAO {
                conjuge.setNome(rs.getString("con_nome"));
                conjuge.setFone(rs.getString("con_fone"));
                conjuge.setData_nasc(rs.getString("con_data_nasc"));
+               conjuge.setGravidez(rs.getString("con_gravidez"));
                conjuge.setMil_id(rs.getInt("con_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
@@ -97,6 +99,7 @@ public class ConjugeDAO {
                conjuge.setNome(rs.getString("con_nome"));
                conjuge.setFone(rs.getString("con_fone"));
                conjuge.setData_nasc(rs.getString("con_data_nasc"));
+               conjuge.setGravidez(rs.getString("con_gravidez"));
                conjuge.setMil_id(rs.getInt("con_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
@@ -124,6 +127,7 @@ public class ConjugeDAO {
                conjuge.setNome(rs.getString("con_nome"));
                conjuge.setFone(rs.getString("con_fone"));
                conjuge.setData_nasc(rs.getString("con_data_nasc"));
+               conjuge.setGravidez(rs.getString("con_gravidez"));
                conjuge.setMil_id(rs.getInt("con_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
@@ -171,6 +175,7 @@ public class ConjugeDAO {
                conjuge.setNome(rs.getString("con_nome"));
                conjuge.setFone(rs.getString("con_fone"));
                conjuge.setData_nasc(rs.getString("con_data_nasc"));
+               conjuge.setGravidez(rs.getString("con_gravidez"));
                conjuge.setMil_id(rs.getInt("con_mil_id"));
                conjuges.add(conjuge);
             }
