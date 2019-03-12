@@ -35,7 +35,8 @@
         <link href="css/estilo.css" rel="stylesheet"/>
         <link href="css/estilo_cadastro.css" rel="stylesheet"/>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
-       
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/manipulacao.js"></script>
         <script type="text/javascript" src="js/validacao_de_campos_cadastro.js"></script>
         <script type="text/javascript" src="js/manipulacao_campos.js"></script>
         <script type="text/javascript">
@@ -253,12 +254,12 @@
                                                     
                         <div class="form-group col-md-4">
                             <label id="lblCnhNum" name="lblCnhNum" for="lblCnhNum">CNH Número: </label>
-                            <input class="form-control" type="text" id="txtCnhNum" name="txtCnhNum" maxlength="11" onblur="borda_input_text(this.id)" onkeypress="return somenteNumero(event);"/>
+                            <input class="form-control" type="text" id="txtCnhNum" name="txtCnhNum" maxlength="11" onblur="borda_input_text_nn()(this.id)" onkeypress="return somenteNumero(event);"/>
                         </div>
                             
                         <div class="form-group col-md-4">
                             <label id="lblCnhCat" name="lblCnhCat" for="lblCnhCat">CNH Categoria: </label>
-                            <select name="txtCnhCat" id="cnh_cat" class="form-control" onblur="borda_input_select(this.id);">
+                            <select name="txtCnhCat" id="cnh_cat" class="form-control" onblur="borda_input_select_nn(this.id);">
                                  <option value="" selected>Selecione a categoria...</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
@@ -279,12 +280,12 @@
                         
                         <div class="form-group col-md-6">
                             <label id="lblPai" name="lblPai" for="lbPai">Pai: </label>
-                            <input class="form-control" type="text" id="txtPai" name="txtPai" onblur="borda_input_text(this.id)"/>
+                            <input class="form-control" type="text" id="txtPai" name="txtPai" onblur="borda_input_text_nn()(this.id)"/>
                         </div>
                             
                         <div class="form-group col-md-6">
                             <label id="lblMae" name="lblMae" for="lblMae">Mãe: </label>
-                            <input class="form-control" type="text" id="txtMae" name="txtMae" onblur="borda_input_text(this.id)"/>
+                            <input class="form-control" type="text" id="txtMae" name="txtMae" onblur="borda_input_text_nn()(this.id)"/>
                         </div>
                         
                         <div class="form-group col-md-4">
@@ -341,28 +342,38 @@
                             </div>
                         </center>
                         <div id="div_dados_conjuge" style="display: none;">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-5">
                                 <label id="lblNomeConjuge" name="lblNomeConjuge" for="lblNomeConjuge">Nome Completo: </label><b class="obg"> *</b>
                                 <input class="form-control" type="text" id="txtNomeConjuge" name="txtNomeConjuge" onblur="borda_input_text(this.id)"/>
                             </div>
-
-                            
                             <div class="form-group col-md-3">
                                 <label id="lblFoneConjuge" name="lblFoneConjuge" for="lblFoneConjuge">Telefone: </label><b class="obg"> *</b>
                                 <input class="form-control fone" type="text" id="txtFoneConjuge" name="txtFoneConjuge" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id);" onkeypress="return somenteNumero(event);"/>
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2"> 
                                 <label id="lblDataNascConjuge" name="lblDataNascConjuge" for="lblDataNascConjuge">Data de Nascimento: </label><b class="obg"> *</b>
                                 <input class="form-control data" type="date" id="txtDataNascConjuge" name="txtDataNascConjuge" onblur="valida_dataNasc(this.id)"/>
                             </div>
+                            <div class="form-group col-md-2">
+                                <label for="lblGravidez">Esposa Grávida: </label><b class="obg"> *</b>
+                                <br>
+                                <label class="radio-inline gravida">
+                                    <input type="radio" name="txtGravidez" id="sim" value="S"> Sim
+                                </label>
+                                <label class="radio-inline gravida">
+                                    <input type="radio" name="txtGravidez" id="nao" value="N"> Não
+                                </label>                         
+                            </div>
                         </div>
+                        
                         <div class="form-group col-md-12" id="div_qtde_dependente" style="display: none;">
-                                <center>
-                                   <label id="lblNumDependente" name="lblQtdeDependente" for="lblQtdeDependente">Quantidade de Dependente: </label><b class="obg"> *</b>
-                                   <input class="form-control" type="number" name="txtQtdeDependente" min="0" max="50" onchange="limpa_div_dados_dependente(); qtdeDependente_cad();" onkeypress="return somenteNumero(event);"/>
-                               </center>
+                            <center>
+                               <label id="lblNumDependente" name="lblQtdeDependente" for="lblQtdeDependente">Quantidade de Dependente: </label><b class="obg"> *</b>
+                               <input class="form-control" type="number" id="txtQtdeDependente" name="txtQtdeDependente" min="0" max="50" onblur="borda_input_text(this.id)" onchange="limpa_div_dados_dependente();" onkeypress="return somenteNumero(event);" placeholder="Digite o número de dependentes."/>
+                           </center>
                         </div> 
+                        
                         <div id="div_dados_dependente" style="display: none;"></div>
                     </fieldset>
                     
@@ -389,7 +400,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label id="lblCidade" name="lblCidade" for="lblCidade">Cidade: </label><b class="obg"> *</b>
-                            <select name="txtCidade" id="cidade" class="form-control" >
+                            <select name="txtCidade" id="cidade" class="form-control" onblur="borda_input_select(this.id)">
                                 <option value="0" selected>Selecione a sua Cidade...</option>
                                 <%
                                    CidadeDAO cDAO = new CidadeDAO();
@@ -476,7 +487,7 @@
 
                         <div class="form-group col-md-12">
                             <label id="lblComplemento" name="lblComplemento" for="lblComplemento">Complemento: </label>
-                            <input class="form-control" type="text" id="txtComplemento" onblur="borda_input_text(this.id)"/>
+                            <input class="form-control" type="text" id="txtComplemento" onblur="borda_input_text_nn(this.id)"/>
                         </div>
                     </fieldset>
                     <br>
@@ -490,7 +501,7 @@
 
                         <div class="form-group col-md-6">
                             <label id="lblFone02" name="lblFone02" for="lblFone02">Telefone 02: </label>
-                            <input class="form-control fone" type="text" id="txtFone02" name="txtFone02" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id)" onkeypress="return somenteNumero(event);"/>
+                            <input class="form-control fone" type="text" id="txtFone02" name="txtFone02" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone_nn()(this.id)" onkeypress="return somenteNumero(event);"/>
                         </div>    
 
                         <div class="form-group col-md-12">
