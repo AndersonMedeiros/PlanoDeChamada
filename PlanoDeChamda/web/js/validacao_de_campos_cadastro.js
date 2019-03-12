@@ -14,6 +14,14 @@ function borda_input_select(id){
     }
 }
 
+function borda_input_select_nn(id){
+    var input = document.getElementById(id);
+    if(input.selectedIndex!=0){
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
 function borda_input_text(id){
     var input = document.getElementById(id);
     if(input.value!=""){
@@ -23,6 +31,14 @@ function borda_input_text(id){
     else{
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
+    }
+}
+
+function borda_input_text_nn(id){
+    var input = document.getElementById(id);
+    if(input.value!=""){
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
     }
 }
 
@@ -252,9 +268,9 @@ function valida_dataValidade(id){
     var diaPraca = input.value.substring(8,10);
     var dataAtual = new Date();
     var mesAtual = dataAtual.getMonth()+1;
-    if(input.value == ""){
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
+    if(input.value != ""){
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
         input.focus();
     }
     else if(dataAtual.getFullYear() == anoPraca && mesAtual == mesPraca && dataAtual.getDate() < diaPraca){
@@ -274,10 +290,6 @@ function valida_dataValidade(id){
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
-    }
-    else{
-        input.style.border='2px solid green';
-        input.style.background='rgba(61,102,14,0.2)';
     }
 }
 
@@ -325,6 +337,26 @@ function valida_fone(id){
     }else{
         input.style.border='2px solid green';
         input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
+function valida_fone_nn(id){
+    var input = document.getElementById(id);
+    var fone = input.value.replace(".","").replace("-","").replace("(","").replace(")","").replace(" ","");
+    if(fone != '___________'){
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+        input.focus();
+    }
+    else if(input.value != "" && fone == '00000000000' || fone == '11111111111' ||
+            fone == '22222222222' || fone == '33333333333' || fone == '44444444444' || fone == '55555555555' ||
+            fone == '66666666666' || fone == '77777777777' || fone == '88888888888' || fone == '99999999999'){
+       
+        alert("Número de Telefoone Inválido!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+        
     }
 }
 
@@ -747,6 +779,15 @@ function validacao_cad(){
             document.formCadastro.txtDataNascConjuge.focus();
             return false;
         }
+        
+        //Gravidez
+        if((document.formCadastro.txtGravidez[0].checked == false)&&(document.formCadastro.txtGravidez[1].checked == false)){
+            alert("Campo Obrigatório!\nInforme se sua Esposa está grávida ou não.");
+            document.formCadastro.txtGravidez[0].focus();
+            return false;
+        }
+        
+        
     }
     
     //Dados de Endereço
@@ -790,35 +831,29 @@ function validacao_cad(){
     }
     
     //Bairro
-    if(document.formCadastro.txtpadrao.selectedIndex=="0"){
-        alert("Campo Obrigatório!\nSelecione o seu Bairro.");
-        document.formCadastro.txtpadrao.style.border='2px solid red';
-        document.formCadastro.txtpadrao.style.background='rgba(255,0,0,0.2)';
-        document.formCadastro.txtpadrao.focus();
-        return false;
-    }
-    else if(document.formCadastro.txtBairroManaus.selectedIndex=="0"){
+
+    if(document.formCadastro.txtCidade.value=="1" && document.formCadastro.txtBairroManaus.selectedIndex=="0" ){
         alert("Campo Obrigatório!\nSelecione o seu Bairro.");
         document.formCadastro.txtBairroManaus.style.border='2px solid red';
         document.formCadastro.txtBairroManaus.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtBairroManaus.focus();
         return false;
     }
-    else if(document.formCadastro.txtBairroRioPretoDaEva.selectedIndex=="0"){
+    else if(document.formCadastro.txtCidade.value=="2" && document.formCadastro.txtBairroRioPretoDaEva.selectedIndex=="0"){
         alert("Campo Obrigatório!\nSelecione o seu Bairro.");
         document.formCadastro.txtBairroRioPretoDaEva.style.border='2px solid red';
         document.formCadastro.txtBairroRioPretoDaEva.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtBairroRioPretoDaEva.focus();
         return false;
     }
-    else if(document.formCadastro.txtBairroManacapuru.selectedIndex=="0"){
+    else if(document.formCadastro.txtCidade.value=="4" && document.formCadastro.txtBairroManacapuru.selectedIndex=="0"){
         alert("Campo Obrigatório!\nSelecione o seu Bairro.");
         document.formCadastro.txtBairroManacapuru.style.border='2px solid red';
         document.formCadastro.txtBairroManacapuru.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtBairroManacapuru.focus();
         return false;
     }
-    else if(document.formCadastro.txtBairroIranduba.selectedIndex=="0"){
+    else if(document.formCadastro.txtCidade.value=="3" && document.formCadastro.txtBairroIranduba.selectedIndex=="0" ){
         alert("Campo Obrigatório!\nSelecione o seu Bairro.");
         document.formCadastro.txtBairroIranduba.style.border='2px solid red';
         document.formCadastro.txtBairroIranduba.style.background='rgba(255,0,0,0.2)';

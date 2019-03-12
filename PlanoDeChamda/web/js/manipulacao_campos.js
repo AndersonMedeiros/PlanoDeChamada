@@ -1,3 +1,7 @@
+function id_input(id){
+    return document.getElementById(id);
+}
+
 function checkedDependente(){
     var checkBox = document.getElementById("checkboxDependente");
 
@@ -23,7 +27,7 @@ function checkedConjuge(){
 function limpa_div_dados_dependente(){
     document.getElementById("div_dados_dependente").innerHTML="";
 }
-
+/*
 function qtdeDependente_cad(){                               
     var div_dados_dependente = document.getElementById("div_dados_dependente");
 
@@ -92,7 +96,7 @@ function qtdeDependente_cad(){
         /*var input_gr_parentesco_dependente = document.createElement("input");
         input_gr_parentesco_dependente.type = "text";
         input_gr_parentesco_dependente.className = "form-control";
-        input_gr_parentesco_dependente.name = "txtGrauParentescoDependente"+(i+1);*/
+        input_gr_parentesco_dependente.name = "txtGrauParentescoDependente"+(i+1);
         
         var input_gr_parentesco_dependente = document.createElement("select");
         input_gr_parentesco_dependente.className = "form-control";
@@ -118,7 +122,7 @@ function qtdeDependente_cad(){
         div_dados_dependente.appendChild(div_nome_dependente);
         div_dados_dependente.appendChild(div_data_nasc_dependente);
         div_dados_dependente.appendChild(div_gr_parentesco_dependente);
-    }
+    }*/
     
     function qtdeDependente_att(){                               
         var div_dados_dependente = document.getElementById("div_dados_dependente");
@@ -144,6 +148,7 @@ function qtdeDependente_cad(){
             input_nome_dependente.className = "form-control";
             input_nome_dependente.type = "text";
             input_nome_dependente.name = "txtNomeDependente"+(i+1);
+            
 
             div_nome_dependente.appendChild(label_nome_dependente);
             div_nome_dependente.appendChild(obg);
@@ -210,4 +215,4 @@ function qtdeDependente_cad(){
             div_dados_dependente.appendChild(div_gr_parentesco_dependente);
         }
     }
-}
+//}

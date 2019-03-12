@@ -21,6 +21,14 @@ function borda_input_select(id){
     }
 }
 
+function borda_input_select_nn(id){
+    var input = document.getElementById(id);
+    if(input.selectedIndex!=0){
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
 function borda_input_text(id){
     var input = document.getElementById(id);
     if(input.value!=""){
@@ -30,6 +38,14 @@ function borda_input_text(id){
     else{
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
+    }
+}
+
+function borda_input_text_nn(id){
+    var input = document.getElementById(id);
+    if(input.value!=""){
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
     }
 }
 
@@ -259,9 +275,9 @@ function valida_dataValidade(id){
     var diaPraca = input.value.substring(8,10);
     var dataAtual = new Date();
     var mesAtual = dataAtual.getMonth()+1;
-    if(input.value == ""){
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
+    if(input.value != ""){
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
         input.focus();
     }
     else if(dataAtual.getFullYear() == anoPraca && mesAtual == mesPraca && dataAtual.getDate() < diaPraca){
@@ -305,11 +321,6 @@ function valida_cep(id){
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();     
     }
-    else{
-        input.style.border='2px solid green';
-        input.style.background='rgba(61,102,14,0.2)';
-        
-    }
 }
 
 function valida_fone(id){
@@ -334,6 +345,27 @@ function valida_fone(id){
         input.style.background='rgba(61,102,14,0.2)';
     }
 }
+
+function valida_fone_nn(id){
+    var input = document.getElementById(id);
+    var fone = input.value.replace(".","").replace("-","").replace("(","").replace(")","").replace(" ","");
+    if(fone != '___________'){
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+        input.focus();
+    }
+    else if(input.value != "" && fone == '00000000000' || fone == '11111111111' ||
+            fone == '22222222222' || fone == '33333333333' || fone == '44444444444' || fone == '55555555555' ||
+            fone == '66666666666' || fone == '77777777777' || fone == '88888888888' || fone == '99999999999'){
+       
+        alert("Número de Telefoone Inválido!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+        
+    }
+}
+
 
 function valida_zona(id){
     var input = document.getElementById(id);
