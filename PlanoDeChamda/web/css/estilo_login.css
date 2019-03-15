@@ -3,7 +3,7 @@
 }
 
 body {
-    background-image: url(../img/guerra.png);
+    background-image: url(../img/background.jpeg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
@@ -24,7 +24,7 @@ body {
 }
 .form-login{
     padding: 15px;;
-    background-color: rgba(200,200,200,0.8);
+    background-color: rgba(100,100,100,0.9);
     border-radius: 10px;
 }
 
@@ -57,8 +57,12 @@ body {
     font-style: normal;
     font-weight: bold;
     text-align: center;
-    color: #000;
+    color: #FFF;
     font-size: 25px;
+    background-color: #3D660E;
+    border: 2px solid #FFF;
+    border-radius: 4px;
+    padding: 4px 6px;
 }
 
 #info{
@@ -72,8 +76,8 @@ body {
 #lblIdentidade, #lblSenha{
     font-family: sans-serif;
     font-weight: bold;
-    font-size: 16px;
-    color: black;
+    font-size: 18px;
+    color: #FFF;
 }
 
 .linha-botoes{
@@ -109,6 +113,40 @@ body {
             user-select: none;
             
     border-radius: 6px;
+}
+
+#btnEntrar, #btnCadastro {
+    color: #fff;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: auto;
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+    padding: 6px 20px;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+        touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    
+}
+
+#btnCadastro{
+    background-color: #555;
+}
+
+#btnEntrar{
+    background-color: #3D660E;
+    margin-bottom: 5px;
 }
 
 #btnCad, #btnEnt {

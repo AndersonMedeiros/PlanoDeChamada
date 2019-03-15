@@ -63,7 +63,7 @@ and open the template in the editor.
     margin-bottom: 0;
     margin-left: auto;
     margin-right: auto;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     line-height: 1.42857143;
     text-align: center;
@@ -79,6 +79,12 @@ and open the template in the editor.
     background-image: none;
     background-color: #3D660E;
     color: white;
-    border: 1px solid transparent;
+    border: 2px solid #3D660E;
     border-radius: 4px;
+}
+
+#btnEnt{
+    background-color: #fff;
+    color: #3D660E;
+    border: 2px solid #3D660E;
 }
