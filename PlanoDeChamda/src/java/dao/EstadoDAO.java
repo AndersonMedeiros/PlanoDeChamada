@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class EstadoDAO {
     private final String GETESTADOBYID = "SELECT * FROM estados WHERE estado_id=?";
+    private final String GETAM = "SELECT * FROM estados WHERE estado_id=4";
     private final String GETESTADOS = "SELECT * FROM estados ORDER BY estado_nome";
     
     Connection conn;
@@ -34,6 +35,29 @@ public class EstadoDAO {
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETESTADOBYID);
             pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+        
+            while (rs.next()) {
+               e.setId(rs.getInt("estado_id"));
+               e.setNome(rs.getString("estado_nome"));
+               e.setUf(rs.getString("estado_uf"));
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        }catch(SQLException ex){
+            throw new RuntimeException(ex.getMessage());
+        }
+        return e;
+    }
+    
+    public Estado getAM(){
+        conn = null;
+        pstm = null;
+        ResultSet rs = null;
+        Estado e = new Estado();
+        
+        try{
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETAM);
             rs = pstm.executeQuery();
         
             while (rs.next()) {
