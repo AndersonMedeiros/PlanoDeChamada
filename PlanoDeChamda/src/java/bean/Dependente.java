@@ -10,8 +10,8 @@ package bean;
  * @author root
  */
 public class Dependente {
-    int id, mil_id;
-    String nome, data_nasc,grau_parentesco;
+    int id, mil_id, grau_parentesco;;
+    String nome, data_nasc;
 
     public int getId() {
         return id;
@@ -45,11 +45,11 @@ public class Dependente {
         this.data_nasc = data_nasc;
     }
 
-    public String getGrau_parentesco() {
+    public int getGrau_parentesco() {
         return grau_parentesco;
     }
 
-    public void setGrau_parentesco(String grau_parentesco) {
+    public void setGrau_parentesco(int grau_parentesco) {
         this.grau_parentesco = grau_parentesco;
     }
     

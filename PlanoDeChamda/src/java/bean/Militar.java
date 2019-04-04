@@ -11,7 +11,7 @@ package bean;
  */
 public class Militar {
     String identidade, nome, nome_guerra, cpf, preccp, sexo, data_nasc, data_praca, pai, mae,
-           email, nome_referencia, fone_referencia, fone1, fone2, naturalidade, tipo_acesso, end_num, senha;
+           email, nome_referencia, fone_referencia, fone1, fone2, nat_est, nat_cid, tipo_acesso, end_num, senha;
     int id, id_end, id_div_sec, id_pg, id_qq, id_ec, id_esc, id_sit, id_teleitor, id_grp_acesso, id_religiao;
     
     public String getEnd_num() {
@@ -160,13 +160,23 @@ public class Militar {
     
     
     
-    public String getNaturalidade() {
-        return naturalidade;
+    public String getNat_est() {
+        return nat_est;
     }
 
-    public void setNaturalidade(String naturalidade) {
-        this.naturalidade = naturalidade;
+    public void setNat_est(String nat_est) {
+        this.nat_est = nat_est;
     }
+
+    public String getNat_cid() {
+        return nat_cid;
+    }
+
+    public void setNat_cid(String nat_cid) {
+        this.nat_cid = nat_cid;
+    }
+    
+    
 
     public String getTipo_acesso() {
         return tipo_acesso;

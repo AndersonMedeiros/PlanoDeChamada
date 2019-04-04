@@ -6,6 +6,8 @@
 package bean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -86,6 +88,18 @@ public class DadosCheckBox {
         return estados;
     }
     
+    public HashMap<Integer, String> getGrauParentesco(){
+        HashMap<Integer, String> grauParentesco = new HashMap<>();
+        /*GrauParentesco grpConjuge = new GrauParentesco();
+        grpConjuge.setId(1); grpConjuge.setGrau("Conjuge");
+        grauParentesco.add(grpConjuge);*/
+        grauParentesco.put(1, "Conjuge");
+        grauParentesco.put(2, "Filho(a)");
+        grauParentesco.put(3, "Pai");
+        grauParentesco.put(4, "Mãe");
+            
+        return grauParentesco;
+    }
     
     
     

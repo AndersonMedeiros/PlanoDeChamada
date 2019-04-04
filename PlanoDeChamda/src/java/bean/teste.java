@@ -16,12 +16,16 @@ import dao.MilitarDAO;
 public class teste {
     public static void main(String[] args) {
         String cnh_num="", cnh_cat = "a";
-    
+        
+        DadosCheckBox dcb = new DadosCheckBox();
+        
+        String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
       
         EnderecoDAO endDAO = new EnderecoDAO();
         HabilitacaoDAO cnhDAO = new HabilitacaoDAO();
         MilitarDAO milDAO = new MilitarDAO();
-        System.out.println(endDAO.getIdEndereco("48488484", "Rua Jonas Barreto","",64));
+        System.out.println();
+        
         
     }
     
