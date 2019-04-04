@@ -88,3 +88,22 @@ and open the template in the editor.
     color: #3D660E;
     border: 2px solid #3D660E;
 }
+
+.btn-add{
+    color: #3D660E;
+    font-size: 36px;
+    cursor: pointer;
+}
+
+.btn-delete{
+    background-image: url("../img/delete/delete-32px.png");
+    background-color: transparent;
+    height:32px;
+    width:32px;
+    border: none;
+}
+
+.btn-remove{
+    color: red;
+    font-size: 36px;
+}

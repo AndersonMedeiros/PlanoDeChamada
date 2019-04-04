@@ -273,8 +273,19 @@ th {
   font-family: 'Glyphicons Halflings';
   font-style: normal;
   font-weight: normal;
-  line-height: 1;
+  /*line-height: 1;*/
 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.glyphicon-geral{
+  position: relative;
+
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -2797,6 +2808,13 @@ select[multiple].input-lg {
   line-height: 34px;
   text-align: center;
   pointer-events: none;
+}
+.form-control-feedback-remove {
+  position: absolute;
+  top: 0;
+  display: block;
+  text-align: center;
+  cursor: pointer;
 }
 .input-lg + .form-control-feedback,
 .input-group-lg + .form-control-feedback,
