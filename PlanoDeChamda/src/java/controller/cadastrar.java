@@ -133,7 +133,8 @@ public class cadastrar extends HttpServlet {
             mil.setNome(request.getParameter("txtNomeComp").toUpperCase());
             mil.setNome_guerra(request.getParameter("txtNomeGuerra").toUpperCase());          
             mil.setSexo(request.getParameter("txtSexo").toUpperCase());
-            mil.setNaturalidade(request.getParameter("txtNatMilitar").toUpperCase());
+            mil.setNat_est(request.getParameter("txtNatEstMilitar").toUpperCase());
+            mil.setNat_cid(request.getParameter("txtNatCidMilitar").toUpperCase());
             mil.setId_ec(Integer.parseInt(request.getParameter("txtEstCivil").toUpperCase()));   
             mil.setData_praca(request.getParameter("txtDataPraca").replace("/", "").replace("-", ""));
             mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));          
@@ -193,13 +194,15 @@ public class cadastrar extends HttpServlet {
             //Dependentes
             DependenteDAO dependenteDAO = new DependenteDAO();
             if(request.getParameter("checkboxDependente") != null){
-                int qtdeDependentes = Integer.parseInt(request.getParameter("txtQtdeDependente"));
+                String[] nomeDependentes = request.getParameterValues("txtNomeDependente");
+                String[] dataNascDependentes = request.getParameterValues("txtDataNascDependente");
+                String[] grauParenDependentes = request.getParameterValues("txtGrauParentescoDependente");
+                int qtdeDependentes = nomeDependentes.length;
                 for(int i=0;i<qtdeDependentes;i++){
-                    System.out.println("sdfsd "+request.getParameter("txtDataNascDependente"+(i+1)).replace("/", "").replace("-", ""));
                     Dependente dependente = new Dependente();
-                    dependente.setNome(request.getParameter("txtNomeDependente"+(i+1)).toUpperCase());
-                    dependente.setData_nasc(request.getParameter("txtDataNascDependente"+(i+1)).replace("/", "").replace("-", "").toUpperCase());
-                    dependente.setGrau_parentesco(request.getParameter("txtGrauParentescoDependente"+(i+1)).toUpperCase());
+                    dependente.setNome(nomeDependentes[i].toUpperCase());
+                    dependente.setData_nasc(dataNascDependentes[i].replace("/", "").replace("-", "").toUpperCase());
+                    dependente.setGrau_parentesco(grauParenDependentes[i].toUpperCase());
                     dependente.setMil_id(milDAO.getIdMilitar(mil.getIdentidade()));
                     dependenteDAO.inserir(dependente); 
                 }

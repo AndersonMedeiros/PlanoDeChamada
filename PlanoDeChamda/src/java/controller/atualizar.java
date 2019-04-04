@@ -124,7 +124,7 @@ public class atualizar extends HttpServlet {
 
             //Habilitação
             Habilitacao cnh = new Habilitacao();
-            cnh.setId(milAtual.getId_cnh());
+            /*cnh.setId(milAtual.getId_cnh());*/
             cnh.setNum(request.getParameter("txtCnhNum"));
             cnh.setCat(request.getParameter("txtCnhCat"));
             HabilitacaoDAO cnhDAO = new HabilitacaoDAO();
@@ -161,7 +161,7 @@ public class atualizar extends HttpServlet {
             mil.setId_ec(Integer.parseInt(request.getParameter("txtEstCivil")));
             mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
             mil.setId_sit(Integer.parseInt(request.getParameter("txtSit")));
-            if(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat())!=0){mil.setId_cnh(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat()));}else{mil.setId_cnh(0);}
+            /*if(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat())!=0){mil.setId_cnh(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat()));}else{mil.setId_cnh(0);}*/
             mil.setId_teleitor(teleitorDAO.getIdTituloEleitor(teleitor.getRegistro(), teleitor.getZona(), teleitor.getSecao()));
             milDAO.atualizar(mil);
 
