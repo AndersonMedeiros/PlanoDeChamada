@@ -35,10 +35,11 @@
         <link href="css/estilo.css" rel="stylesheet"/>
         <link href="css/estilo_cadastro.css" rel="stylesheet"/>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="js/manipulacao.js"></script>
         <script type="text/javascript" src="js/validacao_de_campos_cadastro.js"></script>
         <script type="text/javascript" src="js/manipulacao_campos.js"></script>
+        <script type="text/javascript" src="js/estados_cidades.js"></script>
         <script type="text/javascript">
             function id( el ){
                 return document.getElementById( el );
@@ -72,14 +73,14 @@
                 }
             }
         </script>
-        <title>Plano de Chamada - Cadastro</title>
+        <title>Cadastro de Militares - Cadastro</title>
     </head>
     <body class="tela">
         <header class="header">
-            <img src="img/background-topo.png" class="img-responsive"/>
-            
+            <img src="img/cabeçalho.jpeg" class="img-responsive" width="100%"/>
+           
             <div class="col-md-12 titulos">
-                <h1 id="titulo">Plano de Chamada - CIGS</h1>
+                <h1 id="titulo">Cadastro de Militares - CIGS</h1>
                 <h2 id="subTitulo">Inclusão de Militar</h2>
             </div>
         </header>
@@ -166,40 +167,21 @@
                             </label>                         
                         </div>
                             
-                        <div class="form-group col-md-4">
-                            <label id="lblNaturalidade" name="lblNatMilitar" for="lblNatMilitar">Naturalidade: </label><b class="obg"> *</b>
-                            <select name="txtNatMilitar" id="txt_natmilitar" class="form-control" onblur="borda_input_select(this.id)">
-                                <option value="" selected>Selecione a sua Naturalidade...</option>
-                                <option value="Acriano(a)">Acriano(a)</option>
-                                <option value="Amazonense">Amazonense</option>
-                                <option value="Rondoniense">Rondoniense</option>
-                                <option value="Roraimense">Roraimense</option>
-                                <option value="Amapaense">Amapaense</option>
-                                <option value="Paraense">Paraense</option>
-                                <option value="Tocantinense">Tocantinense</option>
-                                <option value="Mato-Grossense">Mato-Grossense</option>
-                                <option value="Sul-Mato-Grossense">Sul-Mato-Grossense</option>
-                                <option value="Goiano(a)">Goiano(a)</option>
-                                <option value="Maranhense">Maranhense</option>
-                                <option value="Cearense">Cearense</option>
-                                <option value="Potiguar ou Rio-Grandense-do-Norte">Potiguar ou Rio-Grandense-do-Norte</option>
-                                <option value="Piauiense">Piauiense</option>
-                                <option value="Paraibano(a)">Paraibano(a)</option>
-                                <option value="Pernambucano(a)">Pernambucano(a)</option>
-                                <option value="Alagoano(a)">Alagoano(a)</option>
-                                <option value="Sergipano(a)">Sergipano(a)</option>
-                                <option value="Baiano(a)">Baiano(a)</option>
-                                <option value="Mineiro(a)">Mineiro(a)</option>
-                                <option value="Capixaba ou Espírito-Santinense">Capixaba ou Espírito-Santinense</option>
-                                <option value="Carioca">Carioca</option>
-                                <option value="Paulista">Paulista</option>
-                                <option value="Paranaense">Paranaense</option>
-                                <option value="Catarinense">Catarinense</option>
-                                <option value="Gaúcho ou Rio-Grandense-do-Sul">Gaúcho ou Rio-Grandense-do-Sul</option>
+                        <div class="form-group col-md-3">
+                            <label id="lblNatEst" name="lblNatEstMilitar" for="lblNatEstMilitar">Naturalidade Estado: </label><b class="obg"> *</b>
+                            <select name="txtNatEstMilitar" id="estados" class="form-control" onblur="borda_input_select(this.id)">
+                                <option value="" selected>Selecione </option>                                
+                            </select>
+                            
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label id="lblNatCid" name="lblNatCidMilitar" for="lblNatCidMilitar">Naturalidade Cidade: </label><b class="obg"> *</b>                            
+                            <select name="txtNatCidMilitar" id="cidades" class="form-control" onblur="borda_input_select(this.id)">
+                                <option value="" selected>Selecione </option>                                
                             </select>
                         </div>
                             
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-2">
                             <label id="lblEstCivil" name="lblEstCivil" for="lblEstCivil">Estado Cívil: </label><b class="obg"> *</b>
                             <select name="txtEstCivil" id="est_civil" class="form-control" onblur="borda_input_select(this.id)">
                                 <option value="0" selected>Selecione o seu Estado Cívil...</option>
@@ -274,7 +256,7 @@
                         </div>
                         
                         <div class="form-group col-md-4">
-                            <label id="lblCnhDataVal" name="lblCnhDataVal" for="lblCnhDataVal">Data de Validadde da CNH: </label>
+                            <label id="lblCnhDataVal" name="lblCnhDataVal" for="lblCnhDataVal">Data de Validade da CNH: </label>
                             <input class="form-control" type="date" id="txtCnhDataVal" name="txtCnhDataVal" onblur="valida_dataValidade(this.id)"/>
                         </div>  
                         
@@ -342,39 +324,44 @@
                             </div>
                         </center>
                         <div id="div_dados_conjuge" style="display: none;">
-                            <div class="form-group col-md-5">
-                                <label id="lblNomeConjuge" name="lblNomeConjuge" for="lblNomeConjuge">Nome Completo: </label><b class="obg"> *</b>
-                                <input class="form-control" type="text" id="txtNomeConjuge" name="txtNomeConjuge" onblur="borda_input_text(this.id)"/>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label id="lblFoneConjuge" name="lblFoneConjuge" for="lblFoneConjuge">Telefone: </label><b class="obg"> *</b>
-                                <input class="form-control fone" type="text" id="txtFoneConjuge" name="txtFoneConjuge" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id);" onkeypress="return somenteNumero(event);"/>
-                            </div>
+                            <fieldset class="parte-form col-md-12">
+                                <legend>Dados do Conjuge</legend>
+                                <div class="form-group col-md-4">
+                                    <label id="lblNomeConjuge" name="lblNomeConjuge" for="lblNomeConjuge">Nome Completo: </label><b class="obg"> *</b>
+                                    <input class="form-control" type="text" id="txtNomeConjuge" name="txtNomeConjuge" onblur="borda_input_text(this.id)"/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label id="lblFoneConjuge" name="lblFoneConjuge" for="lblFoneConjuge">Telefone: </label><b class="obg"> *</b>
+                                    <input class="form-control fone" type="text" id="txtFoneConjuge" name="txtFoneConjuge" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id);" onkeypress="return somenteNumero(event);"/>
+                                </div>
 
-                            <div class="form-group col-md-2"> 
-                                <label id="lblDataNascConjuge" name="lblDataNascConjuge" for="lblDataNascConjuge">Data de Nascimento: </label><b class="obg"> *</b>
-                                <input class="form-control data" type="date" id="txtDataNascConjuge" name="txtDataNascConjuge" onblur="valida_dataNasc(this.id)"/>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="lblGravidez">Esposa Grávida: </label><b class="obg"> *</b>
-                                <br>
-                                <label class="radio-inline gravida">
-                                    <input type="radio" name="txtGravidez" id="sim" value="S"> Sim
-                                </label>
-                                <label class="radio-inline gravida">
-                                    <input type="radio" name="txtGravidez" id="nao" value="N"> Não
-                                </label>                         
-                            </div>
+                                <div class="form-group col-md-3"> 
+                                    <label id="lblDataNascConjuge" name="lblDataNascConjuge" for="lblDataNascConjuge">Data de Nascimento: </label><b class="obg"> *</b>
+                                    <input class="form-control data" type="date" id="txtDataNascConjuge" name="txtDataNascConjuge" onblur="valida_dataNasc(this.id)"/>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="lblGravidez">Esposa Grávida: </label><b class="obg"> *</b>
+                                    <br>
+                                    <label class="radio-inline gravida">
+                                        <input type="radio" name="txtGravidez" id="sim" value="S"> Sim
+                                    </label>
+                                    <label class="radio-inline gravida">
+                                        <input type="radio" name="txtGravidez" id="nao" value="N"> Não
+                                    </label>                         
+                                </div>
+                            </fieldset>
+                        </div>                
+                        <div  id="div_dados_dependente" style="display: none;">
+                            <fieldset id="fd_dados_dependente" class="parte-form col-md-12" style="display: none;">
+                                <legend>Dados dos Dependentes</legend>
+                            </fieldset>
                         </div>
-                        
+
                         <div class="form-group col-md-12" id="div_qtde_dependente" style="display: none;">
-                            <center>
-                               <label id="lblNumDependente" name="lblQtdeDependente" for="lblQtdeDependente">Quantidade de Dependente: </label><b class="obg"> *</b>
-                               <input class="form-control" type="number" id="txtQtdeDependente" name="txtQtdeDependente" min="0" max="50" onblur="borda_input_text(this.id)" onchange="limpa_div_dados_dependente();" onkeypress="return somenteNumero(event);" placeholder="Digite o número de dependentes."/>
-                           </center>
-                        </div> 
-                        
-                        <div id="div_dados_dependente" style="display: none;"></div>
+                            <div class="col-md-11"></div>
+                            <span id="btnNovoDep" alt="Clique aqui e adicione um novo dependente." class="glyphicon glyphicon-plus btn-add col-md-1" aria-hidden="true"></span>
+                        </div>
+                        <button type="button" onclick="getElementos();">Elementos?</button>
                     </fieldset>
                     
                     <fieldset class="parte-form col-md-12">
@@ -388,13 +375,8 @@
                             <select name="txtEstado" id="estado" class="form-control" onblur="borda_input_select(this.id)">
                                 <option value="0" selected>Selecione o seu Estado...</option>
                                 <%
-                                   EstadoDAO estDAO = new EstadoDAO();
-
-                                   int qtdeEst = estDAO.getEstados().size();
-
-                                   for(int i=0;i<qtdeEst;i++){
-                                       out.println("<option value='"+estDAO.getEstados().get(i).getId()+"'>"+estDAO.getEstados().get(i).getNome()+"</option>");
-                                   } 
+                                    EstadoDAO estDAO = new EstadoDAO();
+                                    out.println("<option value='"+estDAO.getAM().getId()+"'>"+estDAO.getAM().getNome()+"</option>");
                                 %>
                             </select>
                         </div>
@@ -530,13 +512,13 @@
                     
                     <div class="linha-botoes col-md-12">
                         <button type="submit" id="btnCad" class="btn-padrao" value="Salvar">Salvar</button> 
-                        <button type="reset" id="btnEnt" class="btn-padrao" value="Limpar">Limpar</button>  
+                        <button type="button" id="btnEnt" class="btn-padrao" value="Entrar" onclick="location.href='index.jsp'">Voltar</button>  
                     </div>
                 </form>
             
         </section>
         <footer class="rodape col-md-12">
-            <p>Desenvolvido pela Seção de Tecnologia da Informação - 2018</p>
+            <p>Desenvolvido pela Seção de Tecnologia da Informação - 2019</p>
         </footer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"

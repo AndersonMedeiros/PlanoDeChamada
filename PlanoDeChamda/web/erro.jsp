@@ -27,11 +27,11 @@
         <link href="css/estilo.css" rel="stylesheet"/>
         
         <script type="text/javascript" src="js/validacao_de_campos.js"></script>
-        <title>Plano de Chamada - Página de Erro</title>
+        <title>Cadastro de Militares - Página de Erro</title>
     </head>
     <body class="tela">
         <header class="header">
-            <img src="img/background-topo.png" class="img-responsive"/>
+            <img src="img/cabeçalho.jpeg" class="img-responsive"/>
 
         </header>
         <section class="area-erro">
@@ -59,7 +59,7 @@
         
         </section>
         <footer class="rodape col-md-12">
-            <p>Desenvolvido pela Seção de Tecnologia da Informação - 2018</p>
+            <p>Desenvolvido pela Seção de Tecnologia da Informação - 2019</p>
         </footer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"

@@ -31,11 +31,11 @@
         <script type="text/javascript" src="../js/comportamento_pagina.js"></script>
         <script src="../js/manipulacao.js" type="text/javascript"></script>
         <script src="../js/validacao_de_campos.js" type="text/javascript"></script>
-        <title>Plano de Chamada - Emissão de Relatório</title>
+        <title>Cadastro de Militares - Emissão de Relatório</title>
     </head>
     <body class="tela">
         <header class="header">
-            <img src="../img/background-topo.png" class="img-responsive">
+            <img src="../img/cabeçalho.jpeg" class="img-responsive" width="100%">
             <div class="row">
                     <div class="col-md-12">
                         <nav class="navbar navbar-default" style="margin-top: 0; margin-bottom: 15px;">
@@ -137,7 +137,7 @@
         </section>
            
         <footer class="rodape col-md-12">
-            <p>Desenvolvido pela Seção de Tecnologia da Informação - 2018</p>
+            <p>Desenvolvido pela Seção de Tecnologia da Informação - 2019</p>
         </footer>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

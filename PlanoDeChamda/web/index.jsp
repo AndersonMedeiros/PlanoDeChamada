@@ -14,12 +14,12 @@
         <link href="css/estilo.css" type="text/css" rel="stylesheet"/>
         <link href="css/estilo_login.css" type="text/css" rel="stylesheet"/>
         <script src="js/validacao_de_campos.js" type="text/javascript"></script>
-        <title>Plano de Chamada - Login</title>
+        <title>Cadastro de Militares - Login</title>
     </head>
     
     <body class="tela col-md-12">
         
-        <div class="form-login col-md-3">
+        <div class="form-login col-md-2">
                 <%
                     if(request.getParameter("x")!=null){
                         String x = request.getParameter("x");
@@ -45,25 +45,24 @@
                     }
                 %>
 
-                <h1 id="titulo">Plano de Chamada</h1>
+                <h1 id="titulo">Cadastro de Militares</h1>
                 
-                <img id="icone" src="img/telefone.png" class="img-responsiva" width="100px" height="100px"/>
-
+                <img id="icone" src="img/CigsFinal.gif" class="img-responsiva" width="100px" />
+                <br>
                 <form name="formLogin" id="formLogin" method="post" action="autenticador">
                     <div class="form-group">
                         <label id="lblIdentidade" name="lblIdentidade" for="lblIdentidade">Identidade: </label>
                         <input class="form-control identidade input" type="text" name="txtIdentidade" id="txtIdentidade" maxlength="30" onkeypress="return somenteNumero(event);" required/>
                     </div>
+                    
                     <div class="form-group"
                         <label id="lblSenha" name="lblSenha" for="lblSenha">Senha: </label>
                         <input class="form-control input" type="password" name="txtSenha" id="txtSenha" maxlength="20" required/>
                     </div>
-                    <button type="submit" class="btEntrar" value="Entrar">Entrar</button>
-                        
-                    <div class="linha-botoes col-md-12">
-                        <a href="Cadastro.jsp" type="submit" id="btnCad" class="btn" value="Cadastrar"></a> 
-                        <button type="submit" id="btnEnt" class="btn" value="Entrar"></button>    
-                    </div>
+                    <br>
+                    <button type="submit" id="btnEntrar" class="" value="Entrar"> Entrar</button>
+                    
+                    <button type="button" id="btnCadastro" class="" value="Cadastrar" onclick="location.href='Cadastro.jsp'"> Cadastrar</button>
                 </form>
         </div>
     </body>
