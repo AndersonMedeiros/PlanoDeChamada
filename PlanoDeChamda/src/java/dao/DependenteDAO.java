@@ -38,7 +38,7 @@ public class DependenteDAO {
                 
                 pstm.setString(1, dependente.getNome());
                 pstm.setString(2, dependente.getData_nasc());
-                pstm.setString(3, dependente.getGrau_parentesco());
+                pstm.setInt(3, dependente.getGrau_parentesco());
                 pstm.setInt(4, dependente.getMil_id());
               
                 pstm.execute();
@@ -69,7 +69,7 @@ public class DependenteDAO {
                dependente.setId(rs.getInt("dep_id"));
                dependente.setNome(rs.getString("dep_nome"));
                dependente.setData_nasc(rs.getString("dep_data_nasc"));
-               dependente.setGrau_parentesco(rs.getString("dep_grau_parentesco"));
+               dependente.setGrau_parentesco(rs.getInt("dep_grau_parentesco"));
                dependente.setMil_id(rs.getInt("dep_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
@@ -88,14 +88,14 @@ public class DependenteDAO {
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETDEPBYIDMIL);
-            pstm.setInt(1, id);
+            
             rs = pstm.executeQuery();
         
             while (rs.next()) {
                dependente.setId(rs.getInt("dep_id"));
                dependente.setNome(rs.getString("dep_nome"));
                dependente.setData_nasc(rs.getString("dep_data_nasc"));
-               dependente.setGrau_parentesco(rs.getString("dep_grau_parentesco"));
+               dependente.setGrau_parentesco(rs.getInt("dep_grau_parentesco"));
                dependente.setMil_id(rs.getInt("dep_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
@@ -105,7 +105,7 @@ public class DependenteDAO {
         return dependente;
     }
     
-    public ArrayList<Dependente> getFilhos(){
+    public ArrayList<Dependente> getDependentesIdMil(int id_mil){
         conn = null;
         pstm = null;
         ResultSet rs = null;
@@ -113,7 +113,8 @@ public class DependenteDAO {
         ArrayList<Dependente> dependentes = new ArrayList<>();
         try{
             conn = ConnectionFactory.getConnection();
-            pstm = conn.prepareStatement(GETDEPENDENTES);
+            pstm = conn.prepareStatement(GETDEPBYIDMIL);
+            pstm.setInt(1, id_mil);
             
             rs = pstm.executeQuery();
         
@@ -122,7 +123,7 @@ public class DependenteDAO {
                dependente.setId(rs.getInt("dep_id"));
                dependente.setNome(rs.getString("dep_nome"));
                dependente.setData_nasc(rs.getString("dep_data_nasc"));
-               dependente.setGrau_parentesco(rs.getString("dep_grau_parentesco"));
+               dependente.setGrau_parentesco(rs.getInt("dep_grau_parentesco"));
                dependente.setMil_id(rs.getInt("dep_mil_id"));
                dependentes.add(dependente);
             }
