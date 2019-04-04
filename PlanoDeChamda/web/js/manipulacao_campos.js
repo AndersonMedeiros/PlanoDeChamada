@@ -8,9 +8,12 @@ function checkedDependente(){
     if(checkBox.checked == true){
         document.getElementById("div_qtde_dependente").style.display = "block";
         document.getElementById("div_dados_dependente").style.display = "block";
+        document.getElementById("fd_dados_dependente").style.display = "block";
+        
     }else{
         document.getElementById("div_qtde_dependente").style.display = "none";
         document.getElementById("div_dados_dependente").style.display = "none";
+        document.getElementById("fd_dados_dependente").style.display = "none";
     }
 }
 
