@@ -4,8 +4,9 @@ $(document).ready(function(){
                    "<option value=2>Filho(a)</option>",
                    "<option value=3>Pai</option>",
                    "<option value=4>Mãe</option>"];
-    $("#div_dados_dependente").empty();
+    
     $("#txtQtdeDependente").change(function(){
+        $("#div_dados_dependente").empty();
         var qtde_dependentes = $("#txtQtdeDependente").val();
         for(var i=0;i<qtde_dependentes;i++){
             $("#div_dados_dependente").append('<div id="div_nome_dependente" class="form-group col-md-6"><label id="lblDependente">Dependente '+(i+1)+'</label><b class="obg"> *</b><input class="form-control" type="text" id="txtNomeDependente'+(i+1)+'" name="txtNomeDependente'+(i+1)+'" onblur="borda_input_text(this.id)"/></div>');
