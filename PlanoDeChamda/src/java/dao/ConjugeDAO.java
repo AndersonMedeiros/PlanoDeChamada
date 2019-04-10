@@ -6,6 +6,7 @@
 package dao;
 
 import bean.Conjuge;
+import bean.Militar;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +26,8 @@ public class ConjugeDAO {
     private final String GETCONJUGES = "SELECT * FROM Conjuge";
     
     private final String INSERT = "INSERT INTO Conjuge (con_nome,con_fone,con_data_nasc,con_gravidez,con_mil_id) VALUES(?,?,?,?,?)";
+    private final String UPDATE = "UPDATE Conjuge "+
+                                  "SET con_nome=?,con_fone=?,con_data_nasc=?,con_gravidez=?,con_mil_id=? WHERE con_id=?";
     
     Connection conn;
     PreparedStatement pstm;
@@ -51,6 +54,31 @@ public class ConjugeDAO {
                 throw new RuntimeException(e.getMessage());  
             }
         } else {
+            throw new RuntimeException();
+        }
+    }
+    
+    public void atualizar(Conjuge con) {
+        if (con != null) {
+            try {
+                conn = ConnectionFactory.getConnection();
+                pstm = conn.prepareStatement(UPDATE);
+                
+                pstm.setString(1, con.getNome());
+                pstm.setString(2, con.getFone());
+                pstm.setString(3, con.getData_nasc());
+                pstm.setString(4, con.getGravidez());
+                pstm.setInt(5, con.getMil_id());
+                pstm.setInt(6, con.getId());
+            
+                pstm.execute();
+                ConnectionFactory.fechaConexao(conn, pstm);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage());  
+            }
+        } else {
+            
             throw new RuntimeException();
         }
     }
