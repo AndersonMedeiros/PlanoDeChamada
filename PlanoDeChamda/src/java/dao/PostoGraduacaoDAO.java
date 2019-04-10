@@ -40,6 +40,7 @@ public class PostoGraduacaoDAO {
             while (rs.next()) {
                pg.setId(rs.getInt("pg_id"));
                pg.setNome(rs.getString("pg_nome"));
+               pg.setSigla(rs.getString("pg_sigla"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
@@ -64,6 +65,7 @@ public class PostoGraduacaoDAO {
                PostoGraduacao pg = new PostoGraduacao();
                pg.setId(rs.getInt("pg_id"));
                pg.setNome(rs.getString("pg_nome"));
+               pg.setSigla(rs.getString("pg_sigla"));
                pgs.add(pg);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
