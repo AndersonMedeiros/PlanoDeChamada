@@ -1,0 +1,151 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15/04/2019, 14:36:05
+    Author     : root
+*/
+
+.linha{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.btn-remove{   
+    border: 2px solid #3D660E;
+    border-radius: 5px;
+    color: red;
+    font-size: 20px;
+    padding: 4px 4px 4px 4px;
+    margin-right: 5px;
+    
+}
+
+.btn-edit{
+    border: 2px solid #3D660E;
+    border-radius: 5px;
+    color: orange;
+    font-size: 20px;
+    padding: 4px 4px 4px 4px;
+    cursor: pointer;
+}
+
+.table .thead-dark th{
+    background-color: #264710;
+}
+
+.btn-warning {
+  color: white;
+  background-color: #3D660E;
+  border-color: #264710;
+}
+
+.btn-warning:hover {
+  color: #fff;
+  background-color: #33560a;
+  border-color: #172d09;
+}
+
+.btn-warning:focus,
+.btn-warning.focus {
+  color: #fff;
+  background-color: #3D660E;
+  border-color: #264710;
+}
+
+.btn-warning:active,
+.btn-warning.active,
+.open > .dropdown-toggle.btn-warning {
+  color: #fff;
+  background-color: #33560a;
+  border-color: #172d09;
+}
+.btn-warning:active:hover,
+.btn-warning.active:hover,
+.open > .dropdown-toggle.btn-warning:hover,
+.btn-warning:active:focus,
+.btn-warning.active:focus,
+.open > .dropdown-toggle.btn-warning:focus,
+.btn-warning:active.focus,
+.btn-warning.active.focus,
+.open > .dropdown-toggle.btn-warning.focus {
+  color: #fff;
+  background-color: #d58512;
+  border-color: #172d09;
+}
+.btn-warning:active,
+.btn-warning.active,
+.open > .dropdown-toggle.btn-warning {
+  background-image: none;
+}
+.btn-warning.disabled:hover,
+.btn-warning[disabled]:hover,
+fieldset[disabled] .btn-warning:hover,
+.btn-warning.disabled:focus,
+.btn-warning[disabled]:focus,
+fieldset[disabled] .btn-warning:focus,
+.btn-warning.disabled.focus,
+.btn-warning[disabled].focus,
+fieldset[disabled] .btn-warning.focus {
+  background-color: #3D660E;
+  border-color: #3D660E;
+}
+.btn-warning .badge {
+  color: #3D660E;
+  background-color: #fff;
+}
+
+.btn-warning {
+  color: #fff;
+  background-color: #3D660E;
+  border-color: #3D660E;
+}
+
+.btn-warning:hover {
+  color: #fff;
+  background-color: #33560a;
+  border-color: #172d09;
+}
+
+.btn-warning:focus, .btn-warning.focus {
+  box-shadow: 0 0 0 0.2rem rgba(50, 85, 8, 0.5);
+}
+
+.btn-warning.disabled, .btn-warning:disabled {
+  color: #fff;
+  background-color: #3D660E;
+  border-color: #3D660E;
+}
+
+.btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active,
+.show > .btn-warning.dropdown-toggle {
+  color: #fff;
+  background-color: #4a820b;
+  border-color: #4a820b;
+}
+
+.btn-warning:not(:disabled):not(.disabled):active:focus, .btn-warning:not(:disabled):not(.disabled).active:focus,
+.show > .btn-warning.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(50, 85, 8, 0.5);
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #4a820b;
+  background-color: #4a820b;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #3D660E;
+  border-color: #3D660E;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  border-color: #4a820b;
+  background-color: #4a820b;
+}
