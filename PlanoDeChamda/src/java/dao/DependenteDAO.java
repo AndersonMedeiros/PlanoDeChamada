@@ -24,6 +24,9 @@ public class DependenteDAO {
     private final String GETDEPENDENTES = "SELECT * FROM Dependente";
     
     private final String INSERT = "INSERT INTO Dependente (dep_nome, dep_data_nasc, dep_grau_parentesco, dep_mil_id) VALUES(?,?,?,?)";
+    private final String UPDATE = "UPDATE Dependente "+
+                                  "SET dep_nome=?, dep_data_nasc=?, dep_grau_parentesco=? WHERE dep_id=? and dep_mil_id=?";
+    private final String DELETE = "DELETE FROM Dependente WHERE dep_mil_id=?";
     
     Connection conn;
     PreparedStatement pstm;
@@ -38,7 +41,7 @@ public class DependenteDAO {
                 
                 pstm.setString(1, dependente.getNome());
                 pstm.setString(2, dependente.getData_nasc());
-                pstm.setInt(3, dependente.getGrau_parentesco());
+                pstm.setString(3, dependente.getGrau_parentesco());
                 pstm.setInt(4, dependente.getMil_id());
               
                 pstm.execute();
@@ -52,6 +55,54 @@ public class DependenteDAO {
             throw new RuntimeException();
         }
     }
+    
+    public void atualizar(Dependente dependente){
+        if (dependente != null) {
+            try {
+                conn = ConnectionFactory.getConnection();
+                
+                pstm = conn.prepareStatement(UPDATE);
+                
+                pstm.setString(1, dependente.getNome());
+                pstm.setString(2, dependente.getData_nasc());
+                pstm.setString(3, dependente.getGrau_parentesco());
+                pstm.setInt(4, dependente.getId());
+                pstm.setInt(5, dependente.getMil_id());
+              
+                pstm.execute();
+                
+                ConnectionFactory.fechaConexao(conn, pstm);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage());  
+            }
+        } else {
+            throw new RuntimeException();
+        }
+    }
+    
+    public void delete(int id_mil){
+        if (id_mil != 0) {
+            try {
+                conn = ConnectionFactory.getConnection();
+                
+                pstm = conn.prepareStatement(DELETE);
+                
+                pstm.setInt(1, id_mil);
+              
+                pstm.execute();
+                
+                ConnectionFactory.fechaConexao(conn, pstm);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage());  
+            }
+        } else {
+            throw new RuntimeException();
+        }
+    }
+    
+    
     
     public Dependente getDependenteByID(int id){
         conn = null;
@@ -69,7 +120,7 @@ public class DependenteDAO {
                dependente.setId(rs.getInt("dep_id"));
                dependente.setNome(rs.getString("dep_nome"));
                dependente.setData_nasc(rs.getString("dep_data_nasc"));
-               dependente.setGrau_parentesco(rs.getInt("dep_grau_parentesco"));
+               dependente.setGrau_parentesco(rs.getString("dep_grau_parentesco"));
                dependente.setMil_id(rs.getInt("dep_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
@@ -95,7 +146,7 @@ public class DependenteDAO {
                dependente.setId(rs.getInt("dep_id"));
                dependente.setNome(rs.getString("dep_nome"));
                dependente.setData_nasc(rs.getString("dep_data_nasc"));
-               dependente.setGrau_parentesco(rs.getInt("dep_grau_parentesco"));
+               dependente.setGrau_parentesco(rs.getString("dep_grau_parentesco"));
                dependente.setMil_id(rs.getInt("dep_mil_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
@@ -123,7 +174,7 @@ public class DependenteDAO {
                dependente.setId(rs.getInt("dep_id"));
                dependente.setNome(rs.getString("dep_nome"));
                dependente.setData_nasc(rs.getString("dep_data_nasc"));
-               dependente.setGrau_parentesco(rs.getInt("dep_grau_parentesco"));
+               dependente.setGrau_parentesco(rs.getString("dep_grau_parentesco"));
                dependente.setMil_id(rs.getInt("dep_mil_id"));
                dependentes.add(dependente);
             }

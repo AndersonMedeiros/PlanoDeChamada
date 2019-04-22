@@ -133,7 +133,7 @@ public class cadastrar extends HttpServlet {
             mil.setNome(request.getParameter("txtNomeComp").toUpperCase());
             mil.setNome_guerra(request.getParameter("txtNomeGuerra").toUpperCase());          
             mil.setSexo(request.getParameter("txtSexo").toUpperCase());
-            mil.setNat_est(request.getParameter("txtNatEstMilitar").toUpperCase());
+            mil.setId_nat_est(Integer.parseInt(request.getParameter("txtNatEstMilitar").toUpperCase()));
             mil.setNat_cid(request.getParameter("txtNatCidMilitar").toUpperCase());
             mil.setId_ec(Integer.parseInt(request.getParameter("txtEstCivil").toUpperCase()));   
             mil.setData_praca(request.getParameter("txtDataPraca").replace("/", "").replace("-", ""));
@@ -146,7 +146,7 @@ public class cadastrar extends HttpServlet {
             mil.setMae(request.getParameter("txtMae").toUpperCase());
             mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
             System.out.println(end.getCep()+ " "+end.getLogradouro()+" "+end.getComplemento()+" " +end.getId_bairro()+"idend"+endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
-            mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
+            mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
             //Religião
             int id_religiao = Integer.parseInt(request.getParameter("txtReligiao"));
             ReligiaoDAO religiaoDAO = new ReligiaoDAO();

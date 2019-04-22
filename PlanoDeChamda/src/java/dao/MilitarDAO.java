@@ -24,6 +24,7 @@ public class MilitarDAO {
     private final String GETIDENTIDADE = "SELECT mil_identidade FROM Militar WHERE mil_identidade=?";
     private final String GETID = "SELECT mil_id FROM Militar WHERE mil_identidade=?";
     private final String GETMILITAR = "SELECT * FROM Militar WHERE mil_identidade=?";
+    private final String GETMILITARES = "SELECT * FROM Militar ORDER BY mil_postograduacao_id";
     
     private final String INSERT = "INSERT INTO Militar (mil_identidade,mil_nome,mil_nome_guerra,mil_cpf,mil_preccp,"+
                                   "                     mil_sexo,mil_data_nasc,mil_data_praca,mil_pai,mil_mae,mil_email,"+
@@ -38,7 +39,7 @@ public class MilitarDAO {
                                   "    mil_data_praca=?,mil_pai=?,mil_mae=?,mil_email=?,mil_nome_referencia=?,mil_fone_referencia=?,mil_fone1=?,mil_fone2=?,"+
                                   "    mil_naturalidade_estado=?,mil_naturalidade_cidade=?,mil_end_num=?,mil_senha=?,mil_end_id=?,mil_divisaosecao_id=?,"+
                                   "    mil_postograduacao_id=?,mil_qasqms_id=?,mil_estadocivil_id=?,mil_escolaridade_id=?,mil_situacao_id=?,"+
-                                  "    mil_cnh_id=?,mil_tituloeleitor_id=?,mil_religiao_id=? WHERE mil_id=? AND mil_identidade=?";
+                                  "    mil_tituloeleitor_id=?,mil_religiao_id=? WHERE mil_id=? AND mil_identidade=?";
     
     Connection conn = null;
     PreparedStatement pstm = null;
@@ -66,7 +67,7 @@ public class MilitarDAO {
                 pstm.setString(13, mil.getFone_referencia());
                 pstm.setString(14, mil.getFone1());
                 pstm.setString(15, mil.getFone2());
-                pstm.setString(16, mil.getNat_est());
+                pstm.setInt(16, mil.getId_nat_est());
                 pstm.setString(17, mil.getNat_cid());
                 pstm.setString(18, mil.getEnd_num());
                 pstm.setString(19, mil.getSenha());
@@ -99,7 +100,7 @@ public class MilitarDAO {
                 pstm = conn.prepareStatement(UPDATE);
                 
                 pstm.setString(1, mil.getNome());
-                pstm.setString(2, mil.getNome_guerra());//
+                pstm.setString(2, mil.getNome_guerra());
                 pstm.setString(3, mil.getCpf());
                 pstm.setString(4, mil.getPreccp());
                 pstm.setString(5, mil.getSexo());
@@ -112,7 +113,7 @@ public class MilitarDAO {
                 pstm.setString(12, mil.getFone_referencia());
                 pstm.setString(13, mil.getFone1());
                 pstm.setString(14, mil.getFone2());
-                pstm.setString(15, mil.getNat_est());
+                pstm.setInt(15, mil.getId_nat_est());
                 pstm.setString(16, mil.getNat_cid());
                 pstm.setString(17, mil.getEnd_num());
                 pstm.setString(18, mil.getSenha());
@@ -279,7 +280,7 @@ public class MilitarDAO {
                 mil.setFone_referencia(rs.getString("mil_fone_referencia"));
                 mil.setFone1(rs.getString("mil_fone1"));
                 mil.setFone2(rs.getString("mil_fone2"));
-                mil.setNat_est(rs.getString("mil_naturalidade_estado"));
+                mil.setId_nat_est(rs.getInt("mil_naturalidade_estado"));
                 mil.setNat_cid(rs.getString("mil_naturalidade_cidade"));
                 mil.setEnd_num(rs.getString("mil_end_num"));
                 mil.setSenha(rs.getString("mil_senha"));
@@ -299,6 +300,59 @@ public class MilitarDAO {
             throw new RuntimeException(e.getMessage());           
         }
         return mil;
+    }
+    
+    public ArrayList<Militar> getMilitares(){
+        conn = null;
+        pstm = null;
+        ResultSet rs = null;
+        ArrayList<Militar> militares = new ArrayList<>();
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETMILITARES);
+           
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                Militar mil = new Militar();
+                mil.setId(rs.getInt("mil_id"));
+                mil.setIdentidade(rs.getString("mil_identidade"));
+                mil.setNome(rs.getString("mil_nome"));
+                mil.setNome_guerra(rs.getString("mil_nome_guerra"));
+                mil.setCpf(rs.getString("mil_cpf"));
+                mil.setPreccp(rs.getString("mil_preccp"));
+                mil.setSexo(rs.getString("mil_sexo"));
+                mil.setData_nasc(rs.getString("mil_data_nasc")); 
+                mil.setData_praca(rs.getString("mil_data_praca"));
+                mil.setPai(rs.getString("mil_pai"));
+                mil.setMae(rs.getString("mil_mae"));
+                mil.setEmail(rs.getString("mil_email"));
+                mil.setNome_referencia(rs.getString("mil_nome_referencia"));
+                mil.setFone_referencia(rs.getString("mil_fone_referencia"));
+                mil.setFone1(rs.getString("mil_fone1"));
+                mil.setFone2(rs.getString("mil_fone2"));
+                mil.setId_nat_est(rs.getInt("mil_naturalidade_estado"));
+                mil.setNat_cid(rs.getString("mil_naturalidade_cidade"));
+                mil.setEnd_num(rs.getString("mil_end_num"));
+                mil.setSenha(rs.getString("mil_senha"));
+                mil.setId_end(rs.getInt("mil_end_id"));
+                mil.setId_div_sec(rs.getInt("mil_divisaoSecao_id"));
+                mil.setId_pg(rs.getInt("mil_postograduacao_id"));
+                mil.setId_qq(rs.getInt("mil_qasqms_id"));
+                mil.setId_ec(rs.getInt("mil_estadocivil_id"));
+                mil.setId_esc(rs.getInt("mil_escolaridade_id"));
+                mil.setId_sit(rs.getInt("mil_situacao_id"));
+                mil.setId_teleitor(rs.getInt("mil_tituloeleitor_id"));
+                mil.setId_grp_acesso(rs.getInt("mil_grupoacesso_id"));
+                mil.setId_religiao(rs.getInt("mil_religiao_id"));
+                
+                militares.add(mil);
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());           
+        }
+        return militares;
     }
     
     public ArrayList<Militar> getMilitarByDivSec_PostGrad_QasQms(String sql){
@@ -330,7 +384,7 @@ public class MilitarDAO {
                 mil.setFone_referencia(rs.getString("mil_fone_referencia"));
                 mil.setFone1(rs.getString("mil_fone1"));
                 mil.setFone2(rs.getString("mil_fone2"));
-                mil.setNat_est(rs.getString("mil_naturalidade_estado"));
+                mil.setId_nat_est(rs.getInt("mil_naturalidade_estado"));
                 mil.setNat_cid(rs.getString("mil_naturalidade_cidade"));
                 mil.setEnd_num(rs.getString("mil_end_num"));
                 mil.setSenha(rs.getString("mil_senha"));
@@ -384,7 +438,7 @@ public class MilitarDAO {
                     milRetorno.setFone_referencia(rs.getString("mil_fone_referencia"));
                     milRetorno.setFone1(rs.getString("mil_fone1"));
                     milRetorno.setFone2(rs.getString("mil_fone2"));
-                    milRetorno.setNat_est(rs.getString("mil_naturalidade_estado"));
+                    milRetorno.setId_nat_est(rs.getInt("mil_naturalidade_estado"));
                     milRetorno.setNat_cid(rs.getString("mil_naturalidade_cidade"));
                     milRetorno.setEnd_num(rs.getString("mil_end_num"));
                     milRetorno.setSenha(rs.getString("mil_senha"));

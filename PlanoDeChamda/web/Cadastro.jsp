@@ -73,6 +73,20 @@
                 }
             }
         </script>
+        <script src="http://code.jquery.com/jquery-1.5.js"></script>
+        <script>
+            $(document).ready(function() {
+                $("#b").click(function() {
+                    
+                //var orderId =  $("#orderId").val();
+                $.post("test", { orderId : "John"}, //test é o nome do servlet, orderId é o nome do parâmetro passado para o servlet
+                    function(data) {//data é o que é retornado do servlet para você utilizar no código
+                        var i = console.log(data);
+                        alert("Data Loaded: " + i[1]);
+                    });
+                });
+            });
+        </script>
         <title>Cadastro de Militares - Cadastro</title>
     </head>
     <body class="tela">
@@ -116,7 +130,7 @@
                                     int qtdePGS = pgDAO.getPostGrads().size();
                                     
                                     for(int i=0;i<qtdePGS;i++){
-                                        out.println("<option value='"+pgDAO.getPostGrads().get(i).getId()+"'>"+pgDAO.getPostGrads().get(i).getNome()+"</option>");
+                                        out.println("<option value='"+pgDAO.getPostGrads().get(i).getId()+"'>"+pgDAO.getPostGrads().get(i).getSigla()+"</option>");
                                     } 
                                 %>
                             </select>
@@ -156,7 +170,7 @@
                             <input class="form-control" type="text" id="txtNomeGuerra" name="txtNomeGuerra" onblur="borda_input_text(this.id)"/>
                         </div>
                             
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="lblSexo">Sexo: </label><b class="obg"> *</b>
                             <br>
                             <label class="radio-inline sexo">
@@ -168,20 +182,27 @@
                         </div>
                             
                         <div class="form-group col-md-3">
-                            <label id="lblNatEst" name="lblNatEstMilitar" for="lblNatEstMilitar">Naturalidade Estado: </label><b class="obg"> *</b>
-                            <select name="txtNatEstMilitar" id="estados" class="form-control" onblur="borda_input_select(this.id)">
-                                <option value="" selected>Selecione </option>                                
+                            <label id="lblNatEst" name="lblNatEstMilitar" for="lblNatEstMilitar">Naturalidade (UF): </label><b class="obg"> *</b>
+                            <select name="txtNatEstMilitar" class="form-control" onblur="borda_input_select(this.id)">
+                                <option value="0" selected>Selecione o seu Estado...</option>
+                                <%
+                                    EstadoDAO estDAO = new EstadoDAO();
+                                    
+                                    int qtdeEst = estDAO.getEstados().size();
+                                    
+                                    for(int i=0;i<qtdeEst;i++){
+                                        out.println("<option value='"+estDAO.getEstados().get(i).getId()+"'>"+estDAO.getEstados().get(i).getUf()+"</option>");
+                                    }
+                                %>                                
                             </select>
                             
                         </div>
                         <div class="form-group col-md-3">
                             <label id="lblNatCid" name="lblNatCidMilitar" for="lblNatCidMilitar">Naturalidade Cidade: </label><b class="obg"> *</b>                            
-                            <select name="txtNatCidMilitar" id="cidades" class="form-control" onblur="borda_input_select(this.id)">
-                                <option value="" selected>Selecione </option>                                
-                            </select>
+                            <input class="form-control" type="text" id="txtNatCidMilitar" name="txtNatCidMilitar" onblur="borda_input_text(this.id)"/>
                         </div>
                             
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-3">
                             <label id="lblEstCivil" name="lblEstCivil" for="lblEstCivil">Estado Cívil: </label><b class="obg"> *</b>
                             <select name="txtEstCivil" id="est_civil" class="form-control" onblur="borda_input_select(this.id)">
                                 <option value="0" selected>Selecione o seu Estado Cívil...</option>
@@ -199,7 +220,7 @@
                         
                         <div class="form-group col-md-3">
                             <label id="lblDataNasc" name="lblDataNasc" for="lblDataNasc">Data de Nascimento: </label><b class="obg"> *</b>
-                            <input class="form-control" type="date" id="txtDataNasc" name="txtDataNasc" onblur="valida_dataNasc(this.id);"/>
+                            <input class="form-control" type="date" id="txtDataNasc" name="txtDataNasc" onblur="valida_dataNascMil(this.id);"/>
                         </div>                            
                             
                         <div class="form-group col-md-3">
@@ -325,7 +346,7 @@
                         </center>
                         <div id="div_dados_conjuge" style="display: none;">
                             <fieldset class="parte-form col-md-12">
-                                <legend>Dados do Conjuge</legend>
+                                <legend>Dados do Cônjuge</legend>
                                 <div class="form-group col-md-4">
                                     <label id="lblNomeConjuge" name="lblNomeConjuge" for="lblNomeConjuge">Nome Completo: </label><b class="obg"> *</b>
                                     <input class="form-control" type="text" id="txtNomeConjuge" name="txtNomeConjuge" onblur="borda_input_text(this.id)"/>
@@ -361,7 +382,7 @@
                             <div class="col-md-11"></div>
                             <span id="btnNovoDep" alt="Clique aqui e adicione um novo dependente." class="glyphicon glyphicon-plus btn-add col-md-1" aria-hidden="true"></span>
                         </div>
-                        <button type="button" onclick="getElementos();">Elementos?</button>
+                        
                     </fieldset>
                     
                     <fieldset class="parte-form col-md-12">
@@ -374,8 +395,7 @@
                             <label id="lblEstado" name="lblEstado" for="lblEstado">Estado: </label><b class="obg"> *</b>
                             <select name="txtEstado" id="estado" class="form-control" onblur="borda_input_select(this.id)">
                                 <option value="0" selected>Selecione o seu Estado...</option>
-                                <%
-                                    EstadoDAO estDAO = new EstadoDAO();
+                                <%             
                                     out.println("<option value='"+estDAO.getAM().getId()+"'>"+estDAO.getAM().getNome()+"</option>");
                                 %>
                             </select>

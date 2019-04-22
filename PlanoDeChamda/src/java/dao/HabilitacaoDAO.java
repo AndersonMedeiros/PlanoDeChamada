@@ -20,9 +20,10 @@ import java.util.ArrayList;
 public class HabilitacaoDAO {
     private final String GETCNHBYID = "SELECT * FROM Habilitacao WHERE cnh_id=?";
     private final String GETCNHBYIDMIL = "SELECT * FROM Habilitacao WHERE cnh_mil_id=?";
+    private final String GETCNHBYMILID = "SELECT cnh_id FROM Habilitacao WHERE cnh_mil_id=?";
     private final String INSERT = "INSERT INTO Habilitacao(cnh_num,cnh_cat,cnh_data_validade,cnh_mil_id) VALUES(?,?,?,?);";
     private final String UPDATE = "UPDATE Habilitacao SET cnh_num=?,cnh_cat=?,cnh_data_validade=?,cnh_mil_id=? WHERE cnh_id=?";
-    private final String GETID = "SELECT cnh_id FROM Habilitacao WHERE cnh_num=? AND cnh_cat=?";
+    private final String GETID = "SELECT cnh_id FROM Habilitacao WHERE cnh_num=?";
     private final String GETCNHS = "SELECT * FROM Habilitacao";
     
     Connection conn = null;
@@ -116,14 +117,34 @@ public class HabilitacaoDAO {
         return cnh;
     }
     
-    public int getIdCnh(String num, String cat){ 
+    public boolean CnhExiste(int id){
+        boolean existe = false;
+        
+        try{
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETCNHBYIDMIL);
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+        
+            while (rs.next()) {
+               if(rs.getInt("cnh_id") != 0){
+                   existe = true;
+               }
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return existe;
+    }
+    
+    public int getIdCnh(String num){ 
         int cnh_id=0;
         try{
             conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(GETID);
             pstm.setString(1, num);
-            pstm.setString(2, cat);
-            
+                       
             rs = pstm.executeQuery();
         
             while (rs.next()) {

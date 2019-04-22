@@ -52,7 +52,7 @@
                 <form name="formLogin" id="formLogin" method="post" action="autenticador">
                     <div class="form-group">
                         <label id="lblIdentidade" name="lblIdentidade" for="lblIdentidade">Identidade: </label>
-                        <input class="form-control identidade input" type="text" name="txtIdentidade" id="txtIdentidade" maxlength="30" onkeypress="return somenteNumero(event);" required/>
+                        <input class="form-control identidade input" type="text" name="txtIdentidade" id="txtIdentidade" maxlength="10" onkeypress="return somenteNumero(event);" required/>
                     </div>
                     
                     <div class="form-group"

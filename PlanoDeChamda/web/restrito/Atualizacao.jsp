@@ -82,13 +82,17 @@
                                         HttpSession sessao = request.getSession();
                                         
                                         MilitarDAO milDAO = new MilitarDAO();
-                                        Militar milAutenticado = (Militar) sessao.getAttribute("militarAutenticado");
-                                        Militar mil = milDAO.getMilitar(milAutenticado.getIdentidade());
+                                        
+                                        //Militar milAutenticado = (Militar) sessao.getAttribute("militarAutenticado");
+                                        //Militar mil = milDAO.getMilitar(milAutenticado.getIdentidade());
+                                        
+                                        Militar mil = milDAO.getMilitar(request.getParameter("idt"));
+                                        
+                                        
+                                        
                                         DependenteDAO depDAO = new DependenteDAO();
-                                        Dependente dep = depDAO.getDependenteByIDMil(mil.getId());
-                                        if(String.valueOf(mil.getTipo_acesso()).equals("admin")){
-                                            out.println("<li><a href=\"EmitirRelatorio.jsp\">Emitir Relatório</a></li>");
-                                        }
+                                        
+                                        
                                     %>                                   
                                   <!-- <li><a href="FaleConosco.jsp">Sair <span class="sr-only">(current)</span></a></li> -->
                                 </ul>
@@ -205,7 +209,7 @@
                                     "<input class=\"form-control\" type=\"text\" id=\"txtNomeGuerra\" name=\"txtNomeGuerra\" value=\""+mil.getNome_guerra()+"\" onblur=borda_input_text(this.id)/> "+
                                     "</div>"+
                                             
-                                    "<div class=\"form-group col-md-4\">" +
+                                    "<div class=\"form-group col-md-3\">" +
                                     "<label for=\"lblSexo\">Sexo: </label><b class=\"obg\"> *</b>" +
                                     "<br>");
                                     
@@ -227,28 +231,33 @@
                                                     "</div>");
                                     }
                                     
-                                    out.println("<div class=\"form-group col-md-4\">"+
+                                    out.println("<div class=\"form-group col-md-3\">"+
                                                 "<label id=\"lblNatEstMilitar\" name=\"lblNatEstMilitar\" for=\"lblNatEstMilitar\">Naturalidade Estado: </label><b class=\"obg\"> *</b>"+
                                                 "<select name=\"txtNatEstMilitar\" id=\"estados\" class=\"form-control\" onblur=borda_input_select(this.id)>");
-                                    
-                                    if(mil.getNat_est()!= null && mil.getNat_est().equals("")){
+                                    System.out.println(mil.getId_nat_est());
+                                    if(mil.getId_nat_est()==0){
                                         out.println("<option value=\"\" selected>Selecione a sua Naturalidade...</option>");
                                     }else{
                                         out.println("<option value=\"\">Selecione a sua Naturalidade...</option>");
                                     }
-                                    int qtdNaturalidades = dcb.getNaturalidades().size();
+                                    int qtdNatsEst = estDAO.getEstados().size();
 
-                                        for(int i=0;i<qtdNaturalidades;i++){
-                                            if(mil.getNat_est()!= null && mil.getNat_est().equals(String.valueOf(dcb.getNaturalidades().get(i)))){
-                                                out.println("<option value='"+String.valueOf(dcb.getNaturalidades().get(i))+"' selected>"+String.valueOf(dcb.getNaturalidades().get(i))+"</option>");
+                                        for(int i=0;i<qtdNatsEst;i++){
+                                            if(mil.getId_nat_est() == estDAO.getEstados().get(i).getId()){
+                                                out.println("<option value='"+estDAO.getEstados().get(i).getId()+"' selected>"+estDAO.getEstados().get(i).getNome()+"</option>");
                                             }else{
-                                                out.println("<option value='"+String.valueOf(dcb.getNaturalidades().get(i))+"'>"+String.valueOf(dcb.getNaturalidades().get(i))+"</option>");
+                                                out.println("<option value='"+estDAO.getEstados().get(i).getId()+"'>"+estDAO.getEstados().get(i).getNome()+"</option>");
                                             }
                                         }
                                     out.println("</select>"+
                                     "</div>"+
+                                    
+                                    "<div class=\"form-group col-md-3\">"+
+                                        "<label id=\"lblNatCid\" name=\"lblNatCidMilitar\" for=\"lblNatCidMilitar\">Naturalidade Cidade: </label><b class=\"obg\"> *</b>"+                        
+                                        "<input class=\"form-control\" type=\"text\" id=\"txtNatCidMilitar\" name=\"txtNatCidMilitar\" onblur=\"borda_input_text(this.id)\" value=\""+mil.getNat_cid()+"\"/>"+
+                                    "</div>"+
 
-                                    "<div class=\"form-group col-md-4\">"+
+                                    "<div class=\"form-group col-md-3\">"+
                                     "<label id=\"lblEstCivil\" name=\"lblEstCivil\" for=\"lblEstCivil\">Estado Cívil: </label><b class=\"obg\"> *</b>"+
                                     "<select name=\"txtEstCivil\" id=\"est_civil\" class=\"form-control\" onblur=borda_input_select(this.id)>");
                                     if(mil.getId_ec() == 0){
@@ -270,14 +279,14 @@
                                     if(mil.getData_nasc() != null){
                                         out.println("<div class=\"form-group col-md-3\">"+
                                                     "<label id=\"lblDataNasc\" name=\"lblDataNasc\" for=\"lblDataNasc\">Data de Nascimento: </label>"+
-                                                    "<input class=\"form-control data\" type=\"date\" id=\"txtDataNasc\" name=\"txtDataNasc\" value=\""+mil.getData_nasc().substring(0, 4)+"-"+mil.getData_nasc().substring(4, 6)+"-"+mil.getData_nasc().substring(6, 8)+"\" onblur=\"validar_dataNasc(this.id)\"/>"+
+                                                    "<input class=\"form-control data\" type=\"date\" id=\"txtDataNasc\" name=\"txtDataNasc\" value=\""+mil.getData_nasc().substring(0, 4)+"-"+mil.getData_nasc().substring(4, 6)+"-"+mil.getData_nasc().substring(6, 8)+"\" onblur=\"valida_dataNascMil(this.id)\"/>"+
                                                     "</div>");
                                     }
                                     
                                     if(mil.getData_praca() != null){
                                         out.println("<div class=\"form-group col-md-3\">"+
                                                     "<label id=\"lblDataPraca\" name=\"lblDataPraca\" for=\"lblDataPraca\">Data Praça: </label><b class=\"obg\"> *</b>"+
-                                                    "<input class=\"form-control data\" type=\"date\" id=\"txtDataPraca\" name=\"txtDataPraca\" value=\""+mil.getData_praca().substring(0, 4)+"-"+mil.getData_praca().substring(4, 6)+"-"+mil.getData_praca().substring(6, 8)+"\" onblur=\"validar_dataPraca(this.id)\"/> "+
+                                                    "<input class=\"form-control data\" type=\"date\" id=\"txtDataPraca\" name=\"txtDataPraca\" value=\""+mil.getData_praca().substring(0, 4)+"-"+mil.getData_praca().substring(4, 6)+"-"+mil.getData_praca().substring(6, 8)+"\" onblur=\"valida_dataPraca(this.id)\"/> "+
                                                     "</div>");
                                     }
                                     
@@ -483,7 +492,9 @@
                                                     "</div>"+
                                                     "</center>"+
                                                     "<div id=\"div_dados_conjuge\" style=\"display: block;\">"+
-                                                    "<div class=\"form-group col-md-5\">"+
+                                                    "<fieldset id=\"fd_dados_conjuge\" class=\"parte-form col-md-12\" style=\"display: block;\">"+
+                                                    "<legend>Dados do Cônjuge</legend>"+
+                                                    "<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
                                                     "<input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onblur=\"borda_input_text(this.id)\" value=\""+conDAO.getConjugeByIDMil(mil.getId()).getNome()+"\"/>"+
                                                     "</div>"+
@@ -493,7 +504,7 @@
                                                     "</div>");
                                                     String dataNascCon = conDAO.getConjugeByIDMil(mil.getId()).getData_nasc();
                                                     if(dataNascCon != null){
-                                                        out.println("<div class=\"form-group col-md-2\">"+
+                                                        out.println("<div class=\"form-group col-md-3\">"+
                                                         "<label id=\"lblDataNascConjuge\" name=\"lblDataNascConjuge\" for=\"lblDataNascConjuge\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
                                                         "<input class=\"form-control data\" type=\"date\" id=\"txtDataNascConjuge\" name=\"txtDataNascConjuge\" onblur=\"valida_dataNasc(this.id)\" value=\""+dataNascCon.substring(0, 4)+"-"+dataNascCon.substring(4, 6)+"-"+dataNascCon.substring(6, 8)+"\"/>"+
                                                         "</div>");
@@ -524,6 +535,8 @@
                                                                 "</label>"+                      
                                                                 "</div>");
                                                     }
+                                                    out.println("</fieldset>"+
+                                                                "</div>");
 
                                                     out.println("<div  id=\"div_dados_dependente\" style=\"display: none;\">"+
                                                     "<fieldset id=\"fd_dados_dependente\" class=\"parte-form col-md-12\" style=\"display: none;\">"+
@@ -537,124 +550,107 @@
                                                     "</fieldset>");
                                     }else if(conDAO.getConjugeByIDMil(mil.getId()).getId() == 0 && depDAO.getDependentesIdMil(mil.getId()).size() != 0){
                                         out.println("<fieldset class=\"parte-form col-md-12\">"+
-                                                    "<legend>Dados Familiares</legend>"+
-                                                    "<center>"+
-                                                    "<div class=\"checkbox col-md-12\">"+
-                                                    "<label>"+
-                                                    "<input type=\"checkbox\" id=\"checkboxConjuge\" name=\"checkboxConjuge\" value=\"checkConjuge\" onclick=\"checkedConjuge()\">"+
-                                                    "Possui Esposa(o)?"+
-                                                    "</label>"+
-                                                    "<label>"+
-                                                    "<input type=\"checkbox\" id=\"checkboxDependente\" name=\"checkboxDependente\" value=\"checkDependente\" onclick=\"checkedDependente()\" checked>"+
-                                                    "Possui Dependentes?"+
-                                                    "</label>"+
-                                                    "</div>"+
-                                                    "</center>"+
-                                                    "<div id=\"div_dados_conjuge\" style=\"display: none;\">"+
-                                                    "   <div class=\"form-group col-md-5\">"+
-                                                    "       <label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
-                                                    "       <input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onblur=\"borda_input_text(this.id)\"/>"+
-                                                    "   </div>"+
-                                                    "   <div class=\"form-group col-md-3\">"+
-                                                    "       <label id=\"lblFoneConjuge\" name=\"lblFoneConjuge\" for=\"lblFoneConjuge\">Telefone: </label><b class=\"obg\"> *</b>"+
-                                                    "       <input class=\"form-control fone\" type=\"text\" id=\"txtFoneConjuge\" name=\"txtFoneConjuge\" placeholder=\"Ex.: (00) 00000-0000\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\"/>"+
-                                                    "   </div>"+                                                    
-                                                    "   <div class=\"form-group col-md-2\">"+
-                                                    "       <label id=\"lblDataNascConjuge\" name=\"lblDataNascConjuge\" for=\"lblDataNascConjuge\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
-                                                    "       <input class=\"form-control data\" type=\"date\" id=\"txtDataNascConjuge\" name=\"txtDataNascConjuge\" onblur=\"valida_dataNasc(this.id)\"/>"+
-                                                    "   </div>"+                                                    
-                                                    "   <div class=\"form-group col-md-2\">"+
-                                                    "       <label for=\"lblGravidez\">Esposa Grávida: </label><b class=\"obg\"> *</b>"+
-                                                    "       <br>"+
-                                                    "       <label class=\"radio-inline gravida\">"+
-                                                    "           <input type=\"radio\" name=\"txtGravidez\" id=\"sim\" value=\"S\"> Sim"+
-                                                    "       </label>"+
-                                                    "       <label class=\"radio-inline gravida\">"+
-                                                    "           <input type=\"radio\" name=\"txtGravidez\" id=\"nao\" value=\"N\"> Não"+
-                                                    "       </label>"+                      
-                                                    "   </div>"+
-                                                    "</div>");
+                                                    "   <legend>Dados Familiares</legend>"+
+                                                    "   <center>"+
+                                                    "       <div class=\"checkbox col-md-12\">"+
+                                                    "           <label>"+
+                                                    "           <input type=\"checkbox\" id=\"checkboxConjuge\" name=\"checkboxConjuge\" value=\"checkConjuge\" onclick=\"checkedConjuge()\">"+
+                                                    "           Possui Esposa(o)?"+
+                                                    "           </label>"+
+                                                    "           <label>"+
+                                                    "           <input type=\"checkbox\" id=\"checkboxDependente\" name=\"checkboxDependente\" value=\"checkDependente\" onclick=\"checkedDependente()\" checked>"+
+                                                    "           Possui Dependentes?"+
+                                                    "           </label>"+
+                                                    "       </div>"+
+                                                    "   </center>"+
+                                                    "   <div id=\"div_dados_conjuge\" style=\"display: none;\">"+
+                                                    "       <div class=\"form-group col-md-4\">"+
+                                                    "           <label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
+                                                    "           <input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onblur=\"borda_input_text(this.id)\"/>"+
+                                                    "       </div>"+
+                                                    "       <div class=\"form-group col-md-3\">"+
+                                                    "           <label id=\"lblFoneConjuge\" name=\"lblFoneConjuge\" for=\"lblFoneConjuge\">Telefone: </label><b class=\"obg\"> *</b>"+
+                                                    "           <input class=\"form-control fone\" type=\"text\" id=\"txtFoneConjuge\" name=\"txtFoneConjuge\" placeholder=\"Ex.: (00) 00000-0000\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                    "       </div>"+                                                    
+                                                    "       <div class=\"form-group col-md-3\">"+
+                                                    "           <label id=\"lblDataNascConjuge\" name=\"lblDataNascConjuge\" for=\"lblDataNascConjuge\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
+                                                    "           <input class=\"form-control data\" type=\"date\" id=\"txtDataNascConjuge\" name=\"txtDataNascConjuge\" onblur=\"valida_dataNasc(this.id)\"/>"+
+                                                    "       </div>"+                                                    
+                                                    "       <div class=\"form-group col-md-2\">"+
+                                                    "           <label for=\"lblGravidez\">Esposa Grávida: </label><b class=\"obg\"> *</b>"+
+                                                    "           <br>"+
+                                                    "           <label class=\"radio-inline gravida\">"+
+                                                    "               <input type=\"radio\" name=\"txtGravidez\" id=\"sim\" value=\"S\"> Sim"+
+                                                    "           </label>"+
+                                                    "           <label class=\"radio-inline gravida\">"+
+                                                    "               <input type=\"radio\" name=\"txtGravidez\" id=\"nao\" value=\"N\"> Não"+
+                                                    "           </label>"+                      
+                                                    "       </div>"+
+                                                    "   </div>");
                                         int qtdeDependentes = depDAO.getDependentesIdMil(mil.getId()).size();
-                                        out.println("<div  id=\"div_dados_dependente\" style=\"display: none;\">"+
-                                                    "   <fieldset id=\"fd_dados_dependente\" class=\"parte-form col-md-12\" style=\"display: none;\">"+
+                                        out.println("<div  id=\"div_dados_dependente\" style=\"display: block;\">"+
+                                                    "   <fieldset id=\"fd_dados_dependente\" class=\"parte-form col-md-12\" style=\"display: block;\">"+
                                                     "       <legend>Dados dos Dependentes</legend>");
                                                     for(int i=0;i<qtdeDependentes;i++){
                                                         out.println("<div id=linha"+(i+1)+" class=\"col-md-12\" style=\"padding-left: 0;\">"+
                                                                     "   <div id=\"div_nome_dependente\" class=\"t form-group col-md-5\">"+
-                                                                    "   <label id=\"lblDependente\">Dependente: </label><b class=\"obg\"> *</b>"+
-                                                                    "   <input class=form-control type=text id=txtNomeDependente"+(i+1)+" name=\"txtNomeDependente\" onblur=\"borda_input_text(this.id)\">"+
-                                                                    "</div>"+
-                                                                    "<div id=\"div_data_nasc_dependente\" class=\"qtd_div form-group col-md-3\">"+
-                                                                    "   <label id=\"lblDataNascDependente\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
-                                                                    "   <input class=form-control type=date id=txtDataNascDependente"+(i+1)+" name=\"txtDataNascDependente\" onblur=\"valida_dataNasc(this.id);\">"+
-                                                                    "</div>"+
-                                                                    "<div id=\"div_gr_parentesco_dependente\" class=\"qtd_div form-group col-md-3\">"+
+                                                                    "       <label id=\"lblDependente\">Dependente: </label><b class=\"obg\"> *</b>"+
+                                                                    "       <input class=form-control type=text id=txtNomeDependente"+(i+1)+" name=\"txtNomeDependente\" onblur=\"borda_input_text(this.id)\" value=\""+depDAO.getDependentesIdMil(mil.getId()).get(i).getNome()+"\">"+
+                                                                    "   </div>");
+                                                        String dataNascDep = depDAO.getDependentesIdMil(mil.getId()).get(i).getData_nasc();
+                                                        if(dataNascDep != null){  
+                                                        out.println("   <div id=\"div_data_nasc_dependente\" class=\"qtd_div form-group col-md-3\">"+
+                                                                    "       <label id=\"lblDataNascDependente\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
+                                                                    "       <input class=form-control type=date id=txtDataNascDependente"+(i+1)+" name=\"txtDataNascDependente\" onblur=\"valida_dataNasc(this.id);\" value=\""+dataNascDep.substring(0, 4)+"-"+dataNascDep.substring(4, 6)+"-"+dataNascDep.substring(6, 8)+"\"/>"+
+                                                                    "   </div>");
+                                                        }else{
+                                                        out.println("   <div id=\"div_data_nasc_dependente\" class=\"qtd_div form-group col-md-3\">"+
+                                                                    "       <label id=\"lblDataNascDependente\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
+                                                                    "       <input class=form-control type=date id=txtDataNascDependente"+(i+1)+" name=\"txtDataNascDependente\" onblur=\"valida_dataNasc(this.id);\"/>"+
+                                                                    "   </div>");
+                                                        }
+                                                        out.println("<div id=\"div_gr_parentesco_dependente\" class=\"qtd_div form-group col-md-3\">"+
                                                                     "   <label id=\"lblGrauParentescoDependente\">Grau de Parentesco: </label><b class=\"obg\"> *</b>"+
                                                                     "   <select class=form-control id=txtGrauParentescoDependente"+(i+1)+" name=\"txtGrauParentescoDependente\" onblur=\"borda_input_select(this.id)\">"); 
                                                         
-                                                        if(dep.getGrau_parentesco() == 0){
-                                                            out.println("<option value=\"0\" selected>Selecione o grau de Parentesco...</option>");
-                                                        }else{
-                                                            out.println("<option value=\"0\">Selecione o grau de Parentesco...</option>");
-                                                        }
-                                                        
-                                                        int qtdGrauParentesco = dcb.getGrauParentesco().size();
-                                                        for(int j=0;j<qtdGrauParentesco;j++){
-                                                            if(dep.getGrau_parentesco() != 0 && ){
-                                                                out.println("<option value='"+dep.getGrau_parentesco());
-                                                            }
-                                                        }
-                                                        
-                                                        
-                                                    }
+                                                                        if(depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco() != null && depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco().equals("")){
+                                                                            out.println("<option value=\"\" selected>Selecione o grau de Parentesco...</option>");
+                                                                        }else{
+                                                                            out.println("<option value=\"\">Selecione o grau de Parentesco...</option>");
+                                                                        }
 
+                                                                        int qtdGrauParentesco = dcb.getGrParentescos().size();
+                                                                        for(int j=0;j<qtdGrauParentesco;j++){
+                                                                            if(depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco() != null && depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco().equals(dcb.getGrParentescos().get(j))){
+                                                                                out.println("<option value='"+String.valueOf(dcb.getGrParentescos().get(j))+"' selected>"+String.valueOf(dcb.getGrParentescos().get(j))+"</option>");
+                                                                            }else{
+                                                                                out.println("<option value='"+String.valueOf(dcb.getGrParentescos().get(j))+"'>"+String.valueOf(dcb.getGrParentescos().get(j))+"</option>");
+                                                                            }
+                                                                        }
                                                     
-                                                    "                   <option value="0" select="">Selecione o grau de Parentesco...</option>"
-                                                    "                   <option value=\"1\">Conjuge</option>"+
-                                                    "                   <option value="2">Filho(a)</option>"+
-                                                    "                   <option value="3">Pai</option>"+
-                                                    "                   <option value="4">Mãe</option>"+
-                                                    "               </select>"+
-                                                    "           </div>"+
-                                                    "           <div id=\"3\" class=\"qtd_div form-group col-md-1\">"+
-                                                    "               <span id=\"3\" class=\"glyphicon-geral glyphicon-remove form-control-feedback-remove btn-remove\" aria-hidden=\"true\" onclick=\"getId(this.id)\"></span>"+
-                                                    "           </div>"+
-                                                    "       </div>"+
-                                                    "   </fieldset>"+
-                                                    "   </div>"+
-                                                    "   <div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: none;\">"+
-                                                    "       <div class=\"col-md-11\"></div>"+
+                                                        out.println("   </select>"+
+                                                                    "</div>");
+                                                    
+                                                        out.println("   <div id="+(i+1)+" class=\"qtd_div form-group col-md-1\">"+
+                                                                    "       <span id="+(i+1)+" class=\"glyphicon-geral glyphicon-remove form-control-feedback-remove btn-remove\" aria-hidden=\"true\" onclick=\"getId(this.id)\"></span>"+
+                                                                    "   </div>"+
+                                                                    "</div>");
+                                                    }
+                                        out.println("   </fieldset>"+               
+                                                    "</div>"+
+                                                    "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: block;\">"+
+                                                    "   <div class=\"col-md-11\"></div>"+
                                                     "       <span id=\"btnNovoDep\" alt=\"Clique aqui e adicione um novo dependente.\" class=\"glyphicon glyphicon-plus btn-add col-md-1\" aria-hidden=\"true\"></span>"+
                                                     "   </div>"+
                                                     "</fieldset>");
-                                                    "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: block;\">"+
-                                                    "<center>"+
-                                                    "<label id=\"lblNumDependente\" name=\"lblQtdeDependente\" for=\"lblQtdeDependente\">Quantidade de Dependente: </label><b class=\"obg\"> *</b>");
-                                                    
-                                                    
-                                                    out.println("<input class=\"form-control\" type=\"number\" id=\"txtQtdeDependente\" name=\"txtQtdeDependente\" min=\"0\" max=\"50\" onblur=\"borda_input_text(this.id)\" onchange=\"limpa_div_dados_dependente();\" onkeypress=\"return somenteNumero(event);\" placeholder=\"Digite o número de dependentes.\" value=\""+qtdeDependentes+"\"/>"+
-                                                    "</center>"+
-                                                    "</div>"+
-
-                                                    "<div id=\"div_dados_dependente\" style=\"display: block;\">");
-                                                    
-                                                
-                                                    for(int i=0;i<qtdeDependentes;i++){
-                                                        out.println("<div id=\"div_nome_dependente\" class=\"form-group col-md-6\">"+
-                                                                    "<label id=lblDependente>Dependente"+(i+1)+"</label><b class=\"obg\"> *</b>"+
-                                                                    "<input class=form-control type=text id=txtNomeDependente"+(i+1)+ "name=txtNomeDependente"+(i+1)+ "onblur=\"borda_input_text(this.id)\" style=\"border: 2px solid red; background: rgba(255, 0, 0, 0.2) none repeat scroll 0% 0%;\" value=\""+depDAO.getDependentesIdMil(mil.getId()).get(i).getNome()+"\">"+
-                                                                    "</div>");
-                                                    }
-                                                    out.println("</div>"+
-                                                    "</fieldset>");
-                                    }
-                                    /*else if(conDAO.getConjugeByIDMil(mil.getId()).getId() == 0 && depDAO.getDependentesIdMil(mil.getId()).size() != 0){
+        
+                                    }else if(conDAO.getConjugeByIDMil(mil.getId()).getId() != 0 && depDAO.getDependentesIdMil(mil.getId()).size() != 0){
                                         out.println("<fieldset class=\"parte-form col-md-12\">"+
                                                     "<legend>Dados Familiares</legend>"+
                                                     "<center>"+
                                                     "<div class=\"checkbox col-md-12\">"+
                                                     "<label>"+
-                                                    "<input type=\"checkbox\" id=\"checkboxConjuge\" name=\"checkboxConjuge\" value=\"checkConjuge\" onclick=\"checkedConjuge()\">"+
+                                                    "<input type=\"checkbox\" id=\"checkboxConjuge\" name=\"checkboxConjuge\" value=\"checkConjuge\" onclick=\"checkedConjuge()\" checked>"+
                                                     "Possui Esposa(o)?"+
                                                     "</label>"+
                                                     "<label>"+
@@ -663,57 +659,109 @@
                                                     "</label>"+
                                                     "</div>"+
                                                     "</center>"+
-                                                    "<div id=\"div_dados_conjuge\" style=\"display: none;\">"+
-                                                    "<div class=\"form-group col-md-5\">"+
+                                                    "<div id=\"div_dados_conjuge\" style=\"display: block;\">"+
+                                                    "<fieldset id=\"fd_dados_conjuge\" class=\"parte-form col-md-12\" style=\"display: block;\">"+
+                                                    "<legend>Dados do Cônjuge</legend>"+
+                                                    "<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
-                                                    "<input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onblur=\"borda_input_text(this.id)\"/>"+
+                                                    "<input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onblur=\"borda_input_text(this.id)\" value=\""+conDAO.getConjugeByIDMil(mil.getId()).getNome()+"\"/>"+
                                                     "</div>"+
                                                     "<div class=\"form-group col-md-3\">"+
                                                     "<label id=\"lblFoneConjuge\" name=\"lblFoneConjuge\" for=\"lblFoneConjuge\">Telefone: </label><b class=\"obg\"> *</b>"+
-                                                    "<input class=\"form-control fone\" type=\"text\" id=\"txtFoneConjuge\" name=\"txtFoneConjuge\" placeholder=\"Ex.: (00) 00000-0000\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\"/>"+
-                                                    "</div>"+
-                                                    
-                                                       "<div class=\"form-group col-md-2\">"+
+                                                    "<input class=\"form-control fone\" type=\"text\" id=\"txtFoneConjuge\" name=\"txtFoneConjuge\" placeholder=\"Ex.: (00) 00000-0000\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\" value="+conDAO.getConjugeByIDMil(mil.getId()).getFone()+"/>"+
+                                                    "</div>");
+                                                    String dataNascCon = conDAO.getConjugeByIDMil(mil.getId()).getData_nasc();
+                                                    if(dataNascCon != null){
+                                                        out.println("<div class=\"form-group col-md-3\">"+
+                                                        "<label id=\"lblDataNascConjuge\" name=\"lblDataNascConjuge\" for=\"lblDataNascConjuge\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
+                                                        "<input class=\"form-control data\" type=\"date\" id=\"txtDataNascConjuge\" name=\"txtDataNascConjuge\" onblur=\"valida_dataNasc(this.id)\" value=\""+dataNascCon.substring(0, 4)+"-"+dataNascCon.substring(4, 6)+"-"+dataNascCon.substring(6, 8)+"\"/>"+
+                                                        "</div>");
+                                                    }else{
+                                                        out.println("<div class=\"form-group col-md-2\">"+
                                                         "<label id=\"lblDataNascConjuge\" name=\"lblDataNascConjuge\" for=\"lblDataNascConjuge\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
                                                         "<input class=\"form-control data\" type=\"date\" id=\"txtDataNascConjuge\" name=\"txtDataNascConjuge\" onblur=\"valida_dataNasc(this.id)\"/>"+
-                                                        "</div>"+
-                                                    
-                                                    "<div class=\"form-group col-md-2\">"+
+                                                        "</div>");
+                                                    }
+                                                    out.println("<div class=\"form-group col-md-2\">"+
                                                     "<label for=\"lblGravidez\">Esposa Grávida: </label><b class=\"obg\"> *</b>"+
-                                                    "<br>"+
-                                                    "<label class=\"radio-inline gravida\">"+
-                                                    "<input type=\"radio\" name=\"txtGravidez\" id=\"sim\" value=\"S\"> Sim"+
-                                                    "</label>"+
-                                                    "<label class=\"radio-inline gravida\">"+
-                                                    "<input type=\"radio\" name=\"txtGravidez\" id=\"nao\" value=\"N\"> Não"+
-                                                    "</label>"+                      
-                                                    "</div>"+
-                                                    "</div>"+
-
-                                                    "</div>"+       
-                                                    "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: block;\">"+
-                                                    "<center>"+
-                                                    "<label id=\"lblNumDependente\" name=\"lblQtdeDependente\" for=\"lblQtdeDependente\">Quantidade de Dependente: </label><b class=\"obg\"> *</b>");
+                                                    "<br>");
+                                                    String gravidez = conDAO.getConjugeByIDMil(mil.getId()).getGravidez();
+                                                    if(gravidez != null && gravidez.equals("S")){
+                                                    out.println("<label class=\"radio-inline gravida\">"+
+                                                                "<input type=\"radio\" name=\"txtGravidez\" id=\"sim\" value=\"S\" checked> Sim"+
+                                                                "</label>"+
+                                                                "<label class=\"radio-inline gravida\">"+
+                                                                "<input type=\"radio\" name=\"txtGravidez\" id=\"nao\" value=\"N\"> Não"+
+                                                                "</label>"+                      
+                                                                "</div>");
+                                                    }else if(gravidez != null && gravidez.equals("N")){
+                                                    out.println("<label class=\"radio-inline gravida\">"+
+                                                                "<input type=\"radio\" name=\"txtGravidez\" id=\"sim\" value=\"S\"> Sim"+
+                                                                "</label>"+
+                                                                "<label class=\"radio-inline gravida\">"+
+                                                                "<input type=\"radio\" name=\"txtGravidez\" id=\"nao\" value=\"N\" checked> Não"+
+                                                                "</label>"+                      
+                                                                "</div>");
+                                                    }
+                                                    out.println("</fieldset>"+
+                                                                "</div>");
                                                     int qtdeDependentes = depDAO.getDependentesIdMil(mil.getId()).size();
-                                                    
-                                                    out.println("<input class=\"form-control\" type=\"number\" id=\"txtQtdeDependente\" name=\"txtQtdeDependente\" min=\"0\" max=\"50\" onblur=\"borda_input_text(this.id)\" onchange=\"limpa_div_dados_dependente();\" onkeypress=\"return somenteNumero(event);\" placeholder=\"Digite o número de dependentes.\" value=\""+qtdeDependentes+"\"/>"+
-                                                    "</center>"+
-                                                    "</div>"+
-
-                                                    "<div id=\"div_dados_dependente\" style=\"display: block;\">");
-                                                    
-                                                
+                                                    out.println("<div  id=\"div_dados_dependente\" style=\"display: block;\">"+
+                                                    "   <fieldset id=\"fd_dados_dependente\" class=\"parte-form col-md-12\" style=\"display: block;\">"+
+                                                    "       <legend>Dados dos Dependentes</legend>");
                                                     for(int i=0;i<qtdeDependentes;i++){
-                                                        out.println("<div id=\"div_nome_dependente\" class=\"form-group col-md-6\">"+
-                                                                    "<label id=lblDependente>Dependente"+(i+1)+"</label><b class=\"obg\"> *</b>"+
-                                                                    "<input class=form-control type=text id=txtNomeDependente"+(i+1)+ "name=txtNomeDependente"+(i+1)+ "onblur=\"borda_input_text(this.id)\" style=\"border: 2px solid red; background: rgba(255, 0, 0, 0.2) none repeat scroll 0% 0%;\" value=\""+depDAO.getDependentesIdMil(mil.getId()).get(i).getNome()+"\">"+
+                                                        out.println("<div id=linha"+(i+1)+" class=\"col-md-12\" style=\"padding-left: 0;\">"+
+                                                                    "   <div id=\"div_nome_dependente\" class=\"t form-group col-md-5\">"+
+                                                                    "       <label id=\"lblDependente\">Dependente: </label><b class=\"obg\"> *</b>"+
+                                                                    "       <input class=form-control type=text id=txtNomeDependente"+(i+1)+" name=\"txtNomeDependente\" onblur=\"borda_input_text(this.id)\" value=\""+depDAO.getDependentesIdMil(mil.getId()).get(i).getNome()+"\">"+
+                                                                    "   </div>");
+                                                        String dataNascDep = depDAO.getDependentesIdMil(mil.getId()).get(i).getData_nasc();
+                                                        if(dataNascDep != null){  
+                                                        out.println("   <div id=\"div_data_nasc_dependente\" class=\"qtd_div form-group col-md-3\">"+
+                                                                    "       <label id=\"lblDataNascDependente\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
+                                                                    "       <input class=form-control type=date id=txtDataNascDependente"+(i+1)+" name=\"txtDataNascDependente\" onblur=\"valida_dataNasc(this.id);\" value=\""+dataNascDep.substring(0, 4)+"-"+dataNascDep.substring(4, 6)+"-"+dataNascDep.substring(6, 8)+"\"/>"+
+                                                                    "   </div>");
+                                                        }else{
+                                                        out.println("   <div id=\"div_data_nasc_dependente\" class=\"qtd_div form-group col-md-3\">"+
+                                                                    "       <label id=\"lblDataNascDependente\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
+                                                                    "       <input class=form-control type=date id=txtDataNascDependente"+(i+1)+" name=\"txtDataNascDependente\" onblur=\"valida_dataNasc(this.id);\"/>"+
+                                                                    "   </div>");
+                                                        }
+                                                        out.println("<div id=\"div_gr_parentesco_dependente\" class=\"qtd_div form-group col-md-3\">"+
+                                                                    "   <label id=\"lblGrauParentescoDependente\">Grau de Parentesco: </label><b class=\"obg\"> *</b>"+
+                                                                    "   <select class=form-control id=txtGrauParentescoDependente"+(i+1)+" name=\"txtGrauParentescoDependente\" onblur=\"borda_input_select(this.id)\">"); 
+                                                        
+                                                                        if(depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco() != null && depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco().equals("")){
+                                                                            out.println("<option value=\"\" selected>Selecione o grau de Parentesco...</option>");
+                                                                        }else{
+                                                                            out.println("<option value=\"\">Selecione o grau de Parentesco...</option>");
+                                                                        }
+
+                                                                        int qtdGrauParentesco = dcb.getGrParentescos().size();
+                                                                        for(int j=0;j<qtdGrauParentesco;j++){
+                                                                            if(depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco() != null && depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco().equals(dcb.getGrParentescos().get(j).toUpperCase())){
+                                                                                out.println("<option value='"+String.valueOf(dcb.getGrParentescos().get(j).toUpperCase())+"' selected>"+String.valueOf(dcb.getGrParentescos().get(j).toUpperCase())+"</option>");
+                                                                            }else{
+                                                                                out.println("<option value='"+String.valueOf(dcb.getGrParentescos().get(j).toUpperCase())+"'>"+String.valueOf(dcb.getGrParentescos().get(j).toUpperCase())+"</option>");
+                                                                            }
+                                                                        }
+                                                    
+                                                        out.println("   </select>"+
+                                                                    "</div>");
+                                                    
+                                                        out.println("   <div id="+(i+1)+" class=\"qtd_div form-group col-md-1\">"+
+                                                                    "       <span id="+(i+1)+" class=\"glyphicon-geral glyphicon-remove form-control-feedback-remove btn-remove\" aria-hidden=\"true\" onclick=\"getId(this.id)\"></span>"+
+                                                                    "   </div>"+
                                                                     "</div>");
                                                     }
-                                                    out.println("</div>"+
+                                        out.println("   </fieldset>"+  
+                                                    "</div>"+
+                                                    "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: block;\">"+
+                                                    "<div class=\"col-md-11\"></div>"+
+                                                    "<span id=\"btnNovoDep\" alt=\"Clique aqui e adicione um novo dependente.\" class=\"glyphicon glyphicon-plus btn-add col-md-1\" aria-hidden=\"true\"></span>"+
+                                                    "</div>"+
                                                     "</fieldset>");
-                                    }*/
-                                    
-                                   
+                                    }
 
                                     out.println("<fieldset class=\"parte-form col-md-12\">"+
                                                 "<legend>Dados de Endereço</legend>"+
@@ -726,7 +774,7 @@
                                                 "<label id=\"lblEstado\" name=\"lblEstado\" for=\"lblEstado\">Estado: </label><b class=\"obg\"> *</b>"+
                                                 "<select name=\"txtEstado\" id=\"estado\" class=\"form-control\" onblur=\"borda_input_select(this.id)\">");
 
-                                    if(cDAO.getCidadeById(bDAO.getBairroByID(endDAO.getEnderecoById(mil.getId()).getId_bairro()).getId_cid()).getId_est()==0){
+                                    if(cDAO.getCidadeById(bDAO.getBairroByID(endDAO.getEnderecoById(mil.getId_end()).getId_bairro()).getId_cid()).getId_est()==0){
                                         out.println("<option value=\"0\" selected>Selecione o seu Estado...</option>");
                                     }else{
                                         out.println("<option value=\"0\">Selecione o seu Estado...</option>");
@@ -734,7 +782,7 @@
                                     int qtdEstados = estDAO.getEstados().size();
 
                                         for(int i=0;i<qtdEstados;i++){
-                                            if(cDAO.getCidadeById(bDAO.getBairroByID(endDAO.getEnderecoById(mil.getId()).getId_bairro()).getId_cid()).getId_est()==estDAO.getEstados().get(i).getId()){
+                                            if(cDAO.getCidadeById(bDAO.getBairroByID(endDAO.getEnderecoById(mil.getId_end()).getId_bairro()).getId_cid()).getId_est()==estDAO.getEstados().get(i).getId()){
                                                 out.println("<option value='"+estDAO.getEstados().get(i).getId()+"' selected>"+estDAO.getEstados().get(i).getNome()+"</option>");
                                             }else{
                                                 out.println("<option value='"+estDAO.getEstados().get(i).getId()+"'>"+estDAO.getEstados().get(i).getNome()+"</option>");
@@ -747,7 +795,7 @@
                                                 "<label id=\"lblCidade\" name=\"lblCidade\" for=\"lblCidade\">Cidade: </label><b class=\"obg\"> *</b>"+
                                                 "<select name=\"txtCidade\" id=\"cidade\" class=\"form-control\" onblur=\"borda_input_select(this.id);\"> ");
                                     
-                                                int id_cid = bDAO.getBairroByID(endDAO.getEnderecoById(mil.getId()).getId_bairro()).getId_cid();
+                                                int id_cid = bDAO.getBairroByID(endDAO.getEnderecoById(mil.getId_end()).getId_bairro()).getId_cid();
                                                 if(id_cid == 0){
                                                     out.println("<option value=\"0\" selected>Selecione a sua Cidade..</option>");
                                                 }else{
@@ -757,7 +805,7 @@
                                                 int qtdCidades = cDAO.getCidades().size();
 
                                                     for(int i=0;i<qtdCidades;i++){
-                                                        if(bDAO.getBairroByID(endDAO.getEnderecoById(mil.getId()).getId_bairro()).getId_cid()==cDAO.getCidades().get(i).getId()){
+                                                        if(bDAO.getBairroByID(endDAO.getEnderecoById(mil.getId_end()).getId_bairro()).getId_cid()==cDAO.getCidades().get(i).getId()){
                                                             out.println("<option value='"+cDAO.getCidades().get(i).getId()+"' selected>"+cDAO.getCidades().get(i).getNome()+"</option>");
                                                         }else{
                                                             out.println("<option value='"+cDAO.getCidades().get(i).getId()+"'>"+cDAO.getCidades().get(i).getNome()+"</option>");
@@ -1040,6 +1088,7 @@
                                                                     "</div>");
                                                             break;
                                                     }
+                                                    out.println("</div>");
 
                                                 out.println("<div class=\"form-group col-md-10\">"+
                                                 "<label id=\"lblLogradouro\" name=\"lblLogradouro\" for=\"lblLogradouro\">Rua/Av./Ala: </label><b class=\"obg\"> *</b>"+

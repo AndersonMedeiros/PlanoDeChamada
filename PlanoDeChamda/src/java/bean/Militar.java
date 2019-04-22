@@ -12,7 +12,7 @@ package bean;
 public class Militar {
     String identidade, nome, nome_guerra, cpf, preccp, sexo, data_nasc, data_praca, pai, mae,
            email, nome_referencia, fone_referencia, fone1, fone2, nat_est, nat_cid, tipo_acesso, end_num, senha;
-    int id, id_end, id_div_sec, id_pg, id_qq, id_ec, id_esc, id_sit, id_teleitor, id_grp_acesso, id_religiao;
+    int id, id_end, id_div_sec, id_pg, id_qq, id_ec, id_esc, id_sit, id_teleitor, id_grp_acesso, id_religiao, id_nat_est;
     
     public String getEnd_num() {
         return end_num;
@@ -157,9 +157,15 @@ public class Militar {
     public void setFone2(String fone2) {
         this.fone2 = fone2;
     }
-    
-    
-    
+
+    public int getId_nat_est() {
+        return id_nat_est;
+    }
+
+    public void setId_nat_est(int id_nat_est) {
+        this.id_nat_est = id_nat_est;
+    }
+           
     public String getNat_est() {
         return nat_est;
     }

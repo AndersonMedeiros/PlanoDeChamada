@@ -5,15 +5,20 @@
  */
 package controller;
 
+import bean.Conjuge;
+import bean.Dependente;
 import bean.Endereco;
 import bean.Fone;
 import bean.Habilitacao;
 import bean.Militar;
 import bean.TituloEleitor;
+import dao.ConjugeDAO;
+import dao.DependenteDAO;
 import dao.EnderecoDAO;
 import dao.FoneDAO;
 import dao.HabilitacaoDAO;
 import dao.MilitarDAO;
+import dao.ReligiaoDAO;
 import dao.TituloEleitorDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -85,86 +90,144 @@ public class atualizar extends HttpServlet {
         HttpSession sessao = request.getSession();
         MilitarDAO milDAO = new MilitarDAO();
         Militar milAtual = milDAO.getMilitar(request.getParameter("txtIdentidade").replace("-", ""));
+        int id_mil = milAtual.getId();
+        
         FoneDAO foneDAO = new FoneDAO();
         if(sessao.getAttribute("militarAutenticado") != null){
             //Endereço
             Endereco end = new Endereco();
-            end.setId(milAtual.getId_end());
-            end.setCep(request.getParameter("txtCep").replace("-", ""));       
-            end.setLogradouro(request.getParameter("txtLogradouro"));
-            end.setComplemento(request.getParameter("txtComplemento"));
+            end.setCep(request.getParameter("txtCep").replace("-", ""));
+            end.setLogradouro(request.getParameter("txtLogradouro").toUpperCase());
+            String complemento = "";
+            if(request.getParameter("txtComplemento") != null){complemento = request.getParameter("txtComplemento");}
+            end.setComplemento(complemento);
             int id_cid = Integer.parseInt(request.getParameter("txtCidade"));
             switch (id_cid) {
-                case 1:
-                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroManaus")));
+                case 1: end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroManaus")));
                     break;
-                case 2:
-                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroRioPretoDaEva")));
+                case 2: end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroRioPretoDaEva")));
                     break;
-                case 3:
-                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroIranduba")));
+                case 3: end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroIranduba")));
                     break;
-                case 4:
-                    end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroManacapuru")));
+                case 4: end.setId_bairro(Integer.parseInt(request.getParameter("txtBairroManacapuru")));
                     break;
             }
             EnderecoDAO endDAO = new EnderecoDAO();
-            
-            if(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro())==0){endDAO.atualizar(end);}
+            if(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro())==0){endDAO.inserir(end);}
 
             //Titulo Eleitor
             TituloEleitor teleitor = new TituloEleitor();
-            teleitor.setId(milAtual.getId_teleitor());
             teleitor.setRegistro(request.getParameter("txtTeleitorRegistro").replace(" ", ""));
             teleitor.setSecao(request.getParameter("txtTeleitorSecao"));
             teleitor.setZona(request.getParameter("txtTeleitorZona"));
             TituloEleitorDAO teleitorDAO = new TituloEleitorDAO();
-            
-            if(!teleitor.getRegistro().equals("")){teleitorDAO.atualizar(teleitor);System.out.println("I"+teleitor.getId() + " r"+teleitor.getRegistro()+ " z"+teleitor.getZona() + " s"+teleitor.getSecao());}
-
-            //Habilitação
-            Habilitacao cnh = new Habilitacao();
-            /*cnh.setId(milAtual.getId_cnh());*/
-            cnh.setNum(request.getParameter("txtCnhNum"));
-            cnh.setCat(request.getParameter("txtCnhCat"));
-            HabilitacaoDAO cnhDAO = new HabilitacaoDAO();
-            if(!cnh.getNum().equals("")){cnhDAO.atualizar(cnh);}
+            if(!teleitor.getRegistro().equals("")){teleitorDAO.atualizar(teleitor);}
 
             //Militar
             Militar mil = new Militar();
             mil.setId(milAtual.getId());
-            mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));
-
-            mil.setNome(request.getParameter("txtNomeComp"));
-            mil.setNome_guerra(request.getParameter("txtNomeGuerra"));
-            mil.setCpf(request.getParameter("txtCpf").replace(".", "").replace("-", ""));
-
-            mil.setPreccp(request.getParameter("txtPreccp"));
-            mil.setSexo(request.getParameter("txtSexo"));
-            mil.setData_nasc(request.getParameter("txtDataNasc").replace("/", "").replace("-", ""));
+            mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec").toUpperCase()));
+            mil.setId_pg(Integer.parseInt(request.getParameter("txtPostGrad").toUpperCase()));
+            mil.setId_qq(Integer.parseInt(request.getParameter("txtQasQms").toUpperCase()));
+            mil.setId_sit(Integer.parseInt(request.getParameter("txtSit").toUpperCase()));
+            mil.setNome(request.getParameter("txtNomeComp").toUpperCase());
+            mil.setNome_guerra(request.getParameter("txtNomeGuerra").toUpperCase());          
+            mil.setSexo(request.getParameter("txtSexo").toUpperCase());
+            mil.setId_nat_est(Integer.parseInt(request.getParameter("txtNatEstMilitar").toUpperCase()));
+            mil.setNat_cid(request.getParameter("txtNatCidMilitar").toUpperCase());
+            mil.setId_ec(Integer.parseInt(request.getParameter("txtEstCivil").toUpperCase()));   
             mil.setData_praca(request.getParameter("txtDataPraca").replace("/", "").replace("-", ""));
-            mil.setPai(request.getParameter("txtPai"));
-            mil.setMae(request.getParameter("txtMae"));
-            mil.setEmail(request.getParameter("txtEmail"));
-            mil.setNome_referencia(request.getParameter("txtNomeReferencia"));
-            mil.setFone_referencia(request.getParameter("txtFoneReferencia").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-            mil.setFone1(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-            mil.setFone2(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-            mil.setNaturalidade(request.getParameter("txtNaturalidade"));
-            mil.setEnd_num(request.getParameter("txtNum"));
+            mil.setIdentidade(request.getParameter("txtIdentidade").replace("-", ""));          
+            mil.setCpf(request.getParameter("txtCpf").replace(".", "").replace("-", ""));
+            mil.setId_teleitor(teleitorDAO.getIdTituloEleitor(teleitor.getRegistro(), teleitor.getZona(), teleitor.getSecao()));
+            mil.setPreccp(request.getParameter("txtPreccp"));
+            mil.setData_nasc(request.getParameter("txtDataNasc").replace("/", "").replace("-", ""));
+            mil.setPai(request.getParameter("txtPai").toUpperCase());
+            mil.setMae(request.getParameter("txtMae").toUpperCase());
+            mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
+            //System.out.println(end.getCep()+ " "+end.getLogradouro()+" "+end.getComplemento()+" " +end.getId_bairro()+"idend"+endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
+            mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
+            
+            //Religião
+            int id_religiao = Integer.parseInt(request.getParameter("txtReligiao"));
+            ReligiaoDAO religiaoDAO = new ReligiaoDAO();
+            if(id_religiao == 1000){
+                String nova_religiao = request.getParameter("txtOutraReligiao").toUpperCase();
+                religiaoDAO.inserir(nova_religiao);
+                int id_nova_religiao = religiaoDAO.getReligiaoByNome(nova_religiao).getId();
+                mil.setId_religiao(id_nova_religiao);
+            }else{
+                mil.setId_religiao(id_religiao);
+            }
+            
+            mil.setEmail(request.getParameter("txtEmail").toUpperCase());
+            mil.setNome_referencia(request.getParameter("txtNomeReferencia").toUpperCase());
+            mil.setFone_referencia(request.getParameter("txtFoneReferencia").replace("(", "").replace(")", "").replace(" ", "").replace("-", "").toUpperCase());
+            mil.setFone1(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", "").toUpperCase());
+            mil.setFone2(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", "").toUpperCase());            
+            mil.setEnd_num(request.getParameter("txtNum").toUpperCase());
             mil.setSenha(request.getParameter("txtSenha"));
 
-            mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
-            mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec")));
-            mil.setId_pg(Integer.parseInt(request.getParameter("txtPostGrad")));
-            mil.setId_qq(Integer.parseInt(request.getParameter("txtQasQms")));
-            mil.setId_ec(Integer.parseInt(request.getParameter("txtEstCivil")));
-            mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
-            mil.setId_sit(Integer.parseInt(request.getParameter("txtSit")));
-            /*if(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat())!=0){mil.setId_cnh(cnhDAO.getIdCnh(cnh.getNum(), cnh.getCat()));}else{mil.setId_cnh(0);}*/
-            mil.setId_teleitor(teleitorDAO.getIdTituloEleitor(teleitor.getRegistro(), teleitor.getZona(), teleitor.getSecao()));
             milDAO.atualizar(mil);
+            
+            //Habilitação
+            Habilitacao cnh = new Habilitacao();
+            HabilitacaoDAO cnhDAO = new HabilitacaoDAO();
+            cnh.setNum(request.getParameter("txtCnhNum"));
+            cnh.setCat(request.getParameter("txtCnhCat"));
 
+            cnh.setData_validade(request.getParameter("txtCnhDataVal").replace("/", "").replace("-", ""));
+            cnh.setMil_id(id_mil);
+            
+            
+            if(!cnh.getNum().equals("")){
+                if(cnhDAO.CnhExiste(id_mil) == false){
+                    cnhDAO.inserir(cnh);
+                }else{
+                    cnh.setId(cnhDAO.getIdCnh(cnh.getNum()));
+                    cnhDAO.atualizar(cnh);
+                }
+            }          
+
+            //Conjuge
+            ConjugeDAO conjugeDAO = new ConjugeDAO();
+            if(request.getParameter("checkboxConjuge") != null){
+                Conjuge conjuge = new Conjuge();
+                
+                conjuge.setNome(request.getParameter("txtNomeConjuge").toUpperCase());
+                conjuge.setFone(request.getParameter("txtFoneConjuge").replace("(", "").replace(")", "").replace(" ", "").replace("-", "").toUpperCase());
+                conjuge.setData_nasc(request.getParameter("txtDataNascConjuge").replace("/", "").replace("-", "").toUpperCase());
+                conjuge.setGravidez(request.getParameter("txtGravidez").toUpperCase());
+                conjuge.setMil_id(id_mil);
+                
+                
+                if(conjugeDAO.conExiste(id_mil) == false){
+                    conjugeDAO.inserir(conjuge);
+                }else{
+                    conjuge.setId(conjugeDAO.getIDConjugeByIDMIL(id_mil));
+                    conjugeDAO.atualizar(conjuge);
+                }
+                
+            }
+
+            //Dependentes
+            DependenteDAO dependenteDAO = new DependenteDAO();
+            dependenteDAO.delete(milAtual.getId());
+            if(request.getParameter("checkboxDependente") != null){
+                String[] nomeDependentes = request.getParameterValues("txtNomeDependente");
+                String[] dataNascDependentes = request.getParameterValues("txtDataNascDependente");
+                String[] grauParenDependentes = request.getParameterValues("txtGrauParentescoDependente");
+                int qtdeDependentes = nomeDependentes.length;
+                for(int i=0;i<qtdeDependentes;i++){
+                    Dependente dependente = new Dependente();
+                    dependente.setNome(nomeDependentes[i].toUpperCase());
+                    dependente.setData_nasc(dataNascDependentes[i].replace("/", "").replace("-", "").toUpperCase());
+                    dependente.setGrau_parentesco(grauParenDependentes[i].toUpperCase());
+                    dependente.setMil_id(milDAO.getIdMilitar(mil.getIdentidade()));
+                    dependenteDAO.inserir(dependente); 
+                }
+            }
+            
             /*//Fones
             Fone fone1 = new Fone();
             
@@ -177,7 +240,7 @@ public class atualizar extends HttpServlet {
             fone2.setId_mil(milDAO.getIdMilitar(milAtual.getIdentidade()));
             if(!fone2.getNum().equals("")){foneDAO.atualizar(fone2);}*/
             
-            RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/Atualizacao.jsp");
+            RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/Atualizacao.jsp?idt="+milAtual.getIdentidade());
             despachante.forward(request, response);
         }else{
             response.sendRedirect("/PlanoDeChamda/erro.jsp?x=sessao-encerrada");

@@ -22,6 +22,7 @@ public class ConjugeDAO {
     private final String GETCONBYID = "SELECT * FROM Conjuge WHERE con_id=?";
     private final String GETCONBYIDMIL = "SELECT * FROM Conjuge WHERE con_mil_id=?";
     private final String GETID = "SELECT con_id FROM Conjuge WHERE con_nome=?";
+    private final String GETIDBYIDMIL = "SELECT con_id FROM Conjuge WHERE con_mil_id=?";
     private final String GETCONBYNOME_CPF = "SELECT * FROM Conjuge WHERE con_nome=?";
     private final String GETCONJUGES = "SELECT * FROM Conjuge";
     
@@ -108,6 +109,54 @@ public class ConjugeDAO {
             throw new RuntimeException(e.getMessage());
         }
         return conjuge;
+    }
+    
+    public int getIDConjugeByIDMIL(int id){
+        conn = null;
+        pstm = null;
+        rs = null;
+        int id_con=0;
+        
+        try{
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETCONBYIDMIL);
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+        
+            while (rs.next()) {
+               id_con = rs.getInt("con_id");
+               
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return id_con;
+    }
+    
+    public boolean conExiste(int id){
+        conn = null;
+        pstm = null;
+        rs = null;
+        boolean existe = false;
+        
+        try{
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(GETCONBYIDMIL);
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+        
+            while (rs.next()) {
+               if(rs.getInt("con_id") != 0){
+                   existe = true;
+               }
+               
+            }
+            ConnectionFactory.fechaConexao(conn, pstm, rs);
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return existe;
     }
     
     public Conjuge getConjugeByIDMil(int id){

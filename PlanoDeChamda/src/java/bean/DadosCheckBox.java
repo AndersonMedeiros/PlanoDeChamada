@@ -88,17 +88,17 @@ public class DadosCheckBox {
         return estados;
     }
     
-    public HashMap<Integer, String> getGrauParentesco(){
-        HashMap<Integer, String> grauParentesco = new HashMap<>();
-        /*GrauParentesco grpConjuge = new GrauParentesco();
-        grpConjuge.setId(1); grpConjuge.setGrau("Conjuge");
-        grauParentesco.add(grpConjuge);*/
-        grauParentesco.put(1, "Conjuge");
-        grauParentesco.put(2, "Filho(a)");
-        grauParentesco.put(3, "Pai");
-        grauParentesco.put(4, "Mãe");
-            
-        return grauParentesco;
+      public ArrayList<String> getGrParentescos(){
+        ArrayList<String> gr_parentesco = new ArrayList<>();
+        
+        gr_parentesco.add("Conjuge");
+        gr_parentesco.add("Filho(a)");
+        gr_parentesco.add("Pai");
+        gr_parentesco.add("Mãe");
+        gr_parentesco.add("Enteado");
+        gr_parentesco.add("Tutelado");
+       
+        return gr_parentesco;
     }
     
     
