@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  
     $.getJSON('json/estados_cidades.json', function (data) {
         var items = [];
         var id_est = 1;

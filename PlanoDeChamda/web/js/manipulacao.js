@@ -1,9 +1,11 @@
 $(document).ready(function(){
-    var options = ["<option value=0 select>Selecione o grau de Parentesco...</option>", 
-                   "<option value=1>Conjuge</option>",
-                   "<option value=2>Filho(a)</option>",
-                   "<option value=3>Pai</option>",
-                   "<option value=4>Mãe</option>"];
+    var options = ["<option value=\"\" select>Selecione o grau de Parentesco...</option>", 
+                   "<option value=CONJUGE>CONJUGE</option>",
+                   "<option value=FILHO(A)>FILHO(A)</option>",
+                   "<option value=PAI>PAI</option>",
+                   "<option value=MÃE>MÃE</option>",
+                   "<option value=ENTEADO>ENTEADO</option>",
+                   "<option value=TUTELADO>TUTELADO</option>"];
     
     $("#txtQtdeDependente").change(function(){
         $("#div_dados_dependente").empty();
@@ -26,11 +28,13 @@ function id_input(id){
 
 
 $(document).ready(function(){
-    var options = ["<option value=0 select>Selecione o grau de Parentesco...</option>", 
-                   "<option value=Conjuge>Conjuge</option>",
-                   "<option value=Filho(a)>Filho(a)</option>",
-                   "<option value=Pai>Pai</option>",
-                   "<option value=Mãe>Mãe</option>"];
+    var options = ["<option value=\"\" select>Selecione o grau de Parentesco...</option>", 
+                   "<option value=CONJUGE>CONJUGE</option>",
+                   "<option value=FILHO(A)>FILHO(A)</option>",
+                   "<option value=PAI>PAI</option>",
+                   "<option value=MÃE>MÃE</option>",
+                   "<option value=ENTEADO>ENTEADO</option>",
+                   "<option value=TUTELADO>TUTELADO</option>"];
     var i = (document.querySelectorAll('#fd_dados_dependente div').length - document.querySelectorAll('#fd_dados_dependente .qtd_div').length) + 1;
     
     $("#btnNovoDep").click(function(){
@@ -43,6 +47,8 @@ $(document).ready(function(){
             
         i++;  
     });
+    
+
 });
 
 function getId(id){

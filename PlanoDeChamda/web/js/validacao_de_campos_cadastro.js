@@ -167,6 +167,47 @@ function valida_preccp(id){
     }
 }
 
+function valida_dataNascMil(id){
+    var input = document.getElementById(id);
+    var anoNasc = input.value.substring(0,4);
+    var mesNasc = input.value.substring(5,7);
+    var diaNasc = input.value.substring(8,10);
+    var dataAtual = new Date();
+    var mesAtual = dataAtual.getMonth()+1;
+    if(input.value == ""){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoNasc && mesAtual == mesNasc && dataAtual.getDate() < diaNasc){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoNasc && mesAtual < mesNasc){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() < anoNasc){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }else if((dataAtual.getFullYear()-anoNasc) < 18){
+        alert("O Militar deve ter uma idade mínima de 18 anos!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
 function valida_dataNasc(id){
     var input = document.getElementById(id);
     var anoNasc = input.value.substring(0,4);
@@ -196,11 +237,15 @@ function valida_dataNasc(id){
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
-    }
-    else{
+    }else{
         input.style.border='2px solid green';
         input.style.background='rgba(61,102,14,0.2)';
     }
+}
+
+function teste(id){
+    var input = document.getElementById(id);
+    alert(input.value);
 }
 
 function valida_dataPraca(id){
