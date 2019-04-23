@@ -41,6 +41,8 @@ public class MilitarDAO {
                                   "    mil_postograduacao_id=?,mil_qasqms_id=?,mil_estadocivil_id=?,mil_escolaridade_id=?,mil_situacao_id=?,"+
                                   "    mil_tituloeleitor_id=?,mil_religiao_id=? WHERE mil_id=? AND mil_identidade=?";
     
+    private final String UPDATE_NIVEL_ACESSO = "UPDATE Militar SET mil_grupoacesso_id=? WHERE mil_identidade=?;";
+    
     Connection conn = null;
     PreparedStatement pstm = null;
     ResultSet rs = null;
@@ -131,6 +133,27 @@ public class MilitarDAO {
                 pstm.setInt(28, mil.getId());
                 pstm.setString(29, mil.getIdentidade());
             
+                pstm.execute();
+                ConnectionFactory.fechaConexao(conn, pstm);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage());  
+            }
+        } else {
+            
+            throw new RuntimeException();
+        }
+    }
+    
+    public void modificarNivelAcesso(int nivel_acesso, String identidade){
+        if (nivel_acesso != 0 && identidade != null) {
+            try {
+                conn = ConnectionFactory.getConnection();
+                pstm = conn.prepareStatement(UPDATE);
+                
+                pstm.setInt(1, nivel_acesso);
+                pstm.setString(2, identidade);
+                
                 pstm.execute();
                 ConnectionFactory.fechaConexao(conn, pstm);
 
