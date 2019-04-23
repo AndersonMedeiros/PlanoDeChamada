@@ -28,6 +28,10 @@
         <servlet-name>test</servlet-name>
         <servlet-class>controller.test</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>modificarNivelAcesso</servlet-name>
+        <servlet-class>controller.modificarNivelAcesso</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>autenticador</servlet-name>
         <url-pattern>/autenticador</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>modificarNivelAcesso</servlet-name>
+        <url-pattern>/modificarNivelAcesso</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
