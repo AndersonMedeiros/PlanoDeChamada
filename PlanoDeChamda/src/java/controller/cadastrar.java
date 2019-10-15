@@ -167,7 +167,8 @@ public class cadastrar extends HttpServlet {
             
             mil.setEnd_num(request.getParameter("txtNum").toUpperCase());
             mil.setSenha(request.getParameter("txtSenha"));
-
+            
+            mil.setId_grp_acesso(3);
             milDAO.inserir(mil);
             
             //Habilitação
