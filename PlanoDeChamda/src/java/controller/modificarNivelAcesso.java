@@ -8,10 +8,12 @@ package controller;
 import dao.MilitarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -71,13 +73,20 @@ public class modificarNivelAcesso extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession sessao = request.getSession();
         MilitarDAO milDAO = new MilitarDAO();
         
-        String identidade = request.getParameter("identidade");
-        String nome = request.getParameter("nome");
-        String nivel_acesso = request.getParameter("txtNivelAcesso");
-        
-        System.out.println("identidade: "+ identidade + "\nnome: "+nome+"\nNivel de Acesso: "+nivel_acesso);
+        if(sessao.getAttribute("militarAutenticado") != null){
+            String identidade = request.getParameter("identidade");
+            int nivel_acesso = Integer.parseInt(request.getParameter("txtNivelAcesso"));
+            
+            milDAO.modificarNivelAcesso(nivel_acesso, identidade);
+
+            RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/militares.jsp");
+            despachante.forward(request, response);
+        }else{
+            response.sendRedirect("/PlanoDeChamda/erro.jsp?x=sessao-encerrada");
+        }
     }
 
     /**

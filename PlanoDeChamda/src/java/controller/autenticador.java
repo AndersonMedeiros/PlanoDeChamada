@@ -82,35 +82,38 @@ public class autenticador extends HttpServlet {
         if(identidade.equals("0107912217") && senha.equals("!P4rd4l)")){
             HttpSession sessao = request.getSession();
             sessao.setAttribute("militarAutenticado", "sti");
-            //response.sendRedirect("/PlanoDeChamda/restrito/inicialjsp");
-            request.getRequestDispatcher("/restrito/militares.jsp").forward(request, response);
-        }
-        
-        Militar mil = new Militar();
-        mil.setIdentidade(identidade);
-        mil.setSenha(senha);
-        
-        MilitarDAO milDAO = new MilitarDAO();
-        Militar milAutenticado = milDAO.autenticacao(mil);
-        boolean valida_login = milDAO.validarLogin(identidade);
-        boolean valida_senha = milDAO.validarSenha(senha);
-        boolean valida_login_senha = milDAO.validarLoginSenha(identidade, senha);
-        
-        
-        if(valida_login == false && valida_senha == true){
-            response.sendRedirect("/PlanoDeChamda/index.jsp?x=erro-login");
-        }else if(valida_login == true && valida_senha == false){
-            response.sendRedirect("/PlanoDeChamda/index.jsp?x=erro-senha");
-        }else if(valida_login == false && valida_senha == false){
-            response.sendRedirect("/PlanoDeChamda/index.jsp?x=erro-login-senha");
-        }else if(milAutenticado != null && valida_login_senha == true){
-            HttpSession sessao = request.getSession();
-            sessao.setAttribute("militarAutenticado", milAutenticado);
-            //request.getRequestDispatcher("/restrito/Atualizacao.jsp").forward(request, response);
-            response.sendRedirect("/PlanoDeChamda/restrito/Atualizacao.jsp?idt="+identidade);
+            response.sendRedirect("/PlanoDeChamda/restrito/militares.jsp?id_sit=1");
+            //request.getRequestDispatcher("/PlanoDeChamda/restrito/militares.jsp").forward(request, response);
+        }else{
+            Militar mil = new Militar();
+            mil.setIdentidade(identidade);
+            mil.setSenha(senha);
+
+            MilitarDAO milDAO = new MilitarDAO();
+            Militar milAutenticado = milDAO.autenticacao(mil);
+            boolean valida_login = milDAO.validarLogin(identidade);
+            boolean valida_senha = milDAO.validarSenha(senha);
+            boolean valida_login_senha = milDAO.validarLoginSenha(identidade, senha);
+
+            if(valida_login == false && valida_senha == true){
+                response.sendRedirect("/PlanoDeChamda/index.jsp?x=erro-login");
+            }else if(valida_login == true && valida_senha == false){
+                response.sendRedirect("/PlanoDeChamda/index.jsp?x=erro-senha");
+            }else if(valida_login == false && valida_senha == false){
+                response.sendRedirect("/PlanoDeChamda/index.jsp?x=erro-login-senha");
+            }else if(milAutenticado != null && valida_login_senha == true){
+                HttpSession sessao = request.getSession();
+                sessao.setAttribute("militarAutenticado", milAutenticado);
+                
+                if(milAutenticado.getId_grp_acesso() == 1){
+                    response.sendRedirect("/PlanoDeChamda/restrito/militares.jsp?id_sit=1");
+                }else if(milAutenticado.getId_grp_acesso() == 2 || milAutenticado.getId_grp_acesso() == 3 || milAutenticado.getId_grp_acesso() == 0){
+                //request.getRequestDispatcher("/restrito/Atualizacao.jsp").forward(request, response);
+                    response.sendRedirect("/PlanoDeChamda/restrito/Atualizacao.jsp?idt="+identidade);
+                }
+            }
         }
     }
-
     /**
      * Returns a short description of the servlet.
      *
