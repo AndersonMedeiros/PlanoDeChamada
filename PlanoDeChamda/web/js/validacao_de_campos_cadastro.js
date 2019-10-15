@@ -167,6 +167,28 @@ function valida_preccp(id){
     }
 }
 
+function valida_cnh_num(id){
+    var input = document.getElementById(id);
+    var cnhNum = input.value.replace(".","").replace("-","");
+    if(cnhNum == ''){
+        input.style.border='';
+        input.style.background='';
+        input.focus();
+    }
+    else if(document.formCadastro.txtPreccp.value!="" && cnhNum == '00000000000' || cnhNum == '11111111111' || 
+            cnhNum == '22222222222' || cnhNum == '33333333333' || cnhNum == '44444444444' || cnhNum == '55555555555' ||
+            cnhNum == '66666666666' || cnhNum == '77777777777' || cnhNum == '88888888888' || cnhNum == '99999999999'){
+        alert("Número da CNH Inválido!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();  
+    }
+    else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
+    }
+}
+
 function valida_dataNascMil(id){
     var input = document.getElementById(id);
     var anoNasc = input.value.substring(0,4);
@@ -388,10 +410,9 @@ function valida_fone(id){
 function valida_fone_nn(id){
     var input = document.getElementById(id);
     var fone = input.value.replace(".","").replace("-","").replace("(","").replace(")","").replace(" ","");
-    if(fone != '___________'){
-        input.style.border='2px solid green';
-        input.style.background='rgba(61,102,14,0.2)';
-        input.focus();
+    if(fone == '___________'){
+        input.style.border='';
+        input.style.background='';
     }
     else if(input.value != "" && fone == '00000000000' || fone == '11111111111' ||
             fone == '22222222222' || fone == '33333333333' || fone == '44444444444' || fone == '55555555555' ||
@@ -402,6 +423,9 @@ function valida_fone_nn(id){
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
         
+    }else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
     }
 }
 
@@ -499,12 +523,21 @@ function validacao_cad(){
         return false;
     }
     
-    //Naturalidade Militar
-    if(document.formCadastro.txtNatMilitar.selectedIndex==0){
-        alert("Campo Obrigatório!\nSelecione a sua Naturalidade.");
-        document.formCadastro.txtNatMilitar.style.border='2px solid red';
-        document.formCadastro.txtNatMilitar.style.background='rgba(255,0,0,0.2)';
-        document.formCadastro.txtNatMilitar.focus();
+    //Naturalidade Estado Militar
+    if(document.formCadastro.txtNatEstMilitar.selectedIndex==0){
+        alert("Campo Obrigatório!\nSelecione o seu Estado de Naturalidade.");
+        document.formCadastro.txtNatEstMilitar.style.border='2px solid red';
+        document.formCadastro.txtNatEstMilitar.style.background='rgba(255,0,0,0.2)';
+        document.formCadastro.txtNatEstMilitar.focus();
+        return false;
+    }
+    
+    //Naturalidade Cidade Militar
+    if(document.formCadastro.txtNatCidMilitar.value==""){
+        alert("Campo Obrigatório!\nDigite a sua Cidade de Naturalidade.");
+        document.formCadastro.txtNatCidMilitar.style.border='2px solid red';
+        document.formCadastro.txtNatCidMilitar.style.background='rgba(255,0,0,0.2)';
+        document.formCadastro.txtNatCidMilitar.focus();
         return false;
     }
     
@@ -783,7 +816,13 @@ function validacao_cad(){
         return false;
     }
     
-    //--
+    if(document.formCadastro.txtReligiao.selectedIndex==(document.formCadastro.txtReligiao.length-1) && document.formCadastro.txtOutraReligiao.value==""){
+        alert("Campo Obrigatório!\nDigite a sua Religião.");
+        document.formCadastro.txtOutraReligiao.style.border='2px solid red';
+        document.formCadastro.txtOutraReligiao.style.background='rgba(255,0,0,0.2)';
+        document.formCadastro.txtOutraReligiao.focus();
+        return false;
+    }
     
     //Dados Familiares
     if(checkboxConjuge.checked == true){
@@ -831,8 +870,6 @@ function validacao_cad(){
             document.formCadastro.txtGravidez[0].focus();
             return false;
         }
-        
-        
     }
     
     //Dados de Endereço

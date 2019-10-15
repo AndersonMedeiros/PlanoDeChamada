@@ -136,6 +136,7 @@
                             </select>
                         </div>
                         
+                        <!--QasQms-->
                         <div class="form-group col-md-3">
                             <label id="lblQasQms" name="lblQasQms" for="lblQasQms">QAS/QMS: </label><b class="obg"> *</b>
                             <select name="txtQasQms" id="qasqms" class="form-control" onblur="borda_input_select(this.id)">
@@ -152,6 +153,7 @@
                             </select>
                         </div>
                         
+                        <!--Situação-->
                         <div class="form-group col-md-3">
                             <label id="lblSit" name="lblSit" for="lblSit">Situação: </label><b class="obg"> *</b>
                             <br>
@@ -159,17 +161,20 @@
                                 <input type="radio" name="txtSit" id="sit" value="1" checked>Ativo
                             </label>
                         </div>
-                            
+                        
+                        <!--Nome Completo-->   
                         <div class="form-group col-md-9">
                             <label id="lblNomeComp" name="lblNomeComp" for="lblNomeComp">Nome Completo: </label><b class="obg"> *</b>
                             <input class="form-control" type="text" id="txtNomeComp" name="txtNomeComp" onblur="borda_input_text(this.id)"/>
                         </div>
-                            
+                        
+                        <!--Nome de Guerra-->                       
                         <div class="form-group col-md-3">
                             <label id="lblNomeGuerra" name="lblNomeGuerra" for="lblNomeGuerra">Nome de Guerra: </label><b class="obg"> *</b>
                             <input class="form-control" type="text" id="txtNomeGuerra" name="txtNomeGuerra" onblur="borda_input_text(this.id)"/>
                         </div>
-                            
+                        
+                        <!--Sexo-->
                         <div class="form-group col-md-3">
                             <label for="lblSexo">Sexo: </label><b class="obg"> *</b>
                             <br>
@@ -180,10 +185,11 @@
                                 <input type="radio" name="txtSexo" id="feminino" value="F"> Feminino
                             </label>                         
                         </div>
-                            
+                        
+                        <!--Naturalidade Estado-->
                         <div class="form-group col-md-3">
                             <label id="lblNatEst" name="lblNatEstMilitar" for="lblNatEstMilitar">Naturalidade (UF): </label><b class="obg"> *</b>
-                            <select name="txtNatEstMilitar" class="form-control" onblur="borda_input_select(this.id)">
+                            <select name="txtNatEstMilitar" id="txtNatEstMilitar" class="form-control" onblur="borda_input_select(this.id)">             
                                 <option value="0" selected>Selecione o seu Estado...</option>
                                 <%
                                     EstadoDAO estDAO = new EstadoDAO();
@@ -194,9 +200,10 @@
                                         out.println("<option value='"+estDAO.getEstados().get(i).getId()+"'>"+estDAO.getEstados().get(i).getUf()+"</option>");
                                     }
                                 %>                                
-                            </select>
-                            
+                            </select>                            
                         </div>
+                        
+                        <!--Naturalidade Cidade-->
                         <div class="form-group col-md-3">
                             <label id="lblNatCid" name="lblNatCidMilitar" for="lblNatCidMilitar">Naturalidade Cidade: </label><b class="obg"> *</b>                            
                             <input class="form-control" type="text" id="txtNatCidMilitar" name="txtNatCidMilitar" onblur="borda_input_text(this.id)"/>
@@ -257,7 +264,7 @@
                                                     
                         <div class="form-group col-md-4">
                             <label id="lblCnhNum" name="lblCnhNum" for="lblCnhNum">CNH Número: </label>
-                            <input class="form-control" type="text" id="txtCnhNum" name="txtCnhNum" maxlength="11" onblur="borda_input_text_nn()(this.id)" onkeypress="return somenteNumero(event);"/>
+                            <input class="form-control" type="text" id="txtCnhNum" name="txtCnhNum" maxlength="11" onblur="valida_cnh_num(this.id)" onkeypress="return somenteNumero(event);"/>
                         </div>
                             
                         <div class="form-group col-md-4">
@@ -503,7 +510,7 @@
 
                         <div class="form-group col-md-6">
                             <label id="lblFone02" name="lblFone02" for="lblFone02">Telefone 02: </label>
-                            <input class="form-control fone" type="text" id="txtFone02" name="txtFone02" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone_nn()(this.id)" onkeypress="return somenteNumero(event);"/>
+                            <input class="form-control fone" type="text" id="txtFone02" name="txtFone02" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone_nn(this.id)" onkeypress="return somenteNumero(event);"/>
                         </div>    
 
                         <div class="form-group col-md-12">
