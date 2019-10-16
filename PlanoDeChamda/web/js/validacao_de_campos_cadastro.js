@@ -457,7 +457,11 @@ function valida_secao(id){
 
 function valida_senha(id){
     var input = document.getElementById(id);
-    if(input.value.length < 6){
+    if(input.value == ""){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }else if(input.value != "" && input.value.length < 6){
         alert("A senha deve conter no mínimo 6 caracteres!");
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
@@ -1019,8 +1023,8 @@ function validacao_cad(){
     //Fone de Referência
     if(document.formCadastro.txtFoneReferencia.value==""){
         alert("Campo Obrigatório!\nDigite o número de telefone da sua referência.");
-        document.formCadastro.txtNomeReferencia.style.border='2px solid red';
-        document.formCadastro.txtNomeReferencia.style.background='rgba(255,0,0,0.2)';
+        document.formCadastro.txtFoneReferencia.style.border='2px solid red';
+        document.formCadastro.txtFoneReferencia.style.background='rgba(255,0,0,0.2)';
         document.formCadastro.txtFoneReferencia.focus();
         return false;
     }
@@ -1030,9 +1034,9 @@ function validacao_cad(){
        foneFam == '66666666666' || foneFam == '77777777777' || foneFam == '88888888888' || foneFam == '99999999999'){
        
         alert("Número de Telefone Inválido!");
-        document.formCadastro.txtNomeReferencia.style.border='2px solid red';
-        document.formCadastro.txtNomeReferencia.style.background='rgba(255,0,0,0.2)';
-        document.formCadastro.txtContFamiliar.focus();
+        document.formCadastro.txtFoneReferencia.style.border='2px solid red';
+        document.formCadastro.txtFoneReferencia.style.background='rgba(255,0,0,0.2)';
+        document.formCadastro.txtFoneReferencia.focus();
         return false;
     }
 
@@ -1044,7 +1048,7 @@ function validacao_cad(){
         document.formCadastro.txtSenha.focus();
         return false;
     }
-    else if(document.formCadastro.txtSenha.value.length < 6){
+    else if(document.formCadastro.txtSenha.value!="" && document.formCadastro.txtSenha.value.length < 6){
         alert("A senha deve conter no mínimo 6 caracteres!");
         document.formCadastro.txtSenha.style.border='2px solid red';
         document.formCadastro.txtSenha.style.background='rgba(255,0,0,0.2)';
