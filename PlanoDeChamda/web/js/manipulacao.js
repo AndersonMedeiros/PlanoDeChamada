@@ -26,7 +26,6 @@ function id_input(id){
 }
 
 
-
 $(document).ready(function(){
     var options = ["<option value=\"\" select>Selecione o grau de Parentesco...</option>", 
                    "<option value=CONJUGE>CONJUGE</option>",

@@ -49,10 +49,7 @@ $(document).ready(function(){
                                                     "</button>"+'</div>');
                                                 
         i++;  
-    });
-
-    
-
+    });    
 });
 
 function removeLinha(id){
