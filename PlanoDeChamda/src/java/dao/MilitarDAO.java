@@ -32,8 +32,8 @@ public class MilitarDAO {
                                   "                     mil_nome_referencia,mil_fone_referencia,mil_fone1,mil_fone2,"+
                                   "                     mil_naturalidade_estado,mil_naturalidade_cidade,mil_end_num,mil_senha,"+
 	                          "                     mil_end_id,mil_divisaosecao_id,mil_postograduacao_id,mil_qasqms_id,mil_estadocivil_id,"+
-                                  "                     mil_escolaridade_id,mil_situacao_id,mil_tituloeleitor_id,mil_religiao_id) "+
-                                  "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                                  "                     mil_escolaridade_id,mil_situacao_id,mil_tituloeleitor_id,mil_religiao_id,mil_grupoacesso_id) "+
+                                  "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     
     private final String UPDATE = "UPDATE Militar "+
                                   "SET mil_nome=?,mil_nome_guerra=?,mil_cpf=?,mil_preccp=?,mil_sexo=?,mil_data_nasc=?,"+
