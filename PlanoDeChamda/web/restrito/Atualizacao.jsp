@@ -40,7 +40,7 @@
         <link href="../css/estilo-att.css" type="text/css" rel="stylesheet"/>
        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="../js/manipulacao_form_familiares.js" type="text/javascript"></script>
+        
         <script src="../js/validacao_de_campos_atualizacao.js" type="text/javascript"></script>
         <script type="text/javascript">
             function id( el ){
@@ -181,8 +181,8 @@
                         ConjugeDAO conDAO = new ConjugeDAO();
                         
    
-                        out.println("<fieldset class=\"parte-form col-md-12\">"+
-                                    "<legend>Dados Pessoais</legend>"+
+                        out.println("<br><fieldset class=\"parte-form col-md-12\">"+
+                                    "<legend><span>Dados Pessoais</span></legend>"+
                                     "<div class=form-row>"+
                                     "<div class=\"form-group col-md-3\">"+
                                     "<label id=\"lblDivSec\" name=\"lblDivSec\" for=\"lblDivSec\">Divisão/Seção: </label><b class=\"obg\"> *</b>"+
@@ -487,7 +487,7 @@
                                     "<br>");
                                     if(conDAO.getConjugeByIDMil(mil.getId()).getId() == 0 && depDAO.getDependentesIdMil(mil.getId()).size() == 0){
                                         out.println("<fieldset class=\"parte-form col-md-12\">"+
-                                                    "<legend>Dados Familiares</legend>"+
+                                                    "<legend><span>Dados Familiares</span></legend>"+
                                                     "<center>"+
                                                     "<div class=\"checkbox col-md-12\">"+
                                                     "<label>"+
@@ -501,8 +501,8 @@
                                                     "</div>"+
                                                     "</center>"+
                                                     "<div class=\"form-row\" id=\"div_dados_conjuge\" style=\"display: none;\">"+
-                                                    "<fieldset class=\"parte-form col-md-12\">"+
-                                                    "<legend>Dados do Conjuge</legend>"+
+                                                    "<fieldset class=\"parte-form col-md-12 dados-conjuge\">"+
+                                                    "<legend><span>Dados do Cônjuge</span></legend>"+
                                                     "<div class=form-row>"+
                                                     "<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
@@ -529,9 +529,9 @@
                                                     "</div>"+
                                                     "</fieldset>"+
                                                     "</div>"+           
-                                                    "<div  id=\"div_dados_dependente\" class=\"form-row\" style=\"display: none;\">"+
+                                                    "<div  id=\"div_dados_dependente\" class=\"form-row dados-dependente\" style=\"display: none;\">"+
                                                     "<div id=\"fd_dados_dependente\" class=\"form-row col-md-12\" style=\"display: none;\">"+
-                                                    "<legend>Dados dos Dependentes</legend>"+
+                                                    "<legend><span>Dados dos Dependentes</span></legend>"+
                                                     "</div>"+
                                                     "</div>"+
                                                     "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: none;\">"+
@@ -542,7 +542,7 @@
                                                     "</fieldset>"+"</div>");
                                     }else if(conDAO.getConjugeByIDMil(mil.getId()).getId() != 0 && depDAO.getDependentesIdMil(mil.getId()).size() == 0){
                                         out.println("<fieldset class=\"parte-form col-md-12\">"+
-                                                    "<legend>Dados Familiares</legend>"+
+                                                    "<legend><span>Dados Familiares</span></legend>"+
                                                     "<center>"+
                                                     "<div class=\"checkbox col-md-12\">"+
                                                     "<label>"+
@@ -556,8 +556,8 @@
                                                     "</div>"+
                                                     "</center>"+
                                                     "<div class=\"form-row\" id=\"div_dados_conjuge\" style=\"display: block;\">"+
-                                                    "<fieldset id=\"fd_dados_conjuge\" class=\"parte-form col-md-12\" style=\"display: block;\">"+
-                                                    "<legend>Dados do Cônjuge</legend>"+
+                                                    "<fieldset id=\"fd_dados_conjuge\" class=\"parte-form col-md-12 dados-conjuge\" style=\"display: block;\">"+
+                                                    "<legend><span>Dados do Cônjuge</span></legend>"+
                                                     "<div class=form-row>"+
                                                     "<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
@@ -603,9 +603,9 @@
                                                     out.println("</div>"+"</fieldset>"+
                                                                 "</div>");
 
-                                                    out.println("<div id=\"div_dados_dependente\" class=\"form-row\" style=\"display: none;\">"+
+                                                    out.println("<div id=\"div_dados_dependente\" class=\"form-row dados-dependente\" style=\"display: none;\">"+
                                                     "<div id=\"fd_dados_dependente\" class=\"form-row col-md-12\" style=\"display: none;\">"+
-                                                    "<legend>Dados dos Dependentes</legend>"+
+                                                    "<legend><span>Dados dos Dependentes</span></legend>"+
                                                     "</div>"+
                                                     "</div>"+
                                                     "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: none;\">"+
@@ -615,7 +615,7 @@
                                                     "</fieldset>");
                                     }else if(conDAO.getConjugeByIDMil(mil.getId()).getId() == 0 && depDAO.getDependentesIdMil(mil.getId()).size() != 0){
                                         out.println("<fieldset class=\"parte-form col-md-12\">"+
-                                                    "   <legend>Dados Familiares</legend>"+
+                                                    "   <legend><span>Dados Familiares</span></legend>"+
                                                     "   <center>"+
                                                     "       <div class=\"checkbox col-md-12\">"+
                                                     "           <label>"+
@@ -629,8 +629,8 @@
                                                     "       </div>"+
                                                     "   </center>"+
                                                     "<div class=\"form-row\" id=\"div_dados_conjuge\" style=\"display: none;\">"+
-                                                    "<fieldset class=\"parte-form col-md-12\">"+
-                                                    "<legend>Dados do Conjuge</legend>"+
+                                                    "<fieldset class=\"parte-form col-md-12 dados-conjuge\">"+
+                                                    "<legend><span>Dados do Cônjuge</span></legend>"+
                                                     "<div class=form-row>"+
                                                     "<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
@@ -657,8 +657,8 @@
                                                     "</div>"+
                                                     "</fieldset>"+"</div");
                                         int qtdeDependentes = depDAO.getDependentesIdMil(mil.getId()).size();
-                                        out.println("<div class=\"form-row\" id=\"div_dados_dependente\" style=\"display: block;\">"+
-                                                "       <legend>Dados dos Dependentes</legend>"+
+                                        out.println("<div class=\"form-row dados-dependente\" id=\"div_dados_dependente\" style=\"display: block;\">"+
+                                                "       <legend><span>Dados dos Dependentes</span></legend>"+
                                         "   <div id=\"fd_dados_dependente\" class=\"form-row col-md-12\" style=\"display: block;\">");
 
                                         for(int i=0;i<qtdeDependentes;i++){
@@ -717,7 +717,7 @@
         
                                     }else if(conDAO.getConjugeByIDMil(mil.getId()).getId() != 0 && depDAO.getDependentesIdMil(mil.getId()).size() != 0){
                                         out.println("<fieldset class=\"parte-form col-md-12\">"+
-                                                    "<legend>Dados Familiares</legend>"+
+                                                    "<legend><span>Dados Familiares</span></legend>"+
                                                     "<center>"+
                                                     "<div class=\"checkbox col-md-12\">"+
                                                     "<label>"+
@@ -731,8 +731,8 @@
                                                     "</div>"+
                                                     "</center>"+
                                                     "<div class=\"form-row\" id=\"div_dados_conjuge\" style=\"display: block;\">"+
-                                                    "<fieldset id=\"fd_dados_conjuge\" class=\"parte-form col-md-12\" style=\"display: block;\">"+
-                                                    "<legend>Dados do Cônjuge</legend>"+
+                                                    "<fieldset id=\"fd_dados_conjuge\" class=\"parte-form col-md-12 dados-conjuge\" style=\"display: block;\">"+
+                                                    "<legend><span>Dados do Cônjuge</span></legend>"+
                                                     "<div class=form-row>"+
                                                     "<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
@@ -778,8 +778,8 @@
                                                     out.println("</div>"+"</fieldset>"+
                                                                 "</div>");
                                                     int qtdeDependentes = depDAO.getDependentesIdMil(mil.getId()).size();
-                                                    out.println("<div class=\"form-row\" id=\"div_dados_dependente\" style=\"display: block;\">"+
-                                                            "       <legend>Dados dos Dependentes</legend>"+
+                                                    out.println("<div class=\"form-row dados-dependente\" id=\"div_dados_dependente\" style=\"display: block;\">"+
+                                                            "       <legend><span>Dados dos Dependentes</span></legend>"+
                                                     "   <div id=\"fd_dados_dependente\" class=\"form-row col-md-12\" style=\"display: block;\">");
                                                     
                                                     for(int i=0;i<qtdeDependentes;i++){
@@ -828,17 +828,16 @@
                                                                     "<i class=\"glyphicon glyphicon-remove\"></i>"+
                                                                     "</button>"+"</div>"+"</div>");
                                                     }
-                                        out.println(  
-                                                    "</div>"+
+                                        out.println("</div>"+
                                                     "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: block;\">"+
                                                     "<div class=\"col-md-11\"></div>"+
                                                     "<span id=\"btnNovoDep\" alt=\"Clique aqui e adicione um novo dependente.\" class=\"glyphicon glyphicon-plus btn-add col-md-1\" aria-hidden=\"true\"></span>"+
                                                     "</div>"+
-                                                    "</fieldset>");
+                                                    "</fieldset><br>");
                                     }
 
                                     out.println("<fieldset class=\"parte-form col-md-12\">"+
-                                                "<legend>Dados de Endereço</legend>"+
+                                                "<legend><span>Dados de Endereço</span></legend>"+
                                                 "<div class=form-row>"+
                                                 "<div class=\"form-group col-md-3\">"+
                                                 "<label id=\"lblCep\" name=\"lblCep\" for=\"lblCep\">Cep: </label><b class=\"obg\"> *</b>"+
@@ -1180,10 +1179,10 @@
                                                 "<label id=\"lblComplemento\" name=\"lblComplemento\" for=\"lblComplemento\">Complemento: </label>"+
                                                 "<input class=\"form-control\" type=\"text\" id=\"txtComplemento\" name=\"txtComplemento\" value=\""+endDAO.getEnderecoById(mil.getId_end()).getComplemento()+"\" onblur=\"borda_input_text(this.id);\"/>"+
                                                 "</div>"+"</div>"+
-                                                "</fieldset>"+
+                                                "</fieldset>"+"<br>"+
 
                                                 "<fieldset class=\"parte-form col-md-12\">"+
-                                                "<legend>Dados de Contato</legend>");
+                                                "<legend><span>Dados de Contato</span></legend>");
                                                 
                                                
                                                 out.println("<div class=form-row>"+
@@ -1215,10 +1214,10 @@
                                                 "<label id=\"lblFoneReferencia\" name=\"lblFoneReferencia\" for=\"lblFoneReferencia\">Contato do Familiar: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control fone\" type=\"text\" id=\"txtFoneReferencia\" name=\"txtFoneReferencia\" value=\""+mil.getFone_referencia()+"\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>"+"<div>"+
-                                                "</fieldset>"+
+                                                "</fieldset>"+"<br>"+
 
                                                 "<fieldset class=\"parte-form col-md-12\">"+
-                                                "<legend>Dados de Acesso</legend>"+
+                                                "<legend><span>Dados de Acesso</span></legend>"+
                                                 
                                                 "<div class=form-row>"+
                                                 "<div class=\"form-group col-md-6\">"+
@@ -1255,7 +1254,7 @@
         <script src="../js/manipulacao_campos.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/mascaras.js"></script>
         <script type="text/javascript" src="../js/preenchimento-endereco.js"></script>
-        <script type="text/javascript" src="../js/manipulacao.js"></script>
+        <script src="../js/manipulacao_form_familiares.js" type="text/javascript"></script>
         
     </body>
 </html>

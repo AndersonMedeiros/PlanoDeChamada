@@ -74,4 +74,32 @@ and open the template in the editor.
 }
 
 
+fieldset, .dados-dependente{
+    /*background-color: #DCDCDC;*/
+    background-color: #9ED29D;
+    margin-top: 10px;
+    border-radius: 10px;
+}
 
+.dados-dependente{
+    padding-left: 10px;
+}
+
+
+legend span{
+    font-weight: bold;
+    color: #fff;
+    /*background-color: #808080;*/
+    background-color: #3D660E;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.dados-conjuge, .dados-dependente{
+    background-color: #7CAF70;
+    padding-left: 10px;
+}
+
+body{
+    background-color: white;
+}
