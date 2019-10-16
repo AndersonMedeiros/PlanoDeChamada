@@ -8,27 +8,147 @@ and open the template in the editor.
     Author     : root
 */
 
-.header{
-    margin-bottom: 40px;
+.area-form{
+    border: 5px solid black;
+    border-radius: 10px;
+    padding: 20px 25px;
 }
 
-.container-fluid{
-    margin-bottom: 40px;
+*{margin: 0; padding: 0;}
+
+html{
+    height: 100%;
+    
 }
 
-.slide{
-    margin-bottom: 20px;
+body{
+    font-family: "Trebuchet MS", tahoma, arial;
+    background: linear-gradient(rgba(38,128,101,0.9), rgba(52, 177, 140, 0.9));
 }
 
-.btn{
-    margin-bottom: 8px;
-    background-color: #3D660E;
-    border: 2px solid #264710;
+#formulario{
+    width: 80%; margin: 50px auto;
+    text-align: center;
+    position: relative;
+   
+}
+
+#formulario h2, #formulario h3{
+    font: 22px "Trebuchet MS", tahoma, arial;
+    color: #098;
+    width: 100%;
+    float: left;
+    text-align: left;
+    margin-bottom: 3px;
+}
+
+#formulario h3{
+    color: #333;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+#formulario fieldset{
+    background: #fff;
+    border: 0 none;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    
+    box-shadow: 0 0 15px 1px rgba(0,0,0,0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 80%;
+    margin: 0 10%;
+    
+    position: absolute;
+}
+
+
+
+#formulario fieldset:not(:first-of-type){display: none;}
+
+#formulario input, #formulario textarea{
+    padding: 10px;
+    border: 1px solid rgba(38, 128, 101, 0.9);
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    font: 14px "Trebuchet MS", tahoma, arial;
+    color: #098;
+    margin-bottom: 10px;
+}
+
+#formulario .acao{
+    width: 100px;
+    background: #27ae68;
+    color: #fff;
+    text-transform: uppercase;
     font-weight: bold;
+    padding: 12px 0px;
+    float: left;
+    margin-right: 5px;
 }
 
-.btn:hover{
-    background-color: yellowgreen;
-    border: 2px solid #3D660E;
-    color: black;
+#formulario .acao:hover{
+    background: rgba(52,177,148,0.9);
+    cursor: pointer;
+}
+
+#formulario #progresso{
+    
+    margin-bottom: 30px;
+    overflow: hidden;
+    counter-reset: step;
+    
+}
+
+#formulario #progresso li{
+    list-style-type: none;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10px;
+    float: left;
+    
+    width: 33.33%;
+    position: relative;
+}
+
+#formulario #progresso li:before{
+    content: counter(step);
+    counter-increment: step;
+    width: 20px;
+    display: block;
+    line-height: 20px;
+    background: #fff;
+    color: #333;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin: 0 auto 10px auto;
+}
+
+#formulario #progresso li:after{
+    content: '';
+    width: 100%;
+    background: #fff;
+    height: 2px;
+    position: absolute;
+    top: 9px;
+    left: -50%;
+    z-index: -1;
+}
+
+#formulario #progresso li:first-child:after{
+    content: none;
+}
+
+#formulario #progresso li.ativo:before, #formulario #progresso li.ativo:after{
+    background: rgba(40,208,141,0.9);
+    color: #fff;
+    box-shadow: 0 1px 0;
 }

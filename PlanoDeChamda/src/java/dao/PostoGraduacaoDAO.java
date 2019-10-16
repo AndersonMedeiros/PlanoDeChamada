@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class PostoGraduacaoDAO {
     private final String GETPOSTGRADBYID = "SELECT * FROM PostoGraduacao WHERE pg_id=?";
-    private final String GETPOSTGRADS = "SELECT * FROM PostoGraduacao ORDER BY pg_id DESC";
+    private final String GETPOSTGRADS = "SELECT * FROM PostoGraduacao where pg_forca='EB' ORDER BY pg_id DESC";
     
     Connection conn;
     PreparedStatement pstm;
@@ -41,6 +41,7 @@ public class PostoGraduacaoDAO {
                pg.setId(rs.getInt("pg_id"));
                pg.setNome(rs.getString("pg_nome"));
                pg.setSigla(rs.getString("pg_sigla"));
+               pg.setForca(rs.getString("pg_forca"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
@@ -66,6 +67,7 @@ public class PostoGraduacaoDAO {
                pg.setId(rs.getInt("pg_id"));
                pg.setNome(rs.getString("pg_nome"));
                pg.setSigla(rs.getString("pg_sigla"));
+               pg.setForca(rs.getString("pg_forca"));
                pgs.add(pg);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);

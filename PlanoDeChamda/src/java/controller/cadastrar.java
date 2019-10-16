@@ -14,7 +14,6 @@ import bean.TituloEleitor;
 import dao.ConjugeDAO;
 import dao.DependenteDAO;
 import dao.EnderecoDAO;
-import dao.FoneDAO;
 import dao.HabilitacaoDAO;
 import dao.MilitarDAO;
 import dao.ReligiaoDAO;
@@ -88,8 +87,7 @@ public class cadastrar extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         MilitarDAO milDAO = new MilitarDAO();
-        FoneDAO foneDAO = new FoneDAO();
-        
+                
         if(milDAO.validarIDENTIDADE(request.getParameter("txtIdentidade").replace("-", ""))){
             response.sendRedirect("/PlanoDeChamda/erro.jsp?x=cadastro-duplicado");
         }else if(milDAO.validarCPF(request.getParameter("txtCpf").replace(".", "").replace("-", ""))){
@@ -167,7 +165,6 @@ public class cadastrar extends HttpServlet {
             
             mil.setEnd_num(request.getParameter("txtNum").toUpperCase());
             mil.setSenha(request.getParameter("txtSenha"));
-            
             mil.setId_grp_acesso(3);
             milDAO.inserir(mil);
             
@@ -208,16 +205,7 @@ public class cadastrar extends HttpServlet {
                     dependenteDAO.inserir(dependente); 
                 }
             }
-            /*//Fones
-            Fone fone1 = new Fone();
-            fone1.setNum(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", "")); 
-            fone1.setId_mil(milDAO.getIdMilitar(mil.getIdentidade()));
-            if(!fone1.getNum().equals("")){foneDAO.inserir(fone1);}
-
-            Fone fone2 = new Fone();
-            fone2.setNum(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-            fone2.setId_mil(milDAO.getIdMilitar(mil.getIdentidade()));
-            if(!fone2.getNum().equals("")){foneDAO.inserir(fone2);}*/
+            
 
             RequestDispatcher despachante = getServletContext().getRequestDispatcher("/index.jsp?x=cadastro-sucesso");
             despachante.forward(request, response);

@@ -1,0 +1,92 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30/06/2018, 12:24:01
+    Author     : ander
+*/
+
+.titulos > h2{
+    margin-top: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #fff;
+    font-size: 26px;
+    background: #264710;
+    padding: 10px;    
+    text-align: center;
+}
+
+#formCadastro{
+    margin-top: 20px;
+}
+
+#formCadastro label{
+    font-weight: bold;
+}
+
+#formCadastro .obg{
+    color: red;
+}
+
+#formCadastro h2{
+    font-weight: bold;
+    font-size: 28px;
+    color: #3D660E;
+    margin-bottom: 15px;
+}
+
+.btn-novo-dep{
+    background-color: #fff;
+    border-color: #3D660E;
+    color: #3D660E;
+    font-weight: bold;
+    float: right;
+    margin-left: 8px;
+}
+
+.btn-novo-dep:hover{
+    background-color: #3D660E;
+    border-color: #fff;
+    color: #fff;
+    font-weight: bold;
+    float: right;
+    margin-left: 8px;
+}
+
+.btn-prox{
+    background-color: #3D660E;
+    border-color: #33560a;
+    color: #fff;
+    font-weight: bold;
+    float: right;
+    margin-left: 8px;
+}
+
+.btn-prox:hover{
+    background-color: #5fad05;
+    border-color: #33560a;
+    color: #fff;
+}
+
+#formCadastro fieldset{
+    background: #fff;
+    border: 0 none;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    
+    box-shadow: 0 0 15px 1px rgba(0,0,0,0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 80%;
+    margin: 0 10%;
+    
+    position: absolute;
+}
+
+#formCadastro fieldset:not(:first-of-type){display: none;}
+/*---------------------------*/
+

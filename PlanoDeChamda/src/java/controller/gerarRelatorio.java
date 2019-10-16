@@ -82,7 +82,7 @@ public class gerarRelatorio extends HttpServlet {
         int id_div_sec, id_post_grad, id_qas_qms; 
         String sql_query =  "SELECT\n" +
                             "if(STRCMP(ds.ds_nome,'')=0, '-', ds.ds_nome) as divisaosecao,\n" +
-                            "if(STRCMP(pg.pg_nome,'')=0, '-', pg.pg_nome) as postograduacao,\n" +
+                            "if(STRCMP(pg.pg_sigla,'')=0, '-', pg.pg_sigla) as postograduacao,\n" +
                             "if(STRCMP(m.mil_nome,'')=0, '-', m.mil_nome) as nome,\n" +
                             "if(STRCMP(m.mil_nome_guerra,'')=0, '-', m.mil_nome_guerra) as nomeguerra,\n" +
                             "if(STRCMP(c.cid_nome,'')=0, '-', c.cid_nome) as cidade,\n" +

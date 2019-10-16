@@ -11,7 +11,7 @@ package bean;
  */
 public class PostoGraduacao {
     int id;
-    String nome, sigla;
+    String nome, sigla, forca;
 
     public int getId() {
         return id;
@@ -36,6 +36,13 @@ public class PostoGraduacao {
     public void setSigla(String sigla) {
         this.sigla = sigla;
     }
-    
+
+    public String getForca() {
+        return forca;
+    }
+
+    public void setForca(String forca) {
+        this.forca = forca;
+    }  
     
 }

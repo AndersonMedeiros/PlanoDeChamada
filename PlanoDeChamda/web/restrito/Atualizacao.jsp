@@ -31,12 +31,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="../bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        
+        <link href="../bootstrap-4.3.1//css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        
+        
         <link href="../css/estilo.css" type="text/css" rel="stylesheet"/>
         <link href="../css/estilo_cadastro.css" type="text/css" rel="stylesheet"/>
         <link href="../css/estilo-att.css" type="text/css" rel="stylesheet"/>
+       
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="../js/manipulacao.js" type="text/javascript"></script>
+        <script src="../js/manipulacao_form_familiares.js" type="text/javascript"></script>
         <script src="../js/validacao_de_campos_atualizacao.js" type="text/javascript"></script>
         <script type="text/javascript">
             function id( el ){
@@ -62,46 +66,95 @@
             <img src="../img/cabeçalho.jpeg" class="img-responsive" width="100%">
             <div class="row">
                     <div class="col-md-12">
-                        <nav class="barra-navegacao navbar navbar-default" style="margin-top: 0; margin-bottom: 15px;">
-                            <div class="container-fluid">
-                              <!-- Brand and toggle get grouped for better mobile display -->
-                              <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                  <span class="sr-only">Toggle navigation</span>
-                                  <span class="icon-bar"></span>
-                                  <span class="icon-bar"></span>
-                                  <span class="icon-bar"></span>
+                        <% 
+                            HttpSession sessao = request.getSession();
+                            Militar mil_logado = null;
+                            int grp_acesso = 0;
+                            if(sessao.getAttribute("militarAutenticado").equals("sti")){
+                                grp_acesso=1;
+                            }else{
+                                mil_logado = (Militar)sessao.getAttribute("militarAutenticado");
+                            }                                        
+                            MilitarDAO milDAO = new MilitarDAO();                                        
+                            //Militar milAutenticado = (Militar) sessao.getAttribute("militarAutenticado");
+                            //Militar mil = milDAO.getMilitar(milAutenticado.getIdentidade());                                        
+                            Militar mil = milDAO.getMilitar(request.getParameter("idt"));
+                            DependenteDAO depDAO = new DependenteDAO();                                        
+                        %> 
+                          <nav class="navbar navbar-dark navbar-expand-lg navbar-expand-md" style="background-color: #3D660E;">
+                                <a class="navbar-brand" href="#">Navbar</a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
                                 </button>
-                              </div>
 
-                              <!-- Collect the nav links, forms, and other content for toggling -->
-                              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-bottom: 0px;">
-                                <ul class="nav navbar-nav">
-                                    <li class="active"><a href="Atualizacao.jsp">Atualizar Dados <span class="sr-only">(current)</span></a></li>                                 
-                                    <% 
-                                        HttpSession sessao = request.getSession();
-                                        
-                                        MilitarDAO milDAO = new MilitarDAO();
-                                        
-                                        //Militar milAutenticado = (Militar) sessao.getAttribute("militarAutenticado");
-                                        //Militar mil = milDAO.getMilitar(milAutenticado.getIdentidade());
-                                        
-                                        Militar mil = milDAO.getMilitar(request.getParameter("idt"));
-                                        
-                                        
-                                        
-                                        DependenteDAO depDAO = new DependenteDAO();
-                                        
-                                        
-                                    %>                                   
-                                  <!-- <li><a href="FaleConosco.jsp">Sair <span class="sr-only">(current)</span></a></li> -->
-                                </ul>
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li><form name="formSair" method="post" action="sair"><button class="btn-sair" type="submit">Sair</button></form></li>
-                                </ul>
-                              </div><!-- /.navbar-collapse -->
-                            </div><!-- /.container-fluid -->
-                          </nav>
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav mr-auto">
+                                        <%
+                                            if(grp_acesso == 1){
+                                                out.println("<li class='nav-item dropdown'>"+
+                                                            "   <a class='nav-link dropdown-toggle' href='militares.jsp?id_sit=1' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
+                                                            "       Militares"+
+                                                            "   </a>"+
+                                                            "   <div class='dropdown-menu' aria-labelledby='navbarDropdown'>"+
+                                                            "       <a class='dropdown-item' href='militares.jsp?id_sit=1'>Ativos</a>"+
+                                                            "       <a class='dropdown-item' href='militares.jsp?id_sit=2'>Inativos</a>"+                                
+                                                            "   </div>"+
+                                                            "</li>");
+                                                out.println("<li class='nav-item'>"+
+                                                            "   <a class='nav-link' href='EmitirRelatorio.jsp'>Emitir Relatório</a>"+
+                                                            "</li>");
+                                            }else if(mil.getId_grp_acesso() == 1){
+                                                out.println("<li class='nav-item active'>"+
+                                                            "   <a class=nav-link href=Atualizacao.jsp?idt="+mil.getIdentidade()+">Meus Dados <span class='sr-only'>(current)</span></a>"+
+                                                            "</li>");
+                                               out.println("<li class='nav-item dropdown'>"+
+                                                            "   <a class='nav-link dropdown-toggle' href='militares.jsp?id_sit=1' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
+                                                            "       Militares"+
+                                                            "   </a>"+
+                                                            "   <div class='dropdown-menu' aria-labelledby='navbarDropdown'>"+
+                                                            "       <a class='dropdown-item' href='militares.jsp?id_sit=1'>Ativos</a>"+
+                                                            "       <a class='dropdown-item' href='militares.jsp?id_sit=2'>Inativos</a>"+                                
+                                                            "   </div>"+
+                                                            "</li>");
+                                                out.println("<li class='nav-item'>"+
+                                                            "   <a class='nav-link' href='EmitirRelatorio.jsp'>Emitir Relatório</a>"+
+                                                            "</li>");
+                                            }else if(mil.getId_grp_acesso() == 2){
+                                                out.println("<li class='nav-item active'>"+
+                                                            "   <a class=nav-link href=Atualizacao.jsp?idt="+mil.getIdentidade()+">Meus Dados <span class='sr-only'>(current)</span></a>"+
+                                                            "</li>");    
+                                                out.println("<li class='nav-item'>"+
+                                                            "   <a class='nav-link' href='EmitirRelatorio.jsp'>Emitir Relatório</a>"+
+                                                            "</li>");
+                                            }else if(mil.getId_grp_acesso() == 3){
+                                                out.println("<li class='nav-item active'>"+
+                                                            "   <a class=nav-link href=Atualizacao.jsp?idt="+mil.getIdentidade()+">Meus Dados <span class='sr-only'>(current)</span></a>"+
+                                                            "</li>");
+                                            }  
+                                        %>
+
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              Dropdown
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Something else here</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                        </li>
+                                    </ul>
+                                    <form class="form-inline my-2 my-lg-0" name="formSair" method="post" action="sair">
+                                        <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color: white; border-color: white;">Sair</button>
+                                        <!--<li><form name="formSair" method="post" action="sair"><button class="btn-sair" type="submit">Sair</button></form></li>-->
+                                    </form>
+                                </div>
+                            </nav>
                     </div>                            
                 </div>
         </header>
@@ -130,7 +183,7 @@
    
                         out.println("<fieldset class=\"parte-form col-md-12\">"+
                                     "<legend>Dados Pessoais</legend>"+
-
+                                    "<div class=form-row>"+
                                     "<div class=\"form-group col-md-3\">"+
                                     "<label id=\"lblDivSec\" name=\"lblDivSec\" for=\"lblDivSec\">Divisão/Seção: </label><b class=\"obg\"> *</b>"+
                                     "<select name=\"txtDivSec\" id=\"divsec\" class=\"form-control\" onblur=borda_input_select(this.id)>");
@@ -197,8 +250,9 @@
                                     "<label class=\"radio-inline tipo-relatorio\">"+
                                     "<input type=\"radio\" name=\"txtSit\" id=\"sit\" value=\"1\" checked>Ativo"+
                                     "</label>"+
-                                    "</div>"+
-                                                                   
+                                    "</div>"+"</div>"+
+                                     
+                                    "<div class=form-row>"+
                                     "<div class=\"form-group col-md-9\">"+
                                     "<label id=\"lblNomeComp\" name=\"lblNomeComp\" for=\"lblNomeComp\">Nome Completo: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control\" type=\"text\" id=\"txtNomeComp\" name=\"txtNomeComp\" value=\""+mil.getNome()+"\" onblur=borda_input_text(this.id)/>"+
@@ -207,8 +261,9 @@
                                     "<div class=\"form-group col-md-3\">"+
                                     "<label id=\"lblNomeGuerra\" name=\"lblNomeGuerra\" for=\"lblNomeGuerra\">Nome de Guerra: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control\" type=\"text\" id=\"txtNomeGuerra\" name=\"txtNomeGuerra\" value=\""+mil.getNome_guerra()+"\" onblur=borda_input_text(this.id)/> "+
-                                    "</div>"+
-                                            
+                                    "</div>"+"</div>"+
+                                    
+                                    "<div class=form-row>"+
                                     "<div class=\"form-group col-md-3\">" +
                                     "<label for=\"lblSexo\">Sexo: </label><b class=\"obg\"> *</b>" +
                                     "<br>");
@@ -274,7 +329,9 @@
                                             out.println("<option value='"+ecDAO.getEstadosCivis().get(i).getId()+"'>"+ecDAO.getEstadosCivis().get(i).getNome()+"</option>");
                                         }
                                     }
-                                    out.println("</select>"+"</div>");
+                                    out.println("</select>"+"</div>"+"</div>"+
+                                            "<div class=form-row>");
+                                    
                                     
                                     if(mil.getData_nasc() != null){
                                         out.println("<div class=\"form-group col-md-3\">"+
@@ -300,8 +357,9 @@
                                     "<div class=\"form-group col-md-3\">"+
                                     "<label id=\"lblCpf\" name=\"lblCpf\" for=\"lblCpf\">Cpf: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control cpf\" type=\"text\" id=\"txtCpf\" name=\"txtCpf\" value=\""+mil.getCpf()+"\" onblur=\"return valida_cpf(this.id);\" onkeypress=\"return somenteNumero(event);\"/>"+
-                                    "</div>"+
+                                    "</div>"+"</div>"+
                                                 
+                                    "<div class=form-row>"+
                                     "<div class=\"form-group col-md-4\">"+
                                     "<label id=\"lblTeleitorRegistro\" name=\"lblTeleitorRegistro\" for=\"lblTeleitorRegistro\">Titulo Eleitor: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control titulo_eleitor\"  type=\"text\" id=\"txtTeleitorRegistro\" name=\"txtTeleitorRegistro\" maxlength=\"12\" id=\"titulo_eleitor\" value=\""+teleitorDAO.getTituloEleitor(mil.getId_teleitor()).getRegistro()+"\" onblur=\"valida_titulo(this.id)\" onkeypress=\"return somenteNumero(event);\"/>"+
@@ -320,8 +378,8 @@
                                     "<div class=\"form-group col-md-4\">"+
                                     "<label id=\"lblPreccp\" name=\"lblPreccp\" for=\"lblPreccp\">Preccp: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control\" type=\"text\" id=\"txtPreccp\" name=\"txtPreccp\" maxlength=\"9\" value=\""+mil.getPreccp()+"\" onblur=\"valida_preccp(this.id)\" onkeypress=\"return somenteNumero(event);\"/>"+
-                                    "</div>");
-                                    
+                                    "</div>"+"</div>"+                                            
+                                    "<div class=form-row>");                                    
                                     if(cnhDAO.getCNHByIdMil(mil.getId()).getId() == 0){
                                         out.println("<div class=\"form-group col-md-4\">"+
                                         "<label id=\"lblCnhNum\" name=\"lblCnhNum\" for=\"lblCnhNum\">CNH Número: </label>"+
@@ -367,8 +425,10 @@
                                                     "<input class=\"form-control\" type=\"date\" name=\"txtCnhDataVal\" value=\"\" onblur=\"valida_dataValidade(this.id);\"/>"+
                                                     "</div>");
                                     }
+                                    out.println("</div>");
                                                             
-                                    out.println("<div class=\"form-group col-md-6\">"+
+                                    out.println("<div class=form-row>"+
+                                            "<div class=\"form-group col-md-6\">"+
                                     "<label id=\"lblPai\" name=\"lblPai\" for=\"lbPai\">Pai: </label>"+
                                     "<input class=\"form-control\" type=\"text\" id=\"txtPai\" name=\"txtPai\" value=\""+mil.getPai()+"\" onblur=\"borda_input_text_nn(this.id)\"/>"+
                                     "</div>"+
@@ -376,8 +436,9 @@
                                     "<div class=\"form-group col-md-6\">"+
                                     "<label id=\"lblMae\" name=\"lblMae\" for=\"lblMae\">Mãe: </label>"+
                                     "<input class=\"form-control\" type=\"text\" id=\"txtMae\" name=\"txtMae\" value=\""+mil.getMae()+"\" onblur=\"borda_input_text_nn(this.id)\"/>"+
-                                    "</div>"+
+                                    "</div>"+"</div>"+
 
+                                    "<div class=form-row>"+
                                     "<div class=\"form-group col-md-4\">"+
                                     "<label id=\"lblEscolaridade\" name=\"lblEscolaridade\" for=\"lblEscolaridade\">Escolaridade: </label><b class=\"obg\"> *</b>"+
                                     "<select name=\"txtEscolaridade\" id=\"esc\" class=\"form-control\" onblur=\"borda_input_select(this.id)\">");
@@ -420,7 +481,7 @@
                                     "<div class=\"form-group col-md-4\" id=\"out_rel\" style=\"display: none;\">"+
                                     "<label id=\"lblOutraReligiao\" name=\"lblOutraReligiao\" for=\"lblOutraReligiao\">Religião: </label><b class=\"obg\"> *</b>"+
                                     "<input class=\"form-control\" type=\"text\" id=\"txtOutraReligiao\" name=\"txtOutraReligiao\" onblur=\"borda_input_text(this.id)\"/>"+
-                                    "</div>"+
+                                    "</div>"+"</div>"+
                                             
                                     "</fieldset>"+
                                     "<br>");
@@ -439,9 +500,10 @@
                                                     "</label>"+
                                                     "</div>"+
                                                     "</center>"+
-                                                    "<div id=\"div_dados_conjuge\" style=\"display: none;\">"+
+                                                    "<div class=\"form-row\" id=\"div_dados_conjuge\" style=\"display: none;\">"+
                                                     "<fieldset class=\"parte-form col-md-12\">"+
                                                     "<legend>Dados do Conjuge</legend>"+
+                                                    "<div class=form-row>"+
                                                     "<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
                                                     "<input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onblur=\"borda_input_text(this.id)\"/>"+
@@ -464,18 +526,20 @@
                                                     "<input type=\"radio\" name=\"txtGravidez\" id=\"nao\" value=\"N\"> Não"+
                                                     "</label>"+                         
                                                     "</div>"+
+                                                    "</div>"+
                                                     "</fieldset>"+
                                                     "</div>"+           
-                                                    "<div  id=\"div_dados_dependente\" style=\"display: none;\">"+
-                                                    "<fieldset id=\"fd_dados_dependente\" class=\"parte-form col-md-12\" style=\"display: none;\">"+
+                                                    "<div  id=\"div_dados_dependente\" class=\"form-row\" style=\"display: none;\">"+
+                                                    "<div id=\"fd_dados_dependente\" class=\"form-row col-md-12\" style=\"display: none;\">"+
                                                     "<legend>Dados dos Dependentes</legend>"+
-                                                    "</fieldset>"+
+                                                    "</div>"+
                                                     "</div>"+
                                                     "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: none;\">"+
                                                     "<div class=\"col-md-11\"></div>"+
                                                     "<span id=\"btnNovoDep\" alt=\"Clique aqui e adicione um novo dependente.\" class=\"glyphicon glyphicon-plus btn-add col-md-1\" aria-hidden=\"true\"></span>"+
                                                     "</div>"+
-                                                    "</fieldset>");
+                                                    
+                                                    "</fieldset>"+"</div>");
                                     }else if(conDAO.getConjugeByIDMil(mil.getId()).getId() != 0 && depDAO.getDependentesIdMil(mil.getId()).size() == 0){
                                         out.println("<fieldset class=\"parte-form col-md-12\">"+
                                                     "<legend>Dados Familiares</legend>"+
@@ -491,9 +555,10 @@
                                                     "</label>"+
                                                     "</div>"+
                                                     "</center>"+
-                                                    "<div id=\"div_dados_conjuge\" style=\"display: block;\">"+
+                                                    "<div class=\"form-row\" id=\"div_dados_conjuge\" style=\"display: block;\">"+
                                                     "<fieldset id=\"fd_dados_conjuge\" class=\"parte-form col-md-12\" style=\"display: block;\">"+
                                                     "<legend>Dados do Cônjuge</legend>"+
+                                                    "<div class=form-row>"+
                                                     "<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
                                                     "<input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onblur=\"borda_input_text(this.id)\" value=\""+conDAO.getConjugeByIDMil(mil.getId()).getNome()+"\"/>"+
@@ -535,13 +600,13 @@
                                                                 "</label>"+                      
                                                                 "</div>");
                                                     }
-                                                    out.println("</fieldset>"+
+                                                    out.println("</div>"+"</fieldset>"+
                                                                 "</div>");
 
-                                                    out.println("<div  id=\"div_dados_dependente\" style=\"display: none;\">"+
-                                                    "<fieldset id=\"fd_dados_dependente\" class=\"parte-form col-md-12\" style=\"display: none;\">"+
+                                                    out.println("<div id=\"div_dados_dependente\" class=\"form-row\" style=\"display: none;\">"+
+                                                    "<div id=\"fd_dados_dependente\" class=\"form-row col-md-12\" style=\"display: none;\">"+
                                                     "<legend>Dados dos Dependentes</legend>"+
-                                                    "</fieldset>"+
+                                                    "</div>"+
                                                     "</div>"+
                                                     "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: none;\">"+
                                                     "<div class=\"col-md-11\"></div>"+
@@ -563,79 +628,85 @@
                                                     "           </label>"+
                                                     "       </div>"+
                                                     "   </center>"+
-                                                    "   <div id=\"div_dados_conjuge\" style=\"display: none;\">"+
-                                                    "       <div class=\"form-group col-md-4\">"+
-                                                    "           <label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
-                                                    "           <input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onblur=\"borda_input_text(this.id)\"/>"+
-                                                    "       </div>"+
-                                                    "       <div class=\"form-group col-md-3\">"+
-                                                    "           <label id=\"lblFoneConjuge\" name=\"lblFoneConjuge\" for=\"lblFoneConjuge\">Telefone: </label><b class=\"obg\"> *</b>"+
-                                                    "           <input class=\"form-control fone\" type=\"text\" id=\"txtFoneConjuge\" name=\"txtFoneConjuge\" placeholder=\"Ex.: (00) 00000-0000\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\"/>"+
-                                                    "       </div>"+                                                    
-                                                    "       <div class=\"form-group col-md-3\">"+
-                                                    "           <label id=\"lblDataNascConjuge\" name=\"lblDataNascConjuge\" for=\"lblDataNascConjuge\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
-                                                    "           <input class=\"form-control data\" type=\"date\" id=\"txtDataNascConjuge\" name=\"txtDataNascConjuge\" onblur=\"valida_dataNasc(this.id)\"/>"+
-                                                    "       </div>"+                                                    
-                                                    "       <div class=\"form-group col-md-2\">"+
-                                                    "           <label for=\"lblGravidez\">Esposa Grávida: </label><b class=\"obg\"> *</b>"+
-                                                    "           <br>"+
-                                                    "           <label class=\"radio-inline gravida\">"+
-                                                    "               <input type=\"radio\" name=\"txtGravidez\" id=\"sim\" value=\"S\"> Sim"+
-                                                    "           </label>"+
-                                                    "           <label class=\"radio-inline gravida\">"+
-                                                    "               <input type=\"radio\" name=\"txtGravidez\" id=\"nao\" value=\"N\"> Não"+
-                                                    "           </label>"+                      
-                                                    "       </div>"+
-                                                    "   </div>");
+                                                    "<div class=\"form-row\" id=\"div_dados_conjuge\" style=\"display: none;\">"+
+                                                    "<fieldset class=\"parte-form col-md-12\">"+
+                                                    "<legend>Dados do Conjuge</legend>"+
+                                                    "<div class=form-row>"+
+                                                    "<div class=\"form-group col-md-4\">"+
+                                                    "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
+                                                    "<input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onblur=\"borda_input_text(this.id)\"/>"+
+                                                    "</div>"+
+                                                    "<div class=\"form-group col-md-3\">"+
+                                                    "<label id=\"lblFoneConjuge\" name=\"lblFoneConjuge\" for=\"lblFoneConjuge\">Telefone: </label><b class=\"obg\"> *</b>"+
+                                                    "<input class=\"form-control fone\" type=\"text\" id=\"txtFoneConjuge\" name=\"txtFoneConjuge\" placeholder=\"Ex.: (00) 00000-0000\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                                    "</div>"+
+                                                    "<div class=\"form-group col-md-3\">"+
+                                                    "<label id=\"lblDataNascConjuge\" name=\"lblDataNascConjuge\" for=\"lblDataNascConjuge\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
+                                                    "<input class=\"form-control data\" type=\"date\" id=\"txtDataNascConjuge\" name=\"txtDataNascConjuge\" onblur=\"valida_dataNasc(this.id)\"/>"+
+                                                    "</div>"+
+                                                    "<div class=\"form-group col-md-2\">"+
+                                                    "<label for=\"lblGravidez\">Esposa Grávida: </label><b class=\"obg\"> *</b>"+
+                                                    "<br>"+
+                                                    "<label class=\"radio-inline gravida\">"+
+                                                    "<input type=\"radio\" name=\"txtGravidez\" id=\"sim\" value=\"S\"> Sim"+
+                                                    "</label>"+
+                                                    "<label class=\"radio-inline gravida\">"+
+                                                    "<input type=\"radio\" name=\"txtGravidez\" id=\"nao\" value=\"N\"> Não"+
+                                                    "</label>"+                         
+                                                    "</div>"+
+                                                    "</div>"+
+                                                    "</fieldset>"+"</div");
                                         int qtdeDependentes = depDAO.getDependentesIdMil(mil.getId()).size();
-                                        out.println("<div  id=\"div_dados_dependente\" style=\"display: block;\">"+
-                                                    "   <fieldset id=\"fd_dados_dependente\" class=\"parte-form col-md-12\" style=\"display: block;\">"+
-                                                    "       <legend>Dados dos Dependentes</legend>");
-                                                    for(int i=0;i<qtdeDependentes;i++){
-                                                        out.println("<div id=linha"+(i+1)+" class=\"col-md-12\" style=\"padding-left: 0;\">"+
-                                                                    "   <div id=\"div_nome_dependente\" class=\"t form-group col-md-5\">"+
-                                                                    "       <label id=\"lblDependente\">Dependente: </label><b class=\"obg\"> *</b>"+
-                                                                    "       <input class=form-control type=text id=txtNomeDependente"+(i+1)+" name=\"txtNomeDependente\" onblur=\"borda_input_text(this.id)\" value=\""+depDAO.getDependentesIdMil(mil.getId()).get(i).getNome()+"\">"+
-                                                                    "   </div>");
-                                                        String dataNascDep = depDAO.getDependentesIdMil(mil.getId()).get(i).getData_nasc();
-                                                        if(dataNascDep != null){  
-                                                        out.println("   <div id=\"div_data_nasc_dependente\" class=\"qtd_div form-group col-md-3\">"+
-                                                                    "       <label id=\"lblDataNascDependente\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
-                                                                    "       <input class=form-control type=date id=txtDataNascDependente"+(i+1)+" name=\"txtDataNascDependente\" onblur=\"valida_dataNasc(this.id);\" value=\""+dataNascDep.substring(0, 4)+"-"+dataNascDep.substring(4, 6)+"-"+dataNascDep.substring(6, 8)+"\"/>"+
-                                                                    "   </div>");
-                                                        }else{
-                                                        out.println("   <div id=\"div_data_nasc_dependente\" class=\"qtd_div form-group col-md-3\">"+
-                                                                    "       <label id=\"lblDataNascDependente\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
-                                                                    "       <input class=form-control type=date id=txtDataNascDependente"+(i+1)+" name=\"txtDataNascDependente\" onblur=\"valida_dataNasc(this.id);\"/>"+
-                                                                    "   </div>");
-                                                        }
-                                                        out.println("<div id=\"div_gr_parentesco_dependente\" class=\"qtd_div form-group col-md-3\">"+
-                                                                    "   <label id=\"lblGrauParentescoDependente\">Grau de Parentesco: </label><b class=\"obg\"> *</b>"+
-                                                                    "   <select class=form-control id=txtGrauParentescoDependente"+(i+1)+" name=\"txtGrauParentescoDependente\" onblur=\"borda_input_select(this.id)\">"); 
-                                                        
-                                                                        if(depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco() != null && depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco().equals("")){
-                                                                            out.println("<option value=\"\" selected>Selecione o grau de Parentesco...</option>");
-                                                                        }else{
-                                                                            out.println("<option value=\"\">Selecione o grau de Parentesco...</option>");
-                                                                        }
+                                        out.println("<div class=\"form-row\" id=\"div_dados_dependente\" style=\"display: block;\">"+
+                                                "       <legend>Dados dos Dependentes</legend>"+
+                                        "   <div id=\"fd_dados_dependente\" class=\"form-row col-md-12\" style=\"display: block;\">");
 
-                                                                        int qtdGrauParentesco = dcb.getGrParentescos().size();
-                                                                        for(int j=0;j<qtdGrauParentesco;j++){
-                                                                            if(depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco() != null && depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco().equals(dcb.getGrParentescos().get(j))){
-                                                                                out.println("<option value='"+String.valueOf(dcb.getGrParentescos().get(j))+"' selected>"+String.valueOf(dcb.getGrParentescos().get(j))+"</option>");
-                                                                            }else{
-                                                                                out.println("<option value='"+String.valueOf(dcb.getGrParentescos().get(j))+"'>"+String.valueOf(dcb.getGrParentescos().get(j))+"</option>");
-                                                                            }
-                                                                        }
-                                                    
-                                                        out.println("   </select>"+
-                                                                    "</div>");
-                                                    
-                                                        out.println("   <div id="+(i+1)+" class=\"qtd_div form-group col-md-1\">"+
-                                                                    "       <span id="+(i+1)+" class=\"glyphicon-geral glyphicon-remove form-control-feedback-remove btn-remove\" aria-hidden=\"true\" onclick=\"getId(this.id)\"></span>"+
-                                                                    "   </div>"+
-                                                                    "</div>");
-                                                    }
+                                        for(int i=0;i<qtdeDependentes;i++){
+                                            out.println();
+                                            out.println("<div id=linha"+(i+1)+" class=\"form-row col-md-12\" style=\"padding-left: 0;\">"+
+                                                        "   <div id=\"div_nome_dependente\" class=\"t form-group col-md-5\">"+
+                                                        "       <label id=\"lblDependente\">Dependente: </label><b class=\"obg\"> *</b>"+
+                                                        "       <input class=form-control type=text id=txtNomeDependente"+(i+1)+" name=\"txtNomeDependente\" onblur=\"borda_input_text(this.id)\" value=\""+depDAO.getDependentesIdMil(mil.getId()).get(i).getNome()+"\">"+
+                                                        "   </div>");
+                                            String dataNascDep = depDAO.getDependentesIdMil(mil.getId()).get(i).getData_nasc();
+                                            if(dataNascDep != null){  
+                                            out.println("   <div id=\"div_data_nasc_dependente\" class=\"qtd_div form-group col-md-3\">"+
+                                                        "       <label id=\"lblDataNascDependente\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
+                                                        "       <input class=form-control type=date id=txtDataNascDependente"+(i+1)+" name=\"txtDataNascDependente\" onblur=\"valida_dataNasc(this.id);\" value=\""+dataNascDep.substring(0, 4)+"-"+dataNascDep.substring(4, 6)+"-"+dataNascDep.substring(6, 8)+"\"/>"+
+                                                        "   </div>");
+                                            }else{
+                                            out.println("   <div id=\"div_data_nasc_dependente\" class=\"qtd_div form-group col-md-3\">"+
+                                                        "       <label id=\"lblDataNascDependente\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
+                                                        "       <input class=form-control type=date id=txtDataNascDependente"+(i+1)+" name=\"txtDataNascDependente\" onblur=\"valida_dataNasc(this.id);\"/>"+
+                                                        "   </div>");
+                                            }
+                                            out.println("<div id=\"div_gr_parentesco_dependente\" class=\"qtd_div form-group col-md-3\">"+
+                                                        "   <label id=\"lblGrauParentescoDependente\">Grau de Parentesco: </label><b class=\"obg\"> *</b>"+
+                                                        "   <select class=form-control id=txtGrauParentescoDependente"+(i+1)+" name=\"txtGrauParentescoDependente\" onblur=\"borda_input_select(this.id)\">"); 
+
+                                                            if(depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco() != null && depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco().equals("")){
+                                                                out.println("<option value=\"\" selected>Selecione o grau de Parentesco...</option>");
+                                                            }else{
+                                                                out.println("<option value=\"\">Selecione o grau de Parentesco...</option>");
+                                                            }
+
+                                                            int qtdGrauParentesco = dcb.getGrParentescos().size();
+                                                            for(int j=0;j<qtdGrauParentesco;j++){
+                                                                if(depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco() != null && depDAO.getDependentesIdMil(mil.getId()).get(i).getGrau_parentesco().equals(dcb.getGrParentescos().get(j).toUpperCase())){
+                                                                    out.println("<option value='"+String.valueOf(dcb.getGrParentescos().get(j).toUpperCase())+"' selected>"+String.valueOf(dcb.getGrParentescos().get(j).toUpperCase())+"</option>");
+                                                                }else{
+                                                                    out.println("<option value='"+String.valueOf(dcb.getGrParentescos().get(j).toUpperCase())+"'>"+String.valueOf(dcb.getGrParentescos().get(j).toUpperCase())+"</option>");
+                                                                }
+                                                            }
+
+                                            out.println("   </select>"+"</div>"
+                                                        );
+
+                                            out.println("<div id="+(i+1)+" style=\"margin: auto auto;\">"+
+                                                        "<button id="+(i+1)+" type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 10px;\" onclick=\"removeLinha(this.id)\">"+
+                                                        "<i class=\"glyphicon glyphicon-remove\"></i>"+
+                                                        "</button>"+"</div>"+"</div>");
+                                        }
                                         out.println("   </fieldset>"+               
                                                     "</div>"+
                                                     "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: block;\">"+
@@ -659,9 +730,10 @@
                                                     "</label>"+
                                                     "</div>"+
                                                     "</center>"+
-                                                    "<div id=\"div_dados_conjuge\" style=\"display: block;\">"+
+                                                    "<div class=\"form-row\" id=\"div_dados_conjuge\" style=\"display: block;\">"+
                                                     "<fieldset id=\"fd_dados_conjuge\" class=\"parte-form col-md-12\" style=\"display: block;\">"+
                                                     "<legend>Dados do Cônjuge</legend>"+
+                                                    "<div class=form-row>"+
                                                     "<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblNomeConjuge\" name=\"lblNomeConjuge\" for=\"lblNomeConjuge\">Nome Completo: </label><b class=\"obg\"> *</b>"+
                                                     "<input class=\"form-control\" type=\"text\" id=\"txtNomeConjuge\" name=\"txtNomeConjuge\" onblur=\"borda_input_text(this.id)\" value=\""+conDAO.getConjugeByIDMil(mil.getId()).getNome()+"\"/>"+
@@ -703,14 +775,16 @@
                                                                 "</label>"+                      
                                                                 "</div>");
                                                     }
-                                                    out.println("</fieldset>"+
+                                                    out.println("</div>"+"</fieldset>"+
                                                                 "</div>");
                                                     int qtdeDependentes = depDAO.getDependentesIdMil(mil.getId()).size();
-                                                    out.println("<div  id=\"div_dados_dependente\" style=\"display: block;\">"+
-                                                    "   <fieldset id=\"fd_dados_dependente\" class=\"parte-form col-md-12\" style=\"display: block;\">"+
-                                                    "       <legend>Dados dos Dependentes</legend>");
+                                                    out.println("<div class=\"form-row\" id=\"div_dados_dependente\" style=\"display: block;\">"+
+                                                            "       <legend>Dados dos Dependentes</legend>"+
+                                                    "   <div id=\"fd_dados_dependente\" class=\"form-row col-md-12\" style=\"display: block;\">");
+                                                    
                                                     for(int i=0;i<qtdeDependentes;i++){
-                                                        out.println("<div id=linha"+(i+1)+" class=\"col-md-12\" style=\"padding-left: 0;\">"+
+                                                        out.println();
+                                                        out.println("<div id=linha"+(i+1)+" class=\"form-row col-md-12\" style=\"padding-left: 0;\">"+
                                                                     "   <div id=\"div_nome_dependente\" class=\"t form-group col-md-5\">"+
                                                                     "       <label id=\"lblDependente\">Dependente: </label><b class=\"obg\"> *</b>"+
                                                                     "       <input class=form-control type=text id=txtNomeDependente"+(i+1)+" name=\"txtNomeDependente\" onblur=\"borda_input_text(this.id)\" value=\""+depDAO.getDependentesIdMil(mil.getId()).get(i).getNome()+"\">"+
@@ -746,15 +820,15 @@
                                                                             }
                                                                         }
                                                     
-                                                        out.println("   </select>"+
-                                                                    "</div>");
+                                                        out.println("   </select>"+"</div>"
+                                                                    );
                                                     
-                                                        out.println("   <div id="+(i+1)+" class=\"qtd_div form-group col-md-1\">"+
-                                                                    "       <span id="+(i+1)+" class=\"glyphicon-geral glyphicon-remove form-control-feedback-remove btn-remove\" aria-hidden=\"true\" onclick=\"getId(this.id)\"></span>"+
-                                                                    "   </div>"+
-                                                                    "</div>");
+                                                        out.println("<div id="+(i+1)+" style=\"margin: auto auto;\">"+
+                                                                    "<button id="+(i+1)+" type=\"button\" class=\"btn btn-danger\" style=\"margin-right: 10px;\" onclick=\"removeLinha(this.id)\">"+
+                                                                    "<i class=\"glyphicon glyphicon-remove\"></i>"+
+                                                                    "</button>"+"</div>"+"</div>");
                                                     }
-                                        out.println("   </fieldset>"+  
+                                        out.println(  
                                                     "</div>"+
                                                     "<div class=\"form-group col-md-12\" id=\"div_qtde_dependente\" style=\"display: block;\">"+
                                                     "<div class=\"col-md-11\"></div>"+
@@ -765,6 +839,7 @@
 
                                     out.println("<fieldset class=\"parte-form col-md-12\">"+
                                                 "<legend>Dados de Endereço</legend>"+
+                                                "<div class=form-row>"+
                                                 "<div class=\"form-group col-md-3\">"+
                                                 "<label id=\"lblCep\" name=\"lblCep\" for=\"lblCep\">Cep: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control cep\" type=\"text\" name=\"txtCep\" id=\"txtCep\" value=\""+endDAO.getEnderecoById(mil.getId_end()).getCep()+"\" onblur=\"valida_cep(this.id)\" onkeypress=\"return somenteNumero(event);\"/>"+
@@ -1088,9 +1163,9 @@
                                                                     "</div>");
                                                             break;
                                                     }
-                                                    out.println("</div>");
+                                                    out.println("</div>"+"</div>");
 
-                                                out.println("<div class=\"form-group col-md-10\">"+
+                                                out.println("<div class=form-row>"+"<div class=\"form-group col-md-10\">"+
                                                 "<label id=\"lblLogradouro\" name=\"lblLogradouro\" for=\"lblLogradouro\">Rua/Av./Ala: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control\" type=\"text\" name=\"txtLogradouro\" id=\"txtLogradouro\" value=\""+endDAO.getEnderecoById(mil.getId_end()).getLogradouro()+"\" onblur=\"borda_input_text(this.id);\"/>"+
                                                 "</div>"+
@@ -1098,19 +1173,21 @@
                                                 "<div class=\"form-group col-md-2\">"+
                                                 "<label id=\"lblNum\" name=\"lblNum\" for=\"lblNum\">Número: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control\" type=\"text\" id=\"txtNum\" name=\"txtNum\" value=\""+mil.getEnd_num()+"\" onblur=\"borda_input_text(this.id);\"/>"+
-                                                "</div>"+
-
+                                                "</div>"+"</div>"+
+                                                
+                                                "<div class=form-row>"+
                                                 "<div class=\"form-group col-md-12\">"+
                                                 "<label id=\"lblComplemento\" name=\"lblComplemento\" for=\"lblComplemento\">Complemento: </label>"+
                                                 "<input class=\"form-control\" type=\"text\" id=\"txtComplemento\" name=\"txtComplemento\" value=\""+endDAO.getEnderecoById(mil.getId_end()).getComplemento()+"\" onblur=\"borda_input_text(this.id);\"/>"+
-                                                "</div>"+
+                                                "</div>"+"</div>"+
                                                 "</fieldset>"+
 
                                                 "<fieldset class=\"parte-form col-md-12\">"+
                                                 "<legend>Dados de Contato</legend>");
                                                 
                                                
-                                                out.println("<div class=\"form-group col-md-6\">"+
+                                                out.println("<div class=form-row>"+
+                                                        "<div class=\"form-group col-md-6\">"+
                                                 "<label id=\"lblFone01\" name=\"lblFone01\" for=\"lblFone01\">Telefone 01</label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control fone\" type=\"text\" id=\"txtFone01\" name=\"txtFone01\" value=\""+mil.getFone1()+"\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>");
@@ -1120,14 +1197,15 @@
                                                 out.println("<div class=\"form-group col-md-6\">"+
                                                 "<label id=\"lblFone02\" name=\"lblFone02\" for=\"lblFone02\">Telefone 02</label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control fone\" type=\"text\" id=\"txtFone02\" name=\"txtFone02\" value=\""+mil.getFone2()+"\" onblur=\"valida_fone_nn(this.id)\" onkeypress=\"return somenteNumero(event);\"/>"+
-                                                "</div>");
+                                                "</div>"+"</div>");
                                                 
 
-                                                out.println("<div class=\"form-group col-md-12\">"+
+                                                out.println("<div class=form-row>"+"<div class=\"form-group col-md-12\">"+
                                                 "<label id=\"lblEmail\" name=\"lblEmail\" for=\"lblEmail\">Email: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control\" type=\"text\" id=\"txtEmail\" name=\"txtEmail\" value=\""+mil.getEmail()+"\" onblur=\"borda_input_text(this.id)\"/>"+
-                                                "</div>"+
+                                                "</div>"+"</div>"+
 
+                                                "<div class=form-row>"+
                                                 "<div class=\"form-group col-md-6\">"+
                                                 "<label id=\"lblNomeReferencia\" name=\"lblNomeReferencia\" for=\"lblNomeReferencia\">Familiar de Contato: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control\" type=\"text\" id=\"txtNomeReferencia\" name=\"txtNomeReferencia\" value=\""+mil.getNome_referencia()+"\" onblur=\"borda_input_text(this.id)\"/>"+
@@ -1136,24 +1214,25 @@
                                                 "<div class=\"form-group col-md-6\">"+
                                                 "<label id=\"lblFoneReferencia\" name=\"lblFoneReferencia\" for=\"lblFoneReferencia\">Contato do Familiar: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control fone\" type=\"text\" id=\"txtFoneReferencia\" name=\"txtFoneReferencia\" value=\""+mil.getFone_referencia()+"\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\"/>"+
-                                                "</div>"+
+                                                "</div>"+"<div>"+
                                                 "</fieldset>"+
 
                                                 "<fieldset class=\"parte-form col-md-12\">"+
                                                 "<legend>Dados de Acesso</legend>"+
                                                 
-
+                                                "<div class=form-row>"+
                                                 "<div class=\"form-group col-md-6\">"+
                                                 "<label id=\"lblSenha\" name=\"lblSenha\" for=\"lblSenha\">Senha: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control\" type=\"password\" id=\"txtSenha\" name=\"txtSenha\" maxlength=\"20\" value=\""+mil.getSenha()+"\" onblur=\"valida_senha(this.id);\"/>"+
                                                 "<b class=\"obg\">*No mínimo 6 caracteres</b>"+
-                                                "</div>"+
+                                                "</div>"+"</div>"+
                                                 "</fieldset>"
                                             );
                         %>
-                    <div class="linha-botoes col-md-12">
-                        <button type="submit" id="btnCad" class="btn-padrao" value="Salvar">Salvar</button> 
-                        
+                    
+                    
+                    <div class="form-row justify-content-end">
+                        <button type="subimit" class="btn btn-secondary">Atualizar</button>
                     </div>
                 </form>
             </div>

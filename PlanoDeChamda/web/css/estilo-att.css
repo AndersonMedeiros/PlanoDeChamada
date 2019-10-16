@@ -60,5 +60,18 @@ and open the template in the editor.
     border-radius: 4px;
 }
 
+.btn-secondary {
+  color: #fff;
+  background-color: #3D660E;
+  border-color: #3D660E;
+  margin-bottom: 20px;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  border-color: #4a820b;
+  background-color: #4a820b;
+}
+
 
 

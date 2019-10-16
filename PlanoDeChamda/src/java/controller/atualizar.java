@@ -8,14 +8,12 @@ package controller;
 import bean.Conjuge;
 import bean.Dependente;
 import bean.Endereco;
-import bean.Fone;
 import bean.Habilitacao;
 import bean.Militar;
 import bean.TituloEleitor;
 import dao.ConjugeDAO;
 import dao.DependenteDAO;
 import dao.EnderecoDAO;
-import dao.FoneDAO;
 import dao.HabilitacaoDAO;
 import dao.MilitarDAO;
 import dao.ReligiaoDAO;
@@ -87,12 +85,12 @@ public class atualizar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         HttpSession sessao = request.getSession();
         MilitarDAO milDAO = new MilitarDAO();
         Militar milAtual = milDAO.getMilitar(request.getParameter("txtIdentidade").replace("-", ""));
         int id_mil = milAtual.getId();
         
-        FoneDAO foneDAO = new FoneDAO();
         if(sessao.getAttribute("militarAutenticado") != null){
             //Endereço
             Endereco end = new Endereco();
@@ -113,7 +111,14 @@ public class atualizar extends HttpServlet {
                     break;
             }
             EnderecoDAO endDAO = new EnderecoDAO();
-            if(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro())==0){endDAO.inserir(end);}
+            System.out.println("end"+endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
+            if(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro())==0){
+                end.setId(milAtual.getId_end());
+                endDAO.inserir(end);
+            }
+            else{
+                endDAO.atualizar(end);
+            }
 
             //Titulo Eleitor
             TituloEleitor teleitor = new TituloEleitor();
@@ -146,7 +151,7 @@ public class atualizar extends HttpServlet {
             mil.setMae(request.getParameter("txtMae").toUpperCase());
             mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
             //System.out.println(end.getCep()+ " "+end.getLogradouro()+" "+end.getComplemento()+" " +end.getId_bairro()+"idend"+endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
-            mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
+            mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
             
             //Religião
             int id_religiao = Integer.parseInt(request.getParameter("txtReligiao"));
@@ -199,8 +204,7 @@ public class atualizar extends HttpServlet {
                 conjuge.setData_nasc(request.getParameter("txtDataNascConjuge").replace("/", "").replace("-", "").toUpperCase());
                 conjuge.setGravidez(request.getParameter("txtGravidez").toUpperCase());
                 conjuge.setMil_id(id_mil);
-                
-                
+                               
                 if(conjugeDAO.conExiste(id_mil) == false){
                     conjugeDAO.inserir(conjuge);
                 }else{
@@ -228,17 +232,7 @@ public class atualizar extends HttpServlet {
                 }
             }
             
-            /*//Fones
-            Fone fone1 = new Fone();
             
-            fone1.setNum(request.getParameter("txtFone01").replace("(", "").replace(")", "").replace(" ", "").replace("-", "")); 
-            fone1.setId_mil(milDAO.getIdMilitar(milAtual.getIdentidade()));
-            if(!fone1.getNum().equals("")){foneDAO.atualizar(fone1);}
-
-            Fone fone2 = new Fone();
-            fone2.setNum(request.getParameter("txtFone02").replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-            fone2.setId_mil(milDAO.getIdMilitar(milAtual.getIdentidade()));
-            if(!fone2.getNum().equals("")){foneDAO.atualizar(fone2);}*/
             
             RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/Atualizacao.jsp?idt="+milAtual.getIdentidade());
             despachante.forward(request, response);

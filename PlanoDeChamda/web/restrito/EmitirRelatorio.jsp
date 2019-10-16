@@ -24,53 +24,107 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../css/estilo.css" rel="stylesheet"/>
         <link href="../css/estilo_cadastro.css" rel="stylesheet"/>
+        <link href="../css/estilo_emitir_relatorio.css" rel="stylesheet"/>
         
         
         
-        <link href="../bootstrap/css/bootstrap.css" rel="stylesheet"/>
+        <link href="../bootstrap-4.3.1/css/bootstrap.css" rel="stylesheet"/>
+        
         <script type="text/javascript" src="../js/comportamento_pagina.js"></script>
         <script src="../js/manipulacao.js" type="text/javascript"></script>
         <script src="../js/validacao_de_campos.js" type="text/javascript"></script>
         <title>Cadastro de Militares - Emissão de Relatório</title>
     </head>
     <body class="tela">
+        <% 
+            HttpSession sessao = request.getSession();
+            Militar mil_logado = null;
+            int grp_acesso = 0;
+            if(sessao.getAttribute("militarAutenticado").equals("sti")){
+                grp_acesso=1;
+            }else{
+                mil_logado = (Militar)sessao.getAttribute("militarAutenticado");
+            }
+        %>
         <header class="header">
             <img src="../img/cabeçalho.jpeg" class="img-responsive" width="100%">
             <div class="row">
-                    <div class="col-md-12">
-                        <nav class="navbar navbar-default" style="margin-top: 0; margin-bottom: 15px;">
-                            <div class="container-fluid">
-                              <!-- Brand and toggle get grouped for better mobile display -->
-                              <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                  <span class="sr-only">Toggle navigation</span>
-                                  <span class="icon-bar"></span>
-                                  <span class="icon-bar"></span>
-                                  <span class="icon-bar"></span>
-                                </button>
-                              </div>
+                    <div class="col-md-12">                        
+                        <nav class="navbar navbar-dark navbar-expand-lg navbar-expand-md" style="background-color: #3D660E;">
+                            <a class="navbar-brand" href="#">Navbar</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
 
-                              <!-- Collect the nav links, forms, and other content for toggling -->
-                              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-bottom: 0px;">
-                                <ul class="nav navbar-nav">
-                                    <li class=""><a href="Atualizacao.jsp">Atualizar Dados <span class="sr-only">(current)</span></a></li>
-                                    <li class="active"><a href="EmitirRelatorio.jsp">Emitir Relatório <span class="sr-only">(current)</span></a></li>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mr-auto">
+                                    <%
+                                        if(grp_acesso == 1){
+                                            
+                                            out.println("<li class='nav-item dropdown'>"+
+                                                        "   <a class='nav-link dropdown-toggle' href='militares.jsp?id_sit=1' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
+                                                        "       Militares"+
+                                                        "   </a>"+
+                                                        "   <div class='dropdown-menu' aria-labelledby='navbarDropdown'>"+
+                                                        "       <a class='dropdown-item' href='militares.jsp?id_sit=1'>Ativos</a>"+
+                                                        "       <a class='dropdown-item' href='militares.jsp?id_sit=2'>Inativos</a>"+                                
+                                                        "   </div>"+
+                                                        "</li>");
+
+                                            out.println("<li class='nav-item active'>"+
+                                                        "   <a class='nav-link' href='EmitirRelatorio.jsp'>Emitir Relatório</a>"+
+                                                        "</li>");
+                                        }else if(mil_logado.getId_grp_acesso() == 1){
+                                                out.println("<li class='nav-item'>"+
+                                                            "   <a class=nav-link href=Atualizacao.jsp?idt="+mil_logado.getIdentidade()+">Meus Dados <span class='sr-only'>(current)</span></a>"+
+                                                            "</li>");
+                                                out.println("<li class='nav-item dropdown'>"+
+                                                            "   <a class='nav-link dropdown-toggle' href='militares.jsp?id_sit=1' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
+                                                            "       Militares"+
+                                                            "   </a>"+
+                                                            "   <div class='dropdown-menu' aria-labelledby='navbarDropdown'>"+
+                                                            "       <a class='dropdown-item' href='militares.jsp?id_sit=1'>Ativos</a>"+
+                                                            "       <a class='dropdown-item' href='militares.jsp?id_sit=2'>Inativos</a>"+                                
+                                                            "   </div>"+
+                                                            "</li>");
+                                                out.println("<li class='nav-item active'>"+
+                                                            "   <a class='nav-link' href='EmitirRelatorio.jsp'>Emitir Relatório</a>"+
+                                                            "</li>");
+                                        }else if(mil_logado.getId_grp_acesso() == 2){
+                                            out.println("<li class='nav-item'>"+
+                                                        "   <a class=nav-link href=Atualizacao.jsp?idt="+mil_logado.getIdentidade()+">Meus Dados <span class='sr-only'>(current)</span></a>"+
+                                                        "</li>");                                          
+
+                                            out.println("<li class='nav-item active'>"+
+                                                        "   <a class='nav-link' href='EmitirRelatorio.jsp'>Emitir Relatório</a>"+
+                                                        "</li>");
+                                        }else if(mil_logado.getId_grp_acesso() == 3){
+                                            out.println("<li class='nav-item'>"+
+                                                        "   <a class=nav-link href=Atualizacao.jsp?idt="+mil_logado.getIdentidade()+">Meus Dados <span class='sr-only'>(current)</span></a>"+
+                                                        "</li>");
+                                        }
+
+                                    %>
+
                                     
-                                  
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>
                                 </ul>
-                                <ul class="nav navbar-nav navbar-right">
-                                 
-                                    <li><form name="formSair" method="post" action="sair"><button class="btn-sair" type="submit">Sair</button></form></li>
-                                </ul>
-                              </div><!-- /.navbar-collapse -->
-                            </div><!-- /.container-fluid -->
-                          </nav>
+                                <form class="form-inline my-2 my-lg-0" name="formSair" method="post" action="sair">
+                                    <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color: white; border-color: white;">Sair</button>
+                                    <!--<li><form name="formSair" method="post" action="sair"><button class="btn-sair" type="submit">Sair</button></form></li>-->
+                                </form>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             
         </header>
         
-        <section class="container area-form">
+        <section class="container">
+            
             
             <label style="font-size: 18px;">Selecione as opções desejadas: </label><b class="obg"> *</b>
             <form name="formRelatorio" method="post" onsubmit="return validacao_emitir_relatorio();">
@@ -79,61 +133,75 @@
                     PostoGraduacaoDAO pgDAO = new PostoGraduacaoDAO();
                     QasQmsDAO qasqmsDAO = new QasQmsDAO();  
                 %>
-                <div class="form-group col-md-4">
-                    <label id="lblDivSec" name="lblDivSec" for="lblDivSec">Divisão/Seção: </label><b class="obg"> *</b>
-                    <%
-                        int qtdeDivSec = dsDAO.getDivSec().size();
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label id="lblDivSec" name="lblDivSec" for="lblDivSec">Divisão/Seção: </label><b class="obg"> *</b>
+                        <%
+                            int qtdeDivSec = dsDAO.getDivSec().size();
 
-                        for(int i=0;i<qtdeDivSec;i++){
-                            out.println("<br>"+
-                                        "<label class=\"radio-inline tipo-relatorio\">"+
-                                        "<input type=\"radio\" name=\"txtDivSec\" id=\"divsec\" value='"+dsDAO.getDivSec().get(i).getId()+"' required>"+dsDAO.getDivSec().get(i).getNome()+
-                                        "</label>");
-                        } 
-                    %>
-            </div>
+                            for(int i=0;i<qtdeDivSec;i++){
+                                out.println("<div class=\"custom-control custom-radio\">"+                                        
+                                            "<input type=radio name=txtDivSec id=divsec"+i+1+" class=custom-control-input value='"+dsDAO.getDivSec().get(i).getId()+"' required>"+
+                                            "<label class=custom-control-label tipo-relatorio for=divsec"+i+1+">"+dsDAO.getDivSec().get(i).getNome()+  
+                                            "</label>"+
+                                            "</div>");
+                            } 
+                        %>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="txtDivSec" id="divsec" value="0" class="custom-control-input"> 
+                            <label class="custom-control-label tipo-relatorio" for="divsec"><b>TODOS</b></label>
+                        </div>
+                    </div>
+                    
 
-            <div class="form-group col-md-4">
-                <label id="lblPostGrad" name="lblPostGrad" for="lblPostGrad">Posto/Graduação: </label><b class="obg"> *</b>
 
-                    <%
-                        int qtdePGS = pgDAO.getPostGrads().size();
+                    <div class="form-group col-md-4">
+                        <label id="lblPostGrad" name="lblPostGrad" for="lblPostGrad">Posto/Graduação: </label><b class="obg"> * </b>
 
-                        for(int i=0;i<qtdePGS;i++){
-                            out.println("<br>"+
-                                        "<label class=\"radio-inline tipo-relatorio\">"+
-                                        "<input type=\"radio\" name=\"txtPostGrad\" id=\"divsec\" value='"+pgDAO.getPostGrads().get(i).getId()+"' required>"+pgDAO.getPostGrads().get(i).getNome()+
-                                        "</label>");
-                        } 
-                    %>
-                    <br>
-                    <label class="radio-inline tipo-relatorio">
-                        <input type="radio" name="txtPostGrad" id="postgrad" value="0"> <b>Todos</b>
-                    </label>
-            </div>
+                            <%
+                                int qtdePGS = pgDAO.getPostGrads().size();
 
-            <div class="form-group col-md-4">
-                <label id="lblQasQms" name="lblQasQms" for="lblQasQms">QAS/QMS: </label><b class="obg"> *</b>
-                    <%
-                        int qtdeArmas = qasqmsDAO.getArmas().size();
+                                for(int i=0;i<qtdePGS;i++){
+                                    out.println("<div class=\"custom-control custom-radio\">"+
+                                                "<input type=radio name=txtPostGrad id=postgrad"+i+1+" class=\"custom-control-input\" value='"+pgDAO.getPostGrads().get(i).getId()+"' required>"+
+                                                "<label class=custom-control-label tipo-relatorio for=postgrad"+i+1+">"+pgDAO.getPostGrads().get(i).getNome()+
+                                                "</label>"+
+                                                "</div>");
 
-                        for(int i=0;i<qtdeArmas;i++){
-                            out.println("<br>"+
-                                        "<label class=\"radio-inline tipo-relatorio\">"+
-                                        "<input type=\"radio\" name=\"txtQasQms\" id=\"divsec\" value='"+qasqmsDAO.getArmas().get(i).getId()+"' required>"+qasqmsDAO.getArmas().get(i).getDesc()+
-                                        "</label>");
-                        } 
-                    %>
-                    <br>
-                    <label class="radio-inline tipo-relatorio">
-                        <input type="radio" name="txtQasQms" id="qasqms" value="0"> <b>Todos</b>
-                    </label>
+                                } 
+                            %>
+
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="txtPostGrad" id="postgrad" value="0" class="custom-control-input"> 
+                                <label class="custom-control-label tipo-relatorio" for="postgrad"><b>TODOS</b></label>
+                            </div>
+                    </div>
+
+                    <div class="form-group col">
+                        <label id="lblQasQms" name="lblQasQms" for="lblQasQms">QAS/QMS: </label><b class="obg"> *</b>
+                            <%
+                                int qtdeArmas = qasqmsDAO.getArmas().size();
+
+                                for(int i=0;i<qtdeArmas;i++){
+                                    out.println("<div class=\"custom-control custom-radio\">"+                                            
+                                                "<input type=radio name=txtQasQms id=qasqms"+i+1+" class=custom-control-input value='"+qasqmsDAO.getArmas().get(i).getId()+"' required>"+
+                                                "<label class=custom-control-label tipo-relatorio for=qasqms"+i+1+">"+qasqmsDAO.getArmas().get(i).getDesc()+    
+                                                "</label>"+
+                                                "</div>");
+                                } 
+                            %>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="txtQasQms" id="qasqms" value="0" class="custom-control-input"> 
+                                <label class="custom-control-label tipo-relatorio" for="qasqms"><b>TODOS</b></label>
+                            </div>.
+                    </div>
                 </div>
-                    <div class="linha-botoes col-md-12">
-                    <!--<button type="submit" class="btn-cent" formaction="EmitirRelatorio">Gerar Relatório na Tela</button>-->
-                    <button type="submit" class="btn-cent" formaction="gerarRelatorio">Gerar Relatório em PDF</button>
+                <div class="linha-botoes col-md-12">
+                <!--<button type="submit" class="btn-cent" formaction="EmitirRelatorio">Gerar Relatório na Tela</button>-->
+                <button type="submit" class="btn-cent" formaction="gerarRelatorio">Gerar Relatório em PDF</button>
                 </div>
             </form>
+            </div>
         </section>
            
         <footer class="rodape col-md-12">

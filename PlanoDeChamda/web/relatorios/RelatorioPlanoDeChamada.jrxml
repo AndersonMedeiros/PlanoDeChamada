@@ -4,7 +4,7 @@
 	<property name="ireport.zoom" value="1.100000000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="cigs"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Cigs"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<queryString>
 		<![CDATA[SELECT
@@ -100,6 +100,10 @@ inner join PostoGraduacao as pg on pg.pg_id = m.mil_postograduacao_id]]>
 					<text><![CDATA[Plano de Chamada]]></text>
 				</staticText>
 			</frame>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="690" y="0" width="112" height="118" uuid="469f09f6-f7e2-4847-985f-d08607799848"/>
+				<imageExpression><![CDATA["/var/lib/tomcat8/webapps/ROOT/img/CigsFinal.gif"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -110,92 +114,85 @@ inner join PostoGraduacao as pg on pg.pg_id = m.mil_postograduacao_id]]>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="3" width="802" height="43" isPrintWhenDetailOverflows="true" backcolor="#264710" uuid="2a430be6-934d-4d0b-9601-2f1c527e07fd"/>
 				<staticText>
-					<reportElement x="1" y="0" width="48" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="6697d57c-fcb5-426a-9d91-1e2b7e966d10"/>
+					<reportElement x="0" y="0" width="60" height="43" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="6697d57c-fcb5-426a-9d91-1e2b7e966d10"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Post/Grad]]></text>
+					<text><![CDATA[Posto Grad]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="65" y="0" width="65" height="41" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="6ae297f5-31e1-4cb5-8485-1025995ee108"/>
+					<reportElement x="62" y="0" width="70" height="43" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="6ae297f5-31e1-4cb5-8485-1025995ee108"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Nome Guerra]]></text>
+					<text><![CDATA[Divisão Seção]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="134" y="0" width="65" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="9fe0f2fb-1a69-40b9-9d45-ac98b0b2e26a"/>
+					<reportElement x="134" y="0" width="112" height="43" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="9fe0f2fb-1a69-40b9-9d45-ac98b0b2e26a"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Nome]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="203" y="0" width="65" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="bb52bd20-8703-4e99-be3f-3ab96c3d79d0"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<reportElement x="248" y="0" width="65" height="21" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="bb52bd20-8703-4e99-be3f-3ab96c3d79d0"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Cidade]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="272" y="0" width="65" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="e0a2292e-84b3-4639-b9ad-7497cca0a131"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<reportElement x="248" y="22" width="65" height="21" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="e0a2292e-84b3-4639-b9ad-7497cca0a131"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Bairro]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="341" y="0" width="80" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="585be2ef-1775-45f5-ba0e-8e533d076f86"/>
+					<reportElement x="315" y="0" width="110" height="43" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="585be2ef-1775-45f5-ba0e-8e533d076f86"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Logradouro]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="425" y="0" width="20" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="e01f7fa5-2c39-4287-8763-a11f424662cf"/>
+					<reportElement x="428" y="0" width="28" height="43" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="e01f7fa5-2c39-4287-8763-a11f424662cf"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Nº]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="449" y="0" width="85" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="443b702d-b7b2-43c9-90c7-bd2aa2d794ae"/>
+					<reportElement x="458" y="0" width="81" height="43" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="443b702d-b7b2-43c9-90c7-bd2aa2d794ae"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Complemento]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="538" y="0" width="40" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="4c76f2c5-7543-486f-9be1-99c901ccd2be"/>
+					<reportElement x="541" y="0" width="84" height="43" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="4c76f2c5-7543-486f-9be1-99c901ccd2be"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
 					</textElement>
-					<text><![CDATA[Fone 1]]></text>
+					<text><![CDATA[Fones]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="582" y="0" width="40" height="42" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="1e503f11-3aa9-4eed-ab10-cf945bc889b3"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
-					</textElement>
-					<text><![CDATA[Fone 2]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="626" y="0" width="60" height="42" forecolor="#FFFFFF" uuid="977826ea-6e08-4977-a655-f8bbe3211ad2"/>
+					<reportElement x="627" y="0" width="104" height="43" forecolor="#FFFFFF" uuid="977826ea-6e08-4977-a655-f8bbe3211ad2"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
 					</textElement>
 					<text><![CDATA[Email]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="760" y="0" width="40" height="42" forecolor="#FFFFFF" uuid="9b9749f5-4d44-41a1-a9c8-082d0119803d"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<reportElement x="733" y="22" width="69" height="21" forecolor="#FFFFFF" uuid="9b9749f5-4d44-41a1-a9c8-082d0119803d"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
 						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
 					</textElement>
 					<text><![CDATA[Fone Ref.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="690" y="0" width="66" height="42" forecolor="#FFFFFF" uuid="8aa75e70-b9e5-4e93-b853-fb0991f800f6"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<reportElement x="733" y="0" width="69" height="21" forecolor="#FFFFFF" uuid="8aa75e70-b9e5-4e93-b853-fb0991f800f6"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
 					</textElement>
 					<text><![CDATA[Referência]]></text>
@@ -204,97 +201,77 @@ inner join PostoGraduacao as pg on pg.pg_id = m.mil_postograduacao_id]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="73" splitType="Stretch">
-			<textField>
-				<reportElement x="65" y="0" width="64" height="68" isPrintWhenDetailOverflows="true" uuid="40e8cc04-aa9f-4e8d-9b95-e0e9fef26823"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nomeguerra}]]></textFieldExpression>
+		<band height="74" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement x="1" y="0" width="59" height="73" uuid="4dd697fe-9881-470d-8097-0d5688ba205e"/>
+				<box>
+					<topPen lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{postograduacao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="134" y="0" width="64" height="68" isPrintWhenDetailOverflows="true" uuid="82cf6c76-93d7-4381-9713-878eefc8a7e1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
+				<reportElement x="62" y="0" width="70" height="73" uuid="188152b8-75ac-4fd6-a406-8c825046e6f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{divisaosecao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="0" width="112" height="73" uuid="0c03684c-2b5b-4346-b8b5-a188dcb37a4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="203" y="0" width="64" height="68" isPrintWhenDetailOverflows="true" uuid="4214f074-1a79-471a-9b31-187645160b99"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
+				<reportElement x="248" y="0" width="65" height="36" uuid="2b794d10-b88c-40de-92d3-8362717c98f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{cidade}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="272" y="0" width="64" height="68" isPrintWhenDetailOverflows="true" uuid="1152f03e-1b6b-405b-abef-451bba6e2128"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
+				<reportElement x="248" y="37" width="65" height="36" uuid="cd1a09e0-50f8-42f4-8527-ff07b55e42d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{bairro}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="341" y="0" width="80" height="68" isPrintWhenDetailOverflows="true" uuid="9e6a9cc5-ffac-4f20-be16-7a4a11f9eddd"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
+				<reportElement x="315" y="0" width="110" height="73" uuid="43c05d8a-c117-41cd-8c86-92b0c9da8f55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{logradouro}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="582" y="0" width="40" height="68" isPrintWhenDetailOverflows="true" uuid="31185e41-bddc-46fe-9ce5-f910b6dbd8a0"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{fone2}.equals( "-" ) ? $F{fone2}  : "("+$F{fone2}.substring(0,2)+") "+$F{fone2}.substring(2,7)+"-"+$F{fone2}.substring(7,11)]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="538" y="0" width="40" height="68" isPrintWhenDetailOverflows="true" uuid="8f9a5243-8f2c-43b8-83f5-2b0706f65741"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{fone1}.equals( "-" ) ? $F{fone1}  : "("+$F{fone1}.substring(0,2)+") "+$F{fone1}.substring(2,7)+"-"+$F{fone1}.substring(7,11)]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="449" y="0" width="84" height="68" isPrintWhenDetailOverflows="true" uuid="ee09ed15-5903-487c-923e-d0aa70a49729"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{complemento}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="425" y="0" width="20" height="68" isPrintWhenDetailOverflows="true" uuid="31c00d9a-b458-443e-b34a-6611ee1fb50f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
+				<reportElement x="428" y="0" width="28" height="73" uuid="ee2aa801-dbea-40de-8a92-3b58c41c4fd6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="760" y="0" width="40" height="68" uuid="4e09017a-1774-4e13-a928-c47e698d2cf9"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{fonereferencia}.equals( "-" ) ? $F{fonereferencia}  : "("+$F{fonereferencia}.substring(0,2)+") "+$F{fonereferencia}.substring(2,7)+"-"+$F{fonereferencia}.substring(7,11)]]></textFieldExpression>
+				<reportElement x="458" y="0" width="81" height="73" uuid="a3199ba0-ec5e-4580-94c7-677f249a8f81"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{complemento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="690" y="0" width="66" height="68" uuid="201af386-a3d1-4602-a08f-86aa55288c69"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nomereferencia}]]></textFieldExpression>
+				<reportElement x="541" y="0" width="84" height="36" uuid="fa209d45-6f20-48ea-999d-a7fc500705de"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{fone1}.equals("-") ? $F{fone1} : "("+$F{fone1}.substring(0,2)+") "+$F{fone1}.substring(2,7)+"-"+$F{fone1}.substring(7,11)]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="626" y="0" width="60" height="68" uuid="f011f9cf-fca4-48f2-bb0e-cff6d6c7260e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
+				<reportElement x="541" y="37" width="84" height="36" uuid="1bf709ce-7002-475d-9eee-9aa8d33b215d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fone2}.equals("-") ? $F{fone2} : "("+$F{fone2}.substring(0,2 )+") "+$F{fone2}.substring(2,7)+"-"+$F{fone2}.substring(7,11)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="627" y="0" width="104" height="73" uuid="6b3515b9-be5b-46be-9f39-bddb96d2820b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1" y="0" width="60" height="68" isPrintWhenDetailOverflows="true" uuid="809decbd-9ec1-4d40-8972-b5d80214b826"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{postograduacao}]]></textFieldExpression>
+				<reportElement x="733" y="37" width="69" height="36" uuid="fd1e5d40-dcc9-4579-95b1-ed1fa44ade60"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{fonereferencia}.equals("-")? $F{fonereferencia} : "("+$F{fonereferencia}.substring(0,2 )+") "+$F{fonereferencia}.substring(2,7)+"-"+$F{fonereferencia}.substring(7,11)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="733" y="0" width="69" height="36" uuid="968e8011-b707-450a-8ace-b9e1fe68cdbb"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{nomereferencia}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -304,7 +281,7 @@ inner join PostoGraduacao as pg on pg.pg_id = m.mil_postograduacao_id]]>
 	<pageFooter>
 		<band height="38" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="0" y="3" width="802" height="32" isPrintWhenDetailOverflows="true" backcolor="#264710" uuid="90b810dd-4de4-4556-8749-252a88a373cd"/>
+				<reportElement mode="Opaque" x="1" y="6" width="802" height="32" isPrintWhenDetailOverflows="true" backcolor="#264710" uuid="90b810dd-4de4-4556-8749-252a88a373cd"/>
 				<textField>
 					<reportElement x="650" y="0" width="108" height="32" forecolor="#FFFFFF" uuid="37fe6c1e-e4f8-49fb-9def-7af523b46d44"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
