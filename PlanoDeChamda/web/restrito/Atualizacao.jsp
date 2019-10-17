@@ -383,12 +383,12 @@
                                     if(cnhDAO.getCNHByIdMil(mil.getId()).getId() == 0){
                                         out.println("<div class=\"form-group col-md-4\">"+
                                         "<label id=\"lblCnhNum\" name=\"lblCnhNum\" for=\"lblCnhNum\">CNH Número: </label>"+
-                                        "<input class=\"form-control\" type=\"text\" id=\"txtCnhNum\" name=\"txtCnhNum\" maxlength=\"11\" value=\"\" onblur=\"borda_input_text(this.id)\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                        "<input class=\"form-control\" type=\"text\" id=\"txtCnhNum\" name=\"txtCnhNum\" maxlength=\"11\" value=\"\" onblur=\"valida_cnh_num(this.id)\" onkeypress=\"return somenteNumero(event);\"/>"+
                                         "</div>");
                                     }else{
                                         out.println("<div class=\"form-group col-md-4\">"+
                                         "<label id=\"lblCnhNum\" name=\"lblCnhNum\" for=\"lblCnhNum\">CNH Número: </label>"+
-                                        "<input class=\"form-control\" type=\"text\" id=\"txtCnhNum\" name=\"txtCnhNum\" maxlength=\"11\" value=\""+cnhDAO.getCNHByIdMil(mil.getId()).getNum()+"\" onblur=\"borda_input_text_nn(this.id)\" onkeypress=\"return somenteNumero(event);\"/>"+
+                                        "<input class=\"form-control\" type=\"text\" id=\"txtCnhNum\" name=\"txtCnhNum\" maxlength=\"11\" value=\""+cnhDAO.getCNHByIdMil(mil.getId()).getNum()+"\" onblur=\"valida_cnh_num(this.id)\" onkeypress=\"return somenteNumero(event);\"/>"+
                                         "</div>");
                                     }
 
@@ -1177,7 +1177,7 @@
                                                 "<div class=form-row>"+
                                                 "<div class=\"form-group col-md-12\">"+
                                                 "<label id=\"lblComplemento\" name=\"lblComplemento\" for=\"lblComplemento\">Complemento: </label>"+
-                                                "<input class=\"form-control\" type=\"text\" id=\"txtComplemento\" name=\"txtComplemento\" value=\""+endDAO.getEnderecoById(mil.getId_end()).getComplemento()+"\" onblur=\"borda_input_text(this.id);\"/>"+
+                                                "<input class=\"form-control\" type=\"text\" id=\"txtComplemento\" name=\"txtComplemento\" value=\""+endDAO.getEnderecoById(mil.getId_end()).getComplemento()+"\" onblur=\"borda_input_text_nn(this.id);\"/>"+
                                                 "</div>"+"</div>"+
                                                 "</fieldset>"+"<br>"+
 
