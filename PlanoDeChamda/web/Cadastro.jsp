@@ -290,12 +290,12 @@
                         
                         <div class="form-group col-md-6">
                             <label id="lblPai" name="lblPai" for="lbPai">Pai: </label>
-                            <input class="form-control" type="text" id="txtPai" name="txtPai" onblur="borda_input_text_nn()(this.id)"/>
+                            <input class="form-control" type="text" id="txtPai" name="txtPai" onblur="borda_input_text_nn(this.id)"/>
                         </div>
                             
                         <div class="form-group col-md-6">
                             <label id="lblMae" name="lblMae" for="lblMae">Mãe: </label>
-                            <input class="form-control" type="text" id="txtMae" name="txtMae" onblur="borda_input_text_nn()(this.id)"/>
+                            <input class="form-control" type="text" id="txtMae" name="txtMae" onblur="borda_input_text_nn(this.id)"/>
                         </div>
                         
                         <div class="form-group col-md-4">

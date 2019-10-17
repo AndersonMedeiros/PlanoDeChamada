@@ -36,7 +36,10 @@ function borda_input_text(id){
 
 function borda_input_text_nn(id){
     var input = document.getElementById(id);
-    if(input.value!=""){
+    if(input.value==""){
+        input.style.border='';
+        input.style.background='';
+    }else{
         input.style.border='2px solid green';
         input.style.background='rgba(61,102,14,0.2)';
     }
@@ -175,7 +178,7 @@ function valida_cnh_num(id){
         input.style.background='';
         input.focus();
     }
-    else if(document.formCadastro.txtPreccp.value!="" && cnhNum == '00000000000' || cnhNum == '11111111111' || 
+    else if(document.formCadastro.txtCnhNum.value!="" && cnhNum == '00000000000' || cnhNum == '11111111111' || 
             cnhNum == '22222222222' || cnhNum == '33333333333' || cnhNum == '44444444444' || cnhNum == '55555555555' ||
             cnhNum == '66666666666' || cnhNum == '77777777777' || cnhNum == '88888888888' || cnhNum == '99999999999'){
         alert("Número da CNH Inválido!");
@@ -431,7 +434,11 @@ function valida_fone_nn(id){
 
 function valida_zona(id){
     var input = document.getElementById(id);
-    if(input.value.length < 3){
+    if(input.value == ""){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }else if(input.value != "" && input.value.length < 3){
         alert("A Zona é formada por 3 caracteres!");
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
@@ -444,7 +451,11 @@ function valida_zona(id){
 
 function valida_secao(id){
     var input = document.getElementById(id);
-    if(input.value.length < 4){
+    if(input.value == ""){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }else if(input.value != "" && input.value.length < 4){
         alert("A Seção é formada por 4 caracteres!");
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
