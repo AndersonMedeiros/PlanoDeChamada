@@ -32,7 +32,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <link href="../bootstrap-4.3.1//css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        <link href="../bootstrap-4.3.1/css/bootstrap.css" type="text/css" rel="stylesheet"/>
         
         
         <link href="../css/estilo.css" type="text/css" rel="stylesheet"/>
@@ -255,12 +255,12 @@
                                     "<div class=form-row>"+
                                     "<div class=\"form-group col-md-9\">"+
                                     "<label id=\"lblNomeComp\" name=\"lblNomeComp\" for=\"lblNomeComp\">Nome Completo: </label><b class=\"obg\"> *</b>"+
-                                    "<input class=\"form-control\" type=\"text\" id=\"txtNomeComp\" name=\"txtNomeComp\" value=\""+mil.getNome()+"\" onblur=borda_input_text(this.id)/>"+
+                                    "<input class=\"form-control\" type=\"text\" id=\"txtNomeComp\" name=\"txtNomeComp\" value=\""+mil.getNome()+"\" onblur=\"borda_input_text(this.id)\"/>"+
                                     "</div>"+
                                    
                                     "<div class=\"form-group col-md-3\">"+
                                     "<label id=\"lblNomeGuerra\" name=\"lblNomeGuerra\" for=\"lblNomeGuerra\">Nome de Guerra: </label><b class=\"obg\"> *</b>"+
-                                    "<input class=\"form-control\" type=\"text\" id=\"txtNomeGuerra\" name=\"txtNomeGuerra\" value=\""+mil.getNome_guerra()+"\" onblur=borda_input_text(this.id)/> "+
+                                    "<input class=\"form-control\" type=\"text\" id=\"txtNomeGuerra\" name=\"txtNomeGuerra\" value=\""+mil.getNome_guerra()+"\" onblur=\"borda_input_text(this.id)\"/> "+
                                     "</div>"+"</div>"+
                                     
                                     "<div class=form-row>"+
@@ -314,7 +314,7 @@
 
                                     "<div class=\"form-group col-md-3\">"+
                                     "<label id=\"lblEstCivil\" name=\"lblEstCivil\" for=\"lblEstCivil\">Estado Cívil: </label><b class=\"obg\"> *</b>"+
-                                    "<select name=\"txtEstCivil\" id=\"est_civil\" class=\"form-control\" onblur=borda_input_select(this.id)>");
+                                    "<select name=\"txtEstCivil\" id=\"est_civil\" class=\"form-control\" onblur=\"borda_input_select(this.id)\"/>");
                                     if(mil.getId_ec() == 0){
                                         out.println("<option value=\"0\" selected>Selecione o seu Estado Cívil...</option>");
                                     }else{
@@ -335,7 +335,7 @@
                                     
                                     if(mil.getData_nasc() != null){
                                         out.println("<div class=\"form-group col-md-3\">"+
-                                                    "<label id=\"lblDataNasc\" name=\"lblDataNasc\" for=\"lblDataNasc\">Data de Nascimento: </label>"+
+                                                    "<label id=\"lblDataNasc\" name=\"lblDataNasc\" for=\"lblDataNasc\">Data de Nascimento: </label><b class=\"obg\"> *</b>"+
                                                     "<input class=\"form-control data\" type=\"date\" id=\"txtDataNasc\" name=\"txtDataNasc\" value=\""+mil.getData_nasc().substring(0, 4)+"-"+mil.getData_nasc().substring(4, 6)+"-"+mil.getData_nasc().substring(6, 8)+"\" onblur=\"valida_dataNascMil(this.id)\"/>"+
                                                     "</div>");
                                     }
@@ -1187,14 +1187,14 @@
                                                
                                                 out.println("<div class=form-row>"+
                                                         "<div class=\"form-group col-md-6\">"+
-                                                "<label id=\"lblFone01\" name=\"lblFone01\" for=\"lblFone01\">Telefone 01</label><b class=\"obg\"> *</b>"+
+                                                "<label id=\"lblFone01\" name=\"lblFone01\" for=\"lblFone01\">Telefone 01: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control fone\" type=\"text\" id=\"txtFone01\" name=\"txtFone01\" value=\""+mil.getFone1()+"\" onblur=\"valida_fone(this.id);\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>");
                                                 
                                                 
                                                 
                                                 out.println("<div class=\"form-group col-md-6\">"+
-                                                "<label id=\"lblFone02\" name=\"lblFone02\" for=\"lblFone02\">Telefone 02</label><b class=\"obg\"> *</b>"+
+                                                "<label id=\"lblFone02\" name=\"lblFone02\" for=\"lblFone02\">Telefone 02: </label><b class=\"obg\"> *</b>"+
                                                 "<input class=\"form-control fone\" type=\"text\" id=\"txtFone02\" name=\"txtFone02\" value=\""+mil.getFone2()+"\" onblur=\"valida_fone_nn(this.id)\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>"+"</div>");
                                                 
