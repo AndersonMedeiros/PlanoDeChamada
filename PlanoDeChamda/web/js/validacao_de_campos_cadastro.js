@@ -19,6 +19,9 @@ function borda_input_select_nn(id){
     if(input.selectedIndex!=0){
         input.style.border='2px solid green';
         input.style.background='rgba(61,102,14,0.2)';
+    }else{
+        input.style.border='';
+        input.style.background='';
     }
 }
 
@@ -333,33 +336,36 @@ function valida_dataPraca(id){
 
 function valida_dataValidade(id){
     var input = document.getElementById(id);
-    var anoPraca = input.value.substring(0,4);
-    var mesPraca = input.value.substring(5,7);
-    var diaPraca = input.value.substring(8,10);
+    var anoValCnh = input.value.substring(0,4);
+    var mesValCnh = input.value.substring(5,7);
+    var diaValCnh = input.value.substring(8,10);
     var dataAtual = new Date();
     var mesAtual = dataAtual.getMonth()+1;
-    if(input.value != ""){
+    if(input.value == ""){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoValCnh && mesAtual == mesValCnh && dataAtual.getDate() < diaValCnh){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() == anoValCnh && mesAtual < mesValCnh){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }
+    else if(dataAtual.getFullYear() < anoValCnh){
+        alert("Data Inválida!");
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
+        input.focus();
+    }else{
         input.style.border='2px solid green';
         input.style.background='rgba(61,102,14,0.2)';
-        input.focus();
-    }
-    else if(dataAtual.getFullYear() == anoPraca && mesAtual == mesPraca && dataAtual.getDate() < diaPraca){
-        alert("Data Inválida!");
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
-        input.focus();
-    }
-    else if(dataAtual.getFullYear() == anoPraca && mesAtual < mesPraca){
-        alert("Data Inválida!");
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
-        input.focus();
-    }
-    else if(dataAtual.getFullYear() < anoPraca){
-        alert("Data Inválida!");
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
-        input.focus();
     }
 }
 
@@ -928,7 +934,6 @@ function validacao_cad(){
     }
     
     //Bairro
-
     if(document.formCadastro.txtCidade.value=="1" && document.formCadastro.txtBairroManaus.selectedIndex=="0" ){
         alert("Campo Obrigatório!\nSelecione o seu Bairro.");
         document.formCadastro.txtBairroManaus.style.border='2px solid red';
@@ -977,7 +982,6 @@ function validacao_cad(){
     }
     
     //--
-    
     //Dados de Contato
     //Fone01
     if(document.formCadastro.txtFone01.value==""){

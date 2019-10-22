@@ -417,12 +417,12 @@
                                     if(dataVal != null){
                                         out.println("<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblCnhDataVal\" name=\"lblCnhDataVal\" for=\"lblCnhDataVal\">Data de Validade da CNH: </label>"+
-                                                    "<input class=\"form-control\" type=\"date\" name=\"txtCnhDataVal\" value=\""+dataVal.substring(0, 4)+"-"+dataVal.substring(4, 6)+"-"+dataVal.substring(6, 8)+"\" onblur=\"valida_dataValidade(this.id);\"/>"+
+                                                    "<input class=\"form-control\" type=\"date\" name=\"txtCnhDataVal\" value=\""+dataVal.substring(0, 4)+"-"+dataVal.substring(4, 6)+"-"+dataVal.substring(6, 8)+"\" onblur=\"valida_dataValidade(this.id)\"/>"+
                                                     "</div>");
                                     }else{
                                         out.println("<div class=\"form-group col-md-4\">"+
                                                     "<label id=\"lblCnhDataVal\" name=\"lblCnhDataVal\" for=\"lblCnhDataVal\">Data de Validadde da CNH: </label>"+
-                                                    "<input class=\"form-control\" type=\"date\" name=\"txtCnhDataVal\" value=\"\" onblur=\"valida_dataValidade(this.id);\"/>"+
+                                                    "<input class=\"form-control\" type=\"date\" name=\"txtCnhDataVal\" value=\"\" onblur=\"valida_dataValidade(this.id)\"/>"+
                                                     "</div>");
                                     }
                                     out.println("</div>");
@@ -941,7 +941,6 @@
                                                                 }
                                                             }
                                                             out.println("</select>");
-
                                                             out.println("<select name=\"txtBairroManacapuru\" id=\"bairrosManacapuru\" class=\"form-control\" onblur=\"borda_input_select(this.id);\" style=\"display: none;\"> ");
                                                             if(endDAO.getEnderecoById(mil.getId_end()).getId_bairro() == 0){
                                                                 out.println("<option value=\"0\" selected>Selecione o Bairro...</option>");
@@ -1194,7 +1193,7 @@
                                                 
                                                 
                                                 out.println("<div class=\"form-group col-md-6\">"+
-                                                "<label id=\"lblFone02\" name=\"lblFone02\" for=\"lblFone02\">Telefone 02: </label><b class=\"obg\"> *</b>"+
+                                                "<label id=\"lblFone02\" name=\"lblFone02\" for=\"lblFone02\">Telefone 02: </label>"+
                                                 "<input class=\"form-control fone\" type=\"text\" id=\"txtFone02\" name=\"txtFone02\" value=\""+mil.getFone2()+"\" onblur=\"valida_fone_nn(this.id)\" onkeypress=\"return somenteNumero(event);\"/>"+
                                                 "</div>"+"</div>");
                                                 

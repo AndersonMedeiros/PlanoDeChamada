@@ -26,6 +26,9 @@ function borda_input_select_nn(id){
     if(input.selectedIndex!=0){
         input.style.border='2px solid green';
         input.style.background='rgba(61,102,14,0.2)';
+    }else{
+        input.style.border='';
+        input.style.background='';
     }
 }
 
@@ -340,35 +343,34 @@ function valida_dataPraca(id){
 
 function valida_dataValidade(id){
     var input = document.getElementById(id);
-    var anoPraca = input.value.substring(0,4);
-    var mesPraca = input.value.substring(5,7);
-    var diaPraca = input.value.substring(8,10);
+    var anoValCnh = input.value.substring(0,4);
+    var mesValCnh = input.value.substring(5,7);
+    var diaValCnh = input.value.substring(8,10);
     var dataAtual = new Date();
     var mesAtual = dataAtual.getMonth()+1;
-    if(input.value != ""){
-        input.style.border='2px solid green';
-        input.style.background='rgba(61,102,14,0.2)';
+    if(input.value == ""){
+        input.style.border='2px solid red';
+        input.style.background='rgba(255,0,0,0.2)';
         input.focus();
     }
-    else if(dataAtual.getFullYear() == anoPraca && mesAtual == mesPraca && dataAtual.getDate() < diaPraca){
+    else if(dataAtual.getFullYear() == anoValCnh && mesAtual == mesValCnh && dataAtual.getDate() < diaValCnh){
         alert("Data Inválida!");
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
     }
-    else if(dataAtual.getFullYear() == anoPraca && mesAtual < mesPraca){
+    else if(dataAtual.getFullYear() == anoValCnh && mesAtual < mesValCnh){
         alert("Data Inválida!");
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
     }
-    else if(dataAtual.getFullYear() < anoPraca){
+    else if(dataAtual.getFullYear() < anoValCnh){
         alert("Data Inválida!");
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
-    }
-    else{
+    }else{
         input.style.border='2px solid green';
         input.style.background='rgba(61,102,14,0.2)';
     }
@@ -390,6 +392,9 @@ function valida_cep(id){
             input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();     
+    }else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
     }
 }
 
@@ -419,10 +424,9 @@ function valida_fone(id){
 function valida_fone_nn(id){
     var input = document.getElementById(id);
     var fone = input.value.replace(".","").replace("-","").replace("(","").replace(")","").replace(" ","");
-    if(fone != '___________'){
-        input.style.border='2px solid green';
-        input.style.background='rgba(61,102,14,0.2)';
-        input.focus();
+    if(fone == '___________'){
+        input.style.border='';
+        input.style.background='';
     }
     else if(input.value != "" && fone == '00000000000' || fone == '11111111111' ||
             fone == '22222222222' || fone == '33333333333' || fone == '44444444444' || fone == '55555555555' ||
@@ -433,6 +437,9 @@ function valida_fone_nn(id){
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
         
+    }else{
+        input.style.border='2px solid green';
+        input.style.background='rgba(61,102,14,0.2)';
     }
 }
 
@@ -488,7 +495,7 @@ function valida_senha(id){
 }
 
 
-function validacao_cad(){
+function validacao_att(){
     //Dados Pessoais
     //Divisão/Seção
     if(document.formAtualizacao.txtDivSec.selectedIndex==0){
@@ -542,12 +549,21 @@ function validacao_cad(){
         return false;
     }
     
-    //Naturalidade Militar
-    if(document.formAtualizacao.txtNatMilitar.selectedIndex==0){
-        alert("Campo Obrigatório!\nSelecione a sua Naturalidade.");
-        document.formAtualizacao.txtNatMilitar.style.border='2px solid red';
-        document.formAtualizacao.txtNatMilitar.style.background='rgba(255,0,0,0.2)';
-        document.formAtualizacao.txtNatMilitar.focus();
+    //Naturalidade Estado Militar
+    if(document.formAtualizacao.txtNatEstMilitar.selectedIndex==0){
+        alert("Campo Obrigatório!\nSelecione o seu Estado de Naturalidade.");
+        document.formAtualizacao.txtNatEstMilitar.style.border='2px solid red';
+        document.formAtualizacao.txtNatEstMilitar.style.background='rgba(255,0,0,0.2)';
+        document.formAtualizacao.txtNatEstMilitar.focus();
+        return false;
+    }
+    
+    //Naturalidade Cidade Militar
+    if(document.formAtualizacao.txtNatCidMilitar.value==""){
+        alert("Campo Obrigatório!\nDigite a sua Cidade de Naturalidade.");
+        document.formAtualizacao.txtNatCidMilitar.style.border='2px solid red';
+        document.formAtualizacao.txtNatCidMilitar.style.background='rgba(255,0,0,0.2)';
+        document.formAtualizacao.txtNatCidMilitar.focus();
         return false;
     }
     
@@ -826,6 +842,14 @@ function validacao_cad(){
         return false;
     }
     
+    if(document.formAtualizacao.txtReligiao.selectedIndex==(document.formAtualizacao.txtReligiao.length-1) && document.formAtualizacao.txtOutraReligiao.value==""){
+        alert("Campo Obrigatório!\nDigite a sua Religião.");
+        document.formAtualizacao.txtOutraReligiao.style.border='2px solid red';
+        document.formAtualizacao.txtOutraReligiao.style.background='rgba(255,0,0,0.2)';
+        document.formAtualizacao.txtOutraReligiao.focus();
+        return false;
+    }
+    
     //--
     
     //Dados Familiares
@@ -865,6 +889,13 @@ function validacao_cad(){
             document.formAtualizacao.txtDataNascConjuge.style.border='2px solid red';
             document.formAtualizacao.txtDataNascConjuge.style.background='rgba(255,0,0,0.2)';
             document.formAtualizacao.txtDataNascConjuge.focus();
+            return false;
+        }
+        
+        //Gravidez
+        if((document.formAtualizacao.txtGravidez[0].checked == false)&&(document.formAtualizacao.txtGravidez[1].checked == false)){
+            alert("Campo Obrigatório!\nInforme se sua Esposa está grávida ou não.");
+            document.formAtualizacao.txtGravidez[0].focus();
             return false;
         }
     }
@@ -910,7 +941,7 @@ function validacao_cad(){
     }
     
     //Bairro
-    if(document.formAtualizacao.txtpadrao.selectedIndex=="0"){
+    /*if(document.formAtualizacao.txtpadrao.selectedIndex=="0"){
         alert("Campo Obrigatório!\nSelecione o seu Bairro.");
         document.formAtualizacao.txtpadrao.style.border='2px solid red';
         document.formAtualizacao.txtpadrao.style.background='rgba(255,0,0,0.2)';
@@ -944,6 +975,36 @@ function validacao_cad(){
         document.formAtualizacao.txtBairroIranduba.style.background='rgba(255,0,0,0.2)';
         document.formAtualizacao.txtBairroIranduba.focus();
         return false;
+    }*/
+    
+    //Bairro
+    if(document.formAtualizacao.txtCidade.value=="1" && document.formAtualizacao.txtBairroManaus.selectedIndex=="0" ){
+        alert("Campo Obrigatório!\nSelecione o seu Bairro.");
+        document.formAtualizacao.txtBairroManaus.style.border='2px solid red';
+        document.formAtualizacao.txtBairroManaus.style.background='rgba(255,0,0,0.2)';
+        document.formAtualizacao.txtBairroManaus.focus();
+        return false;
+    }
+    else if(document.formAtualizacao.txtCidade.value=="2" && document.formAtualizacao.txtBairroRioPretoDaEva.selectedIndex=="0"){
+        alert("Campo Obrigatório!\nSelecione o seu Bairro.");
+        document.formAtualizacao.txtBairroRioPretoDaEva.style.border='2px solid red';
+        document.formAtualizacao.txtBairroRioPretoDaEva.style.background='rgba(255,0,0,0.2)';
+        document.formAtualizacao.txtBairroRioPretoDaEva.focus();
+        return false;
+    }
+    else if(document.formAtualizacao.txtCidade.value=="4" && document.formAtualizacao.txtBairroManacapuru.selectedIndex=="0"){
+        alert("Campo Obrigatório!\nSelecione o seu Bairro.");
+        document.formAtualizacao.txtBairroManacapuru.style.border='2px solid red';
+        document.formAtualizacao.txtBairroManacapuru.style.background='rgba(255,0,0,0.2)';
+        document.formAtualizacao.txtBairroManacapuru.focus();
+        return false;
+    }
+    else if(document.formAtualizacao.txtCidade.value=="3" && document.formAtualizacao.txtBairroIranduba.selectedIndex=="0" ){
+        alert("Campo Obrigatório!\nSelecione o seu Bairro.");
+        document.formAtualizacao.txtBairroIranduba.style.border='2px solid red';
+        document.formAtualizacao.txtBairroIranduba.style.background='rgba(255,0,0,0.2)';
+        document.formAtualizacao.txtBairroIranduba.focus();
+        return false;
     }
     
     //Rua
@@ -965,7 +1026,6 @@ function validacao_cad(){
     }
     
     //--
-    
     //Dados de Contato
     //Fone01
     if(document.formAtualizacao.txtFone01.value==""){
