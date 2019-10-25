@@ -57,6 +57,12 @@
                     id('bairrosIranduba').style.display = this.value=='3' ? 'block' : 'none';//3 - Iranduba
                     id('bairrosManacapuru').style.display = this.value=='4' ? 'block' : 'none';//4 - Manacapuru
                 }
+                
+                id('religiao').onchange = function(){
+                    id("out_rel").style.display = this.value == "1000" ? 'block' : 'none';
+                    
+                    borda_input_select(this.id);
+                }
             }
         </script>
         <title>Cadastro de Militares - Atualização</title>
@@ -475,6 +481,7 @@
                                                 out.println("<option value='"+relDAO.getReligioes().get(i).getId()+"'>"+relDAO.getReligioes().get(i).getNome()+"</option>");
                                             }
                                         }
+                                    out.println("<option value=\"1000\">Outro(a)</option>");
                                     out.println("</select>"+
                                     "</div>"+
                                 

@@ -90,6 +90,7 @@ public class atualizar extends HttpServlet {
         MilitarDAO milDAO = new MilitarDAO();
         Militar milAtual = milDAO.getMilitar(request.getParameter("txtIdentidade").replace("-", ""));
         int id_mil = milAtual.getId();
+        int id_teleitor = milAtual.getId_teleitor();
         
         if(sessao.getAttribute("militarAutenticado") != null){
             //Endereço
@@ -125,6 +126,7 @@ public class atualizar extends HttpServlet {
             teleitor.setRegistro(request.getParameter("txtTeleitorRegistro").replace(" ", ""));
             teleitor.setSecao(request.getParameter("txtTeleitorSecao"));
             teleitor.setZona(request.getParameter("txtTeleitorZona"));
+            teleitor.setId(id_teleitor);
             TituloEleitorDAO teleitorDAO = new TituloEleitorDAO();
             if(!teleitor.getRegistro().equals("")){teleitorDAO.atualizar(teleitor);}
 
@@ -180,11 +182,9 @@ public class atualizar extends HttpServlet {
             HabilitacaoDAO cnhDAO = new HabilitacaoDAO();
             cnh.setNum(request.getParameter("txtCnhNum"));
             cnh.setCat(request.getParameter("txtCnhCat"));
-
             cnh.setData_validade(request.getParameter("txtCnhDataVal").replace("/", "").replace("-", ""));
             cnh.setMil_id(id_mil);
-            
-            
+                        
             if(!cnh.getNum().equals("")){
                 if(cnhDAO.CnhExiste(id_mil) == false){
                     cnhDAO.inserir(cnh);
@@ -197,8 +197,7 @@ public class atualizar extends HttpServlet {
             //Conjuge
             ConjugeDAO conjugeDAO = new ConjugeDAO();
             if(request.getParameter("checkboxConjuge") != null){
-                Conjuge conjuge = new Conjuge();
-                
+                Conjuge conjuge = new Conjuge();                
                 conjuge.setNome(request.getParameter("txtNomeConjuge").toUpperCase());
                 conjuge.setFone(request.getParameter("txtFoneConjuge").replace("(", "").replace(")", "").replace(" ", "").replace("-", "").toUpperCase());
                 conjuge.setData_nasc(request.getParameter("txtDataNascConjuge").replace("/", "").replace("-", "").toUpperCase());
@@ -210,8 +209,7 @@ public class atualizar extends HttpServlet {
                 }else{
                     conjuge.setId(conjugeDAO.getIDConjugeByIDMIL(id_mil));
                     conjugeDAO.atualizar(conjuge);
-                }
-                
+                }                
             }
 
             //Dependentes
@@ -231,17 +229,12 @@ public class atualizar extends HttpServlet {
                     dependenteDAO.inserir(dependente); 
                 }
             }
-            
-            
-            
+                 
             RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/Atualizacao.jsp?idt="+milAtual.getIdentidade());
             despachante.forward(request, response);
         }else{
             response.sendRedirect("/PlanoDeChamda/erro.jsp?x=sessao-encerrada");
         }
-        
-        
-        
     }
 
     /**
