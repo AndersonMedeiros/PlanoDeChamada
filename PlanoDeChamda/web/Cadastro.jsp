@@ -32,9 +32,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!--Arquivos CSS-->
         <link href="css/estilo.css" rel="stylesheet"/>
         <link href="css/estilo_cadastro.css" rel="stylesheet"/>
-        <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
+        <link href="bootstrap-4.3.1/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="js/manipulacao.js"></script>
         <script type="text/javascript" src="js/validacao_de_campos_cadastro.js"></script>
@@ -103,236 +106,251 @@
             <form name="formCadastro" method="post" action="cadastrar" onsubmit="return validacao_cad()">                   
                 <fieldset class="parte-form col-md-12" id="fd_dados_pessoais">
                     <legend>Dados Pessoais</legend>
-                        
-                    <div class="form-group col-md-3">
-                        <label id="lblDivSec" name="lblDivSec" for="lblDivSec">Divisão/Seção: </label><b class="obg"> *</b>
-                        <select name="txtDivSec" id="divsec" class="form-control" onblur="borda_input_select(this.id)">
-                            <option value="0" selected>Selecione a Divisão/Seção...</option>
-                            <%
-                                DivisaoSecaoDAO dsDAO = new DivisaoSecaoDAO();
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label id="lblDivSec" name="lblDivSec" for="lblDivSec">Divisão/Seção: </label><b class="obg"> *</b>
+                            <select name="txtDivSec" id="divsec" class="form-control" onblur="borda_input_select(this.id)">
+                                <option value="0" selected>Selecione a Divisão/Seção...</option>
+                                <%
+                                    DivisaoSecaoDAO dsDAO = new DivisaoSecaoDAO();
 
-                                int qtdeDivSec = dsDAO.getDivSec().size();
+                                    int qtdeDivSec = dsDAO.getDivSec().size();
 
-                                for(int i=0;i<qtdeDivSec;i++){
-                                    out.println("<option value='"+dsDAO.getDivSec().get(i).getId()+"'>"+dsDAO.getDivSec().get(i).getNome()+"</option>");
-                                } 
-                            %>
-                        </select>
-                    </div>
-                        
-                        <div class="form-group col-md-3">
-                            <label id="lblPostGrad" name="lblPostGrad" for="lblPostGrad">Posto/Graduação: </label><b class="obg"> *</b>
-                            <select name="txtPostGrad" id="postgrad" class="form-control" onblur="borda_input_select(this.id)">
-                                 <option value="0"selected>Selecione o Posto/Graduação...</option>
-                                <%
-                                    PostoGraduacaoDAO pgDAO = new PostoGraduacaoDAO();
-                                    
-                                    int qtdePGS = pgDAO.getPostGrads().size();
-                                    
-                                    for(int i=0;i<qtdePGS;i++){
-                                        out.println("<option value='"+pgDAO.getPostGrads().get(i).getId()+"'>"+pgDAO.getPostGrads().get(i).getSigla()+"</option>");
+                                    for(int i=0;i<qtdeDivSec;i++){
+                                        out.println("<option value='"+dsDAO.getDivSec().get(i).getId()+"'>"+dsDAO.getDivSec().get(i).getNome()+"</option>");
                                     } 
                                 %>
                             </select>
                         </div>
-                        
-                        <!--QasQms-->
-                        <div class="form-group col-md-3">
-                            <label id="lblQasQms" name="lblQasQms" for="lblQasQms">QAS/QMS: </label><b class="obg"> *</b>
-                            <select name="txtQasQms" id="qasqms" class="form-control" onblur="borda_input_select(this.id)">
-                                <option value="0" selected>Selecione a QAS/QMS...</option>
-                                <%
-                                    QasQmsDAO armaDAO = new QasQmsDAO();
-                                    
-                                    int qtdeArmas = armaDAO.getArmas().size();
-                                    
-                                    for(int i=0;i<qtdeArmas;i++){
-                                        out.println("<option value='"+armaDAO.getArmas().get(i).getId()+"'>"+armaDAO.getArmas().get(i).getDesc()+"</option>");
-                                    } 
-                                %>
-                            </select>
-                        </div>
-                        
-                        <!--Situação-->
-                        <div class="form-group col-md-3">
-                            <label id="lblSit" name="lblSit" for="lblSit">Situação: </label><b class="obg"> *</b>
-                            <br>
-                            <label class="radio-inline sit">
-                                <input type="radio" name="txtSit" id="sit" value="1" checked>Ativo
-                            </label>
-                        </div>
-                        
-                        <!--Nome Completo-->   
-                        <div class="form-group col-md-9">
-                            <label id="lblNomeComp" name="lblNomeComp" for="lblNomeComp">Nome Completo: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" id="txtNomeComp" name="txtNomeComp" onblur="borda_input_text(this.id)"/>
-                        </div>
-                        
-                        <!--Nome de Guerra-->                       
-                        <div class="form-group col-md-3">
-                            <label id="lblNomeGuerra" name="lblNomeGuerra" for="lblNomeGuerra">Nome de Guerra: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" id="txtNomeGuerra" name="txtNomeGuerra" onblur="borda_input_text(this.id)"/>
-                        </div>
-                        
-                        <!--Sexo-->
-                        <div class="form-group col-md-3">
-                            <label for="lblSexo">Sexo: </label><b class="obg"> *</b>
-                            <br>
-                            <label class="radio-inline sexo">
-                                <input type="radio" name="txtSexo" id="masculino" value="M"> Masculino
-                            </label>
-                            <label class="radio-inline sexo">
-                                <input type="radio" name="txtSexo" id="feminino" value="F"> Feminino
-                            </label>                         
-                        </div>
-                        
-                        <!--Naturalidade Estado-->
-                        <div class="form-group col-md-3">
-                            <label id="lblNatEst" name="lblNatEstMilitar" for="lblNatEstMilitar">Naturalidade (UF): </label><b class="obg"> *</b>
-                            <select name="txtNatEstMilitar" id="txtNatEstMilitar" class="form-control" onblur="borda_input_select(this.id)">             
-                                <option value="0" selected>Selecione o seu Estado...</option>
-                                <%
-                                    EstadoDAO estDAO = new EstadoDAO();
-                                    
-                                    int qtdeEst = estDAO.getEstados().size();
-                                    
-                                    for(int i=0;i<qtdeEst;i++){
-                                        out.println("<option value='"+estDAO.getEstados().get(i).getId()+"'>"+estDAO.getEstados().get(i).getUf()+"</option>");
-                                    }
-                                %>                                
-                            </select>                            
-                        </div>
-                        
-                        <!--Naturalidade Cidade-->
-                        <div class="form-group col-md-3">
-                            <label id="lblNatCid" name="lblNatCidMilitar" for="lblNatCidMilitar">Naturalidade Cidade: </label><b class="obg"> *</b>                            
-                            <input class="form-control" type="text" id="txtNatCidMilitar" name="txtNatCidMilitar" onblur="borda_input_text(this.id)"/>
-                        </div>
-                            
-                        <div class="form-group col-md-3">
-                            <label id="lblEstCivil" name="lblEstCivil" for="lblEstCivil">Estado Cívil: </label><b class="obg"> *</b>
-                            <select name="txtEstCivil" id="est_civil" class="form-control" onblur="borda_input_select(this.id)">
-                                <option value="0" selected>Selecione o seu Estado Cívil...</option>
-                                <%
-                                    EstadoCivilDAO ecDAO = new EstadoCivilDAO();
-                                    
-                                    int qtdeEC = ecDAO.getEstadosCivis().size();
-                                    
-                                    for(int i=0;i<qtdeEC;i++){
-                                        out.println("<option value='"+ecDAO.getEstadosCivis().get(i).getId()+"'>"+ecDAO.getEstadosCivis().get(i).getNome()+"</option>");
-                                    } 
-                                %>
-                            </select>
-                        </div>                    
-                        
-                        <div class="form-group col-md-3">
-                            <label id="lblDataNasc" name="lblDataNasc" for="lblDataNasc">Data de Nascimento: </label><b class="obg"> *</b>
-                            <input class="form-control" type="date" id="txtDataNasc" name="txtDataNasc" onblur="valida_dataNascMil(this.id);"/>
-                        </div>                            
-                            
-                        <div class="form-group col-md-3">
-                            <label id="lblDataPraca" name="lblDataPraca" for="lblDataPraca">Data Praça: </label><b class="obg"> *</b>
-                            <input class="form-control data" type="date" id="txtDataPraca" name="txtDataPraca" onblur="valida_dataPraca(this.id);"/>
-                        </div>
-                            
-                        <div class="form-group col-md-3">
-                            <label id="lblIdentidade" name="lblIdentidade" for="lblIdentidade">Identidade: </label><b class="obg"> *</b>
-                            <input class="form-control identidade" type="text" id="txtIdentidade" name="txtIdentidade" placeholder="Ex.: 00000000-0" onblur="valida_identidade(this.id)" onkeypress="return somenteNumero(event);"/>
-                        </div>            
-                            
-                        <div class="form-group col-md-3">
-                            <label id="lblCpf" name="lblCpf" for="lblCpf">Cpf: </label><b class="obg"> *</b>
-                            <input class="form-control cpf"  type="text" name="txtCpf" id="cpf" placeholder="Ex.: 000.000.000-00" onblur="return valida_cpf(this.id);" onkeypress="return somenteNumero(event);"/> 
-                        </div>
-                            
-                        <div class="form-group col-md-4">
-                            <label id="lblTeleitorRegistro" name="lblTeleitorRegistro" for="lblTeleitorRegistro">Titulo Eleitor: </label><b class="obg"> *</b>
-                            <input class="form-control titulo_eleitor"  type="text" id="txtTeleitorRegistro" name="txtTeleitorRegistro" maxlength="12" id="titulo_eleitor" placeholder="Ex.: 0000 0000 0000" onblur="valida_titulo(this.id);" onkeypress="return somenteNumero(event);"/> 
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label id="lblTeleitorZona" name="lblTeleitorZona" for="lblTeleitorZona">Zona: </label><b class="obg"> *</b>
-                            <input class="form-control"  type="text" id="txtTeleitorZona" name="txtTeleitorZona" maxlength="3" placeholder="Ex.: 000" onblur="valida_zona(this.id)" onkeypress="return somenteNumero(event);"/> 
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label id="lblTeleitorSecao" name="lblTeleitorSecao" for="lblTeleitorSecao">Seção: </label><b class="obg"> *</b>
-                            <input class="form-control"  type="text" id="txtTeleitorSecao" name="txtTeleitorSecao" maxlength="4" placeholder="Ex.: 0000" onblur="valida_secao(this.id)" onkeypress="return somenteNumero(event);"/> 
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label id="lblPreccp" name="lblPreccp" for="lblPreccp">Preccp: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" id="txtPreccp" name="txtPreccp" maxlength="9" onblur="valida_preccp(this.id)" onkeypress="return somenteNumero(event);"/>
-                        </div>
-                                                    
-                        <div class="form-group col-md-4">
-                            <label id="lblCnhNum" name="lblCnhNum" for="lblCnhNum">CNH Número: </label>
-                            <input class="form-control" type="text" id="txtCnhNum" name="txtCnhNum" maxlength="11" onblur="valida_cnh_num(this.id)" onkeypress="return somenteNumero(event);"/>
-                        </div>
-                            
-                        <div class="form-group col-md-4">
-                            <label id="lblCnhCat" name="lblCnhCat" for="lblCnhCat">CNH Categoria: </label>
-                            <select name="txtCnhCat" id="cnh_cat" class="form-control" onblur="borda_input_select_nn(this.id);">
-                                 <option value="" selected>Selecione a categoria...</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
-                                    <option value="AB">AB</option>
-                                    <option value="C">C</option>
-                                    <option value="AC">AC</option>
-                                    <option value="D">D</option>
-                                    <option value="AD">AD</option>
-                                    <option value="E">E</option>
-                                    <option value="AE">AE</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group col-md-4">
-                            <label id="lblCnhDataVal" name="lblCnhDataVal" for="lblCnhDataVal">Data de Validade da CNH: </label>
-                            <input class="form-control" type="date" id="txtCnhDataVal" name="txtCnhDataVal" onblur="valida_dataValidade(this.id)"/>
-                        </div>  
-                        
-                        <div class="form-group col-md-6">
-                            <label id="lblPai" name="lblPai" for="lbPai">Pai: </label>
-                            <input class="form-control" type="text" id="txtPai" name="txtPai" onblur="borda_input_text_nn(this.id)"/>
-                        </div>
-                            
-                        <div class="form-group col-md-6">
-                            <label id="lblMae" name="lblMae" for="lblMae">Mãe: </label>
-                            <input class="form-control" type="text" id="txtMae" name="txtMae" onblur="borda_input_text_nn(this.id)"/>
-                        </div>
-                        
-                        <div class="form-group col-md-4">
-                            <label id="lblEscolaridade" name="lblEscolaridade" for="lblEscolaridade">Escolaridade: </label><b class="obg"> *</b>
-                            <select name="txtEscolaridade" id="esc" class="form-control" onblur="borda_input_select(this.id);">
-                                <option value="0" selected>Selecione a sua Escolaridade...</option>
-                                <%
-                                    EscolaridadeDAO escDAO = new EscolaridadeDAO();
-                                    
-                                    int qtdeEsc = escDAO.getEscs().size();
-                                    
-                                    for(int i=0;i<qtdeEsc;i++){
-                                        out.println("<option value='"+escDAO.getEscs().get(i).getId()+"'>"+escDAO.getEscs().get(i).getNome()+"</option>");
-                                    } 
-                                %>
-                            </select>
-                        </div>
-                            <div class="form-group col-md-4">
-                            <label id="lblReligiao" name="lblReligiao" for="lblReligiao">Religião: </label><b class="obg"> *</b>
-                            <select name="txtReligiao" id="religiao" class="form-control">
-                                <option value="0" selected>Selecione a sua Religião...</option>
-                                <%
-                                    ReligiaoDAO relDAO = new ReligiaoDAO();
-                                    
-                                    int qtdeReligiao = relDAO.getReligioes().size();
-                                    
-                                    for(int i=0;i<qtdeReligiao;i++){
-                                        out.println("<option value='"+relDAO.getReligioes().get(i).getId()+"'>"+relDAO.getReligioes().get(i).getNome()+"</option>");
-                                    } 
-                                %>
-                                <option value="1000">Outro(a)</option>
-                            </select>
+
+                            <div class="form-group col-md-3">
+                                <label id="lblPostGrad" name="lblPostGrad" for="lblPostGrad">Posto/Graduação: </label><b class="obg"> *</b>
+                                <select name="txtPostGrad" id="postgrad" class="form-control" onblur="borda_input_select(this.id)">
+                                     <option value="0"selected>Selecione o Posto/Graduação...</option>
+                                    <%
+                                        PostoGraduacaoDAO pgDAO = new PostoGraduacaoDAO();
+
+                                        int qtdePGS = pgDAO.getPostGrads().size();
+
+                                        for(int i=0;i<qtdePGS;i++){
+                                            out.println("<option value='"+pgDAO.getPostGrads().get(i).getId()+"'>"+pgDAO.getPostGrads().get(i).getSigla()+"</option>");
+                                        } 
+                                    %>
+                                </select>
+                            </div>
+
+                            <!--QasQms-->
+                            <div class="form-group col-md-3">
+                                <label id="lblQasQms" name="lblQasQms" for="lblQasQms">QAS/QMS: </label><b class="obg"> *</b>
+                                <select name="txtQasQms" id="qasqms" class="form-control" onblur="borda_input_select(this.id)">
+                                    <option value="0" selected>Selecione a QAS/QMS...</option>
+                                    <%
+                                        QasQmsDAO armaDAO = new QasQmsDAO();
+
+                                        int qtdeArmas = armaDAO.getArmas().size();
+
+                                        for(int i=0;i<qtdeArmas;i++){
+                                            out.println("<option value='"+armaDAO.getArmas().get(i).getId()+"'>"+armaDAO.getArmas().get(i).getDesc()+"</option>");
+                                        } 
+                                    %>
+                                </select>
+                            </div>
+
+                            <!--Situação-->
+                            <div class="form-group col-md-3">
+                                <label id="lblSit" name="lblSit" for="lblSit">Situação: </label><b class="obg"> *</b>
+                                <br>
+                                <label class="radio-inline sit">
+                                    <input type="radio" name="txtSit" id="sit" value="1" checked>Ativo
+                                </label>
+                            </div>
                         </div>
                                 
-                        <div class="form-group col-md-4" id="out_rel" style="display: none;">
-                            <label id="lblOutraReligiao" name="lblOutraReligiao" for="lblOutraReligiao">Religião: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" id="txtOutraReligiao" name="txtOutraReligiao" onblur="borda_input_text(this.id)"/>
+                        <div class="form-row">
+                            <!--Nome Completo-->   
+                            <div class="form-group col-md-9">
+                                <label id="lblNomeComp" name="lblNomeComp" for="lblNomeComp">Nome Completo: </label><b class="obg"> *</b>
+                                <input class="form-control" type="text" id="txtNomeComp" name="txtNomeComp" onblur="borda_input_text(this.id)"/>
+                            </div>
+
+                            <!--Nome de Guerra-->                       
+                            <div class="form-group col-md-3">
+                                <label id="lblNomeGuerra" name="lblNomeGuerra" for="lblNomeGuerra">Nome de Guerra: </label><b class="obg"> *</b>
+                                <input class="form-control" type="text" id="txtNomeGuerra" name="txtNomeGuerra" onblur="borda_input_text(this.id)"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <!--Sexo-->
+                            <div class="form-group col-md-3">
+                                <label for="lblSexo">Sexo: </label><b class="obg"> *</b>
+                                <br>
+                                <label class="radio-inline sexo">
+                                    <input type="radio" name="txtSexo" id="masculino" value="M"> Masculino
+                                </label>
+                                <label class="radio-inline sexo">
+                                    <input type="radio" name="txtSexo" id="feminino" value="F"> Feminino
+                                </label>                         
+                            </div>
+
+                            <!--Naturalidade Estado-->
+                            <div class="form-group col-md-3">
+                                <label id="lblNatEst" name="lblNatEstMilitar" for="lblNatEstMilitar">Naturalidade (UF): </label><b class="obg"> *</b>
+                                <select name="txtNatEstMilitar" id="txtNatEstMilitar" class="form-control" onblur="borda_input_select(this.id)">             
+                                    <option value="0" selected>Selecione o seu Estado...</option>
+                                    <%
+                                        EstadoDAO estDAO = new EstadoDAO();
+
+                                        int qtdeEst = estDAO.getEstados().size();
+
+                                        for(int i=0;i<qtdeEst;i++){
+                                            out.println("<option value='"+estDAO.getEstados().get(i).getId()+"'>"+estDAO.getEstados().get(i).getUf()+"</option>");
+                                        }
+                                    %>                                
+                                </select>                            
+                            </div>
+
+                            <!--Naturalidade Cidade-->
+                            <div class="form-group col-md-3">
+                                <label id="lblNatCid" name="lblNatCidMilitar" for="lblNatCidMilitar">Naturalidade Cidade: </label><b class="obg"> *</b>                            
+                                <input class="form-control" type="text" id="txtNatCidMilitar" name="txtNatCidMilitar" onblur="borda_input_text(this.id)"/>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label id="lblEstCivil" name="lblEstCivil" for="lblEstCivil">Estado Cívil: </label><b class="obg"> *</b>
+                                <select name="txtEstCivil" id="est_civil" class="form-control" onblur="borda_input_select(this.id)">
+                                    <option value="0" selected>Selecione o seu Estado Cívil...</option>
+                                    <%
+                                        EstadoCivilDAO ecDAO = new EstadoCivilDAO();
+
+                                        int qtdeEC = ecDAO.getEstadosCivis().size();
+
+                                        for(int i=0;i<qtdeEC;i++){
+                                            out.println("<option value='"+ecDAO.getEstadosCivis().get(i).getId()+"'>"+ecDAO.getEstadosCivis().get(i).getNome()+"</option>");
+                                        } 
+                                    %>
+                                </select>
+                            </div>                    
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label id="lblDataNasc" name="lblDataNasc" for="lblDataNasc">Data de Nascimento: </label><b class="obg"> *</b>
+                                <input class="form-control" type="date" id="txtDataNasc" name="txtDataNasc" onblur="valida_dataNascMil(this.id);"/>
+                            </div>                            
+
+                            <div class="form-group col-md-3">
+                                <label id="lblDataPraca" name="lblDataPraca" for="lblDataPraca">Data Praça: </label><b class="obg"> *</b>
+                                <input class="form-control data" type="date" id="txtDataPraca" name="txtDataPraca" onblur="valida_dataPraca(this.id);"/>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label id="lblIdentidade" name="lblIdentidade" for="lblIdentidade">Identidade: </label><b class="obg"> *</b>
+                                <input class="form-control identidade" type="text" id="txtIdentidade" name="txtIdentidade" placeholder="Ex.: 00000000-0" onblur="valida_identidade(this.id)" onkeypress="return somenteNumero(event);"/>
+                            </div>            
+
+                            <div class="form-group col-md-3">
+                                <label id="lblCpf" name="lblCpf" for="lblCpf">Cpf: </label><b class="obg"> *</b>
+                                <input class="form-control cpf"  type="text" name="txtCpf" id="cpf" placeholder="Ex.: 000.000.000-00" onblur="return valida_cpf(this.id);" onkeypress="return somenteNumero(event);"/> 
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label id="lblTeleitorRegistro" name="lblTeleitorRegistro" for="lblTeleitorRegistro">Titulo Eleitor: </label><b class="obg"> *</b>
+                                <input class="form-control titulo_eleitor"  type="text" id="txtTeleitorRegistro" name="txtTeleitorRegistro" maxlength="12" id="titulo_eleitor" placeholder="Ex.: 0000 0000 0000" onblur="valida_titulo(this.id);" onkeypress="return somenteNumero(event);"/> 
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label id="lblTeleitorZona" name="lblTeleitorZona" for="lblTeleitorZona">Zona: </label><b class="obg"> *</b>
+                                <input class="form-control"  type="text" id="txtTeleitorZona" name="txtTeleitorZona" maxlength="3" placeholder="Ex.: 000" onblur="valida_zona(this.id)" onkeypress="return somenteNumero(event);"/> 
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label id="lblTeleitorSecao" name="lblTeleitorSecao" for="lblTeleitorSecao">Seção: </label><b class="obg"> *</b>
+                                <input class="form-control"  type="text" id="txtTeleitorSecao" name="txtTeleitorSecao" maxlength="4" placeholder="Ex.: 0000" onblur="valida_secao(this.id)" onkeypress="return somenteNumero(event);"/> 
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label id="lblPreccp" name="lblPreccp" for="lblPreccp">Preccp: </label><b class="obg"> *</b>
+                                <input class="form-control" type="text" id="txtPreccp" name="txtPreccp" maxlength="9" onblur="valida_preccp(this.id)" onkeypress="return somenteNumero(event);"/>
+                            </div>
+                        </div>
+                         
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label id="lblCnhNum" name="lblCnhNum" for="lblCnhNum">CNH Número: </label>
+                                <input class="form-control" type="text" id="txtCnhNum" name="txtCnhNum" maxlength="11" onblur="valida_cnh_num(this.id)" onkeypress="return somenteNumero(event);"/>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label id="lblCnhCat" name="lblCnhCat" for="lblCnhCat">CNH Categoria: </label>
+                                <select name="txtCnhCat" id="cnh_cat" class="form-control" onblur="borda_input_select_nn(this.id);">
+                                     <option value="" selected>Selecione a categoria...</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="AB">AB</option>
+                                        <option value="C">C</option>
+                                        <option value="AC">AC</option>
+                                        <option value="D">D</option>
+                                        <option value="AD">AD</option>
+                                        <option value="E">E</option>
+                                        <option value="AE">AE</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label id="lblCnhDataVal" name="lblCnhDataVal" for="lblCnhDataVal">Data de Validade da CNH: </label>
+                                <input class="form-control" type="date" id="txtCnhDataVal" name="txtCnhDataVal" onblur="valida_dataValidade(this.id)"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label id="lblPai" name="lblPai" for="lbPai">Pai: </label>
+                                <input class="form-control" type="text" id="txtPai" name="txtPai" onblur="borda_input_text_nn(this.id)"/>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label id="lblMae" name="lblMae" for="lblMae">Mãe: </label>
+                                <input class="form-control" type="text" id="txtMae" name="txtMae" onblur="borda_input_text_nn(this.id)"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label id="lblEscolaridade" name="lblEscolaridade" for="lblEscolaridade">Escolaridade: </label><b class="obg"> *</b>
+                                <select name="txtEscolaridade" id="esc" class="form-control" onblur="borda_input_select(this.id);">
+                                    <option value="0" selected>Selecione a sua Escolaridade...</option>
+                                    <%
+                                        EscolaridadeDAO escDAO = new EscolaridadeDAO();
+
+                                        int qtdeEsc = escDAO.getEscs().size();
+
+                                        for(int i=0;i<qtdeEsc;i++){
+                                            out.println("<option value='"+escDAO.getEscs().get(i).getId()+"'>"+escDAO.getEscs().get(i).getNome()+"</option>");
+                                        } 
+                                    %>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label id="lblReligiao" name="lblReligiao" for="lblReligiao">Religião: </label><b class="obg"> *</b>
+                                <select name="txtReligiao" id="religiao" class="form-control">
+                                    <option value="0" selected>Selecione a sua Religião...</option>
+                                    <%
+                                        ReligiaoDAO relDAO = new ReligiaoDAO();
+
+                                        int qtdeReligiao = relDAO.getReligioes().size();
+
+                                        for(int i=0;i<qtdeReligiao;i++){
+                                            out.println("<option value='"+relDAO.getReligioes().get(i).getId()+"'>"+relDAO.getReligioes().get(i).getNome()+"</option>");
+                                        } 
+                                    %>
+                                    <option value="1000">Outro(a)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4" id="out_rel" style="display: none;">
+                                <label id="lblOutraReligiao" name="lblOutraReligiao" for="lblOutraReligiao">Religião: </label><b class="obg"> *</b>
+                                <input class="form-control" type="text" id="txtOutraReligiao" name="txtOutraReligiao" onblur="borda_input_text(this.id)"/>
+                            </div>
                         </div>
                     </fieldset>
                     <br>
