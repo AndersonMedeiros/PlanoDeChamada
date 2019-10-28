@@ -143,8 +143,7 @@ public class MilitarDAO {
             } catch (SQLException e) {
                 throw new RuntimeException(e.getMessage());  
             }
-        } else {
-            
+        } else {            
             throw new RuntimeException();
         }
     }
@@ -164,8 +163,7 @@ public class MilitarDAO {
             } catch (SQLException e) {
                 throw new RuntimeException(e.getMessage());  
             }
-        } else {
-            
+        } else {            
             throw new RuntimeException();
         }
     }
@@ -185,8 +183,27 @@ public class MilitarDAO {
             } catch (SQLException e) {
                 throw new RuntimeException(e.getMessage());  
             }
-        } else {
-            
+        } else {            
+            throw new RuntimeException();
+        }
+    }
+    
+    public void ativar(int id_sit, String identidade){
+        if (identidade != null) {
+            try {
+                conn = ConnectionFactory.getConnection();
+                pstm = conn.prepareStatement(UPDATE_SITUACAO);
+                
+                pstm.setInt(1, id_sit);
+                pstm.setString(2, identidade);
+                
+                pstm.execute();
+                ConnectionFactory.fechaConexao(conn, pstm);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage());  
+            }
+        } else {            
             throw new RuntimeException();
         }
     }
@@ -204,8 +221,7 @@ public class MilitarDAO {
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException(e.getMessage());
-            
+            throw new RuntimeException(e.getMessage());            
         }
         return false;
     }
@@ -222,8 +238,7 @@ public class MilitarDAO {
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
-            
+            throw new RuntimeException(e.getMessage());            
         }
         return false;
     }
@@ -240,8 +255,7 @@ public class MilitarDAO {
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
-            
+            throw new RuntimeException(e.getMessage());            
         }
         return false;
     }
@@ -258,8 +272,7 @@ public class MilitarDAO {
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
-            
+            throw new RuntimeException(e.getMessage());            
         }
        return false;
     }
@@ -276,8 +289,7 @@ public class MilitarDAO {
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
-            
+            throw new RuntimeException(e.getMessage());            
         }
        return false;
     }

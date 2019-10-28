@@ -17,9 +17,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author root
+ * @author andersondepaula
  */
-public class excluir extends HttpServlet {
+public class ativar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class excluir extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet excluir</title>");            
+            out.println("<title>Servlet ativar</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet excluir at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ativar at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -83,14 +83,13 @@ public class excluir extends HttpServlet {
                 identidade = "";
             }
             
-            milDAO.delete(2, identidade);
+            milDAO.delete(1, identidade);
             
             RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/militares.jsp?id_sit=1");
             despachante.forward(request, response);
         }else{
             response.sendRedirect("/PlanoDeChamda/erro.jsp?x=sessao-encerrada");
         }
-        
     }
 
     /**
