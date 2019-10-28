@@ -82,8 +82,7 @@ public class modificarNivelAcesso extends HttpServlet {
             
             milDAO.modificarNivelAcesso(nivel_acesso, identidade);
 
-            RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/militares.jsp");
-            despachante.forward(request, response);
+            response.sendRedirect("/PlanoDeChamda/restrito/militares.jsp?id_sit=1");
         }else{
             response.sendRedirect("/PlanoDeChamda/erro.jsp?x=sessao-encerrada");
         }
