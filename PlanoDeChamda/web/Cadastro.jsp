@@ -93,9 +93,8 @@
         <header class="header">
             <img src="img/cabeçalho.jpeg" class="img-responsive" width="100%"/>
            
-            <div class="col-md-12 titulos">
-                <h1 id="titulo">Cadastro de Militares - CIGS</h1>
-                <h2 id="subTitulo">Inclusão de Militar</h2>
+            <div class="titulos col-md-12" style="padding: 0px;">
+                <h1 id="titulo">Inclusão de Militar</h1>
             </div>
         </header>
         

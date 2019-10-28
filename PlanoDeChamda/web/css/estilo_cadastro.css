@@ -13,6 +13,10 @@ and open the template in the editor.
     margin: 0;
 }
 
+.titulos{
+   margin-bottom: 20px;
+}
+
 .titulos > h1{
     font-family: sans-serif;
     font-weight: bold;
