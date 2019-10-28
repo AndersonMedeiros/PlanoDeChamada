@@ -27,9 +27,7 @@ and open the template in the editor.
     font-family: sans-serif;
     font-weight: bold;
     color: black;
-    font-size: 26px;
-    
-    
+    font-size: 26px;    
     text-align: center;
 }
 
@@ -106,4 +104,33 @@ and open the template in the editor.
 .btn-remove{
     color: red;
     font-size: 36px;
+}
+
+fieldset, .dados-dependente{
+    /*background-color: #DCDCDC;*/
+    background-color: #C4F2C4;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.dados-dependente{
+    padding-left: 10px;
+}
+
+legend span{
+    font-weight: bold;
+    color: #fff;
+    /*background-color: #808080;*/
+    background-color: #3D660E;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.dados-conjuge, .dados-dependente{
+    background-color: #7CAF70;
+    padding-left: 10px;
+}
+
+body{
+    background-color: white;
 }

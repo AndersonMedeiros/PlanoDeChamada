@@ -39,9 +39,6 @@
         <link href="bootstrap-4.3.1/css/bootstrap.css" type="text/css" rel="stylesheet"/>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript" src="js/manipulacao.js"></script>
-        <script type="text/javascript" src="js/validacao_de_campos_cadastro.js"></script>
-        <script type="text/javascript" src="js/manipulacao_campos.js"></script>
         <script type="text/javascript" src="js/estados_cidades.js"></script>
         <script type="text/javascript">
             function id( el ){
@@ -105,7 +102,7 @@
         <section class="container area-form">
             <form name="formCadastro" method="post" action="cadastrar" onsubmit="return validacao_cad()">                   
                 <fieldset class="parte-form col-md-12" id="fd_dados_pessoais">
-                    <legend>Dados Pessoais</legend>
+                    <legend><span>Dados Pessoais</span></legend>
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label id="lblDivSec" name="lblDivSec" for="lblDivSec">Divisão/Seção: </label><b class="obg"> *</b>
@@ -356,7 +353,7 @@
                     <br>
                     
                     <fieldset class="parte-form col-md-12">
-                        <legend>Dados Familiares</legend>
+                        <legend><span>Dados Familiares</span></legend>
                         <center>
                             <div class="checkbox col-md-12">
                                 <label>
@@ -370,36 +367,38 @@
                             </div>
                         </center>
                         <div id="div_dados_conjuge" style="display: none;">
-                            <fieldset class="parte-form col-md-12">
-                                <legend>Dados do Cônjuge</legend>
-                                <div class="form-group col-md-4">
-                                    <label id="lblNomeConjuge" name="lblNomeConjuge" for="lblNomeConjuge">Nome Completo: </label><b class="obg"> *</b>
-                                    <input class="form-control" type="text" id="txtNomeConjuge" name="txtNomeConjuge" onblur="borda_input_text(this.id)"/>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label id="lblFoneConjuge" name="lblFoneConjuge" for="lblFoneConjuge">Telefone: </label><b class="obg"> *</b>
-                                    <input class="form-control fone" type="text" id="txtFoneConjuge" name="txtFoneConjuge" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id);" onkeypress="return somenteNumero(event);"/>
-                                </div>
+                            <fieldset class="parte-form col-md-12 dados-conjuge">
+                                <legend><span>Dados do Cônjuge</span></legend>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label id="lblNomeConjuge" name="lblNomeConjuge" for="lblNomeConjuge">Nome Completo: </label><b class="obg"> *</b>
+                                        <input class="form-control" type="text" id="txtNomeConjuge" name="txtNomeConjuge" onblur="borda_input_text(this.id)"/>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label id="lblFoneConjuge" name="lblFoneConjuge" for="lblFoneConjuge">Telefone: </label><b class="obg"> *</b>
+                                        <input class="form-control fone" type="text" id="txtFoneConjuge" name="txtFoneConjuge" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id);" onkeypress="return somenteNumero(event);"/>
+                                    </div>
 
-                                <div class="form-group col-md-3"> 
-                                    <label id="lblDataNascConjuge" name="lblDataNascConjuge" for="lblDataNascConjuge">Data de Nascimento: </label><b class="obg"> *</b>
-                                    <input class="form-control data" type="date" id="txtDataNascConjuge" name="txtDataNascConjuge" onblur="valida_dataNasc(this.id)"/>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="lblGravidez">Esposa Grávida: </label><b class="obg"> *</b>
-                                    <br>
-                                    <label class="radio-inline gravida">
-                                        <input type="radio" name="txtGravidez" id="sim" value="S"> Sim
-                                    </label>
-                                    <label class="radio-inline gravida">
-                                        <input type="radio" name="txtGravidez" id="nao" value="N"> Não
-                                    </label>                         
+                                    <div class="form-group col-md-3"> 
+                                        <label id="lblDataNascConjuge" name="lblDataNascConjuge" for="lblDataNascConjuge">Data de Nascimento: </label><b class="obg"> *</b>
+                                        <input class="form-control data" type="date" id="txtDataNascConjuge" name="txtDataNascConjuge" onblur="valida_dataNasc(this.id)"/>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="lblGravidez">Esposa Grávida: </label><b class="obg"> *</b>
+                                        <br>
+                                        <label class="radio-inline gravida">
+                                            <input type="radio" name="txtGravidez" id="sim" value="S"> Sim
+                                        </label>
+                                        <label class="radio-inline gravida">
+                                            <input type="radio" name="txtGravidez" id="nao" value="N"> Não
+                                        </label>                         
+                                    </div>
                                 </div>
                             </fieldset>
                         </div>                
                         <div  id="div_dados_dependente" style="display: none;">
-                            <fieldset id="fd_dados_dependente" class="parte-form col-md-12" style="display: none;">
-                                <legend>Dados dos Dependentes</legend>
+                            <fieldset id="fd_dados_dependente" class="parte-form col-md-12 dados-dependente" style="display: none;">
+                                <legend><span>Dados dos Dependentes</span></legend>
                             </fieldset>
                         </div>
 
@@ -411,148 +410,159 @@
                     </fieldset>
                     
                     <fieldset class="parte-form col-md-12">
-                        <legend>Dados de Endereço</legend>
-                        <div class="form-group col-md-3">
-                            <label id="lblCep" name="lblCep" for="lblCep">Cep: </label><b class="obg"> *</b>
-                            <input class="form-control cep" type="text" name="txtCep" id="txtCep" placeholder="Ex.: 00000-000" onblur="valida_cep(this.id)" onkeypress="return somenteNumero(event);"/>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label id="lblEstado" name="lblEstado" for="lblEstado">Estado: </label><b class="obg"> *</b>
-                            <select name="txtEstado" id="estado" class="form-control" onblur="borda_input_select(this.id)">
-                                <option value="0" selected>Selecione o seu Estado...</option>
-                                <%             
-                                    out.println("<option value='"+estDAO.getAM().getId()+"'>"+estDAO.getAM().getNome()+"</option>");
-                                %>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label id="lblCidade" name="lblCidade" for="lblCidade">Cidade: </label><b class="obg"> *</b>
-                            <select name="txtCidade" id="cidade" class="form-control" onblur="borda_input_select(this.id)">
-                                <option value="0" selected>Selecione a sua Cidade...</option>
-                                <%
-                                   CidadeDAO cDAO = new CidadeDAO();
+                        <legend><span>Dados de Endereço</span></legend>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label id="lblCep" name="lblCep" for="lblCep">Cep: </label><b class="obg"> *</b>
+                                <input class="form-control cep" type="text" name="txtCep" id="txtCep" placeholder="Ex.: 00000-000" onblur="valida_cep(this.id)" onkeypress="return somenteNumero(event);"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label id="lblEstado" name="lblEstado" for="lblEstado">Estado: </label><b class="obg"> *</b>
+                                <select name="txtEstado" id="estado" class="form-control" onblur="borda_input_select(this.id)">
+                                    <option value="0" selected>Selecione o seu Estado...</option>
+                                    <%             
+                                        out.println("<option value='"+estDAO.getAM().getId()+"'>"+estDAO.getAM().getNome()+"</option>");
+                                    %>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label id="lblCidade" name="lblCidade" for="lblCidade">Cidade: </label><b class="obg"> *</b>
+                                <select name="txtCidade" id="cidade" class="form-control" onblur="borda_input_select(this.id)">
+                                    <option value="0" selected>Selecione a sua Cidade...</option>
+                                    <%
+                                       CidadeDAO cDAO = new CidadeDAO();
 
-                                   int qtdeCid = cDAO.getCidades().size();
-                                   
-                                   for(int i=0;i<qtdeCid;i++){
-                                       out.println("<option value='"+cDAO.getCidades().get(i).getId()+"'>"+cDAO.getCidades().get(i).getNome()+"</option>");
-                                       //System.out.println(cDAO.getCidades().get(i).getId() + " " + cDAO.getCidades().get(i).getNome());
-                                   } 
-                                   
-                                %>
-                            </select>
+                                       int qtdeCid = cDAO.getCidades().size();
+
+                                       for(int i=0;i<qtdeCid;i++){
+                                           out.println("<option value='"+cDAO.getCidades().get(i).getId()+"'>"+cDAO.getCidades().get(i).getNome()+"</option>");
+                                           //System.out.println(cDAO.getCidades().get(i).getId() + " " + cDAO.getCidades().get(i).getNome());
+                                       } 
+
+                                    %>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label id="lblBairro" name="lblBairro" for="lblBairro">Bairro: </label><b class="obg"> *</b>
+
+                                <select name="txtpadrao" id="padrao" class="form-control" onblur="borda_input_select(this.id);">
+                                    <option value="0" selected>Selecione o seu Bairro...</option>
+
+                                </select>
+
+                                <select name="txtBairroManaus" id="bairrosManaus" class="form-control" onblur="borda_input_select(this.id);" style="display: none;">
+                                    <option value="0" selected>Selecione o seu Bairro...</option>
+                                    <%
+                                        BairroDAO bDAO = new BairroDAO();
+
+                                        int qtdeBairros = bDAO.getBairrosByCidade(1).size();
+
+                                        for(int i=0;i<qtdeBairros;i++){
+                                            //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
+                                            out.println("<option value='"+bDAO.getBairrosByCidade(1).get(i).getId()+"'>"+bDAO.getBairrosByCidade(1).get(i).getNome()+"</option>");
+                                        } 
+                                    %>
+                                </select>
+
+                                <select name="txtBairroRioPretoDaEva" id="bairrosRioPretoDaEva" class="form-control" onblur="borda_input_select(this.id);" style="display: none;">
+                                    <option value="0" selected>Selecione o seu Bairro...</option>
+                                    <%                                                                                      
+                                        qtdeBairros = bDAO.getBairrosByCidade(2).size();
+
+                                        for(int i=0;i<qtdeBairros;i++){
+                                            //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
+                                            out.println("<option value='"+bDAO.getBairrosByCidade(2).get(i).getId()+"'>"+bDAO.getBairrosByCidade(2).get(i).getNome()+"</option>");
+                                        } 
+                                    %>
+                                </select>
+
+                                <select name="txtBairroIranduba" id="bairrosIranduba" class="form-control" onblur="borda_input_select(this.id);" style="display: none;">
+                                    <option value="0" selected>Selecione o seu Bairro...</option>
+                                    <%                                                                                       
+                                        qtdeBairros = bDAO.getBairrosByCidade(3).size();
+
+                                        for(int i=0;i<qtdeBairros;i++){
+                                            //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
+                                            out.println("<option value='"+bDAO.getBairrosByCidade(3).get(i).getId()+"'>"+bDAO.getBairrosByCidade(3).get(i).getNome()+"</option>");
+                                        } 
+                                    %>
+                                </select>
+
+                                <select name="txtBairroManacapuru" id="bairrosManacapuru" class="form-control" onblur="borda_input_select(this.id);" style="display: none;">
+                                    <option value="0" selected>Selecione o seu Bairro...</option>
+                                    <%                                                                                         
+                                        qtdeBairros = bDAO.getBairrosByCidade(4).size();
+
+                                        for(int i=0;i<qtdeBairros;i++){
+                                            //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
+                                            out.println("<option value='"+bDAO.getBairrosByCidade(4).get(i).getId()+"'>"+bDAO.getBairrosByCidade(4).get(i).getNome()+"</option>");
+                                        } 
+                                    %>
+                                </select>
+                            </div> 
                         </div>
-                                               
-                        <div class="form-group col-md-3">
-                            <label id="lblBairro" name="lblBairro" for="lblBairro">Bairro: </label><b class="obg"> *</b>
-                            
-                            <select name="txtpadrao" id="padrao" class="form-control" onblur="borda_input_select(this.id);">
-                                <option value="0" selected>Selecione o seu Bairro...</option>
                                 
-                            </select>
-                                                        
-                            <select name="txtBairroManaus" id="bairrosManaus" class="form-control" onblur="borda_input_select(this.id);" style="display: none;">
-                                <option value="0" selected>Selecione o seu Bairro...</option>
-                                <%
-                                    BairroDAO bDAO = new BairroDAO();
-                                                                                                          
-                                    int qtdeBairros = bDAO.getBairrosByCidade(1).size();
-                                    
-                                    for(int i=0;i<qtdeBairros;i++){
-                                        //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
-                                        out.println("<option value='"+bDAO.getBairrosByCidade(1).get(i).getId()+"'>"+bDAO.getBairrosByCidade(1).get(i).getNome()+"</option>");
-                                    } 
-                                %>
-                            </select>
-                            
-                            <select name="txtBairroRioPretoDaEva" id="bairrosRioPretoDaEva" class="form-control" onblur="borda_input_select(this.id);" style="display: none;">
-                                <option value="0" selected>Selecione o seu Bairro...</option>
-                                <%                                                                                      
-                                    qtdeBairros = bDAO.getBairrosByCidade(2).size();
-                                    
-                                    for(int i=0;i<qtdeBairros;i++){
-                                        //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
-                                        out.println("<option value='"+bDAO.getBairrosByCidade(2).get(i).getId()+"'>"+bDAO.getBairrosByCidade(2).get(i).getNome()+"</option>");
-                                    } 
-                                %>
-                            </select>
-                            
-                            <select name="txtBairroIranduba" id="bairrosIranduba" class="form-control" onblur="borda_input_select(this.id);" style="display: none;">
-                                <option value="0" selected>Selecione o seu Bairro...</option>
-                                <%                                                                                       
-                                    qtdeBairros = bDAO.getBairrosByCidade(3).size();
-                                    
-                                    for(int i=0;i<qtdeBairros;i++){
-                                        //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
-                                        out.println("<option value='"+bDAO.getBairrosByCidade(3).get(i).getId()+"'>"+bDAO.getBairrosByCidade(3).get(i).getNome()+"</option>");
-                                    } 
-                                %>
-                            </select>
-                            
-                            <select name="txtBairroManacapuru" id="bairrosManacapuru" class="form-control" onblur="borda_input_select(this.id);" style="display: none;">
-                                <option value="0" selected>Selecione o seu Bairro...</option>
-                                <%                                                                                         
-                                    qtdeBairros = bDAO.getBairrosByCidade(4).size();
-                                    
-                                    for(int i=0;i<qtdeBairros;i++){
-                                        //System.out.println(bDAO.getBairrosByCidade(1).get(i).getId()+" "+bDAO.getBairrosByCidade(1).get(i).getNome());
-                                        out.println("<option value='"+bDAO.getBairrosByCidade(4).get(i).getId()+"'>"+bDAO.getBairrosByCidade(4).get(i).getNome()+"</option>");
-                                    } 
-                                %>
-                            </select>
-                        </div> 
+                        <div class="form-row">
+                            <div class="form-group col-md-10">
+                                <label id="lblLogradouro" name="lblLogradouro" for="lblLogradouro">Rua/Av./Ala: </label><b class="obg"> *</b>
+                                <input class="form-control" type="text" name="txtLogradouro" id="txtLogradouro" onblur="borda_input_text(this.id)"/>
+                            </div>
 
-                        <div class="form-group col-md-10">
-                            <label id="lblLogradouro" name="lblLogradouro" for="lblLogradouro">Rua/Av./Ala: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" name="txtLogradouro" id="txtLogradouro" onblur="borda_input_text(this.id)"/>
+                            <div class="form-group col-md-2">
+                                <label id="lblNum" name="lblNum" for="lblNum">Número: </label><b class="obg"> *</b>
+                                <input class="form-control" type="text" id="txtNum" name="txtNum" onblur="borda_input_text(this.id)"/>
+                            </div>
                         </div>
-
-                        <div class="form-group col-md-2">
-                            <label id="lblNum" name="lblNum" for="lblNum">Número: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" id="txtNum" name="txtNum" onblur="borda_input_text(this.id)"/>
-                        </div>
-
-                        <div class="form-group col-md-12">
-                            <label id="lblComplemento" name="lblComplemento" for="lblComplemento">Complemento: </label>
-                            <input class="form-control" type="text" id="txtComplemento" onblur="borda_input_text_nn(this.id)"/>
+                                
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label id="lblComplemento" name="lblComplemento" for="lblComplemento">Complemento: </label>
+                                <input class="form-control" type="text" id="txtComplemento" onblur="borda_input_text_nn(this.id)"/>
+                            </div>
                         </div>
                     </fieldset>
                     <br>
                     <fieldset class="parte-form col-md-12">
-                        <legend>Dados de Contato</legend>
-                        
-                        <div class="form-group col-md-6">
-                            <label id="lblFone01" name="lblFone01" for="lblFone01">Telefone 01: </label><b class="obg"> *</b>
-                            <input class="form-control fone" type="text" id="txtFone01" name="txtFone01" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id)" onkeypress="return somenteNumero(event);"/>
-                        </div>
+                        <legend><span>Dados de Contato</span></legend>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label id="lblFone01" name="lblFone01" for="lblFone01">Telefone 01: </label><b class="obg"> *</b>
+                                <input class="form-control fone" type="text" id="txtFone01" name="txtFone01" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id)" onkeypress="return somenteNumero(event);"/>
+                            </div>
 
-                        <div class="form-group col-md-6">
-                            <label id="lblFone02" name="lblFone02" for="lblFone02">Telefone 02: </label>
-                            <input class="form-control fone" type="text" id="txtFone02" name="txtFone02" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone_nn(this.id)" onkeypress="return somenteNumero(event);"/>
-                        </div>    
-
-                        <div class="form-group col-md-12">
-                            <label id="lblEmail" name="lblEmail" for="lblEmail">Email: </label><b class="obg"> *</b>
-                            <input class="form-control" type="email" id="txtEmail" name="txtEmail" onblur="borda_input_text(this.id)"/>
+                            <div class="form-group col-md-6">
+                                <label id="lblFone02" name="lblFone02" for="lblFone02">Telefone 02: </label>
+                                <input class="form-control fone" type="text" id="txtFone02" name="txtFone02" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone_nn(this.id)" onkeypress="return somenteNumero(event);"/>
+                            </div>    
                         </div>
-
-                        <div class="form-group col-md-6">
-                            <label id="lblNomeReferencia" name="lblNomeReferencia" for="lblNomeReferencia">Familiar de Contato: </label><b class="obg"> *</b>
-                            <input class="form-control" type="text" id="txtNomeReferencia" name="txtNomeReferencia" onblur="borda_input_text(this.id)"/>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label id="lblEmail" name="lblEmail" for="lblEmail">Email: </label><b class="obg"> *</b>
+                                <input class="form-control" type="email" id="txtEmail" name="txtEmail" onblur="borda_input_text(this.id)"/>
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label id="lblFoneReferencia" name="lblFoneReferencia" for="lblFoneReferencia">Contato do Familiar: </label><b class="obg"> *</b>
-                            <input class="form-control fone" type="text" id="txtFoneReferencia" name="txtFoneReferencia" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id)" onkeypress="return somenteNumero(event);"/>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label id="lblNomeReferencia" name="lblNomeReferencia" for="lblNomeReferencia">Familiar de Contato: </label><b class="obg"> *</b>
+                                <input class="form-control" type="text" id="txtNomeReferencia" name="txtNomeReferencia" onblur="borda_input_text(this.id)"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label id="lblFoneReferencia" name="lblFoneReferencia" for="lblFoneReferencia">Contato do Familiar: </label><b class="obg"> *</b>
+                                <input class="form-control fone" type="text" id="txtFoneReferencia" name="txtFoneReferencia" placeholder="Ex.: (00) 00000-0000" onblur="valida_fone(this.id)" onkeypress="return somenteNumero(event);"/>
+                            </div>
                         </div>
                     </fieldset>
 
                     <fieldset class="parte-form col-md-12">
-                        <legend>Dados de Acesso</legend>
-                        <div class="form-group col-md-6">
-                            <label id="lblSenha" name="lblSenha" for="lblSenha">Senha: </label><b class="obg"> *</b>
-                            <input class="form-control" type="password" id="txtSenha" name="txtSenha" maxlength="20" onblur="valida_senha(this.id)"/>
-                            <b class="obg">*No mínimo 6 caracteres</b>
-                        </div>   
+                        <legend><span>Dados de Acesso</span></legend>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label id="lblSenha" name="lblSenha" for="lblSenha">Senha: </label><b class="obg"> *</b>
+                                <input class="form-control" type="password" id="txtSenha" name="txtSenha" maxlength="20" onblur="valida_senha(this.id)"/>
+                                <b class="obg">*No mínimo 6 caracteres</b>
+                            </div>  
+                        </div>
                     </fieldset>
                     
                     <div class="linha-botoes col-md-12">
@@ -572,7 +582,9 @@
             
         <script src="bootstrap/js/bootstrap.js"></script>
         
-        
+        <script type="text/javascript" src="js/validacao_de_campos_cadastro.js"></script>
+        <script type="text/javascript" src="js/manipulacao_campos.js"></script>
+        <script type="text/javascript" src="js/manipulacao_form_familiares.js"></script>
         <script type="text/javascript" src="js/mascaras.js"></script>
         
     </body>
