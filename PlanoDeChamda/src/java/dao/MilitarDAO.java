@@ -188,7 +188,7 @@ public class MilitarDAO {
         }
     }
     
-    public void ativar(int id_sit, String identidade){
+    public void ativar_desativar(int id_sit, String identidade){
         if (identidade != null) {
             try {
                 conn = ConnectionFactory.getConnection();

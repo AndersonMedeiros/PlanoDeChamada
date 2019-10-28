@@ -83,7 +83,7 @@ public class excluir extends HttpServlet {
                 identidade = "";
             }
             
-            milDAO.delete(2, identidade);
+            milDAO.ativar_desativar(2, identidade);
             
             RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/militares.jsp?id_sit=1");
             despachante.forward(request, response);

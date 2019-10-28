@@ -83,7 +83,7 @@ public class ativar extends HttpServlet {
                 identidade = "";
             }
             
-            milDAO.delete(1, identidade);
+            milDAO.ativar_desativar(1, identidade);
             
             RequestDispatcher despachante = getServletContext().getRequestDispatcher("/restrito/militares.jsp?id_sit=1");
             despachante.forward(request, response);
