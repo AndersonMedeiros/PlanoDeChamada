@@ -175,7 +175,7 @@
                                     out.println("<td>"+militares.get(i).getNome()+"</td>");
                                     out.println("<td>"+
                                                 "<div class=\"btn-group\">"+
-                                                    "<form name=\"formExcluir\" method=\"post\" action=\"excluir\">"+
+                                                    "<form name=\"formAtivar\" method=\"post\" action=\"ativar\">"+
                                                         "<input type=\"hidden\" class=\"form-control\" name=\"idt_excluir\" id=\"idt_excluir\" readonly=\"readonly\" value=\""+identidade+"\"/>"+
                                                         "<button id="+identidade+" type=\"subimit\" class=\"btn btn-dark\" style=\"margin-right: 10px;\" onclick=\"return confirm('Tem certeza que deseja ativar o militar?');\">"+
                                                         "<i class=\"glyphicon glyphicon-ok\"></i>"+
@@ -228,7 +228,6 @@
                                 </div>
 
                                 <div class="form-row form-group col-md-12 justify-content-center">
-
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="txtNivelAcesso1" name="txtNivelAcesso" class="custom-control-input" value="1">
                                         <label class="custom-control-label" for="txtNivelAcesso1">Administrador</label>

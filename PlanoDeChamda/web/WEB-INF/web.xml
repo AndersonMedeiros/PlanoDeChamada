@@ -36,6 +36,10 @@
         <servlet-name>excluir</servlet-name>
         <servlet-class>controller.excluir</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ativar</servlet-name>
+        <servlet-class>controller.ativar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>autenticador</servlet-name>
         <url-pattern>/autenticador</url-pattern>
@@ -67,6 +71,10 @@
     <servlet-mapping>
         <servlet-name>excluir</servlet-name>
         <url-pattern>/restrito/excluir</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ativar</servlet-name>
+        <url-pattern>/restrito/ativar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
