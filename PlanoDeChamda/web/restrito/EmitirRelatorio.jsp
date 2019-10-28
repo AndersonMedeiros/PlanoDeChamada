@@ -51,7 +51,7 @@
             <div class="row">
                     <div class="col-md-12">                        
                         <nav class="navbar navbar-dark navbar-expand-lg navbar-expand-md" style="background-color: #3D660E;">
-                            <a class="navbar-brand" href="#">Navbar</a>
+                            <!--<a class="navbar-brand" href="#">Navbar</a>-->
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -107,9 +107,9 @@
                                     %>
 
                                     
-                                    <li class="nav-item">
+                                    <!--<li class="nav-item">
                                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                                 <form class="form-inline my-2 my-lg-0" name="formSair" method="post" action="sair">
                                     <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
