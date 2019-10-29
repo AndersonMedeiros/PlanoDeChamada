@@ -145,16 +145,30 @@ public class cadastrar extends HttpServlet {
             mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
             System.out.println(end.getCep()+ " "+end.getLogradouro()+" "+end.getComplemento()+" " +end.getId_bairro()+"idend"+endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
             mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
+            
             //Religião
-            int id_religiao = Integer.parseInt(request.getParameter("txtReligiao"));
             ReligiaoDAO religiaoDAO = new ReligiaoDAO();
-            if(id_religiao == 1000){
+            int id_religiao_atual = Integer.parseInt(request.getParameter("txtReligiao"));
+            
+            if(id_religiao_atual == 1000){                
                 String nova_religiao = request.getParameter("txtOutraReligiao").toUpperCase();
-                religiaoDAO.inserir(nova_religiao);
+                if(nova_religiao.equals("CATÓLICO") || nova_religiao.equals("CATÓLICA") || nova_religiao.equals("CATOLICO") || nova_religiao.equals("CATOLICA")){
+                    nova_religiao = "CATÓLICO(A)";
+                }else if(nova_religiao.equals("EVANGÉLICO") || nova_religiao.equals("EVANGÉLICA") || nova_religiao.equals("EVANGELICO") || nova_religiao.equals("EVANGELICA")){
+                    nova_religiao = "EVANGÉLICO(A)";
+                }
+                
                 int id_nova_religiao = religiaoDAO.getReligiaoByNome(nova_religiao).getId();
-                mil.setId_religiao(id_nova_religiao);
+                
+                if(id_nova_religiao == 0){
+                    religiaoDAO.inserir(nova_religiao);
+                    int id_rel_inserida = religiaoDAO.getReligiaoByNome(nova_religiao).getId();
+                    mil.setId_religiao(id_rel_inserida);
+                }else{
+                    mil.setId_religiao(id_nova_religiao);
+                }                
             }else{
-                mil.setId_religiao(id_religiao);
+                mil.setId_religiao(id_religiao_atual);
             }
 
             mil.setEmail(request.getParameter("txtEmail").toUpperCase());

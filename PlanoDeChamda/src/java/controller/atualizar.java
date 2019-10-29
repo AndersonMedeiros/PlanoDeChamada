@@ -161,6 +161,12 @@ public class atualizar extends HttpServlet {
             
             if(id_religiao_atual == 1000){                
                 String nova_religiao = request.getParameter("txtOutraReligiao").toUpperCase();
+                if(nova_religiao.equals("CATÓLICO") || nova_religiao.equals("CATÓLICA") || nova_religiao.equals("CATOLICO") || nova_religiao.equals("CATOLICA")){
+                    nova_religiao = "CATÓLICO(A)";
+                }else if(nova_religiao.equals("EVANGÉLICO") || nova_religiao.equals("EVANGÉLICA") || nova_religiao.equals("EVANGELICO") || nova_religiao.equals("EVANGELICA")){
+                    nova_religiao = "EVANGÉLICO(A)";
+                }
+                
                 int id_nova_religiao = religiaoDAO.getReligiaoByNome(nova_religiao).getId();
                 
                 if(id_nova_religiao == 0){
