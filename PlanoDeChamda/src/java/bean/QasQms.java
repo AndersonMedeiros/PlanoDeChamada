@@ -4,14 +4,13 @@
  * and open the template in the editor.
  */
 package bean;
-
 /**
  *
  * @author ander
  */
 public class QasQms {
     int id;
-    String desc;
+    String nome;
 
     public int getId() {
         return id;
@@ -21,13 +20,11 @@ public class QasQms {
         this.id = id;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getNome() {
+        return nome;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-    
-    
+    public void setNome(String nome) {
+        this.nome = nome;
+    } 
 }

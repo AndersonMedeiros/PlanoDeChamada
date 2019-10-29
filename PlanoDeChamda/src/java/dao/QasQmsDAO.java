@@ -18,8 +18,22 @@ import java.util.ArrayList;
  * @author ander
  */
 public class QasQmsDAO {
+    //Tabela
+    private final String tabela = "QasQms";
+    
+    //Atributos
+    private final String id = "qasqms_id";
+    private final String nome = "qasqms_nome";
+    
+    //Consultas sql
+    private final String GETQasQmsByID = "SELECT * FROM " + tabela + " WHERE " + id + "=?";
+    private final String GETQasQms = "SELECT * FROM " + tabela + " ORDER BY " + nome;
     private final String GETQASQMSBYID = "SELECT * FROM QAS_QMS WHERE Arma_id=?";
     private final String GETARMAS = "SELECT * FROM QAS_QMS ORDER BY Arma_desc";
+    
+    public void imp(){
+        System.out.println(GETQasQmsByID);
+    }
     
     Connection conn;
     PreparedStatement pstm;
@@ -37,8 +51,8 @@ public class QasQmsDAO {
             rs = pstm.executeQuery();
         
             while (rs.next()) {
-               arma.setId(rs.getInt("Arma_id"));
-               arma.setDesc(rs.getString("Arma_desc"));
+               arma.setId(rs.getInt(id));
+               arma.setNome(rs.getString("Arma_id"));
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);
         }catch(SQLException e){
@@ -62,7 +76,7 @@ public class QasQmsDAO {
             while (rs.next()) {
                QasQms arma = new QasQms();
                arma.setId(rs.getInt("Arma_id"));
-               arma.setDesc(rs.getString("Arma_desc"));
+               arma.setNome(rs.getString("Arma_desc"));
                armas.add(arma);
             }
             ConnectionFactory.fechaConexao(conn, pstm, rs);

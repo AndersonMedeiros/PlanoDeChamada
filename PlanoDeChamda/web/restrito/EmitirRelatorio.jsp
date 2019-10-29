@@ -185,7 +185,7 @@
                                 for(int i=0;i<qtdeArmas;i++){
                                     out.println("<div class=\"custom-control custom-radio\">"+                                            
                                                 "<input type=radio name=txtQasQms id=qasqms"+i+1+" class=custom-control-input value='"+qasqmsDAO.getArmas().get(i).getId()+"' required>"+
-                                                "<label class=custom-control-label tipo-relatorio for=qasqms"+i+1+">"+qasqmsDAO.getArmas().get(i).getDesc()+    
+                                                "<label class=custom-control-label tipo-relatorio for=qasqms"+i+1+">"+qasqmsDAO.getArmas().get(i).getNome()+    
                                                 "</label>"+
                                                 "</div>");
                                 } 

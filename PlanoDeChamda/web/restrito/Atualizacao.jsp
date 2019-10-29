@@ -242,9 +242,9 @@
 
                                     for(int i=0;i<qtdQasQms;i++){
                                         if(mil.getId_qq()==qasqmsDAO.getArmas().get(i).getId()){
-                                            out.println("<option value='"+qasqmsDAO.getArmas().get(i).getId()+"' selected>"+qasqmsDAO.getArmas().get(i).getDesc()+"</option>");
+                                            out.println("<option value='"+qasqmsDAO.getArmas().get(i).getId()+"' selected>"+qasqmsDAO.getArmas().get(i).getNome()+"</option>");
                                         }else{
-                                            out.println("<option value='"+qasqmsDAO.getArmas().get(i).getId()+"'>"+qasqmsDAO.getArmas().get(i).getDesc()+"</option>");
+                                            out.println("<option value='"+qasqmsDAO.getArmas().get(i).getId()+"'>"+qasqmsDAO.getArmas().get(i).getNome()+"</option>");
                                         }
                                     }
                                     out.println("</select>"+

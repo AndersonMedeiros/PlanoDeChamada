@@ -146,7 +146,7 @@
                                         int qtdeArmas = armaDAO.getArmas().size();
 
                                         for(int i=0;i<qtdeArmas;i++){
-                                            out.println("<option value='"+armaDAO.getArmas().get(i).getId()+"'>"+armaDAO.getArmas().get(i).getDesc()+"</option>");
+                                            out.println("<option value='"+armaDAO.getArmas().get(i).getId()+"'>"+armaDAO.getArmas().get(i).getNome()+"</option>");
                                         } 
                                     %>
                                 </select>
