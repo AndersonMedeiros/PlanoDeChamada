@@ -156,15 +156,22 @@ public class atualizar extends HttpServlet {
             mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
             
             //Religião
-            int id_religiao = Integer.parseInt(request.getParameter("txtReligiao"));
             ReligiaoDAO religiaoDAO = new ReligiaoDAO();
-            if(id_religiao == 1000){
+            int id_religiao_atual = Integer.parseInt(request.getParameter("txtReligiao"));
+            
+            if(id_religiao_atual == 1000){                
                 String nova_religiao = request.getParameter("txtOutraReligiao").toUpperCase();
-                religiaoDAO.inserir(nova_religiao);
                 int id_nova_religiao = religiaoDAO.getReligiaoByNome(nova_religiao).getId();
-                mil.setId_religiao(id_nova_religiao);
+                
+                if(id_nova_religiao == 0){
+                    religiaoDAO.inserir(nova_religiao);
+                    int id_rel_inserida = religiaoDAO.getReligiaoByNome(nova_religiao).getId();
+                    mil.setId_religiao(id_rel_inserida);
+                }else{
+                    mil.setId_religiao(id_nova_religiao);
+                }                
             }else{
-                mil.setId_religiao(id_religiao);
+                mil.setId_religiao(id_religiao_atual);
             }
             
             mil.setEmail(request.getParameter("txtEmail").toUpperCase());
