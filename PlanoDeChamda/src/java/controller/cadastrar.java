@@ -124,6 +124,7 @@ public class cadastrar extends HttpServlet {
             
             //Militar
             Militar mil = new Militar();
+            mil.setId(milDAO.proxID());
             mil.setId_div_sec(Integer.parseInt(request.getParameter("txtDivSec").toUpperCase()));
             mil.setId_pg(Integer.parseInt(request.getParameter("txtPostGrad").toUpperCase()));
             mil.setId_qq(Integer.parseInt(request.getParameter("txtQasQms").toUpperCase()));
@@ -143,7 +144,7 @@ public class cadastrar extends HttpServlet {
             mil.setPai(request.getParameter("txtPai").toUpperCase());
             mil.setMae(request.getParameter("txtMae").toUpperCase());
             mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
-            System.out.println(end.getCep()+ " "+end.getLogradouro()+" "+end.getComplemento()+" " +end.getId_bairro()+"idend"+endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
+            //System.out.println(end.getCep()+ " "+end.getLogradouro()+" "+end.getComplemento()+" " +end.getId_bairro()+"idend"+endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
             mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
             
             //Religião

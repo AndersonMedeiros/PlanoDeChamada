@@ -23,17 +23,18 @@ public class MilitarDAO {
     private final String GETCPF = "SELECT mil_cpf FROM Militar WHERE mil_cpf=?";
     private final String GETIDENTIDADE = "SELECT mil_identidade FROM Militar WHERE mil_identidade=?";
     private final String GETID = "SELECT mil_id FROM Militar WHERE mil_identidade=?";
+    private final String GETULTIMO_ID = "SELECT MAX(mil_id) as ultimo_id FROM Militar";
     private final String GETMILITAR = "SELECT * FROM Militar WHERE mil_identidade=?";
     private final String GETMILITARES = "SELECT * FROM Militar WHERE mil_situacao_id=? ORDER BY mil_postograduacao_id";
     private final String GETMILITARES_INATIVOS = "SELECT * FROM Militar WHERE mil_situacao_id=2 ORDER BY mil_postograduacao_id";
     
-    private final String INSERT = "INSERT INTO Militar (mil_identidade,mil_nome,mil_nome_guerra,mil_cpf,mil_preccp,"+
+    private final String INSERT = "INSERT INTO Militar (mil_id, mil_identidade,mil_nome,mil_nome_guerra,mil_cpf,mil_preccp,"+
                                   "                     mil_sexo,mil_data_nasc,mil_data_praca,mil_pai,mil_mae,mil_email,"+
                                   "                     mil_nome_referencia,mil_fone_referencia,mil_fone1,mil_fone2,"+
                                   "                     mil_naturalidade_estado,mil_naturalidade_cidade,mil_end_num,mil_senha,"+
 	                          "                     mil_end_id,mil_divisaosecao_id,mil_postograduacao_id,mil_qasqms_id,mil_estadocivil_id,"+
                                   "                     mil_escolaridade_id,mil_situacao_id,mil_tituloeleitor_id,mil_religiao_id,mil_grupoacesso_id) "+
-                                  "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                                  "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     
     private final String UPDATE = "UPDATE Militar "+
                                   "SET mil_nome=?,mil_nome_guerra=?,mil_cpf=?,mil_preccp=?,mil_sexo=?,mil_data_nasc=?,"+
@@ -50,6 +51,26 @@ public class MilitarDAO {
     PreparedStatement pstm = null;
     ResultSet rs = null;
     
+    public int proxID(){
+        int ultimo_id = 0;
+        
+        try{
+            conn = ConnectionFactory.getConnection();
+            
+            pstm = conn.prepareStatement(GETULTIMO_ID);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                
+                ultimo_id = rs.getInt("ultimo_id");
+            }
+           
+            ConnectionFactory.fechaConexao(conn, pstm);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());           
+        }
+        return (ultimo_id+1);
+    }
+    
     public void inserir(Militar mil) {
         if (mil != null) {
             try {
@@ -57,35 +78,36 @@ public class MilitarDAO {
                 
                 pstm = conn.prepareStatement(INSERT);
                 
-                pstm.setString(1, mil.getIdentidade());
-                pstm.setString(2, mil.getNome());
-                pstm.setString(3, mil.getNome_guerra());//
-                pstm.setString(4, mil.getCpf());
-                pstm.setString(5, mil.getPreccp());
-                pstm.setString(6, mil.getSexo());
-                pstm.setString(7, mil.getData_nasc());
-                pstm.setString(8, mil.getData_praca());
-                pstm.setString(9, mil.getPai());
-                pstm.setString(10, mil.getMae());
-                pstm.setString(11, mil.getEmail());
-                pstm.setString(12, mil.getNome_referencia());
-                pstm.setString(13, mil.getFone_referencia());
-                pstm.setString(14, mil.getFone1());
-                pstm.setString(15, mil.getFone2());
-                pstm.setInt(16, mil.getId_nat_est());
-                pstm.setString(17, mil.getNat_cid());
-                pstm.setString(18, mil.getEnd_num());
-                pstm.setString(19, mil.getSenha());
-                pstm.setInt(20, mil.getId_end());
-                pstm.setInt(21, mil.getId_div_sec());
-                pstm.setInt(22, mil.getId_pg());
-                pstm.setInt(23, mil.getId_qq());
-                pstm.setInt(24, mil.getId_ec());
-                pstm.setInt(25, mil.getId_esc());
-                pstm.setInt(26, mil.getId_sit());
-                pstm.setInt(27, mil.getId_teleitor()); 
-                pstm.setInt(28, mil.getId_religiao());
-                pstm.setInt(29, mil.getId_grp_acesso());
+                pstm.setInt(1, mil.getId());
+                pstm.setString(2, mil.getIdentidade());
+                pstm.setString(3, mil.getNome());
+                pstm.setString(4, mil.getNome_guerra());
+                pstm.setString(5, mil.getCpf());
+                pstm.setString(6, mil.getPreccp());
+                pstm.setString(7, mil.getSexo());
+                pstm.setString(8, mil.getData_nasc());
+                pstm.setString(9, mil.getData_praca());
+                pstm.setString(10, mil.getPai());
+                pstm.setString(11, mil.getMae());
+                pstm.setString(12, mil.getEmail());
+                pstm.setString(13, mil.getNome_referencia());
+                pstm.setString(14, mil.getFone_referencia());
+                pstm.setString(15, mil.getFone1());
+                pstm.setString(16, mil.getFone2());
+                pstm.setInt(17, mil.getId_nat_est());
+                pstm.setString(18, mil.getNat_cid());
+                pstm.setString(19, mil.getEnd_num());
+                pstm.setString(20, mil.getSenha());
+                pstm.setInt(21, mil.getId_end());
+                pstm.setInt(22, mil.getId_div_sec());
+                pstm.setInt(23, mil.getId_pg());
+                pstm.setInt(24, mil.getId_qq());
+                pstm.setInt(25, mil.getId_ec());
+                pstm.setInt(26, mil.getId_esc());
+                pstm.setInt(27, mil.getId_sit());
+                pstm.setInt(28, mil.getId_teleitor()); 
+                pstm.setInt(29, mil.getId_religiao());
+                pstm.setInt(30, mil.getId_grp_acesso());
                               
                 pstm.execute();
                 
