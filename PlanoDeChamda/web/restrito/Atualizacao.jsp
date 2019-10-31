@@ -58,11 +58,11 @@
                     id('bairrosManacapuru').style.display = this.value=='4' ? 'block' : 'none';//4 - Manacapuru
                 }
                 
-                id('religiao').onchange = function(){
+                /*id('religiao').onchange = function(){
                     id("out_rel").style.display = this.value == "1000" ? 'block' : 'none';
                     
                     borda_input_select(this.id);
-                }
+                }*/
             }
         </script>
         <title>Cadastro de Militares - Atualização</title>
@@ -445,7 +445,7 @@
                                     "</div>"+"</div>"+
 
                                     "<div class=form-row>"+
-                                    "<div class=\"form-group col-md-4\">"+
+                                    "<div class=\"form-group col-md-6\">"+
                                     "<label id=\"lblEscolaridade\" name=\"lblEscolaridade\" for=\"lblEscolaridade\">Escolaridade: </label><b class=\"obg\"> *</b>"+
                                     "<select name=\"txtEscolaridade\" id=\"esc\" class=\"form-control\" onblur=\"borda_input_select(this.id)\">");
                                     if(mil.getId_esc() == 0){
@@ -464,7 +464,7 @@
                                         }
                                     out.println("</select>"+"</div>");
                                      
-                                    out.println("<div class=\"form-group col-md-4\">"+
+                                    out.println("<div class=\"form-group col-md-6\">"+
                                                 "<label id=\"lblReligiao\" name=\"lblReligiao\" for=\"lblReligiao\">Religião: </label><b class=\"obg\"> *</b>"+
                                                 "<select name=\"txtReligiao\" id=\"religiao\" class=\"form-control\" onblur=\"borda_input_select(this.id);\">");
                                     if(mil.getId_religiao()== 0){
@@ -481,14 +481,11 @@
                                                 out.println("<option value='"+relDAO.getReligioes().get(i).getId()+"'>"+relDAO.getReligioes().get(i).getNome()+"</option>");
                                             }
                                         }
-                                    out.println("<option value=\"1000\">Outro(a)</option>");
+                                    
                                     out.println("</select>"+
                                     "</div>"+
                                 
-                                    "<div class=\"form-group col-md-4\" id=\"out_rel\" style=\"display: none;\">"+
-                                    "<label id=\"lblOutraReligiao\" name=\"lblOutraReligiao\" for=\"lblOutraReligiao\">Religião: </label><b class=\"obg\"> *</b>"+
-                                    "<input class=\"form-control\" type=\"text\" id=\"txtOutraReligiao\" name=\"txtOutraReligiao\" onblur=\"borda_input_text(this.id)\"/>"+
-                                    "</div>"+"</div>"+
+                                    
                                             
                                     "</fieldset>"+
                                     "<br>");

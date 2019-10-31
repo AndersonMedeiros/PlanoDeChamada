@@ -146,8 +146,9 @@ public class cadastrar extends HttpServlet {
             mil.setId_esc(Integer.parseInt(request.getParameter("txtEscolaridade")));
             //System.out.println(end.getCep()+ " "+end.getLogradouro()+" "+end.getComplemento()+" " +end.getId_bairro()+"idend"+endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), "", end.getId_bairro()));
             mil.setId_end(endDAO.getIdEndereco(end.getCep(), end.getLogradouro(), end.getComplemento(), end.getId_bairro()));
+            mil.setId_religiao(Integer.parseInt(request.getParameter("txtReligiao")));
             
-            //Religião
+            /*//Religião
             ReligiaoDAO religiaoDAO = new ReligiaoDAO();
             int id_religiao_atual = Integer.parseInt(request.getParameter("txtReligiao"));
             
@@ -170,7 +171,7 @@ public class cadastrar extends HttpServlet {
                 }                
             }else{
                 mil.setId_religiao(id_religiao_atual);
-            }
+            }*/
 
             mil.setEmail(request.getParameter("txtEmail").toUpperCase());
             mil.setNome_referencia(request.getParameter("txtNomeReferencia").toUpperCase());
