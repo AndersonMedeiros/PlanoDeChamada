@@ -18,8 +18,8 @@ import java.util.ArrayList;
  * @author ander
  */
 public class MilitarDAO {
-    private final String GETIDTSENHA = "SELECT mil_identidade, mil_senha FROM Militar WHERE mil_identidade=? AND mil_senha=?";
-    private final String GETSENHA = "SELECT mil_senha FROM Militar WHERE mil_senha=?";
+    private final String GETIDTSENHA = "SELECT mil_identidade, mil_senha FROM Militar WHERE mil_identidade=? AND mil_senha=md5(?)";
+    private final String GETSENHA = "SELECT mil_senha FROM Militar WHERE mil_senha=md5(?)";
     private final String GETCPF = "SELECT mil_cpf FROM Militar WHERE mil_cpf=?";
     private final String GETIDENTIDADE = "SELECT mil_identidade FROM Militar WHERE mil_identidade=?";
     private final String GETID = "SELECT mil_id FROM Militar WHERE mil_identidade=?";
@@ -34,12 +34,12 @@ public class MilitarDAO {
                                   "                     mil_naturalidade_estado,mil_naturalidade_cidade,mil_end_num,mil_senha,"+
 	                          "                     mil_end_id,mil_divisaosecao_id,mil_postograduacao_id,mil_qasqms_id,mil_estadocivil_id,"+
                                   "                     mil_escolaridade_id,mil_situacao_id,mil_tituloeleitor_id,mil_religiao_id,mil_grupoacesso_id) "+
-                                  "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                                  "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,md5(?),?,?,?,?,?,?,?,?,?,?);";
     
     private final String UPDATE = "UPDATE Militar "+
                                   "SET mil_nome=?,mil_nome_guerra=?,mil_cpf=?,mil_preccp=?,mil_sexo=?,mil_data_nasc=?,"+
                                   "    mil_data_praca=?,mil_pai=?,mil_mae=?,mil_email=?,mil_nome_referencia=?,mil_fone_referencia=?,mil_fone1=?,mil_fone2=?,"+
-                                  "    mil_naturalidade_estado=?,mil_naturalidade_cidade=?,mil_end_num=?,mil_senha=?,mil_end_id=?,mil_divisaosecao_id=?,"+
+                                  "    mil_naturalidade_estado=?,mil_naturalidade_cidade=?,mil_end_num=?,mil_senha=md5(?),mil_end_id=?,mil_divisaosecao_id=?,"+
                                   "    mil_postograduacao_id=?,mil_qasqms_id=?,mil_estadocivil_id=?,mil_escolaridade_id=?,mil_situacao_id=?,"+
                                   "    mil_tituloeleitor_id=?,mil_religiao_id=? WHERE mil_id=? AND mil_identidade=?";
     
