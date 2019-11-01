@@ -350,8 +350,8 @@ function valida_dataValidade(id){
     var dataAtual = new Date();
     var mesAtual = dataAtual.getMonth()+1;
     if(input.value == ""){
-        input.style.border='2px solid red';
-        input.style.background='rgba(255,0,0,0.2)';
+        input.style.border='';
+        input.style.background='';
         input.focus();
     }
     else if(dataAtual.getFullYear() == anoValCnh && mesAtual == mesValCnh && dataAtual.getDate() < diaValCnh){
