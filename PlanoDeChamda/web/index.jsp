@@ -17,8 +17,7 @@
         <title>Cadastro de Militares - Login</title>
     </head>
     
-    <body class="tela col-md-12">
-        
+    <body class="tela col-md-12">        
         <div class="form-login col-md-2">
                 <%
                     if(request.getParameter("x")!=null){
@@ -62,7 +61,7 @@
                     <br>
                     <button type="submit" id="btnEntrar" class="" value="Entrar"> Entrar</button>
                     
-                    <button type="button" id="btnCadastro" class="" value="Cadastrar" onclick="location.href='Cadastro.jsp'"> Cadastrar</button>
+                    <button type="button" id="btnCadastro" class="" value="Cadastrar" onclick="location.href='Cadastro.jsp'">Novo Cadastro</button>
                 </form>
         </div>
     </body>
