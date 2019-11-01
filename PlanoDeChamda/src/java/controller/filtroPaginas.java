@@ -48,7 +48,7 @@ public class filtroPaginas implements Filter{
         if(sessao.getAttribute("militarAutenticado") != null){
             logado = true;
         }
-        if(!logado){
+        else if(logado == false){
             ((HttpServletResponse) response).sendRedirect("/PlanoDeChamda/erro.jsp?x=sessao-encerrada");
         }
         try{
