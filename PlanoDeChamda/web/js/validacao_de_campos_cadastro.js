@@ -354,19 +354,19 @@ function valida_dataValidade(id){
         input.style.background='';
         input.focus();
     }
-    else if(dataAtual.getFullYear() == anoValCnh && mesAtual == mesValCnh && dataAtual.getDate() < diaValCnh){
+    else if(dataAtual.getFullYear() == anoValCnh && mesAtual == mesValCnh && dataAtual.getDate() > diaValCnh){
         alert("Data Inválida!");
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
     }
-    else if(dataAtual.getFullYear() == anoValCnh && mesAtual < mesValCnh){
+    else if(dataAtual.getFullYear() == anoValCnh && mesAtual > mesValCnh){
         alert("Data Inválida!");
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
         input.focus();
     }
-    else if(dataAtual.getFullYear() < anoValCnh){
+    else if(dataAtual.getFullYear() > anoValCnh){
         alert("Data Inválida!");
         input.style.border='2px solid red';
         input.style.background='rgba(255,0,0,0.2)';
